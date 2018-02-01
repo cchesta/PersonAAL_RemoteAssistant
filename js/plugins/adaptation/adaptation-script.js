@@ -4,7 +4,7 @@
 //var userName = "cchesta";
 var username = "john";
 var appName  = "personAAL";
-var contextManagerUrl = "http://giove.isti.cnr.it:8880/";
+var contextManagerUrl = "https://giove.isti.cnr.it:8443/cm/";
 	
 function subscribeToAdaptationEngine() {
     var subscriptionRequest = '{' +
@@ -16,11 +16,12 @@ function subscribeToAdaptationEngine() {
     console.log(subscriptionRequest);
     $.ajax({
         type: "POST",
+        crossDomain: true,
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextManagerUrl + "NewAdaptationEngine/rest/subscribe",
+        url: "https://giove.isti.cnr.it:8443/NewAdaptationEngine/rest/subscribe",
         dataType: 'json',
         data: subscriptionRequest,
         success: function (response) {  

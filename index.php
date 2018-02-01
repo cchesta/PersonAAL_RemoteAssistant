@@ -557,6 +557,37 @@ else
         </div>   
 
         
+        
+        <!-- NEW -->
+        <!-- INVITATION MODAL -->
+        <div id="info-modal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    
+                    <div class="info-modal-card mdl-card">
+                        <div class="mdl-card__supporting-text mdl-card--expand">
+                            <i class="material-icons">info</i>
+                            <div id="modal-alert-text">
+                            </div>
+			</div>
+			<div class="mdl-card__actions mdl-card--border">
+                            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-dismiss="modal">
+				<?php echo(ACCEPT_INVITATION_BUTTON);?>      
+			    </a>
+                            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-dismiss="modal">
+				<?php echo(DECLINE_INVITATION_BUTTON);?>
+                                
+			    </a>
+                
+			</div>
+		    </div>
+                    
+                </div>
+
+            </div>
+        </div>
 
         
         <!-- ALERT MODAL -->

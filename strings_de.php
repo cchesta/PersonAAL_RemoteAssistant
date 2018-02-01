@@ -153,6 +153,11 @@ define("REMOVE_EVENT_BUTTON", "Ereignis entfernen");
 define("DONE_BUTTON", "erledigt");
 define("UNDONE_BUTTON", "unerledigt");
 
+//NEW
+define("INVITE_FRIEND_BUTTON", "INVITE FRIEND");
+define("ACCEPT_INVITATION_BUTTON", "ACCEPT");
+define("DECLINE_INVITATION_BUTTON", "DECLINE");
+
 //FITNESS PAGE
 define("FITNESS_ALERT_TITLE", "Bitte führen Sie die Übungen vorsichtig durch und stoppen Sie sofort, sollten Schmerzen auftreten!");
 define("CLOSE_BUTTON", "Schliessen");

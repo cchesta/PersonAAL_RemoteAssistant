@@ -1,7 +1,7 @@
 var stompSessionId = "";
 function WS_Connect() {
     console.log("Init connection");
-    var socket = new SockJS('http://giove.isti.cnr.it:8880/NewAdaptationEngine/notifyEvent');
+    var socket = new SockJS('https://giove.isti.cnr.it:8443/NewAdaptationEngine/notifyEvent');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         stompSessionId = stompClient.ws.idSession;

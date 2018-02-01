@@ -1,5 +1,5 @@
 
-var contextManagerUrl = "http://giove.isti.cnr.it:8880/";
+var contextManagerUrl = "https://giove.isti.cnr.it:8443/cm/";
 //var userName = "cchesta";
 var userName = "john"
 var appName  = "personAAL";

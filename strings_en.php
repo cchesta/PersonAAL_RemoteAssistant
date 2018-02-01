@@ -162,6 +162,10 @@ define("REMOVE_EVENT_BUTTON", "REMOVE EVENT");
 define("DONE_BUTTON", "DONE");
 define("UNDONE_BUTTON", "UNDONE");
 
+
+
+
+
 //FITNESS PAGE
 define("FITNESS_ALERT_TITLE", "Be careful and stop working out when you experience some pain!");
 define("CLOSE_BUTTON", "CLOSE");
@@ -287,6 +291,16 @@ define("CONTACTS_FORM_TITLE", "Add contact");
 define("CONTACTS_FORM_NAME", "Name");
 define("CONTACTS_FORM_PHONE", "Phone Number");
 define("ADD_BUTTON", "ADD");
+
+
+
+
+//NEW
+//invite a friend to join activity
+define("INVITE_FRIEND_BUTTON", "INVITE FRIEND");
+
+define("ACCEPT_INVITATION_BUTTON", "ACCEPT");
+define("DECLINE_INVITATION_BUTTON", "DECLINE");
 
 
 //TODO inserire traduzioni per il testo del modal mostrato in caso di heart rate troppo alta

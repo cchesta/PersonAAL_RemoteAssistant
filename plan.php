@@ -70,6 +70,7 @@ else
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         
         
+        
         <!--  UI CSS & JS-->
         
         <link rel="stylesheet" href="css/material.css">
@@ -91,6 +92,7 @@ else
         <script src='js/plugins/Jquery/jquery-ui.min.js'></script>
         <script src='js/plugins/Jquery/jquery.ui.touch-punch.min.js'></script>
         <script src='js/plugins/fullcalendar/fullcalendar.js'></script>
+        
         
         <?php
             //language import for full calendar
@@ -961,6 +963,8 @@ else
             //update goals on DB
             setWeekGoals(walkGoal, exerciseGoal, meetGoal, walkActualAmount, exerciseActualAmount, meetActualAmount);
             sendStepGoalToContext(walkGoal);
+            //NEW
+            sendMeetGoalToContext(meetGoal);
         }
         
         </script>
@@ -1314,8 +1318,22 @@ else
                             <div class="mdl-card__actions mdl-card--border">
                                 <div id="interval-picker-modal-error" class="interval-picker-modal-error"><i class="material-icons">warning</i>Value must be greater then 0</div>
                                 
+                                
+                                <div class="dropdown">
+                                <a id="nterval-picker-button-invite" onclick="inviteDropdown()" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"  class="dropbtn"
+
+                                    <?php echo(INVITE_FRIEND_BUTTON);?>
+                                   
+                                     <ul class ="dropdown-content">
+                                        <li>User1</li>
+                                        <li>User2</li>
+                                    </ul>
+                                </a>
+                                </div>        
+                        
                                 <a id="interval-picker-button-cancel" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-dismiss="modal">
                                    <?php echo(CANCEL_BUTTON);?>
+
                                 </a>
                                 <a id="interval-picker-modal-OK" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                                    OK
@@ -1404,3 +1422,24 @@ else
     
 
 </html>
+        
+        
+<script>
+    function inviteDropdown(){
+        document.getElementById("nterval-picker-button-invite").classList.toggle("show");
+    }
+    // Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+    </script>
