@@ -1,12 +1,3 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-
-<!--TODO CAMBIARE IL COLORE DEGLI EVENTI DONE ALL'INIZIALIZZAZIONE DEL CALENDARIO
-    TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI SETTA COME "DONE"-->
 <?php
 
 include 'miscLib.php';
@@ -58,6 +49,15 @@ else
 
 ?>
 
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<!--TODO CAMBIARE IL COLORE DEGLI EVENTI DONE ALL'INIZIALIZZAZIONE DEL CALENDARIO
+    TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI SETTA COME "DONE"-->
 <html>
     <head>
         <title>PersonAAL</title>
