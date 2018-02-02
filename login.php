@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-
 <?php
     include 'miscLib.php';
     include 'DButils.php';
@@ -71,6 +69,7 @@
 
 
 
+<!DOCTYPE html>
 
 <html>
     <head>

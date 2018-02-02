@@ -1623,4 +1623,3 @@ function JStoPHPbool($value)
 
 
 ?>
-

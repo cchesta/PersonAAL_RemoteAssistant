@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-
-
 <?php
 
 include 'miscLib.php';
@@ -52,6 +49,7 @@ else
 
 ?>
 
+<!DOCTYPE html>
 
 <html>
     <head>
