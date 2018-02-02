@@ -1,4 +1,4 @@
- <?php
+<?php
 
 // LOGIN PAGE
 define("LOGIN_WELCOME", "Velkommen!");
