@@ -261,8 +261,8 @@ function applyAlarm(inputParams) {
         if(inputParams[i].name === 'alarmText'){
             alarmText = inputParams[i].value.constant.value;
             //show alert modal
-            //if (alarmText[0] == '<')
-            //    alarmText = processInteractiveNotification(alarmText);
+            if (alarmText[0] == '<')
+                alarmText = processInteractiveNotification(alarmText);
             showAlertModal(alarmText);
         }  
         else if(inputParams[i].name === 'reminderText'){
@@ -299,7 +299,6 @@ function showAlertModal(alarmText)
 {
     console.log("html is " + alarmText);
     $("#modal-alert-text").html(alarmText);
-    //document.getElementById("#modal-alert-text").innerHTML = alarmText;
     $("#alert-modal").modal({ keyboard: false, backdrop: 'static'});
 }
 
