@@ -226,6 +226,32 @@ function applyInvokeFunction(invokeF) {
 
 
 
+function processInteractiveNotification(message) {
+    console.log("Interactive notification received");
+
+    var parser = new DOMParser(),
+        doc = parser.parseFromString(message, "application/xml"),
+        messagetext = doc.getElementsByTagName("text")[0],
+        options = doc.getElementsByTagName("option"),
+        content = "";
+    
+    content = "<p>" + messagetext.textContent + "</p>";
+    
+    for (var p = 0; p < options.length; p++) {
+        var label = options[p].firstChild;
+        var labeltext = label.textContent;
+        var address = options[p].lastChild;
+        var addressvalue = address.textContent;
+        content += "<a style='button' url='" + addressvalue + "'>";
+        content += labeltext;
+        content += "</a>"
+    }
+    
+    return content;
+    // check styles
+}
+
+
 function applyAlarm(inputParams) {
 	console.log("Apply Alarm");
     var alarmText;
@@ -235,6 +261,8 @@ function applyAlarm(inputParams) {
         if(inputParams[i].name === 'alarmText'){
             alarmText = inputParams[i].value.constant.value;
             //show alert modal
+            //if (alarmText[0] == '<')
+            //    alarmText = processInteractiveNotification(alarmText);
             showAlertModal(alarmText);
         }  
         else if(inputParams[i].name === 'reminderText'){
@@ -269,7 +297,9 @@ function applyAlarm(inputParams) {
  */
 function showAlertModal(alarmText)
 {
+    console.log("html is " + alarmText);
     $("#modal-alert-text").html(alarmText);
+    //document.getElementById("#modal-alert-text").innerHTML = alarmText;
     $("#alert-modal").modal({ keyboard: false, backdrop: 'static'});
 }
 
