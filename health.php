@@ -109,7 +109,7 @@ and open the template in the editor.
         <script src="./js/plugins/adaptation/websocket-connection.js"></script>		
         <script src="./js/plugins/adaptation/adaptation-script.js"></script>		
         <script src="./js/plugins/adaptation/delegate.js"></script>
-        <!--<script src="./js/plugins/adaptation/context-data.js"></script> -->
+        <script src="./js/plugins/adaptation/context-data.js"></script> 
      
         
     </head>
