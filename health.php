@@ -46,6 +46,12 @@ if (isset($_SESSION['personAAL_user']) && $_SESSION['personAAL_user'] != "")
 else
     myRedirect("login.php", TRUE);
 
+
+//MOVED FROM INDEX.PHP
+$surveyinfo = new SurveyData($_SESSION['personAAL_user']);
+$bmi = sprintf('%0.2f',(($surveyinfo->getWeight() * 10000)/ ($surveyinfo->getHeight()*$surveyinfo->getHeight())));
+
+
 ?>
 
 <!DOCTYPE html>
@@ -103,6 +109,8 @@ and open the template in the editor.
         <script src="./js/plugins/adaptation/websocket-connection.js"></script>		
         <script src="./js/plugins/adaptation/adaptation-script.js"></script>		
         <script src="./js/plugins/adaptation/delegate.js"></script>
+        <!--<script src="./js/plugins/adaptation/context-data.js"></script> -->
+     
         
     </head>
     <body>
@@ -139,7 +147,9 @@ and open the template in the editor.
                 
                     <div class="mdl-grid">
 
-                        <div class="weight-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet no-stretch">
+			<div id="realTimePlot" class="mdl-grid mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet grid-no-padding">
+                            
+                        <div class="weight-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet no-stretch">
                             <div class="mdl-card__title">
                                 <div class="mdl-card__title-text">
                                     <?php echo(HEALTH_WEIGHTPLOT_TITLE);?>
@@ -149,24 +159,8 @@ and open the template in the editor.
                                 <div id="plot-weight2" class="center"></div>
                             </div>
                         </div>
-                        
-                        <div class="find-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet no-stretch">
-                            <div class="mdl-card__title">
-                                <div class="mdl-card__title-text">
-                                    <?php echo(HEALTH_SCOREPLOT_TITLE);?>
-                                </div>
-                            </div>
-                            <div class="mdl-card__supporting-text mdl-card--expand">
-                                <div id="plot-find" class="center"></div>
-                            </div>
-                        </div>
-                        
-
-			
-			<!-- real time plots-->
-			<div id="realTimePlot" class="mdl-grid mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet grid-no-padding">
-
-                            <div class="plot-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet grey no-stretch">
+                
+                        <div class="plot-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet grey no-stretch">
 				<div class="mdl-card__supporting-text mdl-card--expand">
 				    <div id="plot-ECG" class="center"></div>
 				</div>
@@ -178,7 +172,7 @@ and open the template in the editor.
                                     <i class="material-icons">favorite</i>
                                 </div>
 			    </div>
-                            
+                                        <!--    
                             <div class="plot-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet grey no-stretch">
 				<div class="mdl-card__supporting-text mdl-card--expand">
 				    <div id="plot-ACC" class="center"></div>
@@ -189,7 +183,9 @@ and open the template in the editor.
                                     </div>
                                 </div>
 			    </div>
-                            
+                        -->  
+    
+
                             <div class="plot-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet grey no-stretch">
 				<div class="mdl-card__supporting-text mdl-card--expand">
 				    <div id="plot-TEMP" class="center"></div>
@@ -200,8 +196,64 @@ and open the template in the editor.
                                     </div>
                                 </div>
 			    </div>
+                
                             
-			</div>
+                        </div>    
+
+
+                        <div id="health" class="mdl-grid mdl-cell mdl-cell--4-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-cell--order-3-phone"> 
+                            <div  class="heart-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
+                                <div class="mdl-card__title">
+                                    <h2 class="mdl-card__title-text"><?php echo(HEART_CARD_TITLE);?></h2>
+                                </div>
+                                <div id="ecg_hr" class="mdl-card__actions mdl-card--border"></div>
+                            </div>
+                            <div   class="breath-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
+                                <div class="mdl-card__title">
+                                    <h2 class="mdl-card__title-text"><?php echo(BREATH_CARD_TITLE);?></h2>
+                                </div>
+                                <div id="respiration_rate" class="mdl-card__actions mdl-card--border"></div>
+                            </div>
+                            <div   class="temperature-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
+                                <div class="mdl-card__title">
+                                    <h2 class="mdl-card__title-text"><?php echo(TEMPERATURE_CARD_TITLE);?></h2>
+                                </div>
+                                <div id="body_temperature" class="mdl-card__actions mdl-card--border"></div>
+                            </div>
+                             <div  class="bmi-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
+                                <div class="mdl-card__title">
+                                    <h2 class="mdl-card__title-text"><?php echo(BMI_CARD_TITLE);?></h2>
+                                </div>
+                                <div class="mdl-card__actions mdl-card--border">
+                                    <?php echo($bmi);?>
+                                </div>
+                            </div>
+                        <div  class="weight-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
+                                <div class="mdl-card__title">
+                                    <h2 class="mdl-card__title-text"><?php echo(WEIGHT_CARD_TITLE);?></h2>
+                                </div>
+                                <div class="mdl-card__actions mdl-card--border">
+                                    <?php echo($surveyinfo->getWeight()). ' kg ';?>
+                                </div>
+                            </div>
+                            
+                            </div>
+                        
+                        <!--
+                        <div class="find-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet no-stretch">
+                            <div class="mdl-card__title">
+                                <div class="mdl-card__title-text">
+                                    <?php echo(HEALTH_SCOREPLOT_TITLE);?>
+                                </div>
+                            </div>
+                            <div class="mdl-card__supporting-text mdl-card--expand">
+                                <div id="plot-find" class="center"></div>
+                            </div>
+                        </div>
+                        -->
+
+			
+			
                         
                         <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone floating-button-fix-cell"></div>
                         

@@ -448,22 +448,7 @@ else
 <!--                    </div>-->
                         
  
-                            <div  class="weight-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
-                                <div class="mdl-card__title">
-                                    <h2 class="mdl-card__title-text"><?php echo(WEIGHT_CARD_TITLE);?></h2>
-                                </div>
-                                <div class="mdl-card__actions mdl-card--border">
-                                    <?php echo($surveyinfo->getWeight()). ' kg ';?>
-                                </div>
-                            </div>
-                            <div  class="bmi-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
-                                <div class="mdl-card__title">
-                                    <h2 class="mdl-card__title-text"><?php echo(BMI_CARD_TITLE);?></h2>
-                                </div>
-                                <div class="mdl-card__actions mdl-card--border">
-                                    <?php echo($bmi);?>
-                                </div>
-                            </div>
+                            
 <!--                            <div   class="weather-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
                                 <div class="mdl-card__title">
                                     <h2 class="mdl-card__title-text"><?php echo(WEATHER_CARD_TITLE);?></h2>
@@ -474,26 +459,9 @@ else
                             </div>-->
                         </div>
 
-                        <div id="health" class="mdl-grid mdl-cell mdl-cell--4-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-cell--order-3-phone"> 
-                            <div  class="heart-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
-                                <div class="mdl-card__title">
-                                    <h2 class="mdl-card__title-text"><?php echo(HEART_CARD_TITLE);?></h2>
-                                </div>
-                                <div id="ecg_hr" class="mdl-card__actions mdl-card--border"></div>
-                            </div>
-                            <div   class="breath-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
-                                <div class="mdl-card__title">
-                                    <h2 class="mdl-card__title-text"><?php echo(BREATH_CARD_TITLE);?></h2>
-                                </div>
-                                <div id="respiration_rate" class="mdl-card__actions mdl-card--border"></div>
-                            </div>
-                            <div   class="temperature-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
-                                <div class="mdl-card__title">
-                                    <h2 class="mdl-card__title-text"><?php echo(TEMPERATURE_CARD_TITLE);?></h2>
-                                </div>
-                                <div id="body_temperature" class="mdl-card__actions mdl-card--border"></div>
-                            </div>
-                            <div   class="medication-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
+                        <div id="health" class="mdl-grid mdl-cell mdl-cell--4-col-desktop no-stretch mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-cell--order-3-phone"> 
+
+                            <div class="medication-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet">
                                 <div class="mdl-card__title">
                                     <h2 class="mdl-card__title-text"><?php echo(MEDICATION_CARD_TITLE);?></h2>
                                 </div>
