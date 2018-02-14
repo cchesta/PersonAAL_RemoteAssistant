@@ -2096,12 +2096,14 @@ and open the template in the editor.
 .add-contact-modal{
     width: 100%;
 }
+
 .add-contact-modal .mdl-card__title{
     color: #fff;
     height: 52px;
     padding: 16px;
     background: #3E4EB8;
 }
+
 .add-contact-modal .mdl-card__actions{
     display: flex;
     align-items: flex-end;

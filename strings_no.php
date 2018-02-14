@@ -156,9 +156,16 @@ define("DONE_BUTTON", "FERDIG");
 define("UNDONE_BUTTON", "ANGRE");
 
 //NEW
-define("INVITE_FRIEND_BUTTON", "INVITE FRIEND");
-define("ACCEPT_INVITATION_BUTTON", "ACCEPT");
-define("DECLINE_INVITATION_BUTTON", "DECLINE");
+//invite a friend to join activity
+define("INVITE_FRIEND_BUTTON", "INVITER VENN");
+define("ACCEPT_INVITATION_BUTTON", "AKSEPTERER");
+define("DECLINE_INVITATION_BUTTON", "AVSLÅ");
+
+//set a start and end time for an activity in the plan
+define("START_TIME", "Start");
+define("END_TIME", "Slutt");
+
+
 
 
 //PROFILE PAGE
@@ -208,6 +215,13 @@ define("CONTACTS_FORM_TITLE", "Legg til kontakt");
 define("CONTACTS_FORM_NAME", "Navn");
 define("CONTACTS_FORM_PHONE", "Telefonnummer");
 define("ADD_BUTTON", "Legg til");
+
+//types of relationships
+define("CONTACTS_FROM_RELATIONSHIP_CLOSE_FAMILY", "Nært Familiemedlem
+");
+define("CONTACTS_FROM_RELATIONSHIP_OTHER_FAMILY", "Annet Familiemedlem");
+define("CONTACTS_FROM_RELATIONSHIP_FRIEND", "Venn");
+define("CONTACTS_FROM_RELATIONSHIP_NEIGHBOUR", "Nabo");
 
 
 //FITNESS PAGE

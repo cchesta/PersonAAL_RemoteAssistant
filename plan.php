@@ -356,9 +356,21 @@ and open the template in the editor.
                                             event.backgroundColor= '#00cc00';
                                         }
 					else
-					{
-					    event.color= '#3a87ad';
-					    event.backgroundColor= '#3a87ad';
+					{  
+                        
+                        //NEW: CHANGE COLORS ACCORDING TO ACTIVITY TYPE
+                        if(event.title == exerciseString){
+					       event.color= '#3a87ad';
+					       event.backgroundColor= '#3a87ad';
+                        }
+                        else if(event.title == walkString){
+                            event.color = "#b83e8d";
+                            event.backgroundColor= "#b83e8d";
+                        }
+                        else{
+                            event.color= "#b8873e";
+                            event.backgroundColor = "#b8873e";
+                        }
 					}
                                             
                                     }

@@ -154,9 +154,15 @@ define("DONE_BUTTON", "erledigt");
 define("UNDONE_BUTTON", "unerledigt");
 
 //NEW
-define("INVITE_FRIEND_BUTTON", "INVITE FRIEND");
-define("ACCEPT_INVITATION_BUTTON", "ACCEPT");
-define("DECLINE_INVITATION_BUTTON", "DECLINE");
+//invite a friend to join activity
+define("INVITE_FRIEND_BUTTON", "FREUND EINLADEN");
+define("ACCEPT_INVITATION_BUTTON", "AKZEPTIEREN");
+define("DECLINE_INVITATION_BUTTON", "ABLEHNEN");
+//set a start and end time for an activity in the plan
+define("START_TIME", "Anfang");
+define("END_TIME", "Ende");
+
+
 
 //FITNESS PAGE
 define("FITNESS_ALERT_TITLE", "Bitte führen Sie die Übungen vorsichtig durch und stoppen Sie sofort, sollten Schmerzen auftreten!");
@@ -272,6 +278,13 @@ define("CONTACTS_FORM_TITLE", "Kontakt hinzufügen");
 define("CONTACTS_FORM_NAME", "Name");
 define("CONTACTS_FORM_PHONE", "Telefonnummer");
 define("ADD_BUTTON", "hinzufügen");
+
+define("CONTACTS_FROM_RELATIONSHIP", "Forhold");
+//types of relationships
+define("CONTACTS_FROM_RELATIONSHIP_CLOSE_FAMILY", "Enger Familienkreis");
+define("CONTACTS_FROM_RELATIONSHIP_OTHER_FAMILY", "Andere Familienmitglieder");
+define("CONTACTS_FROM_RELATIONSHIP_FRIEND", "Freund");
+define("CONTACTS_FROM_RELATIONSHIP_NEIGHBOUR", "Nachbar");
 
 
 ?>

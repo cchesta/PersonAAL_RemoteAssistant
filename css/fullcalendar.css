@@ -529,6 +529,25 @@ temporary rendered events).
 	background-color: #3a87ad; /* default BACKGROUND color */
 }
 
+/*NEW*/
+/* Different colours for different types of activities */
+.fc-event,
+.fc-event-dot-exercise {
+    background-color: #3a87ad;
+}
+
+.fc-event,
+.fc-event-dot-walk {
+    background-color: #b83e8d;
+    
+}
+
+.fc-event,
+.fc-event-dot-meet{
+    background-color: #b8873e;
+    
+}
+
 /* overpower some of bootstrap's and jqui's styles on <a> tags */
 .fc-event,
 .fc-event:hover,
