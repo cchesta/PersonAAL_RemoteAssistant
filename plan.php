@@ -367,7 +367,7 @@ and open the template in the editor.
                             event.color = "#b83e8d";
                             event.backgroundColor= "#b83e8d";
                         }
-                        else{
+                        else if (event.title == meetString){
                             event.color= "#b8873e";
                             event.backgroundColor = "#b8873e";
                         }
