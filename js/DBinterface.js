@@ -652,14 +652,14 @@ function getRecipeImage(callback, HTMLelement, recipeID)
  * @param {function} errorCallback
  * @returns {null}
  */
-function addUserContact(contactName, phoneNumber, confirmCallback, errorCallback)
+function addUserContact(contactName, phoneNumber, contactRelationship, confirmCallback, errorCallback)
 {
     
     jQuery.ajax({
             type: "POST",
             url: 'ajax_request.php',
             dataType: 'json',
-            data: {functionname: 'addUserContact', arguments: [contactName, phoneNumber]},
+            data: {functionname: 'addUserContact', arguments: [contactName, phoneNumber, contactRelationship]},
 
             success: function (obj, textstatus) {
                           if( !('error' in obj) ) {

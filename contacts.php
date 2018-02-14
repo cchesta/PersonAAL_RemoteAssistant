@@ -65,8 +65,8 @@ and open the template in the editor.
         <meta http-equiv="Expires" content="0" />
         
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<!--        <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.min.css">
-        <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>-->
+        <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.min.css">
+        <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
         
       
         
@@ -79,6 +79,10 @@ and open the template in the editor.
         
         
         <link rel="stylesheet" href="css/custom.css">
+        
+        <!-- SELECT MENU -->
+        <link rel="stylesheet" href="getmdl-select/getmdl-select.min.css">
+        <script defer src="getmdl-select/getmdl-select.min.js"></script>
         
         
         <!-- MODALS -->
@@ -197,6 +201,7 @@ and open the template in the editor.
             $('#add-contact-modal').on('hidden.bs.modal', function (e) {
                 document.getElementById("add-contact-name").value= "";
                 document.getElementById("add-contact-phone").value= "";
+                document.getElementById("add-contact-relationship").value="";
             });
             
             
@@ -296,8 +301,10 @@ and open the template in the editor.
 	{
 	    var contactName= document.getElementById("add-contact-name").value;
 	    var phoneName= document.getElementById("add-contact-phone").value;
+        var relatioshipName= document.getElementById("add-contact-relationship").value;
+
 	    
-	    addUserContact(contactName, phoneName, addContact, null);
+	    addUserContact(contactName, phoneName,relatioshipName, addContact, null);
 	}
 	
         function addContact(contactName)
@@ -585,6 +592,24 @@ and open the template in the editor.
                                     <?php echo(NUMBER_INPUT_ERROR);?>
                                 </span>
                             </div>
+                            
+                            
+                            <!--Choose relationship type -->
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select">
+                                <input class="mdl-textfield__input" type="text" id="add-contact-relationship" value="" readonly>
+                                <input type="hidden" value="" name="add-contact-relationship">
+                                <label class="mdl-textfield__label" for="add-contact-relationship">
+                                    <?php echo(CONTACTS_FROM_RELATIONSHIP);?>
+                                </label>
+                                <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu" for="add-contact-relationship">
+                                    <li class="mdl-menu__item" data-val="CLOSEFAMILY"><?php echo(CONTACTS_FROM_RELATIONSHIP_CLOSE_FAMILY); ?></li>
+                                    <li class="mdl-menu__item" data-val="OTHERFAMILY"><?php echo(CONTACTS_FROM_RELATIONSHIP_OTHER_FAMILY); ?></li>
+                                    <li class="mdl-menu__item" data-val="FRIEND"><?php echo(CONTACTS_FROM_RELATIONSHIP_FRIEND); ?></li>
+                                    <li class="mdl-menu__item" data-val="NEIGHBOUR"><?php echo(CONTACTS_FROM_RELATIONSHIP_NEIGHBOUR); ?></li>
+                                    
+                                </ul>
+                            </div>
+                            
                             
 			</div>
 			<div class="mdl-card__actions mdl-card--border">
