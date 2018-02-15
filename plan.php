@@ -1238,7 +1238,42 @@ and open the template in the editor.
                                 <h6 id="timepicker-modal-title" class="mdl-card__title-text"></h6>
                                 
                             </div>
+                            
                             <div class="mdl-card__supporting-text mdl-card--expand">
+                                <p>START TIME </p>
+                                
+                                <div class="interval-picker-container">
+                                    <div class="interval-picker-hint">
+                                        <?php echo(PLAN_SETEVENT_HOUR);?>
+                                    </div>
+                                    <div class="interval-picker-box">
+                                        <div class="interval-picker-element prev-button" onclick="hour_prev()"><i class="material-icons">keyboard_arrow_up</i></div>
+                                        <div id="hour_prev" class="interval-picker-element prev">0</div>
+                                        <div id="hour_selected" class="interval-picker-element selected">1</div>
+                                        <div id="hour_next" class="interval-picker-element next">2</div>
+                                        <div class="interval-picker-element next-button" onclick="hour_next()"><i class="material-icons">keyboard_arrow_down</i></div>
+                                    </div>
+
+                                    <div class="interval-picker-speratator">:</div>
+
+                                    <div class="interval-picker-box">
+                                        <div class="interval-picker-element prev-button" onclick="minute_prev()"><i class="material-icons">keyboard_arrow_up</i></div>
+                                        <div id="minute_prev" class="interval-picker-element prev">16</div>
+                                        <div id="minute_selected" class="interval-picker-element selected">17</div>
+                                        <div id="minute_next" class="interval-picker-element next">18</div>
+                                        <div class="interval-picker-element next-button" onclick="minute_next()"><i class="material-icons">keyboard_arrow_down</i></div>
+                                    </div>
+                                    <div class="interval-picker-hint">
+                                        <?php echo(PLAN_SETEVENT_MIN);?>
+                                    </div>
+
+                                </div>
+                                
+                            </div>
+                            
+                        
+                            <div class="mdl-card__supporting-text mdl-card--expand">
+                                <p>END TIME </p>
                                 
                                 <div class="interval-picker-container">
                                     <div class="interval-picker-hint">
@@ -1299,6 +1334,39 @@ and open the template in the editor.
                                 <h6 id="interval-picker-modal-title" class="mdl-card__title-text"></h6>
                                 
                             </div>
+
+                            <div class="mdl-card__supporting-text mdl-card--expand">
+                                <p> START TIME </p>
+                                <div class="interval-picker-container">
+                                    <div class="interval-picker-hint">
+                                        <?php echo(PLAN_SETEVENT_HOUR);?>
+                                    </div>
+                                    <div class="interval-picker-box">
+                                        <div class="interval-picker-element prev-button" onclick="hour_prev()"><i class="material-icons">keyboard_arrow_up</i></div>
+                                        <div id="hour_prev" class="interval-picker-element prev">0</div>
+                                        <div id="hour_selected" class="interval-picker-element selected">1</div>
+                                        <div id="hour_next" class="interval-picker-element next">2</div>
+                                        <div class="interval-picker-element next-button" onclick="hour_next()"><i class="material-icons">keyboard_arrow_down</i></div>
+                                    </div>
+
+                                    <div class="interval-picker-speratator">:</div>
+
+                                    <div class="interval-picker-box">
+                                        <div class="interval-picker-element prev-button" onclick="minute_prev()"><i class="material-icons">keyboard_arrow_up</i></div>
+                                        <div id="minute_prev" class="interval-picker-element prev">16</div>
+                                        <div id="minute_selected" class="interval-picker-element selected">17</div>
+                                        <div id="minute_next" class="interval-picker-element next">18</div>
+                                        <div class="interval-picker-element next-button" onclick="minute_next()"><i class="material-icons">keyboard_arrow_down</i></div>
+                                    </div>
+                                    <div class="interval-picker-hint">
+                                        <?php echo(PLAN_SETEVENT_MIN);?>
+                                    </div>
+
+                                </div>
+                                
+                            </div>
+                        
+                        
                             <div class="mdl-card__supporting-text mdl-card--expand">
                                 
                                 <div class="interval-picker-container">
@@ -1318,18 +1386,7 @@ and open the template in the editor.
                             <div class="mdl-card__actions mdl-card--border">
                                 <div id="interval-picker-modal-error" class="interval-picker-modal-error"><i class="material-icons">warning</i>Value must be greater then 0</div>
                                 
-                                
-                                <div class="dropdown">
-                                <a id="nterval-picker-button-invite" onclick="inviteDropdown()" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"  class="dropbtn"
-
-                                    <?php echo(INVITE_FRIEND_BUTTON);?>
-                                   
-                                     <ul class ="dropdown-content">
-                                        <li>User1</li>
-                                        <li>User2</li>
-                                    </ul>
-                                </a>
-                                </div>        
+                                       
                         
                                 <a id="interval-picker-button-cancel" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-dismiss="modal">
                                    <?php echo(CANCEL_BUTTON);?>
@@ -1424,22 +1481,4 @@ and open the template in the editor.
 </html>
         
         
-<script>
-    function inviteDropdown(){
-        document.getElementById("nterval-picker-button-invite").classList.toggle("show");
-    }
-    // Close the dropdown if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
 
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-    </script>
