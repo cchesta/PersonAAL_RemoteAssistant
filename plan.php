@@ -157,9 +157,9 @@ and open the template in the editor.
             var meetInterval= 1;
             //var cookInterval= 100;
             
-            var stepsString= "<?php echo(PLAN_GOALS_STEPS);?>";
+            var stepsString= "<?php echo(PLAN_GOALS_MIN);?>";
             var exerciseString= "<?php echo(PLAN_GOALS_MIN);?>";
-            var meetString= "<?php echo(PLAN_GOALS_PERSONS);?>";
+            var meetString= "<?php echo(PLAN_GOALS_ACTIVITY);?>";
             //var cookString= "<?php echo(PLAN_GOALS_COOK);?>";
             
             //animation fix for mobile
@@ -951,7 +951,7 @@ and open the template in the editor.
             
             //meet goal
             if(meetGoal >= 6)
-                document.getElementById("meet-actual-goal-text").textContent= meetActualAmount + " / " + meetGoal + " or more persons"; //TODO richiedere traduzione "or more persons"
+                document.getElementById("meet-actual-goal-text").textContent= meetActualAmount + " / " + meetGoal + " or more activities"; //TODO richiedere traduzione "or more persons"
             else
                 document.getElementById("meet-actual-goal-text").textContent= meetActualAmount + " / " + meetGoal + " " + meetString;
             
@@ -967,6 +967,16 @@ and open the template in the editor.
             sendMeetGoalToContext(meetGoal);
         }
         
+            //SLIDER
+            $('#slide_01').on('input',function(){
+            $("#text_01").get(0).MaterialTextfield.change(this.value);
+            });
+            $('#inp_text_01').keyup(function() {
+                $("#slide_01").get(0).MaterialSlider.change($( '#inp_text_01').val());
+                    console.dir($('#slide_01'));
+            });
+            
+            
         </script>
         
 
@@ -1004,6 +1014,10 @@ and open the template in the editor.
             </div>
             <main class="mdl-layout__content">
                 <div class="page-content">
+                    
+                    
+                    
+                    
                 <!-- Your content goes here -->
                 <div class="mdl-grid">
                     
@@ -1035,57 +1049,49 @@ and open the template in the editor.
                         </div>-->
                     <div id="fix-grid" class="mdl-grid mdl-cell mdl-cell--4-col-desktop mdl-cell--4-col-phone mdl-cell--3-col-tablet no-stretch">
                         
-                        <div id="goal-settings-card" class="goal-settings-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet no-stretch">
+                       
+                     <div id="goal-settings-card" class="goal-settings-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet no-stretch">
                             <div class="mdl-card__title">
                                 <h6 class="mdl-card__title-text">
                                     <?php echo(PLAN_SETGOALS_TITLE);?>
                                 </h6>
                             </div>
                             <div class="mdl-card__supporting-text mdl-card--expand">
+                                
                                  <div class="card-choice-group">
                                     <div class="card-group-label"><?php echo(PLAN_SETGOALS_EXERCISE.':');?></div>
-                                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect first-radio" for="exercise-option-1">
-                                        <input type="radio" id="exercise-option-1" class="mdl-radio__button" name="exercise-options" value="15" checked>
-                                        <span class="mdl-radio__label"><?php echo('15'.PLAN_GOALS_MIN);?></span>
-                                    </label>
-                                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="exercise-option-2">
-                                        <input type="radio" id="exercise-option-2" class="mdl-radio__button" name="exercise-options" value="30">
-                                        <span class="mdl-radio__label"><?php echo('30'.PLAN_GOALS_MIN);?></span>
-                                    </label>
-                                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="exercise-option-3">
-                                        <input type="radio" id="exercise-option-3" class="mdl-radio__button" name="exercise-options" value="60">
-                                        <span class="mdl-radio__label"><?php echo('60'.PLAN_GOALS_MIN);?></span>
-                                    </label>
+                                    <input class="mdl-slider mdl-js-slider" type="range"
+  min="0" max="100" value="50" tabindex="0" id = "slide_01">
+                                    <form action="">
+                                    <div class="mdl-textfield mdl-js-textfield" id="text_01">
+                                    <input class="mdl-textfield__input" type="text" id="inp_text_01">
                                 </div>
+                            </form>
+                                </div>
+                                
                                 <div class="card-choice-group">
                                     <div class="card-group-label"><?php echo(PLAN_SETGOALS_WALK.':');?></div>
-                                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect first-radio" for="walk-option-1">
-                                        <input type="radio" id="walk-option-1" class="mdl-radio__button" name="walk-options" value="5000" checked>
-                                        <span class="mdl-radio__label">5000</span>
-                                    </label>
-                                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="walk-option-2">
-                                        <input type="radio" id="walk-option-2" class="mdl-radio__button" name="walk-options" value="10000">
-                                        <span class="mdl-radio__label">10000</span>
-                                    </label>
-                                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="walk-option-3">
-                                        <input type="radio" id="walk-option-3" class="mdl-radio__button" name="walk-options" value="20000">
-                                        <span class="mdl-radio__label">20000</span>
-                                    </label>
+                                    <input class="mdl-slider mdl-js-slider" type="range"
+  min="0" max="100" value="50" tabindex="0" id = "slide_02">
+                                    <form action="">
+                                    <div class="mdl-textfield mdl-js-textfield" id="text_02">
+                                    <input class="mdl-textfield__input" type="text" id="inp_text_02">
                                 </div>
+                            </form>
+                                </div>
+                                
+                                
                                 <div class="card-choice-group">
-                                    <div class="card-group-label"><?php echo(PLAN_SETGOALS_MEET.':');?></div>
-                                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect first-radio" for="meet-option-1">
-                                        <input type="radio" id="meet-option-1" class="mdl-radio__button" name="meet-options" value="3" checked>
-                                        <span class="mdl-radio__label"><?php echo(PLAN_SETGOALS_ATLEAST.' 3');?></span>
-                                    </label>
-                                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="meet-option-2">
-                                        <input type="radio" id="meet-option-2" class="mdl-radio__button" name="meet-options" value="5">
-                                        <span class="mdl-radio__label"><?php echo(PLAN_SETGOALS_ATLEAST.' 5');?></span>
-                                    </label>
-                                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="meet-option-3">
-                                        <input type="radio" id="meet-option-3" class="mdl-radio__button" name="meet-options" value="6">
-                                        <span class="mdl-radio__label"><?php echo(PLAN_SETGOALS_MORETHAN.' 5');?></span>
-                                    </label>
+                                    
+                                    <div class="card-group-label"><?php echo(PLAN_SETGOALS_SOCIAL_ACTIVITY.':');?></div>
+                                    <input class="mdl-slider mdl-js-slider" type="range"
+  min="0" max="100" value="50" tabindex="0" id = "slide_03">
+                                    <form action="">
+                                    <div class="mdl-textfield mdl-js-textfield" id="text_03">
+                                    <input class="mdl-textfield__input" type="text" id="inp_text_03">
+                                </div>
+                            </form>
+                                    
                                 </div>
                                 
                             </div>
@@ -1096,13 +1102,15 @@ and open the template in the editor.
 
                             </div>
                         </div>
+                    
+
 
                         <div id="goal-view-card" class="goal-view-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet no-stretch">
                             <div class="mdl-card__title">
                                 <h6 class="mdl-card__title-text"><?php echo(PLAN_GOALS_TITLE);?></h6>
                             </div>
                             <div class="mdl-card__supporting-text mdl-card--expand">
-                                <ul class="mdl-list">
+                                <ul class="mdl-list" onclick="showGoalSettingsCard()">
                                     <li class="mdl-list__item mdl-list__item--two-line">
                                         <span class="mdl-list__item-primary-content">
                                             <i class="material-icons mdl-list__item-avatar">fitness_center</i>
@@ -1124,7 +1132,7 @@ and open the template in the editor.
                                                 <?php echo(PLAN_GOALS_WALK);?>
                                             </span>
                                             <span id="walk-actual-goal-text" class="mdl-list__item-sub-title">
-                                                1000 / 2000 <?php echo(PLAN_GOALS_STEPS);?>
+                                                1000 / 2000 <?php echo(PLAN_GOALS_MIN);?>
                                             </span>
                                         </span>
                                         <span class="mdl-list__item-secondary-content">
@@ -1135,10 +1143,10 @@ and open the template in the editor.
                                         <span class="mdl-list__item-primary-content">
                                             <i class="material-icons mdl-list__item-avatar">person</i>
                                             <span>
-                                                <?php echo(PLAN_GOALS_MEET);?>
+                                                <?php echo(PLAN_GOALS_SOCIAL_ACTIVITY);?>
                                             </span>
                                             <span id="meet-actual-goal-text" class="mdl-list__item-sub-title">
-                                                2 / 3 <?php echo(PLAN_GOALS_PERSONS);?>
+                                                2 / 3 <?php echo(PLAN_GOALS_ACTIVITY);?>
                                             </span>
                                         </span>
                                         <span class="mdl-list__item-secondary-content">
@@ -1148,14 +1156,20 @@ and open the template in the editor.
                                 </ul>
                                 
                             </div>
+                            
+                            
                             <div class="mdl-card__actions mdl-card--border">
+                                <!--
                                 <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="showGoalSettingsCard()">
                                 <?php echo(PLAN_GOALS_MODIFY);?>
                                 </a>
-
+                                -->
                             </div>
                         </div>
                     </div>
+                    
+               
+
 
                     <div id="calendar-card" class="calendar-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--8-col-desktop mdl-cell--4-col-phone mdl-cell--5-col-tablet no-stretch">
                         <div class="mdl-card__title">
@@ -1165,7 +1179,7 @@ and open the template in the editor.
                         </div>
                         <div class="mdl-card__supporting-text">
                             <div id='external-events'>
-<!--                                <h4>Drag event</h4>-->
+                                <!--                                <h4>Drag event</h4>-->
 				<h4>
                                     <?php echo(PLAN_CALENDAR_INSTRUCTIONS);?>
                                 </h4>
@@ -1216,10 +1230,15 @@ and open the template in the editor.
 
                     </div>
 
+                    <!--TRY NEW CALENDAR HERE -->
+                    
+                    
+                    
                     
                  
+                    <!-- NEW CALENDAR ENDS HERE -->
                     
-                        
+                    
                 
                 </div>
 		

@@ -127,8 +127,8 @@ define("HEALTH_WEIGHTPLOT_DATE_HINT", "Dato");
 
 //PLAN PAGE
 define("PLAN_SETGOALS_TITLE", "Lag ditt ukentlige mål");
-define("PLAN_SETGOALS_EXERCISE", "Trening");
-define("PLAN_SETGOALS_WALK", "Gå tur (skritt)");
+define("PLAN_SETGOALS_EXERCISE", "Trening (minutter)");
+define("PLAN_SETGOALS_WALK", "Gå tur (minutter)");
 define("PLAN_SETGOALS_MEET", "Sosialt (møte personer)");
 define("PLAN_SETGOALS_ATLEAST", "minst");
 define("PLAN_SETGOALS_MORETHAN", "mer enn");
@@ -156,10 +156,14 @@ define("DONE_BUTTON", "FERDIG");
 define("UNDONE_BUTTON", "ANGRE");
 
 //NEW
+//invite a friend to join activity
 define("INVITE_FRIEND_BUTTON", "INVITE FRIEND");
 define("ACCEPT_INVITATION_BUTTON", "ACCEPT");
 define("DECLINE_INVITATION_BUTTON", "DECLINE");
-
+//NEW SET GOALS CARD
+define("PLAN_GOALS_SOCIAL_ACTIVITY", "Sosiale Aktiviteter");
+define("PLAN_SETGOALS_SOCIAL_ACTIVITY", "Sosiale Aktiviteter");
+define("PLAN_GOALS_ACTIVITY","aktiviteter");
 
 //PROFILE PAGE
 define("PROFILE_PROFILECARD_TITLE", "Om meg");

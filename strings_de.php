@@ -125,8 +125,8 @@ define("HEALTH_SNACKBAR_STOP", "Getrennt von BITalino.");
 
 //PLAN PAGE
 define("PLAN_SETGOALS_TITLE", "Wochenziele setzen");
-define("PLAN_SETGOALS_EXERCISE", "Fitness�bungen");
-define("PLAN_SETGOALS_WALK", "Bewegung (Schritte)");
+define("PLAN_SETGOALS_EXERCISE", "Fitness�bungen (minuten)");
+define("PLAN_SETGOALS_WALK", "Bewegung (minuten)");
 define("PLAN_SETGOALS_MEET", "Verabredungen (Personen)");
 define("PLAN_SETGOALS_ATLEAST", "mindestes");
 define("PLAN_SETGOALS_MORETHAN", "mehr als");
@@ -154,9 +154,14 @@ define("DONE_BUTTON", "erledigt");
 define("UNDONE_BUTTON", "unerledigt");
 
 //NEW
+//invite a friend to join activity
 define("INVITE_FRIEND_BUTTON", "INVITE FRIEND");
 define("ACCEPT_INVITATION_BUTTON", "ACCEPT");
 define("DECLINE_INVITATION_BUTTON", "DECLINE");
+//NEW SET GOALS CARD 
+define("PLAN_GOALS_SOCIAL_ACTIVITY", "Soziale Aktivitäten");
+define("PLAN_SETGOALS_SOCIAL_ACTIVITY", "Soziale Aktivitäten");
+define("PLAN_GOALS_ACTIVITY", "aktivitäten");
 
 //FITNESS PAGE
 define("FITNESS_ALERT_TITLE", "Bitte führen Sie die Übungen vorsichtig durch und stoppen Sie sofort, sollten Schmerzen auftreten!");

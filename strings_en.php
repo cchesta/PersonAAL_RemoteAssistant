@@ -130,8 +130,8 @@ define("HEALTH_WEIGHTPLOT_DATE_HINT", "Date");
 
 //PLAN PAGE
 define("PLAN_SETGOALS_TITLE", "Set weekly goals");
-define("PLAN_SETGOALS_EXERCISE", "Exercise");
-define("PLAN_SETGOALS_WALK", "Walk (steps)");
+define("PLAN_SETGOALS_EXERCISE", "Exercise (minutes)");
+define("PLAN_SETGOALS_WALK", "Walk (minutes)");
 define("PLAN_SETGOALS_MEET", "Meet (persons)");
 define("PLAN_SETGOALS_ATLEAST", "at least");
 define("PLAN_SETGOALS_MORETHAN", "more than");
@@ -162,7 +162,15 @@ define("REMOVE_EVENT_BUTTON", "REMOVE EVENT");
 define("DONE_BUTTON", "DONE");
 define("UNDONE_BUTTON", "UNDONE");
 
-
+//NEW
+//invite a friend to join activity
+define("INVITE_FRIEND_BUTTON", "INVITE FRIEND");
+define("ACCEPT_INVITATION_BUTTON", "ACCEPT");
+define("DECLINE_INVITATION_BUTTON", "DECLINE");
+//NEW SET GOALS CARD
+define("PLAN_GOALS_SOCIAL_ACTIVITY", "Social Activities");
+define("PLAN_SETGOALS_SOCIAL_ACTIVITY", "Social Activities");
+define("PLAN_GOALS_ACTIVITY", "activities");
 
 
 
@@ -294,13 +302,6 @@ define("ADD_BUTTON", "ADD");
 
 
 
-
-//NEW
-//invite a friend to join activity
-define("INVITE_FRIEND_BUTTON", "INVITE FRIEND");
-
-define("ACCEPT_INVITATION_BUTTON", "ACCEPT");
-define("DECLINE_INVITATION_BUTTON", "DECLINE");
 
 
 //TODO inserire traduzioni per il testo del modal mostrato in caso di heart rate troppo alta
