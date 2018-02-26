@@ -3,9 +3,8 @@
 <?php
     include 'miscLib.php';
     include 'DButils.php';
-    
-    
-    
+ 
+      
     //REDIRECT SU HTTPS
 //    if(!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == "")
 //	HTTPtoHTTPS();
@@ -63,13 +62,38 @@
 	}
 	
     }
+ 
+$selected='en';
+
+function get_options($select)
+{
+ $languages=array('English'=>'en', 'German'=>'de', 'Norwegian'=>'no');
+ $options='';
+ while(list($k,$v)=each($languages))
+    if($select==$v){ 
+        $options.='<option value="'.$v.'" selected>'.$k.'</option>';
+    }
+    else{ 
+        $options.='<option value="'.$v.'">'.$k.'</option>';
+    }
+    return $options;
+}
+
+
+if(isset($_POST['languages']))
+{
+    $selected = $_POST['languages'];
+}
+else
+{
+    $selected = 'en';
+}
     
-    
+$_SESSION['languages'] = $selected;
+//echo "set Session Language = " . $_SESSION['languages'];
+setLanguage();
+   
 ?>
-
-
-
-
 
 
 <html>
@@ -98,9 +122,7 @@
         
         
     </head>
-    
-    
-    
+   
    <body>
 
         
@@ -110,6 +132,23 @@
             <header class="mdl-layout__header">
                 <div class="mdl-layout__header-row">
                     <span class="mdl-layout-title">PersonAAL</span>
+                    
+                    <div class="mdl-layout-spacer"></div>
+                    
+                    <table border="1" width="2" cellspacing="1" cellpadding="1">
+                            <tr>
+                                <td>
+                                <form action=""<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                                <select name="languages" onchange="this.form.submit();">
+                                    <?php echo get_options($selected); ?>
+                                </select>
+                                </form>  
+                                </td>
+                                <td>
+                                    <img src="img/<?php echo $selected; ?>.jpg" width="30" height="20" alt="en"/>
+                                </td>
+                            </tr>
+                    </table>
                 </div>
             </header>
             <main class="mdl-layout__content">
@@ -162,17 +201,9 @@
                 
                 <a class="registration-link" href="register.php"><?php echo(LOGIN_REGISTRATION_TEXT);?></a>
                 
-                
-                 
                 </div>
-                
             </main>
-        </div>   
-
-        
-
-        
-        
+        </div>        
     </body>
     
 

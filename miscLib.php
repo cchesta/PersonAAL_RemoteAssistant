@@ -2,31 +2,43 @@
     
 
 //INTERNATIONALIZATION
-$lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
-//echo "Language = " .$lang;
+//$lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
 
 
+function setLanguage()
+{
+    if(isset($_SESSION['languages']))
+    {
+        $lang = $_SESSION['languages'];
 
-switch ($lang){
-    case "de":
-        //echo "PAGE DE";
-        include("strings_de.php");//include check session FR
-        break;
-    
-    case "no":
-        //echo "PAGE NO";
-        include("strings_no.php");
-        break;
-    
-    case "en":
-        //echo "PAGE EN";
+        //echo "Language = " . $lang;
+        switch ($lang){
+
+            case "de":
+                //echo "PAGE DE";
+                include("strings_de.php");
+                break;
+
+            case "no":
+                //echo "PAGE NO";
+                include("strings_no.php");
+                break;
+
+            case "en":
+                //echo "PAGE EN";
+                include("strings_en.php");
+             break;   
+
+            default:
+                //echo $lang ." PAGE EN - Setting Default";
+                include("strings_en.php");//include EN in all other cases of different lang detection
+            break;
+        }
+    }
+    else {
+        echo "Language undefined";
         include("strings_en.php");
-        break;   
-    
-    default:
-        //echo $lang ." PAGE EN - Setting Default";
-        include("strings_en.php");//include EN in all other cases of different lang detection
-        break;
+    }
 }
 
 //SESSION

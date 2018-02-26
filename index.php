@@ -20,6 +20,7 @@ if(!isCookieEnabled())
 
 //SESSIONE
 session_start();
+setLanguage();
 
 //verifico se Ã¨ stato effettuato il login
 if (isset($_SESSION['personAAL_user']) && $_SESSION['personAAL_user'] != "")
