@@ -596,18 +596,40 @@ and open the template in the editor.
                             
                             <!--Choose relationship type -->
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select">
-                                <input class="mdl-textfield__input" type="text" id="add-contact-relationship" value="" readonly>
-                                <input type="hidden" value="" name="add-contact-relationship">
+                                <tr>
+                                    <td> <?php echo(CONTACTS_FROM_RELATIONSHIP);?> </td>
+                                </tr>
+                               
+                                
                                 <label class="mdl-textfield__label" for="add-contact-relationship">
-                                    <?php echo(CONTACTS_FROM_RELATIONSHIP);?>
-                                </label>
-                                <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu" for="add-contact-relationship">
-                                    <li class="mdl-menu__item" data-val="CLOSEFAMILY"><?php echo(CONTACTS_FROM_RELATIONSHIP_CLOSE_FAMILY); ?></li>
-                                    <li class="mdl-menu__item" data-val="OTHERFAMILY"><?php echo(CONTACTS_FROM_RELATIONSHIP_OTHER_FAMILY); ?></li>
-                                    <li class="mdl-menu__item" data-val="FRIEND"><?php echo(CONTACTS_FROM_RELATIONSHIP_FRIEND); ?></li>
-                                    <li class="mdl-menu__item" data-val="NEIGHBOUR"><?php echo(CONTACTS_FROM_RELATIONSHIP_NEIGHBOUR); ?></li>
                                     
-                                </ul>
+                                </label>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect check" for="checkbox1">
+                                                <input type="checkbox" id="checkbox1" class="mdl-checkbox__input">
+                                                <span class="mdl-checkbox__label"><?php echo(CONTACTS_FROM_RELATIONSHIP_CLOSE_FAMILY);?></span>
+                                        </td>
+                                          <td>
+                                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect check" for="checkbox2">
+                                                <input type="checkbox" id="checkbox2" class="mdl-checkbox__input">
+                                                <span class="mdl-checkbox__label"><?php echo(CONTACTS_FROM_RELATIONSHIP_OTHER_FAMILY);?></span>
+                                        </td>
+                                          <td>
+                                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect check" for="checkbox3">
+                                                <input type="checkbox" id="checkbox3" class="mdl-checkbox__input">
+                                                <span class="mdl-checkbox__label"><?php echo(CONTACTS_FROM_RELATIONSHIP_FRIEND);?></span>
+                                        </td>
+                                              <td>
+                                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect check" for="checkbox4">
+                                                <input type="checkbox" id="checkbox4" class="mdl-checkbox__input" >
+                                                <span class="mdl-checkbox__label"><?php echo(CONTACTS_FROM_RELATIONSHIP_NEIGHBOUR);?></span>
+                                        </td>
+                                            
+                                            
+                                    </tr>
+                                </table>
                             </div>
                             
                             
