@@ -299,6 +299,7 @@ define("CONTACTS_CONTACTSCARD_STATUS_BUSY", "Busy");
 
 define("CONTACTS_FORM_TITLE", "Add contact");
 define("CONTACTS_FORM_NAME", "Name");
+define("CONTACTS_FORM_EMAIL", "Email");
 define("CONTACTS_FORM_PHONE", "Phone Number");
 define("CONTACTS_FROM_RELATIONSHIP", "Relationship");
 define("ADD_BUTTON", "ADD");

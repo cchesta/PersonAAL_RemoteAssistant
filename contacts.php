@@ -106,6 +106,7 @@ and open the template in the editor.
         <script src="./js/plugins/adaptation/adaptation-script.js"></script>		
         <script src="./js/plugins/adaptation/delegate.js"></script>
         
+        <script src="./js/contacts.js"></script>
 
 <!--        script for tables-->
         <script>
@@ -200,6 +201,7 @@ and open the template in the editor.
             //onDismiss callback for add contact modal (reset input text field)
             $('#add-contact-modal').on('hidden.bs.modal', function (e) {
                 document.getElementById("add-contact-name").value= "";
+                document.getElementById("add-contact-email").value= "";
                 document.getElementById("add-contact-phone").value= "";
                 document.querySelector('#check1').MaterialCheckbox.uncheck();
                 document.querySelector('#check2').MaterialCheckbox.uncheck();
@@ -312,11 +314,30 @@ and open the template in the editor.
             
 	function addContactConfirm()
 	{
-	    var contactName= document.getElementById("add-contact-name").value;
-	    var phoneName= document.getElementById("add-contact-phone").value;
+	    var name= document.getElementById("add-contact-name").value;
+        var contactName = name.split(/[\s]+/); 
+        var contactSurname = contactName.pop(); // gets the last name from contactName and removes it from contactName
+        contactName = contactName.toString().split(',').join(' ');
+	    var email= document.getElementById("add-contact-email").value;
+	    var phoneNumber= document.getElementById("add-contact-phone").value;
         var relatioshipName= buildRelationshipName(); 
 	    
-	    addUserContact(contactName, phoneName,relatioshipName, addContact, null);
+        var contactList = {
+            contacts_list: []
+        };
+
+        //for(var i in someData) {    
+        //    var item = someData[i];   
+            contactList.contacts_list.push({ 
+                "name" : contactName,
+                "surname" : contactSurname,
+                "phone_number" : phoneNumber, 
+                "email" : email,
+                "relationship_type" : relatioshipName
+            });
+        //}
+        
+        sendContactsToContextManager(contactList);
 	}
 	
     function addContact(contactName)
@@ -514,6 +535,13 @@ and open the template in the editor.
                                 <input class="mdl-textfield__input" type="text" id="add-contact-name" value="">
                                 <label class="mdl-textfield__label" for="add-contact-name">
                                     <?php echo(CONTACTS_FORM_NAME);?>
+                                </label>
+                            </div>
+
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input class="mdl-textfield__input" type="email" id="add-contact-email" value="">
+                                <label class="mdl-textfield__label" for="add-contact-email">
+                                    <?php echo(CONTACTS_FORM_EMAIL);?>
                                 </label>
                             </div>
                             

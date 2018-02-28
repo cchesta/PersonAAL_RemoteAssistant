@@ -213,6 +213,7 @@ define("CONTACTS_CONTACTSCARD_STATUS_OFFLINE", "Avlogget");
 define("CONTACTS_CONTACTSCARD_STATUS_BUSY", "Opptatt");
 define("CONTACTS_FORM_TITLE", "Legg til kontakt");
 define("CONTACTS_FORM_NAME", "Navn");
+define("CONTACTS_FORM_EMAIL", "Email");
 define("CONTACTS_FORM_PHONE", "Telefonnummer");
 define("ADD_BUTTON", "Legg til");
 

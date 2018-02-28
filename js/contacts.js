@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 
+var contextUrl = "https://giove.isti.cnr.it:8443/";
+var userName = "john";
+var appName  = "personAAL";
 
 var socket;
 
@@ -21,21 +24,14 @@ function init() {
 }
 
 
-function sendContactsToContextManager(name, surname, phone_number, email, relationship_type) {
-    var contactsObj = {
-        "name": name,
-        "surname": surname,
-        "phone_number": phone_number,
-        "email": email,
-        "relationship_type": relationship_type
-    };
+function sendContactsToContextManager(contactsObj) {
     $.ajax({
         type: "POST",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userName + "/contact_list/",
+        url: contextUrl + "cm/rest/user/" + userName + "/contact_list/addContact",
         dataType: 'json',
         data: JSON.stringify(contactsObj),
         success: function (response) {
