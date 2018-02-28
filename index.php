@@ -280,12 +280,7 @@ else
             if(val === " ")
                 $(element).val("");
         }
-        
-
-        function updateParametersValue()
-        {
-
-        }       
+            
         </script>
                 
         

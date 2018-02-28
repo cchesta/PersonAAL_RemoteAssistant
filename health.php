@@ -104,6 +104,7 @@ else
         <script src="./js/plugins/adaptation/websocket-connection.js"></script>		
         <script src="./js/plugins/adaptation/adaptation-script.js"></script>		
         <script src="./js/plugins/adaptation/delegate.js"></script>
+<!--        <script src="./js/plugins/adaptation/context-data.js"></script>-->
         
     </head>
     <body>
@@ -178,7 +179,7 @@ else
                             </div>
                         </div>
 
-<!--                        <div class="plot-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet grey no-stretch">
+                        <div class="plot-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet grey no-stretch">
                             <div class="mdl-card__supporting-text mdl-card--expand">
                                 <div id="plot-ACC" class="center"></div>
                             </div>
@@ -187,9 +188,9 @@ else
                                     <?php echo(HEALTH_ACCPLOT_TITLE);?>
                                 </div>
                             </div>
-                        </div>-->
+                        </div>
 
-<!--                        <div class="plot-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet grey no-stretch">
+                        <div class="plot-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet grey no-stretch">
                             <div class="mdl-card__supporting-text mdl-card--expand">
                                 <div id="plot-TEMP" class="center"></div>
                             </div>
@@ -198,7 +199,7 @@ else
                                     <?php echo(HEALTH_TEMPPLOT_TITLE);?>
                                 </div>
                             </div>
-                        </div>    -->
+                        </div>    
                     </div>
                         
                 

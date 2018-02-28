@@ -4,7 +4,7 @@
 //var userName = "cchesta";
 var username = "john";
 var appName  = "personAAL";
-var contextManagerUrl = "http://giove.isti.cnr.it:8880/";
+var contextManagerUrl = "https://giove.isti.cnr.it:8443/";
 	
 function subscribeToAdaptationEngine() {
     var subscriptionRequest = '{' +

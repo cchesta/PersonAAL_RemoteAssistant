@@ -4,15 +4,15 @@
  * and open the template in the editor.
  */
 
-var contextUrl = "http://giove.isti.cnr.it:8880/";
+var contextUrl = "https://giove.isti.cnr.it:8443/";
 //var userName = "cchesta";
 var userName = "john";
 var appName  = "personAAL";
 
 window.onload = function() {
-   setInterval(getECG_HR, 5000); 
-   setInterval(getRespirationRate, 5000); 
-   setInterval(getBodyTemperature, 5000); 
+//   setInterval(getECG_HR, 5000); 
+//   setInterval(getRespirationRate, 5000); 
+//   setInterval(getBodyTemperature, 5000); 
    setInterval(getDailySteps, 5000); 
    setInterval(getMedicationPlanned, 5000);
    //setInterval(getMedicationOccurred, 5000);
@@ -27,99 +27,94 @@ window.onload = function() {
         case 'en':
             youdidMsg= 'You did ';
             stepsMsg= ' steps today!';
-            breathMsg= ' breaths/minute'
         break;
                 
         case 'de':
             youdidMsg= 'You did ';
             stepsMsg= ' steps today!';
-            breathMsg= ' breaths/minute'
         break;
        
         case 'no':
             youdidMsg= 'Du har gått  ';
             stepsMsg= ' skritt i dag!';
-            breathMsg= ' innpust/minuttet'
         break;
                 
         default:
             youdidMsg= 'You did ';
             stepsMsg= ' steps today!';
-            breathMsg= ' breaths/minute'
         break;
-        }
-        
+        }    
 };
 
-var heartRate = "";
-var respirationRate = "";
-var bodyTemperature = "";
-
-function getECG_HR() {	
-    $.ajax({
-        type: "GET",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        url: contextUrl + "cm/rest/user/" + userName + "/heartRate/", 
-        dataType: 'json',
-        
-        success: function (response) {            
-            console.log("Context response Hearth Rate", response);
-            $("#ecg_hr").html(response.value + " bpm");
-            $heartRate=response.value;
-        },
-        error: function ()
-        {
-            console.log("Error while getting heart rate data");
-        }
-    });
-}
-
-function getRespirationRate() {	
-    $.ajax({
-        type: "GET",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        url: contextUrl + "cm/rest/user/" +userName + "/respirationRate/", 
-        dataType: 'json',
-        
-        success: function (response) {            
-            console.log("Context response Respiration Rate", response);
-            $("#respiration_rate").html(response.value + breathMsg);
-            $respirationRate=response.value;
-        },
-        error: function ()
-        {
-            console.log("Error while getting respiration rate data");
-        }
-    });
-}
-
-function getBodyTemperature() {	
-    $.ajax({
-        type: "GET",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        url: contextUrl + "cm/rest/user/"+ userName + "/bodyTemperature/", 
-        dataType: 'json',
-        
-        success: function (response) {            
-            console.log("Context response Body Temperature", response);
-            $("#body_temperature").html(response.value + " °C");
-            $bodyTemperature=response.value;
-        },
-        error: function ()
-        {
-            console.log("Error while getting body temperature data");
-        }
-    });
-}
+//var heartRate = "";
+//var respirationRate = "";
+//var bodyTemperature = "";
+//
+//function getECG_HR() {	
+//    $.ajax({
+//        type: "GET",
+//        headers: {
+//            'Accept': 'application/json',
+//            'Content-Type': 'application/json'
+//        },
+//        url: contextUrl + "cm/rest/user/" + userName + "/heartRate/", 
+//        dataType: 'json',
+//        
+//        success: function (response) {            
+//            console.log("Context response Hearth Rate", response);
+//            $("#ecg_hr").html(response.value + " bpm");
+//            $heartRate=response.value;
+//        },
+//        error: function ()
+//        {
+//            console.log("Error while getting heart rate data");
+//        }
+//    });
+//}
+//
+//function getRespirationRate() {	
+//    $.ajax({
+//        type: "GET",
+//        headers: {
+//            'Accept': 'application/json',
+//            'Content-Type': 'application/json'
+//        },
+//        url: contextUrl + "cm/rest/user/" +userName + "/respirationRate/", 
+//        dataType: 'json',
+//        
+//        success: function (response) {            
+//            console.log("Context response Respiration Rate", response);
+//            $("#respiration_rate").html(response.value + breathMsg);
+//            $respirationRate=response.value;
+//        },
+//        error: function ()
+//        {
+//            console.log("Error while getting respiration rate data");
+//        }
+//    });
+//}
+//
+//function getBodyTemperature() {	
+//    $.ajax({
+//        type: "GET",
+//        headers: {
+//            'Accept': 'application/json',
+//            'Content-Type': 'application/json'
+//        },
+//        url: contextUrl + "cm/rest/user/"+ userName + "/bodyTemperature/", 
+//        dataType: 'json',
+//        
+//        success: function (response) {            
+//            console.log("Context response Body Temperature", response);
+//            $("#body_temperature").html(response.value + " °C");
+//            $bodyTemperature=response.value;
+//        },
+//        error: function ()
+//        {
+//            console.log("Error while getting body temperature data");
+//        }
+//    });
+//}
 
 function getDailySteps() {	
     $.ajax({

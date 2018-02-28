@@ -49,9 +49,15 @@ var weightDateMsg;
 //real time plot tables
 var realTimePlot;
 
-window.onload = init;
+var contextUrl = "https://giove.isti.cnr.it:8443/";
+var userName = "john";
+var appName  = "personAAL";
 
-    function init() {
+window.onload = function () {
+    
+        setInterval(getECG_HR, 5000); 
+        setInterval(getRespirationRate, 5000); 
+        setInterval(getBodyTemperature, 5000); 
 
         //internationalization
         var userLang = getUserLanguage(); 
@@ -691,9 +697,75 @@ function stopPressed()
     socket.onclose = function () {};
 }
 
+var heartRate = "";
+var respirationRate = "";
+var bodyTemperature = "";
 
+function getECG_HR() {	
+    console.log("getECG_HR");
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        url: contextUrl + "cm/rest/user/" + userName + "/heartRate/", 
+        dataType: 'json',
+        
+        success: function (response) {            
+            console.log("Context response Hearth Rate", response);
+            $("#ecg_hr").html(response.value + " bpm");
+            $heartRate=response.value;
+        },
+        error: function ()
+        {
+            console.log("Error while getting heart rate data");
+        }
+    });
+}
 
+function getRespirationRate() {	
+    console.log("getRespirationRate");
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        url: contextUrl + "cm/rest/user/" +userName + "/respirationRate/", 
+        dataType: 'json',
+        
+        success: function (response) {            
+            console.log("Context response Respiration Rate", response);
+            $("#respiration_rate").html(response.value + " rpm");
+            $respirationRate=response.value;
+        },
+        error: function ()
+        {
+            console.log("Error while getting respiration rate data");
+        }
+    });
+}
 
-    
-    
-
+function getBodyTemperature() {	
+    console.log("getBodyTemperature");
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        url: contextUrl + "cm/rest/user/"+ userName + "/bodyTemperature/", 
+        dataType: 'json',
+        
+        success: function (response) {            
+            console.log("Context response Body Temperature", response);
+            $("#body_temperature").html(response.value + " °C");
+            $bodyTemperature=response.value;
+        },
+        error: function ()
+        {
+            console.log("Error while getting body temperature data");
+        }
+    });
+}

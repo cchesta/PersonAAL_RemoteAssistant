@@ -417,7 +417,15 @@ define("GET_USER_DATA", "getUserData");
                 
                 
             case GET_USER_LANGUAGE:
-                   $aResult['result']= substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+//                   $aResult['result']= substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+                if(isset($_SESSION['languages']))
+                {
+                   $aResult['result']= $_SESSION['languages'];
+                } 
+                else
+                {
+                    $aResult['result']="en";
+                }
                break;
            
             case GET_USER_DATA:
