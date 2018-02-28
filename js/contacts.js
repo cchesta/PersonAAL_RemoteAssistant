@@ -31,7 +31,7 @@ function sendContactsToContextManager(contactsObj) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userName + "/contact_list/addContact",
+        url: contextUrl + "cm/rest/user/" + userName + "/contact_list/",
         dataType: 'json',
         data: JSON.stringify(contactsObj),
         success: function (response) {
@@ -43,6 +43,41 @@ function sendContactsToContextManager(contactsObj) {
     });
 }
 
+function getContactsFromContextManager() {
+    
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        url: contextUrl + "cm/rest/user/" + userName + "/contact_list/",
+        dataType: 'json',
+        success: function (response) {            
+            console.log("Context response Contact List", response);
+            contactList = Object.values(response);
+            console.log("list size is " + contactList.length);
+            if (contactList.length > 0) {
+                var contactsHTML = '';
+                for (var i=0, len = contactList.length; i < len; i++) {
+                    contactsHTML += '<tr><td><button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored remove-button" onclick="deleteContactConfirm(this)"><i class="material-icons red">remove_circle</i></button><span class="contactName">';
+                    contactsHTML += contactList[i].name;
+                    contactsHTML += ' ';
+                    contactsHTML += contactList[i].surname;
+                    contactsHTML += '</span></td><td><span>';
+                    contactsHTML += contactList[i].email;
+                    contactsHTML += '</span></td><td><button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored"><i class="material-icons">message</i></button></td></tr>';
+                }
+                document.getElementById("contact_table").innerHTML = contactsHTML;
+                console.log(contactsHTML);
+            }
+        },
+        error: function ()
+        {
+            console.log("Error while getting contact list");
+        }
+    });
+}
 
 
 function writelog(message) {

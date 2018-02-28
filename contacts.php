@@ -112,11 +112,12 @@ and open the template in the editor.
         <script>
             var socialTable;
             var removeMode;
-            
+            var contactList;
             
 //            rules table
             $(document).ready(function() {
             
+                getContactsFromContextManager();
             removeMode= false;
                 
             //VELOCITY ANIMATIONS
@@ -322,13 +323,13 @@ and open the template in the editor.
 	    var phoneNumber= document.getElementById("add-contact-phone").value;
         var relatioshipName= buildRelationshipName(); 
 	    
-        var contactList = {
+        var contactListFormated = {
             contacts_list: []
         };
 
         //for(var i in someData) {    
         //    var item = someData[i];   
-            contactList.contacts_list.push({ 
+            contactListFormated.contacts_list.push({ 
                 "name" : contactName,
                 "surname" : contactSurname,
                 "phone_number" : phoneNumber, 
@@ -337,7 +338,7 @@ and open the template in the editor.
             });
         //}
         
-        sendContactsToContextManager(contactList);
+        sendContactsToContextManager(contactListFormated);
 	}
 	
     function addContact(contactName)
@@ -417,82 +418,7 @@ and open the template in the editor.
                                         <th><?php echo(CONTACTS_CONTACTSCARD_HEADER_ACTIONS);?></th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <?php
-                                    
-                                    $contactList= UserContacts::getContacts($_SESSION['personAAL_user']);
-                                    
-                                    if($contactList != null && count($contactList) > 0)
-                                    {
-                                        //print all contacts in the table
-                                        foreach($contactList as $contact)
-                                        {
-                                            echo('<tr>
-                                                    <td>
-                                                        <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored remove-button" onclick="deleteContactConfirm(this)">
-                                                            <i class="material-icons red">remove_circle</i>
-                                                        </button>
-							<span class="contactName">
-                                                        '. $contact->contactName .'
-							</span>
-                                                    </td>'
-                                            );
-                                        
-                                        
-                                            //contact status related variables
-                                            $callStatus= null;
-                                            $videoCallStatus= null;
-                                            $statusChipClass= null;
-                                            $statusString= null;
-                                            
-                                            switch($contact->status)
-                                            {
-                                                case "online":
-                                                    $statusChipClass= "mdl-chip-online";
-                                                    $statusString= CONTACTS_CONTACTSCARD_STATUS_ONLINE;
-                                                    break;
-                                                
-                                                case "offline":
-                                                    $callStatus= "disabled";
-                                                    $videoCallStatus= "disabled";
-                                                    $statusChipClass= "mdl-chip-offline";
-                                                    $statusString= CONTACTS_CONTACTSCARD_STATUS_OFFLINE;
-                                                    break;
-                                                
-                                                case "busy":
-                                                    $videoCallStatus= "disabled";
-                                                    $statusChipClass= "mdl-chip-busy";
-                                                    $statusString= CONTACTS_CONTACTSCARD_STATUS_BUSY;
-                                                    break;
-                                            }
-                                            
-                                            echo('  <td>
-                                                        <span class="mdl-chip '. $statusChipClass .'">
-                                                            <span class="mdl-chip__text">'.$statusString.'</span>
-                                                        </span>
-                                                    </td>'
-                                            );
-                                            echo('  <td>
-                                                        <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" '. $callStatus .'>
-                                                            <i class="material-icons">call</i>
-                                                        </button>
-                                                        <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" '. $videoCallStatus .'>
-                                                            <i class="material-icons">video_call</i>
-                                                        </button>
-                                                        <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
-                                                            <i class="material-icons">message</i>
-                                                        </button>
-                                                    </td>
-                                                </tr>'
-                                            );
-                                        }
-                                        
-                                                
-                                    }
-                                    
-                                    ?>
-                                    
-
+                                <tbody id="contact_table">
                                 </tbody>
                             </table>
 
