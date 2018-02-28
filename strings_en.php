@@ -43,9 +43,9 @@ define("MENU_TITLE", "Menu");
 define("ENTRY_HOME", "Home");
 define("ENTRY_HEALTH", "Health");
 define("ENTRY_PLAN", "Plan");
-define("ENTRY_FITNESS", "Fitness");
-define("ENTRY_DIET", "Diet");
-define("ENTRY_SERVICES", "Services");
+//define("ENTRY_FITNESS", "Fitness");
+//define("ENTRY_DIET", "Diet");
+//define("ENTRY_SERVICES", "Services");
 define("ENTRY_PROFILE", "Profile");
 define("ENTRY_CONTACTS", "Contacts");
 define("ENTRY_LOGOUT", "Logout");
@@ -68,21 +68,21 @@ define("INDEX_SURVEY_MOTIVATION1", "Because I enjoy it and it makes me feel good
 define("INDEX_SURVEY_MOTIVATION2", "To maintain good health and prevent illness");
 define("INDEX_SURVEY_MOTIVATION3", "To lose weight and improve my appearance");
 define("INDEX_SURVEY_MOTIVATION4", "Because I enjoy competing and spend time with friends");
-define("INDEX_SURVEY_QUESTION5", "Have you any difficulties at walking 400 meters?");
-define("ANSWER_5a", "No or some difficulties");
-define("ANSWER_5b", "A lot of difficulties or unable");
-define("INDEX_SURVEY_QUESTION6", "Have you any difficulties at climbing up a flight of stairs?");
-define("ANSWER_6a", "No or some difficulties");
-define("ANSWER_6b", "A lot of difficulties or unable");
-define("INDEX_SURVEY_QUESTION7", "During the last year, have you involuntarily lost more than 4.5 kg");
-define("ANSWER_7a", "No");
-define("ANSWER_7b", "Yes");
-define("INDEX_SURVEY_QUESTION8", "How often in the last week did you feel than everything you did was an effort or that you could not get going?");
-define("ANSWER_8a", "Rarely or sometimes (2 times or less/week)");
-define("ANSWER_8b", "Often or almost always (3 or more times per week)");
-define("INDEX_SURVEY_QUESTION9", "Which is your level of physical activity?");
-define("ANSWER_9a", "Regular physical activity (at least 2-4 hours per week)");
-define("ANSWER_9b", "None or mainly sedentary");
+//define("INDEX_SURVEY_QUESTION5", "Have you any difficulties at walking 400 meters?");
+//define("ANSWER_5a", "No or some difficulties");
+//define("ANSWER_5b", "A lot of difficulties or unable");
+//define("INDEX_SURVEY_QUESTION6", "Have you any difficulties at climbing up a flight of stairs?");
+//define("ANSWER_6a", "No or some difficulties");
+//define("ANSWER_6b", "A lot of difficulties or unable");
+//define("INDEX_SURVEY_QUESTION7", "During the last year, have you involuntarily lost more than 4.5 kg");
+//define("ANSWER_7a", "No");
+//define("ANSWER_7b", "Yes");
+//define("INDEX_SURVEY_QUESTION8", "How often in the last week did you feel than everything you did was an effort or that you could not get going?");
+//define("ANSWER_8a", "Rarely or sometimes (2 times or less/week)");
+//define("ANSWER_8b", "Often or almost always (3 or more times per week)");
+//define("INDEX_SURVEY_QUESTION9", "Which is your level of physical activity?");
+//define("ANSWER_9a", "Regular physical activity (at least 2-4 hours per week)");
+//define("ANSWER_9b", "None or mainly sedentary");
 
 define("CANCEL_BUTTON", "Cancel");
 
@@ -105,6 +105,7 @@ define("BREATH_CARD_TITLE", "Respiration Rate");
 define("BMI_CARD_TITLE", "BMI");
 define("TEMPERATURE_CARD_TITLE", "Internal Temperature");
 define("WEATHER_CARD_TITLE", "Weather Forecast");
+define("MESSAGE_CARD_TITLE", "Messages");
 define("MEDICATION_CARD_TITLE", "Medication Diary");
 define("MEDICATION_PLANNED", "Medication");
 define("MEDICATION_PLANNED_DOSAGE", "Dosage");
@@ -163,79 +164,79 @@ define("DONE_BUTTON", "DONE");
 define("UNDONE_BUTTON", "UNDONE");
 
 //FITNESS PAGE
-define("FITNESS_ALERT_TITLE", "Be careful and stop working out when you experience some pain!");
-define("CLOSE_BUTTON", "CLOSE");
-
-define("SEARCH_TITLE", "Search filters");
-define("FITNESS_SEARCH_BODYPARTS", "Training body part");
-define("FITNESS_SEARCH_BODYPARTS_UPPER", "Upper");
-define("FITNESS_SEARCH_BODYPARTS_LOWER", "Lower");
-define("FITNESS_SEARCH_BODYPARTS_ABDOMINAL", "Abdominal");
-define("FITNESS_SEARCH_DIFFICULTY", "Difficulty");
-define("FITNESS_SEARCH_DIFFICULTY_EASY", "easy");
-define("FITNESS_SEARCH_DIFFICULTY_MEDIUM", "medium");
-define("FITNESS_SEARCH_DIFFICULTY_HARD", "hard");
-define("SEARCH_BUTTON", "SEARCH");
-
-define("FITNESS_SHOWEXERCISE_BUTTON", "SHOW EXERCISE");
-define("FITNESS_SHOWEXERCISE_TRAINEDPARTS", "Trained body parts");
-
-define("SEARCHRESULT_NORESULTS", "No results");
-define("SEARCHRESULT_TITLE", "Results for");
-define("FITNESS_SEARCHRESULT_DIFFICULTY", "Difficulty");
-define("FITNESS_SEARCHRESULT_BODYPARTS", "Body parts");
+//define("FITNESS_ALERT_TITLE", "Be careful and stop working out when you experience some pain!");
+//define("CLOSE_BUTTON", "CLOSE");
+//
+//define("SEARCH_TITLE", "Search filters");
+//define("FITNESS_SEARCH_BODYPARTS", "Training body part");
+//define("FITNESS_SEARCH_BODYPARTS_UPPER", "Upper");
+//define("FITNESS_SEARCH_BODYPARTS_LOWER", "Lower");
+//define("FITNESS_SEARCH_BODYPARTS_ABDOMINAL", "Abdominal");
+//define("FITNESS_SEARCH_DIFFICULTY", "Difficulty");
+//define("FITNESS_SEARCH_DIFFICULTY_EASY", "easy");
+//define("FITNESS_SEARCH_DIFFICULTY_MEDIUM", "medium");
+//define("FITNESS_SEARCH_DIFFICULTY_HARD", "hard");
+//define("SEARCH_BUTTON", "SEARCH");
+//
+//define("FITNESS_SHOWEXERCISE_BUTTON", "SHOW EXERCISE");
+//define("FITNESS_SHOWEXERCISE_TRAINEDPARTS", "Trained body parts");
+//
+//define("SEARCHRESULT_NORESULTS", "No results");
+//define("SEARCHRESULT_TITLE", "Results for");
+//define("FITNESS_SEARCHRESULT_DIFFICULTY", "Difficulty");
+//define("FITNESS_SEARCHRESULT_BODYPARTS", "Body parts");
 
 
 //DIET PAGE
-define("DIET_SEARCH_FOODTYPE", "Food type");
-define("DIET_SEARCH_FOODTYPE_PASTA", "pasta");
-define("DIET_SEARCH_FOODTYPE_MEAT", "meat");
-define("DIET_SEARCH_FOODTYPE_VEGAN", "vegan");
-define("DIET_SEARCH_FOODTYPE_DESSERT", "dessert");
-define("NUMBER_INPUT_ERROR", "Input is not a number!");
-define("DIET_SEARCH_ALLERGIES", "Allergies/intolerances");
-define("DIET_SEARCH_ALLERGIES_LACTOSE", "lactose");
-define("DIET_SEARCH_ALLERGIES_GLUTEN", "gluten");
-
-define("DIET_SNACKBAR", '"Max kcal" must be greater than "Min kcal"!');
-
-define("DIET_SEARCHRESULT_FOODCATEGORY", "Food category");
-define("DIET_SEARCHRESULT_ALLERGENES", "Allergenes");
-
-define("SHOW_RECIPE_BUTTON", "SHOW RECIPE");
+//define("DIET_SEARCH_FOODTYPE", "Food type");
+//define("DIET_SEARCH_FOODTYPE_PASTA", "pasta");
+//define("DIET_SEARCH_FOODTYPE_MEAT", "meat");
+//define("DIET_SEARCH_FOODTYPE_VEGAN", "vegan");
+//define("DIET_SEARCH_FOODTYPE_DESSERT", "dessert");
+//define("NUMBER_INPUT_ERROR", "Input is not a number!");
+//define("DIET_SEARCH_ALLERGIES", "Allergies/intolerances");
+//define("DIET_SEARCH_ALLERGIES_LACTOSE", "lactose");
+//define("DIET_SEARCH_ALLERGIES_GLUTEN", "gluten");
+//
+//define("DIET_SNACKBAR", '"Max kcal" must be greater than "Min kcal"!');
+//
+//define("DIET_SEARCHRESULT_FOODCATEGORY", "Food category");
+//define("DIET_SEARCHRESULT_ALLERGENES", "Allergenes");
+//
+//define("SHOW_RECIPE_BUTTON", "SHOW RECIPE");
 
 //SHOPPING PAGE
-define("SERVICES_SHOPPING_TITLE", "Shopping");
-define("SERVICES_SHOPPING_DRINKS", "Drinks");
-define("SERVICES_SHOPPING_DRINKS_1", "Water");
-define("SERVICES_SHOPPING_DRINKS_2", "Tea");
-define("SERVICES_SHOPPING_DRINKS_3", "Milk");
-define("SERVICES_SHOPPING_FROZENFOODS", "Frozen Foods");
-define("SERVICES_SHOPPING_FROZENFOODS_1", "Pizza");
-define("SERVICES_SHOPPING_FROZENFOODS_2", "Potatoes");
-define("SERVICES_SHOPPING_FROZENFOODS_3", "Spinach");
-define("SERVICES_SHOPPING_FROZENFOODS_4", "Ice cream");
-define("SERVICES_SHOPPING_PASTA", "Pasta");
-define("SERVICES_SHOPPING_MEAT", "Meat");
-define("SERVICES_SHOPPING_MEAT_1", "Beef");
-define("SERVICES_SHOPPING_MEAT_2", "Pig");
-define("SERVICES_SHOPPING_MEAT_3", "Chicken");
-define("DESELECT_BUTTON", "DESELECT ALL");
-define("BUY_BUTTON", "BUY");
-define("SERVICES_SHOPPING_CONFIRMED_TITLE", "Order confirmed");
-
-define("SERVICES_SERVICES_TITLE", "Services");
-define("SERVICES_SERVICES_ASSISTANCE", "Assistance");
-define("SERVICES_SERVICES_ELECTRIC", "Electrical problem");
-define("SERVICES_SERVICES_COMMUNICATION", "Communication problem");
-define("SERVICES_SERVICES_REPAIRS", "General repairs");
-define("SERVICES_SERVICES_CLEANING", "Cleaning service");
-define("SERVICES_SERVICES_FORM_HINT_TITLE", "Title");
-define("SERVICES_SERVICES_FORM_HINT_MESSAGE", "Message");
-define("SEND_BUTTON", "SEND");
-
-define("SERVICES_SNACKBAR_MESSAGE", "Message");
-define("SERVICES_SNACKBAR_SENT", "sent!");
+//define("SERVICES_SHOPPING_TITLE", "Shopping");
+//define("SERVICES_SHOPPING_DRINKS", "Drinks");
+//define("SERVICES_SHOPPING_DRINKS_1", "Water");
+//define("SERVICES_SHOPPING_DRINKS_2", "Tea");
+//define("SERVICES_SHOPPING_DRINKS_3", "Milk");
+//define("SERVICES_SHOPPING_FROZENFOODS", "Frozen Foods");
+//define("SERVICES_SHOPPING_FROZENFOODS_1", "Pizza");
+//define("SERVICES_SHOPPING_FROZENFOODS_2", "Potatoes");
+//define("SERVICES_SHOPPING_FROZENFOODS_3", "Spinach");
+//define("SERVICES_SHOPPING_FROZENFOODS_4", "Ice cream");
+//define("SERVICES_SHOPPING_PASTA", "Pasta");
+//define("SERVICES_SHOPPING_MEAT", "Meat");
+//define("SERVICES_SHOPPING_MEAT_1", "Beef");
+//define("SERVICES_SHOPPING_MEAT_2", "Pig");
+//define("SERVICES_SHOPPING_MEAT_3", "Chicken");
+//define("DESELECT_BUTTON", "DESELECT ALL");
+//define("BUY_BUTTON", "BUY");
+//define("SERVICES_SHOPPING_CONFIRMED_TITLE", "Order confirmed");
+//
+//define("SERVICES_SERVICES_TITLE", "Services");
+//define("SERVICES_SERVICES_ASSISTANCE", "Assistance");
+//define("SERVICES_SERVICES_ELECTRIC", "Electrical problem");
+//define("SERVICES_SERVICES_COMMUNICATION", "Communication problem");
+//define("SERVICES_SERVICES_REPAIRS", "General repairs");
+//define("SERVICES_SERVICES_CLEANING", "Cleaning service");
+//define("SERVICES_SERVICES_FORM_HINT_TITLE", "Title");
+//define("SERVICES_SERVICES_FORM_HINT_MESSAGE", "Message");
+//define("SEND_BUTTON", "SEND");
+//
+//define("SERVICES_SNACKBAR_MESSAGE", "Message");
+//define("SERVICES_SNACKBAR_SENT", "sent!");
     
 
 //PROFILE PAGE

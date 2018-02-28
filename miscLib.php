@@ -36,7 +36,7 @@ function setLanguage()
         }
     }
     else {
-        echo "Language undefined";
+        //echo "Language undefined";
         include("strings_en.php");
     }
 }

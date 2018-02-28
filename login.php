@@ -10,13 +10,17 @@
 //	HTTPtoHTTPS();
     
     if(!isCookieEnabled())
+    {
 	myRedirect("login.php?notify=".DISABLED_COOKIE, TRUE);
-
-    session_start();
+    }
     
     //LOGOUT
     if(isset($_REQUEST['notify']) && $_REQUEST['notify'] == LOGOUT)
+    {
 	mySessionDestroy();
+    }
+    
+    session_start();
     
     //utente loggato
     if (isset($_SESSION['personAAL_user']) && $_SESSION['personAAL_user'] != "")

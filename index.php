@@ -230,30 +230,30 @@ else
             console.log('motivation: ' + motivation);
             sendMotivationDataToContext(motivation);
             
-            var score_5 = $("input[type='radio'][name='answer_5']:checked").val();
-            //console.log('score_5: ' + score_5);
+//            var score_5 = $("input[type='radio'][name='answer_5']:checked").val();
+//            //console.log('score_5: ' + score_5);
+//            
+//            var score_6 = $("input[type='radio'][name='answer_6']:checked").val();
+//            //console.log('score_6: ' + score_6);
+//            
+//            var score_7 = $("input[type='radio'][name='answer_7']:checked").val();
+//            //console.log('score_7: ' + score_7);
+//            
+//            var score_8 = $("input[type='radio'][name='answer_8']:checked").val();
+//            //console.log('score_8: ' + score_8);
+//            
+//            var score_9 = $("input[type='radio'][name='answer_9']:checked").val();
+//            //console.log('score_9: ' + score_9);
             
-            var score_6 = $("input[type='radio'][name='answer_6']:checked").val();
-            //console.log('score_6: ' + score_6);
-            
-            var score_7 = $("input[type='radio'][name='answer_7']:checked").val();
-            //console.log('score_7: ' + score_7);
-            
-            var score_8 = $("input[type='radio'][name='answer_8']:checked").val();
-            //console.log('score_8: ' + score_8);
-            
-            var score_9 = $("input[type='radio'][name='answer_9']:checked").val();
-            //console.log('score_9: ' + score_9);
-            
-            var score = Number(score_5) + Number(score_6) + Number(score_7) + Number(score_8) + Number(score_9);
-            console.log('score: ' + score);
-            console.log(Date.now());
+//            var score = Number(score_5) + Number(score_6) + Number(score_7) + Number(score_8) + Number(score_9);
+//            console.log('score: ' + score);
+//            console.log(Date.now());
             
             //add weight data to db
             addWeightData(Date.now(), weight);
             
             //add FiND questionnaire data to db
-            addFindData(Date.now(), score);
+//            addFindData(Date.now(), score);
             
             //add survey data to db
             addSurveyData(weight, height, age, motivation);
@@ -312,9 +312,6 @@ else
 		    <a class="mdl-navigation__link mdl-navigation__link-selected" href="index.php"><i class="material-icons">home</i><?php echo(ENTRY_HOME);?></a>
                     <a class="mdl-navigation__link" href="health.php"><i class="material-icons">local_hospital</i><?php echo(ENTRY_HEALTH);?></a>
                     <a class="mdl-navigation__link" href="plan.php"><i class="material-icons">date_range</i><?php echo(ENTRY_PLAN);?></a>
-<!--                    <a class="mdl-navigation__link" href="fitness.php"><i class="material-icons">fitness_center</i><?php echo(ENTRY_FITNESS);?></a>
-                    <a class="mdl-navigation__link" href="diet.php"><i class="material-icons">restaurant</i><?php echo(ENTRY_DIET);?></a>
-                    <a class="mdl-navigation__link" href="services.php"><i class="material-icons">local_grocery_store</i><?php echo(ENTRY_SERVICES);?></a>-->
 		    <a class="mdl-navigation__link" href="profile.php"><i class="material-icons">info</i><?php echo(ENTRY_PROFILE);?></a>
 		    <a class="mdl-navigation__link" href="contacts.php"><i class="material-icons">group</i><?php echo(ENTRY_CONTACTS);?></a>
                     <a class="mdl-navigation__link" href="login.php?notify=LOGOUT"><i class="material-icons">power_settings_new</i><?php echo(ENTRY_LOGOUT);?></a>
@@ -367,8 +364,8 @@ else
 
 
 
-<!--                    <div id="goals" class="mdl-grid mdl-cell mdl-cell--4-col-desktop mdl-cell--4-col-phone mdl-cell--4-col-tablet no-stretch mdl-cell--order-1-desktop mdl-cell--order-3-phone mdl-cell--order-1-tablet">              -->
-                       <div id="fitness" class="mdl-grid mdl-cell mdl-cell--4-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-cell--order-3-phone">    
+<!--                   <div id="goals" class="mdl-grid mdl-cell mdl-cell--4-col-desktop mdl-cell--4-col-phone mdl-cell--4-col-tablet no-stretch mdl-cell--order-1-desktop mdl-cell--order-3-phone mdl-cell--order-1-tablet">              -->
+                       <div id="goals" class="mdl-grid mdl-cell mdl-cell--4-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-cell--order-3-phone">    
                             <div id="order-3-phone" class="goal-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue"
                                 onclick="window.location='#';">
 
@@ -406,7 +403,7 @@ else
                                             echo($plan->getActualWalk() . ' / '. $plan->getWalkGoal() .' '. INDEX_STEPSCARD_STEPS);
                                         ?>
                                     </div>
-                                    <div id="daily_steps" class="goal-message-text"></div>
+<!--                                    <div id="daily_steps" class="goal-message-text"></div>-->
                                 </div>
                             </div>
 
@@ -445,12 +442,26 @@ else
                                             echo($plan->getActualExercise() . ' / '. $plan->getExerciseGoal() .' '. INDEX_STEPSCARD_EXERCISE);
                                         ?>
                                     </div>
-                                    <div id="persuasive-message" class="goal-message-text"></div>
+<!--                                    <div id="persuasive-message" class="goal-message-text"></div>-->
                                 </div>
                             </div> 
-<!--                    </div>-->
+                           <div  class="message-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
+                                <div class="mdl-card__title">
+                                    <h2 class="mdl-card__title-text"><?php echo(MESSAGE_CARD_TITLE);?></h2>
+                                </div>
+                               <div class="mdl-card__actions mdl-card--border" id="persuasive-message"></div>
+                            </div>
+              <!--          <div   class="weather-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
+                                <div class="mdl-card__title">
+                                    <h2 class="mdl-card__title-text"><?php echo(WEATHER_CARD_TITLE);?></h2>
+                                </div>
+                                <div class="mdl-card__actions mdl-card--border">
+                                    <iframe width="300" height="80" scrolling="no" frameborder="no" noresize="noresize" src="http://www.ilmeteo.it/box/previsioni.php?citta=8129&type=real1&width=250&ico=1&lang=eng&days=6&font=Arial&fontsize=12&bg=FFFFFF&fg=000000&bgtitle=0099FF&fgtitle=FFFFFF&bgtab=F0F0F0&fglink=1773C2"></iframe>
+                                </div>
+                            </div>-->
+                        </div>
                         
- 
+                        <div id="fitness" class="mdl-grid mdl-cell mdl-cell--4-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-cell--order-3-phone"> 
                             <div  class="weight-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
                                 <div class="mdl-card__title">
                                     <h2 class="mdl-card__title-text"><?php echo(WEIGHT_CARD_TITLE);?></h2>
@@ -467,35 +478,7 @@ else
                                     <?php echo($bmi);?>
                                 </div>
                             </div>
-<!--                            <div   class="weather-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
-                                <div class="mdl-card__title">
-                                    <h2 class="mdl-card__title-text"><?php echo(WEATHER_CARD_TITLE);?></h2>
-                                </div>
-                                <div class="mdl-card__actions mdl-card--border">
-                                    <iframe width="300" height="80" scrolling="no" frameborder="no" noresize="noresize" src="http://www.ilmeteo.it/box/previsioni.php?citta=8129&type=real1&width=250&ico=1&lang=eng&days=6&font=Arial&fontsize=12&bg=FFFFFF&fg=000000&bgtitle=0099FF&fgtitle=FFFFFF&bgtab=F0F0F0&fglink=1773C2"></iframe>
-                                </div>
-                            </div>-->
-                        </div>
 
-                        <div id="health" class="mdl-grid mdl-cell mdl-cell--4-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-cell--order-3-phone"> 
-                            <div  class="heart-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
-                                <div class="mdl-card__title">
-                                    <h2 class="mdl-card__title-text"><?php echo(HEART_CARD_TITLE);?></h2>
-                                </div>
-                                <div id="ecg_hr" class="mdl-card__actions mdl-card--border"></div>
-                            </div>
-                            <div   class="breath-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
-                                <div class="mdl-card__title">
-                                    <h2 class="mdl-card__title-text"><?php echo(BREATH_CARD_TITLE);?></h2>
-                                </div>
-                                <div id="respiration_rate" class="mdl-card__actions mdl-card--border"></div>
-                            </div>
-                            <div   class="temperature-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
-                                <div class="mdl-card__title">
-                                    <h2 class="mdl-card__title-text"><?php echo(TEMPERATURE_CARD_TITLE);?></h2>
-                                </div>
-                                <div id="body_temperature" class="mdl-card__actions mdl-card--border"></div>
-                            </div>
                             <div   class="medication-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
                                 <div class="mdl-card__title">
                                     <h2 class="mdl-card__title-text"><?php echo(MEDICATION_CARD_TITLE);?></h2>
@@ -519,41 +502,30 @@ else
                             </div>
                         </div>
 
-
-                        <!-- NEWS COL -->
-<!--                        <div id="grid-news" class="mdl-grid mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-phone mdl-cell--4-col-tablet no-stretch mdl-cell--order-3-desktop mdl-cell--order-1-phone mdl-cell--order-2-tablet">-->
-
-    <!--                    <div id="order-1-phone" class="mdl-js-button news-card mdl-card mdl-shadow--4dp mdl-js-ripple-effect mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet"
-                                 onclick="window.location='#';">
-                                <div class="mdl-card__title mdl-card--expand"></div>
-                                <div class="mdl-card__actions">
-                                    <?php echo(INDEX_NEWS1_TITLE);?>
+ 
+<!--                            <div  class="heart-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
+                                <div class="mdl-card__title">
+                                    <h2 class="mdl-card__title-text"><?php echo(HEART_CARD_TITLE);?></h2>
                                 </div>
+                                <div id="ecg_hr" class="mdl-card__actions mdl-card--border"></div>
                             </div>
-
-                            <div id="order-2-phone" class="mdl-js-button sport-card mdl-card mdl-shadow--4dp mdl-js-ripple-effect  mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet"
-                                 onclick="window.location='#';">
-                                <div class="mdl-card__title mdl-card--expand"></div>
-                                <div class="mdl-card__actions">
-                                    <?php echo(INDEX_NEWS2_TITLE);?>
+                            <div   class="breath-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
+                                <div class="mdl-card__title">
+                                    <h2 class="mdl-card__title-text"><?php echo(BREATH_CARD_TITLE);?></h2>
                                 </div>
+                                <div id="respiration_rate" class="mdl-card__actions mdl-card--border"></div>
+                            </div>
+                            <div   class="temperature-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
+                                <div class="mdl-card__title">
+                                    <h2 class="mdl-card__title-text"><?php echo(TEMPERATURE_CARD_TITLE);?></h2>
+                                </div>
+                                <div id="body_temperature" class="mdl-card__actions mdl-card--border"></div>
                             </div>-->
 
-                                 
-<!--                                <iframe width="250" height="130" scrolling="no" frameborder="no" noresize="noresize" src="http://www.ilmeteo.it/box/previsioni.php?citta=8129&type=real1&width=250&ico=1&lang=eng&days=6&font=Arial&fontsize=12&bg=FFFFFF&fg=000000&bgtitle=0099FF&fgtitle=FFFFFF&bgtab=F0F0F0&fglink=1773C2"></iframe>-->
-                                 
-<!--                                <script type="text/javascript" src="http://output75.rssinclude.com/output?type=js&amp;id=1139594&amp;hash=d3748b2ef80e7c20494fbddd3be41f53"></script>-->
-
-<!--                                <script type="text/javascript" src="http://100widgets.com/js_data.php?id=168"></script>
-                                <script type="text/javascript" src="http://100widgets.com/js_data.php?id=268"></script>-->
-
-<!--                        </div>-->
-
+                           
+                        </div>
                     </div>
-     
                 </div>
-                
-<!--                <BUTTON data-target="#alert-modal" data-toggle="modal">asdasdasd</BUTTON>-->
             </main>
         </div>   
 
@@ -664,25 +636,25 @@ else
                                     <?php echo(INDEX_SURVEY_QUESTION4);?>
                                 </div>
                                 <div class="mdl-radio survey-mdl-radio" id="input_motivation">
-<!--                                <label class="mdl-radio-label survey-mdl-radio__label">
+                                     <label class="mdl-radio-label survey-mdl-radio__label">
                                         <input class="mdl-radio__button" type="radio" value="wellness" name="motivation" checked>
-                                         <?php echo(INDEX_SURVEY_MOTIVATION1);?>
-                                    </label>-->
+                                         <?php echo(INDEX_SURVEY_MOTIVATION1);?>                                    
+                                    </label>
                                     <label class="mdl-radio-label survey-mdl-radio__label">
-                                        <input class="mdl-radio__button" type="radio" value="health" name="motivation" checked>
+                                        <input class="mdl-radio__button" type="radio" value="health" name="motivation">
                                         <?php echo(INDEX_SURVEY_MOTIVATION2);?>
                                     </label>
                                     <label class="mdl-radio-label survey-mdl-radio__label">
                                         <input class="mdl-radio__button" type="radio" value="fitness" name="motivation">
                                         <?php echo(INDEX_SURVEY_MOTIVATION3);?>
                                     </label>
-<!--                                <label class="mdl-radio-label survey-mdl-radio__label">
+                                    <label class="mdl-radio-label survey-mdl-radio__label">
                                         <input class="mdl-radio__button" type="radio" value="social" name="motivation">
                                         <?php echo(INDEX_SURVEY_MOTIVATION4);?>
-                                    </label>-->
+                                    </label>
                                 </div>
-                            </div>
-                            <div class="survey-question-container">
+<!--                            </div>
+                                <div class="survey-question-container">
                                 <div class="survey-question">
                                     <?php echo(INDEX_SURVEY_QUESTION5);?>
                                 </div>
@@ -756,7 +728,7 @@ else
                                         <?php echo(ANSWER_9b);?>
                                     </label>
                                 </div>
-                            </div>
+                            </div>-->
                           
 			<div class="mdl-card__actions mdl-card--border">
                             <a id="survey-modal-cancel" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-dismiss="modal">
