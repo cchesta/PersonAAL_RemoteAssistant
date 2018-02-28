@@ -85,13 +85,9 @@ and open the template in the editor.
         <link rel="stylesheet" href="css/bootstrap_modals.css">
         <script src="js/plugins/bootstrap/bootstrap_modals.js"></script>
         
-        <!-- CALENDAR -->
-        <link href='css/fullcalendar.css' rel='stylesheet' />
-        <link href='css/fullcalendar.print.css' rel='stylesheet' media='print' />
-        <script src='js/plugins/fullcalendar/moment.min.js'></script>
-        <script src='js/plugins/Jquery/jquery-ui.min.js'></script>
-        <script src='js/plugins/Jquery/jquery.ui.touch-punch.min.js'></script>
-        <script src='js/plugins/fullcalendar/fullcalendar.js'></script>
+        <!--GET/SEND INFO TO CONTEXT MANAGER-->
+        <scrip src = "js/plan.js"></scrip>
+        
         
         
         <?php
@@ -132,6 +128,10 @@ and open the template in the editor.
         <script src="./js/plugins/adaptation/adaptation-script.js"></script>		
         <script src="./js/plugins/adaptation/delegate.js"></script>
         <script src="./js/plugins/adaptation/context-data.js"></script>
+        
+        
+        
+        
         
 <!--        script for tables-->
         <script>
@@ -192,6 +192,30 @@ and open the template in the editor.
                     $('#goal-view-card').hide();
                 
                     
+             //SLIDER
+            $('#slide_01').on('input',function(){
+            $("#text_01").get(0).MaterialTextfield.change(this.value);
+            });
+            $('#inp_text_01').keyup(function() {
+                $("#slide_01").get(0).MaterialSlider.change($( '#inp_text_01').val());
+                    console.dir($('#slide_01'));
+            });
+            $('#slide_02').on('input',function(){
+            $("#text_02").get(0).MaterialTextfield.change(this.value);
+            });
+            $('#inp_text_02').keyup(function() {
+                $("#slide_02").get(0).MaterialSlider.change($( '#inp_text_02').val());
+                    console.dir($('#slide_02'));
+            });
+            $('#slide_03').on('input',function(){
+            $("#text_03").get(0).MaterialTextfield.change(this.value);
+            });
+            $('#inp_text_03').keyup(function() {
+                $("#slide_03").get(0).MaterialSlider.change($( '#inp_text_03').val());
+                    console.dir($('#slide_03'));
+            });
+                
+                
                 
                 //goals
 //                exerciseActualAmount= 0;
@@ -272,115 +296,7 @@ and open the template in the editor.
             } );
         
         
-        function setUpCalendar(eventList)
-        {
-            //title is not saved in DB, so insert title for all events in eventList
-            var exerciseString= "<?php echo(PLAN_CALENDAR_EVENT_EXERCISE);?>";
-            var walkString= "<?php echo(PLAN_CALENDAR_EVENT_WALK);?>";
-            var meetString= "<?php echo(PLAN_CALENDAR_EVENT_MEET);?>";
-//            var cookString= "<?php echo(PLAN_CALENDAR_EVENT_COOK);?>";
-            
-            for(var i=0; i < eventList.length; i++)
-            {
-                switch(eventList[i].type)
-                {
-                    case "Exercise":
-                        eventList[i].title= exerciseString;
-                        break;
-                        
-                    case "Walk":
-                        eventList[i].title= walkString;
-                        break;
-
-                    case "Meet":
-                        eventList[i].title= meetString;
-                        break;
-
-//                    case "Cook":
-//                        eventList[i].title= cookString;
-//                        break;
-                }
-            }
-            
-            calendar= $('#calendar').fullCalendar({
-                                    header: {
-                                            left: '',
-                                            center: '',
-                                            right: ''
-                                    },
-                                    default: true,
-                                    height: 200,
-                                    defaultView: 'basicWeek',
-                                    firstDay: 1,    //starts week view from monday
-                                    editable: false,
-                                    droppable: true, // this allows things to be dropped onto the calendar
-                                    events: eventList,
-                                    eventClick: function(calEvent, jsEvent, view) {
-
-//                                        if(calEvent.done == true)
-//                                            return;
-
-                                        setEventDescriptionModal(calEvent);
-
-                                    },
-                                    eventReceive: function(event){
-
-                                        if(exerciseGoal == 0 || walkGoal == 0 || meetGoal == 0)
-                                        {
-                                            calendar.fullCalendar('removeEvents', event._id);
-                                            
-                                            var data = {message: 'Set your weekly goal first!'}; //TODO problema quando inserisco uno script php al posto del messaggio
-                                            snackbar.MaterialSnackbar.showSnackbar(data);
-                                            return;
-                                        }
-
-                                        //event cannot be resized or moved
-                                        event.durationEditable= false;
-                                        
-                                        //set done state of the event
-                                        event.done= false;
-
-                                        if(event.type == "Exercise")
-                                            setTimePickerModal(event);
-                                        else
-                                            setIntervalPickerModal(event);
-
-                                        console.log(event);
-                                    },
-                                    eventRender: function(event, element) {
-                                        
-                                        if(event.done === true)
-                                        {
-                                            console.log("rendering event:" + event.title);
-                                            event.color= '#00cc00';
-                                            event.backgroundColor= '#00cc00';
-                                        }
-					else
-					{
-					    event.color= '#3a87ad';
-					    event.backgroundColor= '#3a87ad';
-					}
-                                            
-                                    }
-                                    
-                            });
-
-	    console.log("event from calendar: ");
-	    console.log(calendar.fullCalendar('clientEvents'));
-
-	    //next and prev custom buttons
-	    $('#calendar-prev').on('click', function(){
-		calendar.fullCalendar( 'prev' );
-	    });
-
-	    $('#calendar-next').on('click', function(){
-		calendar.fullCalendar( 'next' );
-	    });
-		
-	    //force calendar render
-	    calendar.fullCalendar('rerenderEvents');
-        }
-        
+    
         function setEventDescriptionModal(calEvent){
             
             //get event date
@@ -966,15 +882,9 @@ and open the template in the editor.
             //NEW
             sendMeetGoalToContext(meetGoal);
         }
-        
-            //SLIDER
-            $('#slide_01').on('input',function(){
-            $("#text_01").get(0).MaterialTextfield.change(this.value);
-            });
-            $('#inp_text_01').keyup(function() {
-                $("#slide_01").get(0).MaterialSlider.change($( '#inp_text_01').val());
-                    console.dir($('#slide_01'));
-            });
+            
+ 
+
             
             
         </script>
@@ -1061,10 +971,11 @@ and open the template in the editor.
                                  <div class="card-choice-group">
                                     <div class="card-group-label"><?php echo(PLAN_SETGOALS_EXERCISE.':');?></div>
                                     <input class="mdl-slider mdl-js-slider" type="range"
-  min="0" max="100" value="50" tabindex="0" id = "slide_01">
+  min="0" max="28" value="14" tabindex="0" id = "slide_01">
                                     <form action="">
                                     <div class="mdl-textfield mdl-js-textfield" id="text_01">
                                     <input class="mdl-textfield__input" type="text" id="inp_text_01">
+                                
                                 </div>
                             </form>
                                 </div>
@@ -1072,7 +983,7 @@ and open the template in the editor.
                                 <div class="card-choice-group">
                                     <div class="card-group-label"><?php echo(PLAN_SETGOALS_WALK.':');?></div>
                                     <input class="mdl-slider mdl-js-slider" type="range"
-  min="0" max="100" value="50" tabindex="0" id = "slide_02">
+  min="0" max="28" value="14" tabindex="0" id = "slide_02">
                                     <form action="">
                                     <div class="mdl-textfield mdl-js-textfield" id="text_02">
                                     <input class="mdl-textfield__input" type="text" id="inp_text_02">
@@ -1085,7 +996,7 @@ and open the template in the editor.
                                     
                                     <div class="card-group-label"><?php echo(PLAN_SETGOALS_SOCIAL_ACTIVITY.':');?></div>
                                     <input class="mdl-slider mdl-js-slider" type="range"
-  min="0" max="100" value="50" tabindex="0" id = "slide_03">
+  min="0" max="42" value="21" tabindex="0" id = "slide_03">
                                     <form action="">
                                     <div class="mdl-textfield mdl-js-textfield" id="text_03">
                                     <input class="mdl-textfield__input" type="text" id="inp_text_03">
@@ -1118,7 +1029,7 @@ and open the template in the editor.
                                                 <?php echo(PLAN_GOALS_EXERCISE);?>
                                             </span>
                                             <span id="exercise-actual-goal-text" class="mdl-list__item-sub-title">
-                                                30 / 30 <?php echo(PLAN_GOALS_MIN);?>
+                                                5 / 7 <?php echo(PLAN_GOASL_HOURS);?>
                                             </span>
                                         </span>
                                         <span class="mdl-list__item-secondary-content">
@@ -1132,7 +1043,7 @@ and open the template in the editor.
                                                 <?php echo(PLAN_GOALS_WALK);?>
                                             </span>
                                             <span id="walk-actual-goal-text" class="mdl-list__item-sub-title">
-                                                1000 / 2000 <?php echo(PLAN_GOALS_MIN);?>
+                                                10 / 20 <?php echo(PLAN_GOASL_HOURS);?>
                                             </span>
                                         </span>
                                         <span class="mdl-list__item-secondary-content">
@@ -1178,46 +1089,9 @@ and open the template in the editor.
                             </h6>
                         </div>
                         <div class="mdl-card__supporting-text">
-                            <div id='external-events'>
-                                <!--                                <h4>Drag event</h4>-->
-				<h4>
-                                    <?php echo(PLAN_CALENDAR_INSTRUCTIONS);?>
-                                </h4>
-                                <div class='fc-event'>
-                                    <span class="mdl-chip mdl-chip--contact">
-                                        <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white"><i class="material-icons">fitness_center</i></span>
-                                        <span class="mdl-chip__text" data-value="Exercise">
-                                            <?php echo(PLAN_CALENDAR_EVENT_EXERCISE);?>
-                                        </span>
-                                    </span>
-                                </div>
-                                <div class='fc-event'>
-                                    <span class="mdl-chip mdl-chip--contact">
-                                        <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white"><i class="material-icons">directions_walk</i></span>
-                                        <span class="mdl-chip__text" data-value="Walk">
-                                            <?php echo(PLAN_CALENDAR_EVENT_WALK);?>
-                                        </span>
-                                    </span>
-                                </div>
-                                <div class='fc-event'>
-                                    <span class="mdl-chip mdl-chip--contact">
-                                        <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white"><i class="material-icons">person</i></span>
-                                        <span class="mdl-chip__text" data-value="Meet">
-                                            <?php echo(PLAN_CALENDAR_EVENT_MEET);?>
-                                        </span>
-                                    </span>
-                                </div>
-<!--                                <div class='fc-event'>
-                                    <span class="mdl-chip mdl-chip--contact">
-                                        <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white"><i class="material-icons">restaurant</i></span>
-                                        <span class="mdl-chip__text" data-value="Cook">
-                                            <?php echo(PLAN_CALENDAR_EVENT_COOK);?>
-                                        </span>
-                                    </span>
-                                </div>-->
-                            </div>
+                            
 
-                            <div id='calendar'></div>
+                           
                         </div>
                         <div class="mdl-card__menu">
                             <button id="calendar-prev" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
