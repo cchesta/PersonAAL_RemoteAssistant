@@ -201,7 +201,10 @@ and open the template in the editor.
             $('#add-contact-modal').on('hidden.bs.modal', function (e) {
                 document.getElementById("add-contact-name").value= "";
                 document.getElementById("add-contact-phone").value= "";
-                document.getElementById("add-contact-relationship").value="";
+                document.querySelector('#check1').MaterialCheckbox.uncheck();
+                document.querySelector('#check2').MaterialCheckbox.uncheck();
+                document.querySelector('#check3').MaterialCheckbox.uncheck();
+                document.querySelector('#check4').MaterialCheckbox.uncheck();
             });
             
             
@@ -271,7 +274,7 @@ and open the template in the editor.
         
 	function deleteContactConfirm(element)
 	{
-            var row= element.parentNode.parentNode;
+        var row= element.parentNode.parentNode;
 	    var contactName= row.getElementsByClassName("contactName")[0].innerHTML;
 	    contactName= contactName.replace(/\s+/g, '');
 	    console.log('||' + contactName + '||');
@@ -297,48 +300,57 @@ and open the template in the editor.
             }
         }
         
+            
+    function buildRelationshipName() {
+        var output = (document.getElementById("checkbox1").checked) ? "1" : "0";
+        output += (document.getElementById("checkbox2").checked) ? "1" : "0";
+        output += (document.getElementById("checkbox3").checked) ? "1" : "0";
+        output += (document.getElementById("checkbox4").checked) ? "1" : "0";
+        
+        return output;
+    }   
+            
 	function addContactConfirm()
 	{
 	    var contactName= document.getElementById("add-contact-name").value;
 	    var phoneName= document.getElementById("add-contact-phone").value;
-        var relatioshipName= document.getElementById("add-contact-relationship").value;
-
+        var relatioshipName= buildRelationshipName(); 
 	    
 	    addUserContact(contactName, phoneName,relatioshipName, addContact, null);
 	}
 	
-        function addContact(contactName)
+    function addContact(contactName)
+    {
+        if(contactName.length !== 0)
         {
-            if(contactName.length !== 0)
-            {
-                var td1= '<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored remove-button" onclick="deleteContactConfirm(this)">'+
-                                '<i class="material-icons red">remove_circle</i>'+
-                            '</button>'+
-			    '<span class="contactName">'+ contactName +'</span>';
-                var td2= '<span class="mdl-chip mdl-chip-offline">'+
-                                '<span class="mdl-chip__text">offline</span>'+
-                            '</span>';
-                var td3= '<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" disabled>'+
-                                                '<i class="material-icons">call</i>'+
-                                            '</button>'+
-                                            '<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" disabled>'+
-                                                '<i class="material-icons">video_call</i>'+
-                                            '</button>'+
-                                            '<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">'+
-                                                '<i class="material-icons">message</i>'+
-                                            '</button>';
-                
-                //add row
-                socialTable.row.add([
-                    td1,
-                    td2,
-                    td3
-                ]).draw(false);
-                
-            }
+            var td1= '<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored remove-button" onclick="deleteContactConfirm(this)">'+
+                            '<i class="material-icons red">remove_circle</i>'+
+                        '</button>'+
+            '<span class="contactName">'+ contactName +'</span>';
+            var td2= '<span class="mdl-chip mdl-chip-offline">'+
+                            '<span class="mdl-chip__text">offline</span>'+
+                        '</span>';
+            var td3= '<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" disabled>'+
+                                            '<i class="material-icons">call</i>'+
+                                        '</button>'+
+                                        '<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" disabled>'+
+                                            '<i class="material-icons">video_call</i>'+
+                                        '</button>'+
+                                        '<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">'+
+                                            '<i class="material-icons">message</i>'+
+                                        '</button>';
+
+            //add row
+            socialTable.row.add([
+                td1,
+                td2,
+                td3
+            ]).draw(false);
+
         }
-        </script>
-        
+    }
+    </script>
+
 
         
         
@@ -361,14 +373,11 @@ and open the template in the editor.
             <div class="mdl-layout__drawer">
                 <span class="mdl-layout-title"><?php echo(MENU_TITLE);?></span>
                 <nav class="mdl-navigation">
-		    <a class="mdl-navigation__link" href="index.php"><i class="material-icons">home</i><?php echo(ENTRY_HOME);?></a>
+                    <a class="mdl-navigation__link" href="index.php"><i class="material-icons">home</i><?php echo(ENTRY_HOME);?></a>
                     <a class="mdl-navigation__link" href="health.php"><i class="material-icons">local_hospital</i><?php echo(ENTRY_HEALTH);?></a>
                     <a class="mdl-navigation__link" href="plan.php"><i class="material-icons">date_range</i><?php echo(ENTRY_PLAN);?></a>
-<!--                    <a class="mdl-navigation__link" href="fitness.php"><i class="material-icons">fitness_center</i><?php echo(ENTRY_FITNESS);?></a>
-                    <a class="mdl-navigation__link" href="diet.php"><i class="material-icons">restaurant</i><?php echo(ENTRY_DIET);?></a>
-                    <a class="mdl-navigation__link" href="services.php"><i class="material-icons">local_grocery_store</i><?php echo(ENTRY_SERVICES);?></a>-->
-		    <a class="mdl-navigation__link" href="profile.php"><i class="material-icons">info</i><?php echo(ENTRY_PROFILE);?></a>
-		    <a class="mdl-navigation__link mdl-navigation__link-selected" href="contacts.php"><i class="material-icons">group</i><?php echo(ENTRY_CONTACTS);?></a>
+                    <a class="mdl-navigation__link" href="profile.php"><i class="material-icons">info</i><?php echo(ENTRY_PROFILE);?></a>
+                    <a class="mdl-navigation__link mdl-navigation__link-selected" href="contacts.php"><i class="material-icons">group</i><?php echo(ENTRY_CONTACTS);?></a>
                     <a class="mdl-navigation__link" href="login.php?notify=LOGOUT"><i class="material-icons">power_settings_new</i><?php echo(ENTRY_LOGOUT);?></a>
                 </nav>
             </div>
@@ -378,7 +387,7 @@ and open the template in the editor.
                     <div class="mdl-grid">
 
 
-                        <div id="social-card" class="social-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--8-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet">
+                        <div id="social-card" class="social-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet">
                             <table id="socialTable" class="mdl-data-table" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
@@ -462,82 +471,7 @@ and open the template in the editor.
                                     
                                     ?>
                                     
-<!--                                <tr>
-                                        <td>
-                                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored remove-button" onclick="deleteContact(this)">
-                                                <i class="material-icons red">remove_circle</i>
-                                            </button>
-                                            Son
-                                        </td>
-                                        <td>
-                                            <span class="mdl-chip mdl-chip-online">
-                                                <span class="mdl-chip__text">active</span>
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
-                                                <i class="material-icons">call</i>
-                                            </button>
-                                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
-                                                <i class="material-icons">video_call</i>
-                                            </button>
-                                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
-                                                <i class="material-icons">message</i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored remove-button" onclick="deleteContact(this)">
-                                                <i class="material-icons red">remove_circle</i>
-                                            </button>
-                                            Medic
-                                        </td>
-                                        <td>
-                                            <span class="mdl-chip mdl-chip-busy">
-                                                <span class="mdl-chip__text">busy</span>
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" disabled>
-                                                <i class="material-icons">call</i>
-                                            </button>
-                                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" disabled>
-                                                <i class="material-icons">video_call</i>
-                                            </button>
-                                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
-                                                <i class="material-icons">message</i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored remove-button" onclick="deleteContact(this)">
-                                                <i class="material-icons red">remove_circle</i>
-                                            </button>
-                                            Psychologist
-                                        </td>
-                                        <td>
-                                            <span class="mdl-chip mdl-chip-offline">
-                                                <span class="mdl-chip__text">offline</span>
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" disabled>
-                                                <i class="material-icons">call</i>
-                                            </button>
-                                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" disabled>
-                                                <i class="material-icons">video_call</i>
-                                            </button>
-                                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
-                                                <i class="material-icons">message</i>
-                                            </button>
-                                        </td>
-                                        
-                                    </tr>-->
-                                    
-                                    
-                                    
+
                                 </tbody>
                             </table>
 
@@ -595,41 +529,24 @@ and open the template in the editor.
                             
                             
                             <!--Choose relationship type -->
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select">
-                                <tr>
-                                    <td> <?php echo(CONTACTS_FROM_RELATIONSHIP);?> </td>
-                                </tr>
-                               
-                                
-                                <label class="mdl-textfield__label" for="add-contact-relationship">
-                                    
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <h5><?php echo(CONTACTS_FROM_RELATIONSHIP);?></h5>
+                                <label id="check1" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox1">
+                                    <input type="checkbox" id="checkbox1" class="mdl-checkbox__input">
+                                    <span class="mdl-checkbox__label"><?php echo(CONTACTS_FROM_RELATIONSHIP_CLOSE_FAMILY);?></span>
                                 </label>
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect check" for="checkbox1">
-                                                <input type="checkbox" id="checkbox1" class="mdl-checkbox__input">
-                                                <span class="mdl-checkbox__label"><?php echo(CONTACTS_FROM_RELATIONSHIP_CLOSE_FAMILY);?></span>
-                                        </td>
-                                          <td>
-                                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect check" for="checkbox2">
-                                                <input type="checkbox" id="checkbox2" class="mdl-checkbox__input">
-                                                <span class="mdl-checkbox__label"><?php echo(CONTACTS_FROM_RELATIONSHIP_OTHER_FAMILY);?></span>
-                                        </td>
-                                          <td>
-                                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect check" for="checkbox3">
-                                                <input type="checkbox" id="checkbox3" class="mdl-checkbox__input">
-                                                <span class="mdl-checkbox__label"><?php echo(CONTACTS_FROM_RELATIONSHIP_FRIEND);?></span>
-                                        </td>
-                                              <td>
-                                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect check" for="checkbox4">
-                                                <input type="checkbox" id="checkbox4" class="mdl-checkbox__input" >
-                                                <span class="mdl-checkbox__label"><?php echo(CONTACTS_FROM_RELATIONSHIP_NEIGHBOUR);?></span>
-                                        </td>
-                                            
-                                            
-                                    </tr>
-                                </table>
+                                <label id="check2" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox2">
+                                    <input type="checkbox" id="checkbox2" class="mdl-checkbox__input">
+                                    <span class="mdl-checkbox__label"><?php echo(CONTACTS_FROM_RELATIONSHIP_OTHER_FAMILY);?></span>
+                                </label>
+                                <label id="check3" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox3">
+                                    <input type="checkbox" id="checkbox3" class="mdl-checkbox__input">
+                                    <span class="mdl-checkbox__label"><?php echo(CONTACTS_FROM_RELATIONSHIP_FRIEND);?></span>
+                                </label>
+                                <label id="check4" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox4">
+                                    <input type="checkbox" id="checkbox4" class="mdl-checkbox__input" >
+                                    <span class="mdl-checkbox__label"><?php echo(CONTACTS_FROM_RELATIONSHIP_NEIGHBOUR);?></span>
+                                </label>
                             </div>
                             
                             
