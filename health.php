@@ -82,15 +82,6 @@ else
         <!-- javascript functions for DB (ajax requests)-->
         <script src="js/DBinterface.js"></script>
         
-        <!-- PLOT & WEBSOCKET -->
-        <script src="js/plugins/flot/jquery.flot.js"></script>
-	<script src="js/plugins/flot/jquery.flot.time.js"></script>
-        <script src="js/plugins/flot/jquery.flot.resize.min.js"></script>
-        <script src="js/plugins/flot/jquery.flot.axislabels.js"></script>
-        <script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
-        <script src="js/plugins/flot/jquery.flot.navigationControl.js"></script>
-        <script src="js/health.js"></script>
-        
 <!--        <script src='js/jquery-ui.min.js'></script>-->
         <script src='js/plugins/Jquery/jquery.ui.touch-punch.min.js'></script>
 	
@@ -99,12 +90,24 @@ else
         <script src="js/plugins/bootstrap/bootstrap_modals.js"></script>
         
         <!-- ADAPTATION SCRIPTS -->
+        <script type="text/javascript">
+            var userName = "<?php echo $_SESSION['personAAL_user']?>";
+        </script>
         <script src="./js/plugins/adaptation/sockjs-1.1.1.js"></script>
         <script src="./js/plugins/adaptation/stomp.js"></script>
         <script src="./js/plugins/adaptation/websocket-connection.js"></script>		
         <script src="./js/plugins/adaptation/adaptation-script.js"></script>		
         <script src="./js/plugins/adaptation/delegate.js"></script>
 <!--        <script src="./js/plugins/adaptation/context-data.js"></script>-->
+        
+        <!-- PLOT & WEBSOCKET -->
+        <script src="js/plugins/flot/jquery.flot.js"></script>
+	<script src="js/plugins/flot/jquery.flot.time.js"></script>
+        <script src="js/plugins/flot/jquery.flot.resize.min.js"></script>
+        <script src="js/plugins/flot/jquery.flot.axislabels.js"></script>
+        <script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+        <script src="js/plugins/flot/jquery.flot.navigationControl.js"></script>
+        <script src="js/health.js"></script>
         
     </head>
     <body>

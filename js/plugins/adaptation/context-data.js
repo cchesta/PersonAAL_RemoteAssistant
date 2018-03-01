@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 
-var contextUrl = "https://giove.isti.cnr.it:8443/";
-//var userName = "cchesta";
-var userName = "john";
+
+//var userName = "john";
 var appName  = "personAAL";
+var contextUrl = "https://giove.isti.cnr.it:8443/";
 
 window.onload = function() {
 //   setInterval(getECG_HR, 5000); 

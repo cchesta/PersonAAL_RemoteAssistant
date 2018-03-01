@@ -49,9 +49,10 @@ var weightDateMsg;
 //real time plot tables
 var realTimePlot;
 
-var contextUrl = "https://giove.isti.cnr.it:8443/";
-var userName = "john";
+
+//var userName = "john";
 var appName  = "personAAL";
+var contextUrl = "https://giove.isti.cnr.it:8443/";
 
 window.onload = function () {
     

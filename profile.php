@@ -89,6 +89,9 @@ else
         <script src="js/plugins/velocity/velocity.ui.min.js"></script>
 
         <!-- ADAPTATION SCRIPTS -->
+        <script type="text/javascript">
+            var userName = "<?php echo $_SESSION['personAAL_user']?>";
+        </script>
         <script src="./js/plugins/adaptation/sockjs-1.1.1.js"></script>
         <script src="./js/plugins/adaptation/stomp.js"></script>
         <script src="./js/plugins/adaptation/websocket-connection.js"></script>		

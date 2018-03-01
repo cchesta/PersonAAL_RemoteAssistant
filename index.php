@@ -22,7 +22,7 @@ if(!isCookieEnabled())
 session_start();
 setLanguage();
 
-//verifico se Ã¨ stato effettuato il login
+//verifico se è stato effettuato il login
 if (isset($_SESSION['personAAL_user']) && $_SESSION['personAAL_user'] != "")
 {
     $t=time();
@@ -97,6 +97,9 @@ else
         <script src="js/DBinterface.js"></script>
         
         <!-- ADAPTATION SCRIPTS -->
+        <script type="text/javascript">
+            var userName = "<?php echo $_SESSION['personAAL_user']?>";
+        </script>
         <script src="./js/plugins/adaptation/sockjs-1.1.1.js"></script>
         <script src="./js/plugins/adaptation/stomp.js"></script>
         <script src="./js/plugins/adaptation/websocket-connection.js"></script>		
