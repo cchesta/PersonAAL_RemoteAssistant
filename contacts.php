@@ -395,10 +395,9 @@ and open the template in the editor.
                 '<i class="material-icons red">remove_circle</i>'+
                 '</button>'+
                 '<span class="contactName">'+ contact.name + ' ' + contact.surname +'</span>';
-            var td2= '<span class="mdl-chip mdl-chip-offline">'+
-                '<span class="contactEmail mdl-chip__text">'+contact.email+'</span>'+
-                '</span>';
-            var td3= '<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">'+
+            var td2= '<span class="contactEmail mdl-chip__text">'+contact.email+'</span>';
+            var td3= '<span class="contactEmail mdl-chip__text">'+contact.phone_number+'</span>';
+            var td4= '<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">'+
                 '<i class="material-icons">message</i>'+
                 '</button>';
 
@@ -406,7 +405,8 @@ and open the template in the editor.
             socialTable.row.add([
                 td1,
                 td2,
-                td3
+                td3,
+                td4
             ]).draw(false);
 
         }
@@ -454,7 +454,8 @@ and open the template in the editor.
                                 <thead>
                                     <tr>
                                         <th><?php echo(CONTACTS_CONTACTSCARD_HEADER_NAME);?></th>
-                                        <th><?php echo(CONTACTS_CONTACTSCARD_HEADER_STATUS);?></th>
+                                        <th><?php echo(CONTACTS_CONTACTSCARD_HEADER_EMAIL);?></th>
+                                        <th><?php echo(CONTACTS_CONTACTSCARD_HEADER_PHONE);?></th>
                                         <th><?php echo(CONTACTS_CONTACTSCARD_HEADER_ACTIONS);?></th>
                                     </tr>
                                 </thead>
