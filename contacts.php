@@ -117,7 +117,7 @@ and open the template in the editor.
 //            rules table
             $(document).ready(function() {
             
-                getContactsFromContextManager();
+                getContactsFromContextManager(addReceivedContacts);
             removeMode= false;
                 
             //VELOCITY ANIMATIONS
@@ -275,22 +275,55 @@ and open the template in the editor.
             
         }
         
+            
+    function formatAndSendContactList() {
+        var contactListFormated = {
+            contacts_list: []
+        };
+
+        for(var i in contactList) {    
+            var contact = contactList[i];   
+            contactListFormated.contacts_list.push({ 
+                "name" : contact.name,
+                "surname" : contact.surname,
+                "phone_number" : contact.phone_number, 
+                "email" : contact.email,
+                "relationship_type" : contact.relationship_type
+            });
+        }
+        
+        //console.log(contactListFormated);
+        //console.log(JSON.stringify(contactListFormated));
+        
+        sendContactsToContextManager(contactListFormated);        
+    }   
+            
+    function removeContactByEmail(email) {
+        var index = -1;
+        for(var i in contactList) {    
+            var contact = contactList[i];
+            if (contact.email == email) {
+                index = i;
+                break;
+            }
+        }
+        if (index > -1)
+            contactList.splice(index,1);
+    }        
+    
 	function deleteContactConfirm(element)
 	{
         var row= element.parentNode.parentNode;
-	    var contactName= row.getElementsByClassName("contactName")[0].innerHTML;
-	    contactName= contactName.replace(/\s+/g, '');
-	    console.log('||' + contactName + '||');
+	    var contactEmail= row.getElementsByClassName("contactEmail")[0].innerHTML;
+	    console.log(contactEmail);
 	    
-	    deleteUserContact(contactName, row, deleteContact, null);
+        removeContactByEmail(contactEmail);
+        formatAndSendContactList();
+        deleteContact(row);
 	}
 	
         function deleteContact(row)
         {
-//            console.log(element.parentNode.parentNode);
-//            var row= element.parentNode.parentNode;
-//	    var contactName= row.getElementsByClassName("contactName")[0].innerHTML;
-//	    console.log(contactName);
             socialTable.row(row).remove().draw(false);
             
             //restore remove button if rows count goes to 0
@@ -321,46 +354,53 @@ and open the template in the editor.
         contactName = contactName.toString().split(',').join(' ');
 	    var email= document.getElementById("add-contact-email").value;
 	    var phoneNumber= document.getElementById("add-contact-phone").value;
-        var relatioshipName= buildRelationshipName(); 
+        var relationshipName= buildRelationshipName(); 
 	    
-        var contactListFormated = {
-            contacts_list: []
+        var newContact = {
+            name: '',
+            surname: '',
+            phone_number: '',
+            email: '',
+            relationship_type: ''
         };
-
-        //for(var i in someData) {    
-        //    var item = someData[i];   
-            contactListFormated.contacts_list.push({ 
-                "name" : contactName,
-                "surname" : contactSurname,
-                "phone_number" : phoneNumber, 
-                "email" : email,
-                "relationship_type" : relatioshipName
-            });
-        //}
+        newContact.name = contactName;
+        newContact.surname = contactSurname;
+        newContact.phone_number = phoneNumber;
+        newContact.email = email;
+        newContact.relationship_type = relationshipName;
         
-        sendContactsToContextManager(contactListFormated);
+        contactList.push(newContact);
+        
+        addContact(newContact);
+                
+        formatAndSendContactList();
 	}
 	
-    function addContact(contactName)
+    function addReceivedContacts() {
+        if (contactList.length > 0 && contactList[0].name.length > 1) {
+            for (var i=0, len = contactList.length; i < len; i++) {
+                addContact(contactList[i]);
+            }
+        }
+        else {
+            contactList = [];
+        }        
+    }
+            
+    function addContact(contact)
     {
-        if(contactName.length !== 0)
+        if(contact.name.length !== 0)
         {
             var td1= '<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored remove-button" onclick="deleteContactConfirm(this)">'+
-                            '<i class="material-icons red">remove_circle</i>'+
-                        '</button>'+
-            '<span class="contactName">'+ contactName +'</span>';
+                '<i class="material-icons red">remove_circle</i>'+
+                '</button>'+
+                '<span class="contactName">'+ contact.name + ' ' + contact.surname +'</span>';
             var td2= '<span class="mdl-chip mdl-chip-offline">'+
-                            '<span class="mdl-chip__text">offline</span>'+
-                        '</span>';
-            var td3= '<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" disabled>'+
-                                            '<i class="material-icons">call</i>'+
-                                        '</button>'+
-                                        '<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" disabled>'+
-                                            '<i class="material-icons">video_call</i>'+
-                                        '</button>'+
-                                        '<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">'+
-                                            '<i class="material-icons">message</i>'+
-                                        '</button>';
+                '<span class="contactEmail mdl-chip__text">'+contact.email+'</span>'+
+                '</span>';
+            var td3= '<button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">'+
+                '<i class="material-icons">message</i>'+
+                '</button>';
 
             //add row
             socialTable.row.add([
