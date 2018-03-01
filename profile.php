@@ -93,11 +93,20 @@ and open the template in the editor.
         <script src="./js/plugins/adaptation/websocket-connection.js"></script>		
         <script src="./js/plugins/adaptation/adaptation-script.js"></script>		
         <script src="./js/plugins/adaptation/delegate.js"></script>
+        <script src="./js/profile.js"></script>
 
         <script>
 	    var shoppingMenuReduced;
             var prevShoppingListID;
             var prevClickedElement;
+            var name;
+            var surname;
+            var birth_date;
+            var gender;
+            var state;
+            var city;
+            var postal_code;
+            var address;
 	    
             $(document).ready(function() {
 		shoppingMenuReduced= false;
@@ -121,6 +130,12 @@ and open the template in the editor.
                     
                 //VELOCITY ANIMATIONS
                 $('.patient-info-card, .interest-list-card').velocity('transition.slideUpBigIn', {stagger: 250, display: 'flex'});
+        
+                userInfo= new UserData($_SESSION['personAAL_user']);
+              
+                
+                sendProfileToContext($userInfo->name,$userInfo->surname,$userInfo->birthDate,$userInfo->gender,$userInfo->state,$userInfo->city,$userInfo->postal_code,$userInfo->address);
+                
                 
             });
             
@@ -282,6 +297,8 @@ and open the template in the editor.
                 }
             }
 	    
+            
+
         </script>
         
     </head>
@@ -354,10 +371,8 @@ and open the template in the editor.
                                                     <span>
                                                         <?php echo(PROFILE_PROFILECARD_NAME);?>
                                                     </span>
-                                                    <span class="mdl-list__item-sub-title">
-                                                        <?php
-                                                            echo($userInfo->name);
-                                                        ?>
+                                                    <span class="mdl-list__item-sub-title" id="profileName">
+                                                      
                                                     </span>
                                                 </span>
                                             </li>
@@ -366,7 +381,7 @@ and open the template in the editor.
                                                     <span>
                                                         <?php echo(PROFILE_PROFILECARD_SURNAME);?>
                                                     </span>
-                                                    <span class="mdl-list__item-sub-title">
+                                                    <span class="mdl-list__item-sub-title" id="profileSurname">
                                                         <?php
                                                             echo($userInfo->surname);
                                                         ?>
@@ -380,7 +395,7 @@ and open the template in the editor.
                                                     <span>
                                                         <?php echo(PROFILE_PROFILECARD_BIRTHDATE);?>
                                                     </span>
-                                                    <span class="mdl-list__item-sub-title">
+                                                    <span class="mdl-list__item-sub-title" id="profileBirthDate">
                                                         <?php
                                                             echo($userInfo->birthDate);
                                                         ?>
@@ -392,7 +407,7 @@ and open the template in the editor.
                                                     <span>
                                                         <?php echo(PROFILE_PROFILECARD_GENDER);?>
                                                     </span>
-                                                    <span class="mdl-list__item-sub-title">
+                                                    <span class="mdl-list__item-sub-title" id="profileGender">
                                                         <?php
                                                         
                                                         if($userInfo->gender == "male")
@@ -418,7 +433,7 @@ and open the template in the editor.
                                                     <span>
                                                         <?php echo(PROFILE_PROFILECARD_STATE);?>
                                                     </span>
-                                                    <span class="mdl-list__item-sub-title">
+                                                    <span class="mdl-list__item-sub-title" id="profileState">
                                                         <?php
                                                             echo($userInfo->state);
                                                         ?>
@@ -426,7 +441,7 @@ and open the template in the editor.
                                                 </span>
                                             </li>
                                             <li class="mdl-list__item mdl-list__item--two-line">
-                                                <span class="mdl-list__item-primary-content">
+                                                <span class="mdl-list__item-primary-content" id="profileCity">
                                                     <span>
                                                         <?php echo(PROFILE_PROFILECARD_CITY);?>
                                                     </span>
@@ -444,7 +459,7 @@ and open the template in the editor.
                                                     <span>
                                                         <?php echo(PROFILE_PROFILECARD_POSTALCODE);?>
                                                     </span>
-                                                    <span class="mdl-list__item-sub-title">
+                                                    <span class="mdl-list__item-sub-title" id="profilePostalCode">
                                                         <?php
                                                             echo($userInfo->cap);
                                                         ?>
@@ -456,7 +471,7 @@ and open the template in the editor.
                                                     <span>
                                                         <?php echo(PROFILE_PROFILECARD_ADDRESS);?>
                                                     </span>
-                                                    <span class="mdl-list__item-sub-title">
+                                                    <span class="mdl-list__item-sub-title" id="profileAddress">
                                                         <?php
                                                             echo($userInfo->address);
                                                         ?>
@@ -965,139 +980,7 @@ and open the template in the editor.
 	    </div>
 	</div>
 		    
-		    
-	<!-- MODAL PRECENDENTE-->	    
-<!--        <div id="add-interest-modal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
 
-                 Modal content
-                <div class="modal-content">
-                    <div class="add-interest-dialog mdl-card">
-                            <div class="mdl-card__title">
-                                <h6 class="mdl-card__title-text">Add interest</h6>
-                                <div class="mdl-layout-spacer"></div>
-                                
-                                 menu 
-                                <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon">
-                                  <i class="material-icons">more_vert</i>
-                                </button>
-
-                                <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
-                                    <li class="mdl-menu__item selected" data-list-id="sports" onclick="changeInterestList(this)">Sports</li>
-                                    <li class="mdl-menu__item" data-list-id="programs" onclick="changeInterestList(this)">Program TV</li>
-                                    <li class="mdl-menu__item" data-list-id="others" onclick="changeInterestList(this)">Others</li>
-                                </ul>
-                                
-                            </div>
-                            <div id="interest-list-container" class="mdl-card__supporting-text">
-                                <div id="sports" class="mdl-list">
-                                    <div data-interest="Baseball" class="mdl-list__item">
-                                        <span class="mdl-list__item-primary-content">
-                                            <span>Baseball</span>
-                                        </span>
-                                        <a class="mdl-list__item-secondary-action" onclick="addInterest(this)"><i class="material-icons">done</i></a>
-                                    </div>
-                                    <div class="mdl-list__item" data-interest="Basketball">
-                                        <span class="mdl-list__item-primary-content">
-                                            <span>Basketball</span>
-                                        </span>
-                                        <a class="mdl-list__item-secondary-action" onclick="addInterest(this)"><i class="material-icons">add_circle_outline</i></a>
-                                    </div>
-                                    <div class="mdl-list__item" data-interest="Football">
-                                        <span class="mdl-list__item-primary-content">
-                                            <span>Football</span>
-                                        </span>
-                                        <a class="mdl-list__item-secondary-action" onclick="addInterest(this)"><i class="material-icons">add_circle_outline</i></a>
-                                    </div>
-                                    <div class="mdl-list__item" data-interest="Swim">
-                                        <span class="mdl-list__item-primary-content">
-                                            <span>Swim</span>
-                                        </span>
-                                        <a class="mdl-list__item-secondary-action" onclick="addInterest(this)"><i class="material-icons">done</i></a>
-                                    </div>
-                                    <div class="mdl-list__item" data-interest="Tennis">
-                                        <span class="mdl-list__item-primary-content">
-                                            <span>Tennis</span>
-                                        </span>
-                                        <a class="mdl-list__item-secondary-action" onclick="addInterest(this)"><i class="material-icons">add_circle_outline</i></a>
-                                    </div>
-                                    <div class="mdl-list__item" data-interest="Volleyball">
-                                        <span class="mdl-list__item-primary-content">
-                                            <span>Volleyball</span>
-                                        </span>
-                                        <a class="mdl-list__item-secondary-action" onclick="addInterest(this)"><i class="material-icons">add_circle_outline</i></a>
-                                    </div>
-                                    
-                                </div>
-                                
-                                <div id="programs" class="mdl-list hidden">
-                                    <div class="mdl-list__item" data-interest="Documentary">
-                                        <span class="mdl-list__item-primary-content">
-                                            <span>Documentary</span>
-                                        </span>
-                                        <a class="mdl-list__item-secondary-action" onclick="addInterest(this)"><i class="material-icons">done</i></a>
-                                    </div>
-                                    <div class="mdl-list__item" data-interest="TV news">
-                                        <span class="mdl-list__item-primary-content">
-                                            <span>TV news</span>
-                                        </span>
-                                        <a class="mdl-list__item-secondary-action" onclick="addInterest(this)"><i class="material-icons">add_circle_outline</i></a>
-                                    </div>
-                                    <div class="mdl-list__item" data-interest="Talk show">
-                                        <span class="mdl-list__item-primary-content">
-                                            <span>Talk show</span>
-                                        </span>
-                                        <a class="mdl-list__item-secondary-action" onclick="addInterest(this)"><i class="material-icons">add_circle_outline</i></a>
-                                    </div>
-                                </div>
-                                
-                                <div id="others" class="mdl-list hidden">
-                                    <div class="mdl-list__item" data-interest="Cinema">
-                                        <span class="mdl-list__item-primary-content">
-                                            <span>Cinema</span>
-                                        </span>
-                                        <a class="mdl-list__item-secondary-action" onclick="addInterest(this)"><i class="material-icons">add_circle_outline</i></a>
-                                    </div>
-                                    <div class="mdl-list__item" data-interest="Cooking">
-                                        <span class="mdl-list__item-primary-content">
-                                            <span>Cooking</span>
-                                        </span>
-                                        <a class="mdl-list__item-secondary-action" onclick="addInterest(this)"><i class="material-icons">done</i></a>
-                                    </div>
-                                    <div class="mdl-list__item" data-interest="Monuments">
-                                        <span class="mdl-list__item-primary-content">
-                                            <span>Monuments</span>
-                                        </span>
-                                        <a class="mdl-list__item-secondary-action" onclick="addInterest(this)"><i class="material-icons">add_circle_outline</i></a>
-                                    </div>
-                                    <div class="mdl-list__item" data-interest="Museums">
-                                        <span class="mdl-list__item-primary-content">
-                                            <span>Museums</span>
-                                        </span>
-                                        <a class="mdl-list__item-secondary-action" onclick="addInterest(this)"><i class="material-icons">add_circle_outline</i></a>
-                                    </div>
-                                    <div class="mdl-list__item" data-interest="Theater">
-                                        <span class="mdl-list__item-primary-content">
-                                            <span>Theater</span>
-                                        </span>
-                                        <a class="mdl-list__item-secondary-action" onclick="addInterest(this)"><i class="material-icons">add_circle_outline</i></a>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                            <div class="mdl-card__actions mdl-card--border">
-                                <div class="mdl-layout-spacer"></div>
-                                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect right-button" data-dismiss="modal">
-                                Ok
-                                </a> 
-
-                            </div>
-                        </div>
-                    
-                </div>
-
-            </div>
-        </div>-->
 
         
         <button id="add-interest" class="mdl-button mdl-shadow--4dp mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored hide-desktop_tablet floating-button floating-hide" data-toggle="modal" data-target="#add-interest-modal">
