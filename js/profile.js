@@ -21,17 +21,34 @@ window.onload = init;
         //internationalization
         var userLang = getUserLanguage(); 
         console.log(userLang);
-
+        
+        switch(userLang)
+    {
+        case 'en':
+            GenderMale= 'Male'
+            GenderFemale = 'Female'
+        break;
+                
+        case 'de':
+            GenderMale= 'Mann'
+            GenderFemale = 'Frau'
+        break;
        
-        //init snackbar
-        snackbar= document.getElementById("snackbar-log");
-
-
+        case 'no':
+            GenderMale= 'Mann'
+            GenderFemale = 'Hunn'
+        break;
+                
+        default:
+            GenderMale= 'Male'
+            GenderFemale = 'Female'
+        break;
+        }
 
         //velocity animation
         $('.mdl-card').velocity('transition.slideUpBigIn', {stagger: 250, display: 'flex'});
 
-    };
+    }
 
     function writelog(message)
     {
@@ -82,7 +99,10 @@ window.onload = init;
             $("#profileName").html(response.name);
             $("#profileSurname").html(response.surname);
             $("#profileBirthDate").html(response.birth_date);
-            $("#profileGender").html(response.gender);
+            if(response.gender == 'Male')
+                $("#profileGender").html(GenderMale);
+                    else
+                        $("#profileGender").html(GenderFemale);  
             $("#profileState").html(response.state);
             $("#profileCity").html(response.city);
             $("#profilePostalCode").html(response.postal_code);

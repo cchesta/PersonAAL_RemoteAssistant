@@ -86,6 +86,10 @@ and open the template in the editor.
         <!-- VELOCITY -->
         <script src="js/plugins/velocity/velocity.min.js"></script>
         <script src="js/plugins/velocity/velocity.ui.min.js"></script>
+        
+        
+        <!-- javascript functions for DB (ajax requests)-->
+        <script src="js/DBinterface.js"></script>
 
         <!-- ADAPTATION SCRIPTS -->
         <script src="./js/plugins/adaptation/sockjs-1.1.1.js"></script>
@@ -96,17 +100,10 @@ and open the template in the editor.
         <script src="./js/profile.js"></script>
 
         <script>
-	    var shoppingMenuReduced;
+
             var prevShoppingListID;
             var prevClickedElement;
-            var name;
-            var surname;
-            var birth_date;
-            var gender;
-            var state;
-            var city;
-            var postal_code;
-            var address;
+
 	    
             $(document).ready(function() {
 		shoppingMenuReduced= false;
@@ -131,10 +128,10 @@ and open the template in the editor.
                 //VELOCITY ANIMATIONS
                 $('.patient-info-card, .interest-list-card').velocity('transition.slideUpBigIn', {stagger: 250, display: 'flex'});
         
-                userInfo= new UserData($_SESSION['personAAL_user']);
+               // userInfo= new UserData($_SESSION['personAAL_user']);
               
                 
-                sendProfileToContext($userInfo->name,$userInfo->surname,$userInfo->birthDate,$userInfo->gender,$userInfo->state,$userInfo->city,$userInfo->postal_code,$userInfo->address);
+                getProfileFromContextManager();
                 
                 
             });
@@ -302,11 +299,9 @@ and open the template in the editor.
         </script>
         
     </head>
-    <body>
-
-        
-        
-        <!-- The drawer is always open in large screens. The header is always shown, even in small screens. -->
+<body>
+    
+            <!-- The drawer is always open in large screens. The header is always shown, even in small screens. -->
         <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer">
             <header class="mdl-layout__header">
                 <div class="mdl-layout__header-row">
@@ -316,13 +311,12 @@ and open the template in the editor.
                         <i class="material-icons">home</i>
                     </button>
                 </div>
-		
-		<div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+                	<div class="mdl-layout__tab-bar mdl-js-ripple-effect">
 		    <a href="#patient-info" class="mdl-layout__tab is-active" onclick="disableAddButton()"><?php echo(PROFILE_PROFILECARD_TITLE);?></a>
 		    <a href="#patient-interest" class="mdl-layout__tab" onclick="enableAddButton()"><?php echo(PROFILE_INTERESTS_TITLE);?></a>
 		</div>
-		
             </header>
+            
             <div class="mdl-layout__drawer">
                 <span class="mdl-layout-title"><?php echo(MENU_TITLE);?></span>
                 <nav class="mdl-navigation">
@@ -337,6 +331,7 @@ and open the template in the editor.
                     <a class="mdl-navigation__link" href="login.php?notify=LOGOUT"><i class="material-icons">power_settings_new</i><?php echo(ENTRY_LOGOUT);?></a>
                 </nav>
             </div>
+    
             <main class="mdl-layout__content">
 		
                 
@@ -350,10 +345,10 @@ and open the template in the editor.
                             <?php
                             
                                 //retreive user information
-                                $userInfo= new UserData($_SESSION['personAAL_user']);
+                                //$userInfo= new UserData($_SESSION['personAAL_user']);
                             
                             ?>
-                            <div class="patient-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-phone mdl-cell--4-col-tablet no-stretch">
+                            <div class="patient-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet no-stretch">
                                 <div class="mdl-card__title hide-phone">
                                     <h6 class="mdl-card__title-text">
                                         <?php echo(PROFILE_PROFILECARD_TITLE);?>
@@ -382,9 +377,7 @@ and open the template in the editor.
                                                         <?php echo(PROFILE_PROFILECARD_SURNAME);?>
                                                     </span>
                                                     <span class="mdl-list__item-sub-title" id="profileSurname">
-                                                        <?php
-                                                            echo($userInfo->surname);
-                                                        ?>
+                                                        
                                                     </span>
                                                 </span>
                                             </li>
@@ -396,26 +389,20 @@ and open the template in the editor.
                                                         <?php echo(PROFILE_PROFILECARD_BIRTHDATE);?>
                                                     </span>
                                                     <span class="mdl-list__item-sub-title" id="profileBirthDate">
-                                                        <?php
-                                                            echo($userInfo->birthDate);
-                                                        ?>
+                                                        
                                                     </span>
                                                 </span>
                                             </li>
                                             <li class="mdl-list__item mdl-list__item--two-line">
                                                 <span class="mdl-list__item-primary-content">
                                                     <span>
+                                                        <span>
                                                         <?php echo(PROFILE_PROFILECARD_GENDER);?>
+                                                    </span>
                                                     </span>
                                                     <span class="mdl-list__item-sub-title" id="profileGender">
                                                         <?php
-                                                        
-                                                        if($userInfo->gender == "male")
-                                                            echo(PROFILE_PROFILECARD_GENDER_MALE);
-                                                        else if($userInfo->gender == "female")
-                                                            echo(PROFILE_PROFILECARD_GENDER_FEMALE);
-                                                            
-                                                        //echo($userInfo->gender);
+                                         
                                                         ?>
                                                     </span>
                                                 </span>
@@ -434,21 +421,17 @@ and open the template in the editor.
                                                         <?php echo(PROFILE_PROFILECARD_STATE);?>
                                                     </span>
                                                     <span class="mdl-list__item-sub-title" id="profileState">
-                                                        <?php
-                                                            echo($userInfo->state);
-                                                        ?>
+                                                        
                                                     </span>
                                                 </span>
                                             </li>
                                             <li class="mdl-list__item mdl-list__item--two-line">
-                                                <span class="mdl-list__item-primary-content" id="profileCity">
+                                                <span class="mdl-list__item-primary-content">
                                                     <span>
                                                         <?php echo(PROFILE_PROFILECARD_CITY);?>
                                                     </span>
-                                                    <span class="mdl-list__item-sub-title">
-                                                        <?php
-                                                            echo($userInfo->city);
-                                                        ?>
+                                                    <span class="mdl-list__item-sub-title" id="profileCity">
+                                                        
                                                     </span>
                                                 </span>
                                             </li>
@@ -460,9 +443,7 @@ and open the template in the editor.
                                                         <?php echo(PROFILE_PROFILECARD_POSTALCODE);?>
                                                     </span>
                                                     <span class="mdl-list__item-sub-title" id="profilePostalCode">
-                                                        <?php
-                                                            echo($userInfo->cap);
-                                                        ?>
+                                                        
                                                     </span>
                                                 </span>
                                             </li>
@@ -484,86 +465,7 @@ and open the template in the editor.
                                 </div>
 
                             </div>
-                            
-<!--                            <div class="patient-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-phone mdl-cell--4-col-tablet no-stretch">
-                                <div class="mdl-card__title hide-phone">
-                                    <h6 class="mdl-card__title-text">My Info</h6>
-                                </div>
-                                <div class="mdl-card__supporting-text mdl-card--expand">
-                                    
-                                    <div class="info-container">
-                                        <div class="icon-textfield">
-                                            <i class="material-icons">person</i>
-                                        </div>
-                                        <div class="textfields-container">
-                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label icon-textfield">
-                                                <input class="mdl-textfield__input" type="text" id="name">
-                                                <label class="mdl-textfield__label" for="name">Name</label>
-                                            </div>
-                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label icon-tab-textfield">
-                                                <input class="mdl-textfield__input" type="text" id="surname">
-                                                <label class="mdl-textfield__label" for="surname">Surname</label>
-                                            </div>
-                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label icon-tab-textfield">
-                                                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="age">
-                                                <label class="mdl-textfield__label" for="age">Age</label>
-                                                <span class="mdl-textfield__error">Input is not a number!</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="card-choice-group">
-                                        <div class="card-group-label">Gender</div>
-                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect first-radio-two" for="gender-option-1">
-                                            <input type="radio" id="gender-option-1" class="mdl-radio__button" name="gender-options" value="1" checked>
-                                            <span class="mdl-radio__label">male</span>
-                                        </label>
-                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="gender-option-2">
-                                            <input type="radio" id="gender-option-2" class="mdl-radio__button" name="gender-options" value="2">
-                                            <span class="mdl-radio__label">female</span>
-                                        </label>
-                                    </div>
-
-                                    <div class="card-choice-group">
-                                        <div class="card-group-label">Education</div>
-                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect first-radio-three" for="education-option-1">
-                                            <input type="radio" id="education-option-1" class="mdl-radio__button" name="education-options" value="1" checked>
-                                            <span class="mdl-radio__label" >primary</span>
-                                        </label>
-                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="education-option-2">
-                                            <input type="radio" id="education-option-2" class="mdl-radio__button" name="education-options" value="2">
-                                            <span class="mdl-radio__label">secondary</span>
-                                        </label>
-                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="education-option-3">
-                                            <input type="radio" id="education-option-3" class="mdl-radio__button" name="education-options" value="3">
-                                            <span class="mdl-radio__label">degree</span>
-                                        </label>
-                                    </div>
-
-                                    <div class="info-container">
-                                        <div class="icon-textfield">
-                                            <i class="material-icons">home</i>
-                                        </div>
-                                        <div class="textfields-container">
-                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label icon-textfield">
-                                                <input class="mdl-textfield__input" type="text" id="address">
-                                                <label class="mdl-textfield__label" for="address">Address</label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="mdl-card__actions mdl-card--border">
-                                    <div class="mdl-layout-spacer"></div>
-                                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect right-button">
-                                    Ok
-                                    </a>
-
-                                </div>
-
-                            </div>-->
-
-                            <div class="interest-list-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-phone mdl-cell--4-col-tablet no-stretch hide-phone _delete-phone_">
+              <div class="interest-list-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet no-stretch hide-phone _delete-phone_">
                                 <div class="mdl-card__title">
                                     <h6 class="mdl-card__title-text">
                                         <?php echo(PROFILE_INTERESTS_TITLE);?>
@@ -615,8 +517,7 @@ and open the template in the editor.
 			
 		    </div>
 		</section>
-		
-		<section class="mdl-layout__tab-panel hide-desktop_tablet" id="patient-interest">
+         <section class="mdl-layout__tab-panel hide-desktop_tablet" id="patient-interest">
 		    <div class="page-content mdl-grid">
 			
 			<div class="interest-list-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col-phone no-stretch">
@@ -672,129 +573,10 @@ and open the template in the editor.
 		    </div>
 		</section>
 		
-                 
-                 
-                 
-                
-                <!-- DESKTOP LAYOUT -->
-<!--                <div class="page-content hide-phone">
-                 Your content goes here 
-		    <div class="mdl-grid">
-
-			<div class="patient-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--6-col no-stretch">
-			    <div class="mdl-card__title">
-				<h6 class="mdl-card__title-text">Patient Info</h6>
-			    </div>
-			    <div class="mdl-card__supporting-text mdl-card--expand">
-				<form action="#">
-				    <i class="material-icons">person</i>
-				    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label icon-textfield">
-					<input class="mdl-textfield__input" type="text" id="name">
-					<label class="mdl-textfield__label" for="sample3">Name</label>
-				    </div>
-				    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label icon-tab-textfield">
-					<input class="mdl-textfield__input" type="text" id="surname">
-					<label class="mdl-textfield__label" for="sample3">Surname</label>
-				    </div>
-				    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label icon-tab-textfield">
-					<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="age">
-					<label class="mdl-textfield__label" for="sample4">Age</label>
-					<span class="mdl-textfield__error">Input is not a number!</span>
-				    </div>
-
-                                    <div class="card-choice-group">
-                                        <div class="card-group-label">Gender</div>
-                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect first-radio-two" for="gender-option-1">
-                                            <input type="radio" id="gender-option-1" class="mdl-radio__button" name="gender-options" value="1" checked>
-                                            <span class="mdl-radio__label">male</span>
-                                        </label>
-                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="gender-option-2">
-                                            <input type="radio" id="gender-option-2" class="mdl-radio__button" name="gender-options" value="2">
-                                            <span class="mdl-radio__label">female</span>
-                                        </label>
-                                    </div>
-                                    <div class="card-choice-group">
-                                        <div class="card-group-label">Education</div>
-                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect first-radio-three" for="education-option-1">
-                                            <input type="radio" id="education-option-1" class="mdl-radio__button" name="education-options" value="1" checked>
-                                            <span class="mdl-radio__label three" >primary</span>
-                                        </label>
-                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="education-option-2">
-                                            <input type="radio" id="education-option-2" class="mdl-radio__button" name="education-options" value="2">
-                                            <span class="mdl-radio__label three">secondary</span>
-                                        </label>
-                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="education-option-3">
-                                            <input type="radio" id="education-option-3" class="mdl-radio__button" name="education-options" value="3">
-                                            <span class="mdl-radio__label three">degree</span>
-                                        </label>
-                                    </div>
-
-				    <i class="material-icons">home</i>
-				    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label icon-textfield">
-					<input class="mdl-textfield__input" type="text" id="address">
-					<label class="mdl-textfield__label" for="sample3">Address</label>
-				    </div>
-				</form>
-
-			    </div>
-			    <div class="mdl-card__actions mdl-card--border">
-				<div class="mdl-layout-spacer"></div>
-				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect right-button">
-				Ok
-				</a>
-
-			    </div>
-
-			</div>
-
-			<div class="interest-list-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--6-col no-stretch">
-			    <div class="mdl-card__title">
-				<h6 class="mdl-card__title-text">Interests</h6>
-				<div class="mdl-layout-spacer"></div>
-				<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" data-toggle="modal" data-target="#add-interest-modal">
-				    <i class="material-icons">add</i>
-				</button>
-			    </div>
-			    <div class="mdl-card__supporting-text mdl-card--expand">
-				<div id="interestList" class="mdl-list">
-				    <div data-interest="Baseball" class="mdl-list__item">
-					<span class="mdl-list__item-primary-content">
-					    <span>Baseball</span>
-					</span>
-					<a class="mdl-list__item-secondary-action" onclick="removeInterest(this)"><i class="material-icons">cancel</i></a>
-				    </div>
-				    <div data-interest="Swim" class="mdl-list__item">
-					<span class="mdl-list__item-primary-content">
-					    <span>Swim</span>
-					</span>
-					<a class="mdl-list__item-secondary-action" onclick="removeInterest(this)"><i class="material-icons">cancel</i></a>
-				    </div>
-				    <div data-interest="Documentary" class="mdl-list__item">
-					<span class="mdl-list__item-primary-content">
-					    <span>Documentary</span>
-					</span>
-					<a class="mdl-list__item-secondary-action" onclick="removeInterest(this)"><i class="material-icons">cancel</i></a>
-				    </div>
-				    <div data-interest="Cooking" class="mdl-list__item">
-					<span class="mdl-list__item-primary-content">
-					    <span>Cooking</span>
-					</span>
-					<a class="mdl-list__item-secondary-action" onclick="removeInterest(this)"><i class="material-icons">cancel</i></a>
-				    </div>
-				</div>
-			    </div>
-			</div>
-			 end grid 
-		    </div>
-                 
-		 end scrollabel page content
-                </div>-->
-
-
-            </main>
+                  </main>
         </div>   
-
-        <!-- MODALS -->
+    
+     <!-- MODALS -->
 	<div id="add-interest-modal" class="modal fade" role="dialog">
             <div class="modal-dialog">
 
@@ -980,10 +762,7 @@ and open the template in the editor.
 	    </div>
 	</div>
 		    
-
-
-        
-        <button id="add-interest" class="mdl-button mdl-shadow--4dp mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored hide-desktop_tablet floating-button floating-hide" data-toggle="modal" data-target="#add-interest-modal">
+     <button id="add-interest" class="mdl-button mdl-shadow--4dp mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored hide-desktop_tablet floating-button floating-hide" data-toggle="modal" data-target="#add-interest-modal">
             <i class="material-icons">add</i>
         </button>
         
@@ -1012,8 +791,8 @@ and open the template in the editor.
 
             </div>
         </div>
-        
+            
+                            
     </body>
-  
 
 </html>
