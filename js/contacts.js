@@ -50,7 +50,8 @@ function getContactsFromContextManager(callback) {
         type: "GET",
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
         },
         url: contextUrl + "cm/rest/user/" + userName + "/contact_list/",
         dataType: 'json',
