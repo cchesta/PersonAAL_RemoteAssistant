@@ -89,7 +89,7 @@ and open the template in the editor.
         
         <!-- PLOT & WEBSOCKET -->
         <script src="js/plugins/flot/jquery.flot.js"></script>
-	<script src="js/plugins/flot/jquery.flot.time.js"></script>
+	    <script src="js/plugins/flot/jquery.flot.time.js"></script>
         <script src="js/plugins/flot/jquery.flot.resize.min.js"></script>
         <script src="js/plugins/flot/jquery.flot.axislabels.js"></script>
         <script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
@@ -109,7 +109,7 @@ and open the template in the editor.
         <script src="./js/plugins/adaptation/websocket-connection.js"></script>		
         <script src="./js/plugins/adaptation/adaptation-script.js"></script>		
         <script src="./js/plugins/adaptation/delegate.js"></script>
-        <script src="./js/plugins/adaptation/context-data.js"></script> 
+
      
         
     </head>
@@ -208,12 +208,14 @@ and open the template in the editor.
                                 </div>
                                 <div id="ecg_hr" class="mdl-card__actions mdl-card--border"></div>
                             </div>
+                            <!--
                             <div   class="breath-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
                                 <div class="mdl-card__title">
                                     <h2 class="mdl-card__title-text"><?php echo(BREATH_CARD_TITLE);?></h2>
                                 </div>
                                 <div id="respiration_rate" class="mdl-card__actions mdl-card--border"></div>
                             </div>
+                            -->
                             <div   class="temperature-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
                                 <div class="mdl-card__title">
                                     <h2 class="mdl-card__title-text"><?php echo(TEMPERATURE_CARD_TITLE);?></h2>
@@ -228,6 +230,7 @@ and open the template in the editor.
                                     <?php echo($bmi);?>
                                 </div>
                             </div>
+                            <!--
                         <div  class="weight-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
                                 <div class="mdl-card__title">
                                     <h2 class="mdl-card__title-text"><?php echo(WEIGHT_CARD_TITLE);?></h2>
@@ -238,8 +241,7 @@ and open the template in the editor.
                             </div>
                             
                             </div>
-                        
-                        <!--
+                      
                         <div class="find-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet no-stretch">
                             <div class="mdl-card__title">
                                 <div class="mdl-card__title-text">
@@ -263,16 +265,7 @@ and open the template in the editor.
             </main>
         </div>   
 
-        <button id="play" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent floating-button" onclick="BITstart()">
-            <?php echo(HEALTH_DATABUTTON_START);?>
-            <i class="material-icons">play_arrow</i>
-        </button>
-        
-        <button id="stop" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent floating-button" onclick="BITstop()">
-            <?php echo(HEALTH_DATABUTTON_STOP);?>
-            <i class="material-icons">stop</i>
-        </button>
-        
+
         <div id="snackbar-log" class="mdl-js-snackbar mdl-snackbar">
             <div class="mdl-snackbar__text"></div>
             <button class="mdl-snackbar__action" type="button"></button>

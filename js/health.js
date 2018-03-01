@@ -35,9 +35,6 @@ var ch5PlotData= [];
 var log;
 var startPressed;
 
-//floating buttons
-var playButton;
-var stopButton;
 
 //snackbar for messages
 var snackbar;
@@ -49,71 +46,58 @@ var weightDateMsg;
 //real time plot tables
 var realTimePlot;
 
+var breathMsg;
+
+
+var contextUrl = "https://giove.isti.cnr.it:8443/";
+//var userName = "cchesta";
+var userName = "john";
+var appName  = "personAAL";
+
 window.onload = init;
 
     function init() {
 
-        //internationalization
+        setInterval(getECG_HR, 5000); 
+        setInterval(getRespirationRate, 5000); 
+        setInterval(getBodyTemperature, 5000); 
+        setInterval(getTime, 60000);
+
+        
+        
+                //internationalization
         var userLang = getUserLanguage(); 
         console.log(userLang);
         
         switch(userLang)
-        {
-            case 'en':
-                startMsg= 'Connecting to BITalino...';
-                stopMsg= 'Disconnected from BITalino.';
-                errorMsg= 'Error: check BITalino connection';
-                weightDateMsg= 'Date';
-                break;
+    {
+        case 'en':
+            breathMsg= ' breaths/minute'
+        break;
                 
-            case 'de':
-                startMsg= 'Verbindung zu BITalino…';
-                stopMsg= 'Getrennt von BITalino.';
-                errorMsg= 'Fehler: Bitte prüfen Sie Ihre Verbindung zu BITalino';
-                weightDateMsg= 'Datum';
-                break;
+        case 'de':
+            breathMsg= ' breaths/minute'
+        break;
+       
+        case 'no':
+            breathMsg= ' innpust/minuttet'
+        break;
                 
-            default:
-                startMsg= 'Connecting to BITalino...';
-                stopMsg= 'Disconnected from BITalino.';
-                errorMsg= 'Error: check BITalino connection';
-                weightDateMsg= 'Date';
-                break;
+        default:
+            breathMsg= ' breaths/minute'
+        break;
         }
         
+
         
-        startPressed= false;
-
-        //plot variables init
-        dataRequestInterval= 500;   // ms 
-        samplingRate= 1000;  //100Hz
-        nSamples= (dataRequestInterval/1000) * samplingRate;
-        MaxX= false;
-        Xcount= 0;
-        maxMemData= nSamples*10;
-        Xincr= (dataRequestInterval/nSamples)/1000;    //show x as seconds 
-        XmaxCount= Xincr*nSamples*3;
-
-        console.log("request data every: "+dataRequestInterval+" ms");
-        console.log("samplig rate: "+samplingRate+" Hz");
-        console.log("nSamples for each request: " +nSamples);
-        ////console.log("Max number of data: "+maxMemData);
-        console.log("X step: "+Xincr+" s");
-        console.log("X max: "+XmaxCount+ " s");
-
-        //init buttons
-        playButton= document.getElementById("play");
-        stopButton= document.getElementById("stop");
-
-
+        
         //init real time plots
         realTimePlot= document.getElementById("realTimePlot");
        
         //init snackbar
         snackbar= document.getElementById("snackbar-log");
 
-        stopButton.style.display = "none";
-        realTimePlot.style.display = "block";
+
 
         
         getWeightPlotData(drawWeightChart);
@@ -218,18 +202,7 @@ window.onload = init;
 
     }
     
-    function BITstart()
-    {
-        if(startPressed === true)
-            return;
-        
-        socket= new WebSocket("ws://localhost:8080/WebSocket/actions");
-        socket.onmessage = onMessage;
-        socket.onclose= onClose;
-        socket.onerror= onError;
-        
-        startPressedFunc();
-    }
+
     
     function drawWeightChart(data){
 	
@@ -634,66 +607,89 @@ function onError(event){
     snackbar.MaterialSnackbar.showSnackbar(data);
 }
 
-// Detect when the page is unloaded or close
-window.onbeforeunload = function() {
-    // Request ServerBIT to close the connection to BITalino
-    var response = {
-        action: "stop"
-        };
-        socket.send(JSON.stringify(response));
-
-    socket.onclose = function () {};
-    socket.close();
-    
-    stopPressed();
-    
-};
+var heartRate = "";
+var respirationRate = "";
+var bodyTemperature = "";
 
 
-
-function BITstop() {
-    var response = {
-        action: "stop"
-        };
-        socket.send(JSON.stringify(response));
-    
-    socket.close();
-    //writelog("Connection with BITalino closed.");
-    
+function getBodyTemperature() {	
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        url: contextUrl + "cm/rest/user/"+ userName + "/bodyTemperature/", 
+        dataType: 'json',
+        
+        success: function (response) {            
+            console.log("Context response Body Temperature", response);
+            $("#body_temperature").html(response.value + " °C");
+            $bodyTemperature=response.value;
+        },
+        error: function ()
+        {
+            console.log("Error while getting body temperature data");
+        }
+    });
 }
 
-function startPressedFunc()
-{
-    startPressed= true;
-    stopButton.style.display = "block";
-    stopButton.disabled= true;
-    playButton.style.display = "none";
-    realTimePlot.style.display = "block";
-    
-    //make stop button enabled after 2s
-    setTimeout(function() {stopButton.disabled= false;}, 15000);
-    
-    var data = {message: startMsg};
-    snackbar.MaterialSnackbar.showSnackbar(data);
+function getRespirationRate() {	
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        url: contextUrl + "cm/rest/user/" +userName + "/respirationRate/", 
+        dataType: 'json',
+        
+        success: function (response) {            
+            console.log("Context response Respiration Rate", response);
+            $("#respiration_rate").html(response.value + breathMsg);
+            $respirationRate=response.value;
+        },
+        error: function ()
+        {
+            console.log("Error while getting respiration rate data");
+        }
+    });
 }
 
-function stopPressed()
-{
-    startPressed= false;
-    stopButton.style.display = "none";
-    playButton.style.display = "block";
-    realTimePlot.style.display = "none";
-    
-    var data = {message: stopMsg};
-    snackbar.MaterialSnackbar.showSnackbar(data);
-    
-    //detach onclose function
-    socket.onclose = function () {};
+function getECG_HR() {	
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        url: contextUrl + "cm/rest/user/" + userName + "/heartRate/", 
+        dataType: 'json',
+        
+        success: function (response) {            
+            console.log("Context response Hearth Rate", response);
+            $("#ecg_hr").html(response.value + " bpm");
+            $heartRate=response.value;
+        },
+        error: function ()
+        {
+            console.log("Error while getting heart rate data");
+        }
+    });
 }
-
-
-
-
     
-    
+function getTime() {
+         var d = new Date();
+
+         function addZero(i) {
+             if (i < 10) {
+                 i = "0" + i;
+             }
+             return i;
+         }
+         var H = addZero(d.getHours()),
+             M = addZero(d.getMinutes());
+         sendTimeToContextManager(H + ':' + M);
+         //setTimeout(getTime, 1000);
+     }    
 
