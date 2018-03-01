@@ -108,12 +108,15 @@ define("MEDICATION_PLANNED_TIME", "Uhrzeit");
 
 //HEALTH PAGE
 define("HEALTH_ECGPLOT_TITLE", "EKG");
+define("HEALTH_HRPLOT_TITLE", "HERZFREQUENZ");
 define("HEALTH_WEIGHTPLOT_TITLE", "GEWICHT");
+define("HEALTH_BMIPLOT_TITLE", "BMI");
 define("HEALTH_SCOREPLOT_TITLE", "Wert"); 
 define("HEALTH_WEIGHTPLOT_DATE_HINT", "Datum");
 
 define("HEALTH_ACCPLOT_TITLE", "Beschleunigungsmessung");
-define("HEALTH_TEMPPLOT_TITLE", "Temperatur °C");
+define("HEALTH_TEMPPLOT_TITLE", "TEMPERATUR");
+define("HEALTH_BREATHPLOT_TITLE", "ATEMFREQUENZ");
 
 define("HEALTH_DATABUTTON_START", "Erfassung starten");
 define("HEALTH_DATABUTTON_STOP", "Erfassung beenden");
