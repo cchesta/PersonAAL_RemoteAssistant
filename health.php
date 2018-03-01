@@ -155,35 +155,21 @@ and open the template in the editor.
                                 </div>
                             </div>
                             <div class="mdl-card__supporting-text mdl-card--expand">
-                                <div id="plot-weight2" class="center"></div>
+                                <div id="plot-weight" class="center" style="width:100%;height:400px;"></div>
                             </div>
                         </div>
 
                         <div class="plot-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet grey no-stretch">
                             <div class="mdl-card__supporting-text mdl-card--expand">
-                                <div id="plot-ECG" class="center"></div>
+                                <div id="plot-HR" class="center" style="width:100%;height:400px;"></div>
                             </div>
                             <div class="mdl-card__actions mdl-card--border">
                                 <div class="plot-title">
-                                    <?php echo(HEALTH_ECGPLOT_TITLE);?>
+                                    <?php echo(HEALTH_HRPLOT_TITLE);?>
                                 </div>
                                 <div class="mdl-layout-spacer"></div>
                                 <div id="heart-rate-value" class="plot-info-value">- </div>
-                                <div id="heart-rate-unit" class="plot-info-measure-unit">mV</div>
-                            </div>
-                        </div>
-
-                        <div class="plot-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet grey no-stretch">
-                            <div class="mdl-card__supporting-text mdl-card--expand">
-                                <div id="plot-TEMP" class="center"></div>
-                            </div>
-                            <div class="mdl-card__actions mdl-card--border">
-                                <div class="plot-title">
-                                    <?php echo(HEALTH_TEMPPLOT_TITLE);?>
-                                </div>
-                                <div class="mdl-layout-spacer"></div>
-                                <div id="heart-rate-value" class="plot-info-value">- </div>
-                                <div id="heart-rate-unit" class="plot-info-measure-unit">ºC</div>
+                                <div id="heart-rate-unit" class="plot-info-measure-unit">bpm</div>
                             </div>
                         </div>
                         
@@ -199,27 +185,13 @@ and open the template in the editor.
                                 </div>
                             </div>
                             <div class="mdl-card__supporting-text mdl-card--expand">
-                                <div id="plot-bmi" class="center"></div>
+                                <div id="plot-bmi" class="center" style="width:100%;height:400px;"></div>
                             </div>
                         </div>
 
                         <div class="plot-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet grey no-stretch">
                             <div class="mdl-card__supporting-text mdl-card--expand">
-                                <div id="plot-HR" class="center"></div>
-                            </div>
-                            <div class="mdl-card__actions mdl-card--border">
-                                <div class="plot-title">
-                                    <?php echo(HEALTH_HRPLOT_TITLE);?>
-                                </div>
-                                <div class="mdl-layout-spacer"></div>
-                                <div id="heart-rate-value" class="plot-info-value">- </div>
-                                <div id="heart-rate-unit" class="plot-info-measure-unit">bpm</div>
-                            </div>
-                        </div>
-                        
-                        <div class="plot-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet grey no-stretch">
-                            <div class="mdl-card__supporting-text mdl-card--expand">
-                                <div id="plot-BREATH" class="center"></div>
+                                <div id="plot-BREATH" class="center" style="width:100%;height:400px;"></div>
                             </div>
                             <div class="mdl-card__actions mdl-card--border">
                                 <div class="plot-title">

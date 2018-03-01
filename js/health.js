@@ -56,15 +56,15 @@ var breathMsg;
 var contextUrl = "https://giove.isti.cnr.it:8443/";
 var userName = "john";
 var appName = "personAAL";
+var height = 1.85;
 
 window.onload = init;
 
 function init() {
 
-    setInterval(getECG_HR, 5000);
     setInterval(getRespirationRate, 5000);
-    setInterval(getBodyTemperature, 5000);
-    setInterval(getTime, 60000);
+    setInterval(getHeartRate, 5000);
+    //setInterval(getTime, 60000);
 
 
 
@@ -93,25 +93,11 @@ function init() {
 
 
 
-    //init real time plots
-    realTimePlot = document.getElementById("realTimePlot");
-
     //init snackbar
     snackbar = document.getElementById("snackbar-log");
 
+    getWeightData(drawWeightChart);
 
-
-
-    getWeightPlotData(drawWeightChart);
-    getFindPlotData(drawFindChart);
-
-
-    ch0PlotData.push([0, 0]);
-    ch1PlotData.push([0, 0]);
-    ch2PlotData.push([0, 0]);
-    ch3PlotData.push([0, 0]);
-    ch4PlotData.push([0, 0]);
-    ch5PlotData.push([0, 0]);
 
 
     var mVoptions = {
@@ -164,7 +150,7 @@ function init() {
                     }]
     };
 
-
+/*
     plot_ECG = $.plot($("#plot-ECG"), [{
             color: '#ffffff',
             //data: ch0PlotData,
@@ -212,7 +198,7 @@ function init() {
             horizontal: false
         }
         }], celsiusOptions);
-
+*/
 
     //velocity animation
     $('.mdl-card').velocity('transition.slideUpBigIn', {
@@ -224,28 +210,15 @@ function init() {
 
 
 
-function drawWeightChart(data) {
+function drawWeightChart() {
 
-    var weightPlotData = [];
+    data = [];
+    for (var i=0, l=weightArray.length; i<l; i++) {
+        data.push(new Array(new Date(weightArray[i].timestamp).getTime(), parseFloat(weightArray[i].weight)));
+    }
 
-    //        weightPlotData.push([(new Date(2017, 06, 14)).getTime(), 60]);
-    //        weightPlotData.push([(new Date(2017, 06, 21)).getTime(), 58]);
-    //        weightPlotData.push([(new Date(2017, 06, 28)).getTime(), 57]);
-    //        weightPlotData.push([(new Date(2017, 07, 05)).getTime(), 55]);
-    //        weightPlotData.push([(new Date(2017, 07, 12)).getTime(), 56]);
-    //        weightPlotData.push([(new Date(2017, 07, 19)).getTime(), 56]);
-    //        
-    //        data=weightPlotData;
-
-    console.log("manuali: " + weightPlotData);
-    console.log("dal DB: " + data);
-
-    //calculate min and max data
-    var maxDate = Math.max.apply(Math, data.map(function (o) {
-        return o[0]
-    }));
-    var minDate = maxDate - 1000 * 60 * 60 * 24 * 31 * 2; //two months before
-    console.log("max data: " + maxDate);
+    var maxDate = data[0][0];
+    var minDate = data[data.length-1][0];
 
     var options = {
         grid: {
@@ -259,8 +232,7 @@ function drawWeightChart(data) {
             mode: "time",
             min: minDate,
             max: maxDate,
-            timeformat: "%m-%Y",
-            tickSize: [1, "month"],
+            timeformat: "%d-%m-%Y",
             tickLength: 0, // hide gridlines
             font: {
                 size: 20
@@ -276,7 +248,7 @@ function drawWeightChart(data) {
             }],
         tooltip: {
             show: true,
-            content: weightDateMsg + ': %x | Kg: %y',
+            content: '%x | Kg: %y',
             xDateFormat: '%d-%m-%Y'
         },
         zoom: {
@@ -289,7 +261,7 @@ function drawWeightChart(data) {
 
 
 
-    weight_plot = $.plot($("#plot-weight2"), [{
+    weight_plot = $.plot($("#plot-weight"), [{
         data: data,
         color: 'rgba(255, 255, 255, 1)',
         points: {
@@ -305,31 +277,18 @@ function drawWeightChart(data) {
     var fontsize = parseInt($('.tickLabel').css('font-size'));
     $('.tickLabel').css('font-size', (fontsize + 5) + 'px');
 
+    getHeightData(drawBMIChart);
 }
 
+function drawBMIChart() {
 
-function drawFindChart(data) {
+    data = [];
+    for (var i=0, l=weightArray.length; i<l; i++) {
+        data.push(new Array(new Date(weightArray[i].timestamp).getTime(), parseFloat(weightArray[i].weight)/(height*height)));
+    }
 
-    var findPlotData = [];
-
-    //        findPlotData.push([(new Date(2017, 06, 14)).getTime(), 1]);
-    //        findPlotData.push([(new Date(2017, 06, 21)).getTime(), 2]);
-    //        findPlotData.push([(new Date(2017, 06, 28)).getTime(), 3]);
-    //        findPlotData.push([(new Date(2017, 07, 05)).getTime(), 5]);
-    //        findPlotData.push([(new Date(2017, 07, 12)).getTime(), 4]);
-    //        findPlotData.push([(new Date(2017, 07, 19)).getTime(), 3]);
-    //
-    //        data = findPlotData;
-
-    console.log("manuali: " + findPlotData);
-    console.log("dal DB: " + data);
-
-    //calculate min and max data
-    var maxDate = Math.max.apply(Math, data.map(function (o) {
-        return o[0]
-    }));
-    var minDate = maxDate - 1000 * 60 * 60 * 24 * 31 * 2; //two months before
-    console.log("max data: " + maxDate);
+    var maxDate = data[0][0];
+    var minDate = data[data.length-1][0];
 
     var options = {
         grid: {
@@ -343,24 +302,19 @@ function drawFindChart(data) {
             mode: "time",
             min: minDate,
             max: maxDate,
-            timeformat: "%m-%Y",
-            tickSize: [1, "month"],
-            tickLength: 0, // hide gridlines
-            font: {
-                size: 20
-            }
+            timeformat: "%d-%m-%Y",
+            tickLength: 0 // hide gridlines
         },
         axisLabels: {
             show: true
         },
         yaxes: [{
             position: 'left',
-            axisLabel: 'Score'
-
-            }],
+            axisLabel: 'Kg/m2'
+        }],
         tooltip: {
             show: true,
-            content: weightDateMsg + ': %x | score: %y',
+            content: '%x | BMI: %y',
             xDateFormat: '%d-%m-%Y'
         },
         zoom: {
@@ -372,7 +326,8 @@ function drawFindChart(data) {
     };
 
 
-    find_plot = $.plot($("#plot-find"), [{
+
+    bmi_plot = $.plot($("#plot-bmi"), [{
         data: data,
         color: 'rgba(255, 255, 255, 1)',
         points: {
@@ -387,7 +342,57 @@ function drawFindChart(data) {
     //fix for label font size
     var fontsize = parseInt($('.tickLabel').css('font-size'));
     $('.tickLabel').css('font-size', (fontsize + 5) + 'px');
+}
 
+var rrData = [];
+
+function drawRRChart() {
+    rrData.push(new Array(new Date().getTime(), parseFloat(respirationRate)));
+
+    var minDate = rrData[0][0];
+    var maxDate = rrData[rrData.length-1][0];
+
+    var options = {
+        grid: {
+            color: '#f2f2f2',
+            labelBoxBorderColor: '#f2f2f2',
+            borderColor: '#f2f2f2',
+            borderWidth: 0,
+            hoverable: true
+        },
+        xaxis: {
+            mode: "time",
+            min: minDate,
+            max: maxDate,
+            timeformat: "%H:%M:%S",
+            tickLength: 0 // hide gridlines
+        },
+        axisLabels: {
+            show: true
+        },
+        zoom: {
+            interactive: true
+        },
+        pan: {
+            interactive: true
+        }
+    };
+
+    rr_plot = $.plot($("#plot-BREATH"), [{
+        data: rrData,
+        color: 'rgba(255, 255, 255, 1)',
+        points: {
+            show: true
+        },
+        lines: {
+            show: true
+        }
+        }], options);
+    
+    //TODO check if is possibile to change label font size via flot (font attribute does not work)
+    //fix for label font size
+    var fontsize = parseInt($('.tickLabel').css('font-size'));
+    $('.tickLabel').css('font-size', (fontsize + 5) + 'px');
 }
 
 function writelog(message) {
@@ -405,240 +410,8 @@ function requestData(n) {
 
 }
 
-function onMessage(event) {
-
-
-    var message = JSON.parse(event.data);
-
-
-    if (message.action === "connect") {
-        //connected to the server
-        //writelog("Connected to the server");
-
-        //send message to perform connection between server and BITalino
-        var response = {
-            action: "BITalino",
-            samplingRate: '' + samplingRate,
-            channels: [0, 1, 2, 3, 4, 5]
-        };
-        socket.send(JSON.stringify(response));
-
-        //writelog(">> "+ JSON.stringify(response));
-
-        return;
-    }
-
-    if (message.action === "disconnect") {
-        //writelog(">> "+ message.message);
-
-        stopPressed();
-
-        return;
-    }
-
-    if (message.action === "ready") {
-        //writelog("<< "+ message.message);
-
-        //request data from sensors, read 10 samples
-        requestData(nSamples);
-
-        return;
-    }
-
-    if (message.action === "info") {
-        //writelog("<< INFO: "+message.message);
-
-        return;
-    }
-
-    if (message.action === "heartRate") {
-        console.log("heart rate: " + message.heartRate);
-
-        //refresh hear rate
-        document.getElementById("heart-rate-value").textContent = message.heartRate;
-
-        return;
-    }
-
-
-    if (message.action === "data") {
-        var ch0DataY = message.ch0.toString().split(","); //ECG
-        var ch1DataY = message.ch1.toString().split(","); //X_AXIS
-        var ch2DataY = message.ch2.toString().split(","); //Y_AXIS
-        var ch3DataY = message.ch3.toString().split(","); //Z_AXIS
-        var ch4DataY = message.ch4.toString().split(","); //TEMP
-
-
-        for (var x = 0; x < ch0DataY.length; x++) {
-            //initial x max passed
-            if (Xcount > XmaxCount) {
-                if (MaxX === false) {
-
-                    plot_ECG = $.plot($("#plot-ECG"), [{
-                        color: '#ffffff',
-                        data: ch0PlotData,
-                        bars: {
-                            show: false,
-                            horizontal: false
-                        }
-                    }], {
-                        grid: {
-                            color: '#f2f2f2',
-                            labelBoxBorderColor: '#f2f2f2',
-                            borderColor: '#f2f2f2',
-                            borderWidth: 0
-                        },
-                        xaxis: {
-                            tickLength: 0
-                        }
-                    });
-
-                    plot_ACC = $.plot($("#plot-ACC"), [
-                        {
-                            color: '#ff0000',
-                            data: ch1PlotData,
-                            bars: {
-                                show: false,
-                                horizontal: false
-                            }
-                        },
-                        {
-                            color: '#00ff00',
-                            data: ch2PlotData,
-                            bars: {
-                                show: false,
-                                horizontal: false
-                            }
-                        },
-                        {
-                            color: '#0000ff',
-                            data: ch3PlotData,
-                            bars: {
-                                show: false,
-                                horizontal: false
-                            }
-                        }
-                    ], {
-                        grid: {
-                            color: '#f2f2f2',
-                            labelBoxBorderColor: '#f2f2f2',
-                            borderColor: '#f2f2f2',
-                            borderWidth: 0
-                        },
-                        xaxis: {
-                            tickLength: 0
-                        }
-                    });
-
-                    plot_TEMP = $.plot($("#plot-TEMP"), [{
-                        color: '#ffffff',
-                        data: ch4PlotData,
-                        bars: {
-                            show: false,
-                            horizontal: false
-                        }
-                    }], {
-                        grid: {
-                            color: '#f2f2f2',
-                            labelBoxBorderColor: '#f2f2f2',
-                            borderColor: '#f2f2f2',
-                            borderWidth: 0
-                        },
-                        xaxis: {
-                            tickLength: 0
-                        }
-                    });
-
-
-
-                }
-
-                ch0PlotData = ch0PlotData.slice(1);
-                ch1PlotData = ch1PlotData.slice(1);
-                ch2PlotData = ch2PlotData.slice(1);
-                ch3PlotData = ch3PlotData.slice(1);
-                ch4PlotData = ch4PlotData.slice(1);
-
-                MaxX = true;
-            }
-
-            ch0PlotData.push([Xcount, ch0DataY[x]]);
-            ch1PlotData.push([Xcount, ch1DataY[x]]);
-            ch2PlotData.push([Xcount, ch2DataY[x]]);
-            ch3PlotData.push([Xcount, ch3DataY[x]]);
-            ch4PlotData.push([Xcount, ch4DataY[x]]);
-
-            Xcount += Xincr;
-        }
-
-        console.log("number of samples: " + ch0PlotData.length);
-
-        plot_ECG.setData([{
-            color: '#ffffff',
-            data: ch0PlotData,
-            bars: {
-                show: false,
-                horizontal: false
-            }
-         }]);
-        plot_ECG.setupGrid();
-        plot_ECG.draw();
-
-        plot_ACC.setData([
-            {
-                color: '#ff0000',
-                data: ch1PlotData,
-                bars: {
-                    show: false,
-                    horizontal: false
-                }
-            },
-            {
-                color: '#00ff00',
-                data: ch2PlotData,
-                bars: {
-                    show: false,
-                    horizontal: false
-                }
-            },
-            {
-                color: '#0000ff',
-                data: ch3PlotData,
-                bars: {
-                    show: false,
-                    horizontal: false
-                }
-            }
-        ]);
-        plot_ACC.setupGrid();
-        plot_ACC.draw();
-
-        plot_TEMP.setData([{
-            color: '#ffffff',
-            data: ch4PlotData,
-            bars: {
-                show: false,
-                horizontal: false
-            }
-         }]);
-        plot_TEMP.setupGrid();
-        plot_TEMP.draw();
-
-        //this creates a request loop
-        setTimeout(requestData, dataRequestInterval, nSamples);
-
-        return;
-    }
-
-
-}
-
 function ECGconvert(x) {
     return ((x / 1024 - 0.5) * 3.3) / 1.1; //mV
-}
-
-function onClose(event) {
-    stopPressed();
 }
 
 function onError(event) {
@@ -653,10 +426,8 @@ function onError(event) {
 
 var heartRate = "";
 var respirationRate = "";
-var bodyTemperature = "";
 
-
-function getWeightData() {
+function getWeightData(callback) {
     $.ajax({
         type: "GET",
         headers: {
@@ -667,37 +438,37 @@ function getWeightData() {
         dataType: 'json',
 
         success: function (response) {
-            console.log("Context response weight", response);
-            //$("#body_temperature").html(response.value + " °C");
-            //$bodyTemperature = response.value;
+            weightArray = response.historyUserWeight;
+            callback();
         },
         error: function () {
-            console.log("Error while getting body temperature data");
+            console.log("Error while getting weigth data");
         }
     });
 }
 
-
-function getBodyTemperature() {
+function getHeightData(callback) {
     $.ajax({
         type: "GET",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userName + "/bodyTemperature/",
+        url: contextUrl + "cm/rest/user/" + userName + "/height/",
         dataType: 'json',
 
         success: function (response) {
-            console.log("Context response Body Temperature", response);
-            $("#body_temperature").html(response.value + " °C");
-            $bodyTemperature = response.value;
+            height = response.value;
+            callback();
         },
         error: function () {
-            console.log("Error while getting body temperature data");
+            console.log("Error while getting height data");
+            height = 1.85;
+            callback();
         }
     });
 }
+
 
 function getRespirationRate() {
     $.ajax({
@@ -711,8 +482,8 @@ function getRespirationRate() {
 
         success: function (response) {
             console.log("Context response Respiration Rate", response);
-            $("#respiration_rate").html(response.value + breathMsg);
-            $respirationRate = response.value;
+            respirationRate = response.value;
+            drawRRChart();
         },
         error: function () {
             console.log("Error while getting respiration rate data");
@@ -720,7 +491,7 @@ function getRespirationRate() {
     });
 }
 
-function getECG_HR() {
+function getHeartRate() {
     $.ajax({
         type: "GET",
         headers: {
@@ -731,9 +502,8 @@ function getECG_HR() {
         dataType: 'json',
 
         success: function (response) {
-            console.log("Context response Hearth Rate", response);
-            $("#ecg_hr").html(response.value + " bpm");
-            $heartRate = response.value;
+            console.log("Context response Heart Rate", response);
+            heartRate = response.value;
         },
         error: function () {
             console.log("Error while getting heart rate data");
