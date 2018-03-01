@@ -162,6 +162,16 @@ define("REMOVE_EVENT_BUTTON", "REMOVE EVENT");
 define("DONE_BUTTON", "DONE");
 define("UNDONE_BUTTON", "UNDONE");
 
+//NEW
+//invite a friend to join activity
+define("INVITE_FRIEND_BUTTON", "INVITE FRIEND");
+define("ACCEPT_INVITATION_BUTTON", "ACCEPT");
+define("DECLINE_INVITATION_BUTTON", "DECLINE");
+
+//set a start and end time for an activity in the plan
+define("START_TIME", "Start");
+define("END_TIME", "End");
+
 
 
 
@@ -280,6 +290,8 @@ define("PROFILE_ADDINTERESTS_OTHERS_5", "Theater");
 define("CONTACTS_CONTACTSCARD_TITLE", "Contacts");
 define("CONTACTS_CONTACTSCARD_HEADER_NAME", "Name");
 define("CONTACTS_CONTACTSCARD_HEADER_STATUS", "Status");
+define("CONTACTS_CONTACTSCARD_HEADER_EMAIL", "Email");
+define("CONTACTS_CONTACTSCARD_HEADER_PHONE", "Phone");
 define("CONTACTS_CONTACTSCARD_HEADER_ACTIONS", "Actions");
 define("REMOVE_BUTTON", "REMOVE");
 
@@ -289,18 +301,19 @@ define("CONTACTS_CONTACTSCARD_STATUS_BUSY", "Busy");
 
 define("CONTACTS_FORM_TITLE", "Add contact");
 define("CONTACTS_FORM_NAME", "Name");
+define("CONTACTS_FORM_EMAIL", "Email");
 define("CONTACTS_FORM_PHONE", "Phone Number");
+define("CONTACTS_FROM_RELATIONSHIP", "Relationship");
 define("ADD_BUTTON", "ADD");
 
+//types of relationships
+define("CONTACTS_FROM_RELATIONSHIP_CLOSE_FAMILY", "Close Family");
+define("CONTACTS_FROM_RELATIONSHIP_OTHER_FAMILY", "Other Family");
+define("CONTACTS_FROM_RELATIONSHIP_FRIEND", "Friend");
+define("CONTACTS_FROM_RELATIONSHIP_NEIGHBOUR", "Neighbour");
 
 
 
-//NEW
-//invite a friend to join activity
-define("INVITE_FRIEND_BUTTON", "INVITE FRIEND");
-
-define("ACCEPT_INVITATION_BUTTON", "ACCEPT");
-define("DECLINE_INVITATION_BUTTON", "DECLINE");
 
 
 //TODO inserire traduzioni per il testo del modal mostrato in caso di heart rate troppo alta

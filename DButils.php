@@ -1479,12 +1479,14 @@ class Contact{
     
     public $contactName;
     public $telephoneNumber;
+    public $contactRelationship;
     public $status;
     
-    public function Contact($contactName, $telNumber, $status)
+    public function Contact($contactName, $telNumber,$contactRelationship, $status)
     {
         $this->contactName = $contactName;
-        $this->telephoneNumber= $telNumber;
+        $this->telephoneNumber = $telNumber;
+        $this->contactRelationship = $contactRelationship;
         $this->status= $status;
     }
 }
@@ -1527,6 +1529,7 @@ class UserContacts{
                 $contact = new Contact(
                         $row['contactName'],
                         $row['telephoneNumber'],
+                        $row['contactRelationship'],
                         $row['status']
                         );
                 
@@ -1547,7 +1550,7 @@ class UserContacts{
         }
     }
     
-    public static function addContact($userID, $contactName, $phone)
+    public static function addContact($userID, $contactName, $phone, $contactRelationship)
     {
         // Create connection
         $conn = new mysqli(DB_SERVER_NAME, DB_USERNAME, DB_PASSWORD, DB_NAME);
@@ -1559,11 +1562,12 @@ class UserContacts{
             return false;
         } 
         
-        $sql = "INSERT INTO usercontacts (userID, contactName, telephoneNumber, status)"
+        $sql = "INSERT INTO usercontacts (userID, contactName, telephoneNumber,contactRelationship, status)"
                 . " VALUES "
                 . "('". $userID ."',"
                 . " '". $contactName ."',"
                 . " '". $phone ."',"
+                . " '". $contactRelationship ."',"
                 . " 'offline'"
             . ")";
         
