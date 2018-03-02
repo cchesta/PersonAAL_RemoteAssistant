@@ -51,7 +51,6 @@ var breathMsg;
 var contextUrl = "https://giove.isti.cnr.it:8443/";
 var userName = "john";
 var appName = "personAAL";
-var height = 1.85;
 
 var capture;
 window.onload = init;
@@ -273,6 +272,7 @@ function drawRRChart() {
             min: minDate,
             max: maxDate,
             timeformat: "%H:%M:%S",
+            ticks: 5,
             tickLength: 0 // hide gridlines
         },
         axisLabels: {
@@ -425,7 +425,6 @@ function getHeightData(callback) {
         },
         error: function () {
             console.log("Error while getting height data");
-            height = 1.85;
             callback();
         }
     });
