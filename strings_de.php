@@ -1,6 +1,19 @@
 <?php
 
 // LOGIN PAGE
+define("LOGIN_WELCOME", "Willkommen!");
+define("LOGIN_USERNAME_HINT", "Benutzername");
+define("LOGIN_PASSWORD_HINT", "Passwort");
+define("LOGIN_LOGIN_BUTTON", "Anmelden");
+define("LOGIN_REGISTRATION_TEXT", "Noch nicht registriert? Melden Sie sich hier an!");
+define("DISABLED_COOKIE_MESSAGE","Cookies ausgestellt.");
+define("SESSION_EXPIRED_MESSAGE", "Sitzung abgelaufen.");
+define("WRONG_USERNAME_OR_PASSWORD_MESSAGE", "falscher Benutzername oder Passwort.");
+define("DB_CONNECTION_ERROR_MESSAGE", "Verbindung zur Datenbank fehlgeschlagen.");
+define("EMPTY_CREDENTIAL_MESSAGE", "fehlende Zugangsdaten.");
+define("INVALID_CREDENTIAL_MESSAGE", "ungültige Zugangsdaten.");
+define("REGISTRATION_SUCCESSFUL_MESSAGE", "Anmeldung erfolgreich, bitte geben Sie die Zugangsdaten ein.");
+define("REGISTRATION_ERROR_MESSAGE", "Fehler: Registrierung kann nicht abgeschlossen werden (Vielleicht bereits benutzter Benutzername)"); //trad
 define("LOGIN_WELCOME", "Velkommen!");
 define("LOGIN_USERNAME_HINT", "Brukernavn");
 define("LOGIN_PASSWORD_HINT", "Passord");
@@ -112,8 +125,15 @@ define("MEDICATION_PLANNED_TIME", "Tid");
 define("HEALTH_WEIGHTPLOT_TITLE", "Vekt");
 define("HEALTH_SCOREPLOT_TITLE", "Skåring"); 
 define("HEALTH_ECGPLOT_TITLE", "EKG");
-define("HEALTH_ACCPLOT_TITLE", "Skritteller");
-define("HEALTH_TEMPPLOT_TITLE", "Temperatur °C");
+define("HEALTH_HRPLOT_TITLE", "HERZFREQUENZ");
+define("HEALTH_WEIGHTPLOT_TITLE", "GEWICHT");
+define("HEALTH_BMIPLOT_TITLE", "BMI");
+define("HEALTH_SCOREPLOT_TITLE", "Wert"); 
+define("HEALTH_WEIGHTPLOT_DATE_HINT", "Datum");
+
+define("HEALTH_ACCPLOT_TITLE", "Beschleunigungsmessung");
+define("HEALTH_TEMPPLOT_TITLE", "TEMPERATUR");
+define("HEALTH_BREATHPLOT_TITLE", "ATEMFREQUENZ");
 
 define("HEALTH_DATABUTTON_START", "START UNDERSØKELSEN");
 define("HEALTH_DATABUTTON_STOP", "STOP UNDERSØKELSEN");

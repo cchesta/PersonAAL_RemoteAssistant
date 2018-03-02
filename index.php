@@ -99,8 +99,8 @@ else
         <script src="./js/plugins/adaptation/websocket-connection.js"></script>		
         <script src="./js/plugins/adaptation/adaptation-script.js"></script>		
         <script src="./js/plugins/adaptation/delegate.js"></script>
-        <script src="./js/plugins/adaptation/context-data.js"></script>
         <script src="./js/plugins/adaptation/command.js"></script>
+        <script src="./js/index.js"></script>
         
 	<?php
 	    $plan= new Plan($_SESSION['personAAL_user']);
