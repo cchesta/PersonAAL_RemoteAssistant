@@ -159,6 +159,22 @@ and open the template in the editor.
                             </div>
                         </div>
 
+                        <div class="weight-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet no-stretch">
+                            <div class="mdl-card__title">
+                                <div class="mdl-card__title-text">
+                                    <?php echo(HEALTH_BMIPLOT_TITLE);?>
+                                </div>
+                            </div>
+                            <div class="mdl-card__supporting-text mdl-card--expand">
+                                <div id="plot-bmi" class="center" style="width:100%;height:400px;"></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div id="realTimePlot2" class="mdl-grid mdl-cell mdl-cell--6-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-cell--order-3-phone">
+
                         <div class="plot-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet grey no-stretch">
                             <div class="mdl-card__supporting-text mdl-card--expand">
                                 <div id="plot-HR" class="center" style="width:100%;height:400px;"></div>
@@ -173,22 +189,6 @@ and open the template in the editor.
                             </div>
                         </div>
                         
-                    </div>
-
-
-                    <div id="realTimePlot2" class="mdl-grid mdl-cell mdl-cell--6-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-cell--order-3-phone">
-
-                        <div class="weight-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet no-stretch">
-                            <div class="mdl-card__title">
-                                <div class="mdl-card__title-text">
-                                    <?php echo(HEALTH_BMIPLOT_TITLE);?>
-                                </div>
-                            </div>
-                            <div class="mdl-card__supporting-text mdl-card--expand">
-                                <div id="plot-bmi" class="center" style="width:100%;height:400px;"></div>
-                            </div>
-                        </div>
-
                         <div class="plot-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet grey no-stretch">
                             <div class="mdl-card__supporting-text mdl-card--expand">
                                 <div id="plot-BREATH" class="center" style="width:100%;height:400px;"></div>
@@ -209,6 +209,9 @@ and open the template in the editor.
         </main>
         </div>
 
+        <button id="start-capture" class="mdl-button mdl-shadow--4dp mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored floating-button" onclick="manageCapture()">
+            <i id="captureControl" class="material-icons">play_arrow</i>
+        </button>        
 
         <div id="snackbar-log" class="mdl-js-snackbar mdl-snackbar">
             <div class="mdl-snackbar__text"></div>

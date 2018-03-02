@@ -29,16 +29,11 @@ var weight_plot;
 var bmi_plot;
 var find_plot;
 
-var ch0PlotData = []; //ECG - CHANNEL A2
-var ch1PlotData = []; //X AXIS
-var ch2PlotData = []; //Y AXIS
-var ch3PlotData = []; //Z AXIS
-var ch4PlotData = []; //TEMPERATURE
-var ch5PlotData = [];
-
 var log;
 var startPressed;
 
+var rrTimer;
+var hrTimer;
 
 //snackbar for messages
 var snackbar;
@@ -58,15 +53,10 @@ var userName = "john";
 var appName = "personAAL";
 var height = 1.85;
 
+var capture;
 window.onload = init;
 
 function init() {
-
-    setInterval(getRespirationRate, 5000);
-    setInterval(getHeartRate, 5000);
-    //setInterval(getTime, 60000);
-
-
 
     //internationalization
     var userLang = getUserLanguage();
@@ -90,115 +80,12 @@ function init() {
             break;
     }
 
-
-
-
+    capture = false;
+    
     //init snackbar
     snackbar = document.getElementById("snackbar-log");
 
     getWeightData(drawWeightChart);
-
-
-
-    var mVoptions = {
-        grid: {
-            color: '#ffffff',
-            labelBoxBorderColor: '#ffffff',
-            borderColor: '#ffffff',
-            borderWidth: 0
-        },
-        xaxis: {
-            min: 0,
-            max: XmaxCount,
-            tickLength: 0,
-            font: {
-                size: '20px'
-            }
-        },
-        axisLabels: {
-            show: true
-        },
-        yaxes: [{
-            position: 'left',
-            axisLabel: 'mV'
-
-            }]
-    };
-
-    var celsiusOptions = {
-        grid: {
-            color: '#ffffff',
-            labelBoxBorderColor: '#ffffff',
-            borderColor: '#ffffff',
-            borderWidth: 0
-        },
-        xaxis: {
-            min: 0,
-            max: XmaxCount,
-            tickLength: 0,
-            font: {
-                size: 20
-            }
-        },
-        axisLabels: {
-            show: true
-        },
-        yaxes: [{
-            position: 'left',
-            axisLabel: '°C'
-
-                    }]
-    };
-
-/*
-    plot_ECG = $.plot($("#plot-ECG"), [{
-            color: '#ffffff',
-            //data: ch0PlotData,
-            data: ch1PlotData,
-            bars: {
-                show: false,
-                horizontal: false
-            }
-            }],
-        mVoptions);
-
-    plot_ACC = $.plot($("#plot-ACC"), [
-        {
-            color: '#ff0000',
-            data: ch2PlotData,
-            bars: {
-                show: false,
-                horizontal: false
-            }
-            },
-        {
-            color: '#00ff00',
-            data: ch3PlotData,
-            bars: {
-                show: false,
-                horizontal: false
-            }
-            },
-        {
-            color: '#0000ff',
-            data: ch4PlotData,
-            bars: {
-                show: false,
-                horizontal: false
-            }
-            }
-        ], mVoptions);
-
-    plot_TEMP = $.plot($("#plot-TEMP"), [{
-        color: '#ffffff',
-        //data: ch4PlotData,
-        data: ch5PlotData,
-        bars: {
-            show: false,
-            horizontal: false
-        }
-        }], celsiusOptions);
-*/
 
     //velocity animation
     $('.mdl-card').velocity('transition.slideUpBigIn', {
@@ -208,7 +95,25 @@ function init() {
 
 }
 
+function manageCapture() {
 
+    if (!capture) {
+        console.log("start capture");
+        rrTimer = setInterval(getRespirationRate, 5000);
+        hrTimer = setInterval(getHeartRate, 5000);
+        //setInterval(getTime, 60000);    
+
+        document.getElementById("captureControl").innerHTML = "stop";
+        capture = true;
+    }
+    else {
+        console.log("stop capture");
+        clearInterval(rrTimer);
+        clearInterval(hrTimer);
+        document.getElementById("captureControl").innerHTML = "play_arrow";
+        capture = false;
+    }
+}
 
 function drawWeightChart() {
 
@@ -232,7 +137,7 @@ function drawWeightChart() {
             mode: "time",
             min: minDate,
             max: maxDate,
-            timeformat: "%d-%m-%Y",
+            timeformat: "%d-%m-%y",
             tickLength: 0, // hide gridlines
             font: {
                 size: 20
@@ -249,7 +154,7 @@ function drawWeightChart() {
         tooltip: {
             show: true,
             content: '%x | Kg: %y',
-            xDateFormat: '%d-%m-%Y'
+            xDateFormat: '%d-%m-%y'
         },
         zoom: {
             interactive: true
@@ -302,7 +207,7 @@ function drawBMIChart() {
             mode: "time",
             min: minDate,
             max: maxDate,
-            timeformat: "%d-%m-%Y",
+            timeformat: "%d-%m-%y",
             tickLength: 0 // hide gridlines
         },
         axisLabels: {
@@ -315,7 +220,7 @@ function drawBMIChart() {
         tooltip: {
             show: true,
             content: '%x | BMI: %y',
-            xDateFormat: '%d-%m-%Y'
+            xDateFormat: '%d-%m-%y'
         },
         zoom: {
             interactive: true
@@ -348,6 +253,9 @@ var rrData = [];
 
 function drawRRChart() {
     rrData.push(new Array(new Date().getTime(), parseFloat(respirationRate)));
+    
+    if(rrData.length > 10)
+        rrData.splice(0,1);
 
     var minDate = rrData[0][0];
     var maxDate = rrData[rrData.length-1][0];
@@ -380,6 +288,60 @@ function drawRRChart() {
 
     rr_plot = $.plot($("#plot-BREATH"), [{
         data: rrData,
+        color: 'rgba(255, 255, 255, 1)',
+        points: {
+            show: true
+        },
+        lines: {
+            show: true
+        }
+        }], options);
+    
+    //TODO check if is possibile to change label font size via flot (font attribute does not work)
+    //fix for label font size
+    var fontsize = parseInt($('.tickLabel').css('font-size'));
+    $('.tickLabel').css('font-size', (fontsize + 5) + 'px');
+}
+
+var hrData = [];
+
+function drawHRChart() {
+    hrData.push(new Array(new Date().getTime(), parseFloat(heartRate)));
+
+    if(hrData.length > 10)
+        hrData.splice(0,1);
+    
+    var minDate = hrData[0][0];
+    var maxDate = hrData[hrData.length-1][0];
+
+    var options = {
+        grid: {
+            color: '#f2f2f2',
+            labelBoxBorderColor: '#f2f2f2',
+            borderColor: '#f2f2f2',
+            borderWidth: 0,
+            hoverable: true
+        },
+        xaxis: {
+            mode: "time",
+            min: minDate,
+            max: maxDate,
+            timeformat: "%H:%M:%S",
+            tickLength: 0 // hide gridlines
+        },
+        axisLabels: {
+            show: true
+        },
+        zoom: {
+            interactive: true
+        },
+        pan: {
+            interactive: true
+        }
+    };
+
+    rr_plot = $.plot($("#plot-HR"), [{
+        data: hrData,
         color: 'rgba(255, 255, 255, 1)',
         points: {
             show: true
@@ -504,6 +466,7 @@ function getHeartRate() {
         success: function (response) {
             console.log("Context response Heart Rate", response);
             heartRate = response.value;
+            drawHRChart();
         },
         error: function () {
             console.log("Error while getting heart rate data");
