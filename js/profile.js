@@ -51,6 +51,55 @@ function writelog(message) {
     log.innerHTML = log.innerHTML + message + "<br/>";
 }
 
+function editProfile() {
+    if (document.getElementById("profileName").disabled) {
+        document.getElementById("edit_button").innerHTML = "SAVE CHANGES";
+        document.getElementById("cancel_changes").style.display = "block";
+        document.getElementById("profileName").removeAttribute("disabled");
+        document.getElementById("profileSurname").removeAttribute("disabled");
+        document.getElementById("profileBirthDate").removeAttribute("disabled");
+        document.getElementById("profileGender").removeAttribute("disabled");
+        document.getElementById("profileState").removeAttribute("disabled");
+        document.getElementById("profileCity").removeAttribute("disabled");
+        document.getElementById("profilePostalCode").removeAttribute("disabled");
+        document.getElementById("profileAddress").removeAttribute("disabled");
+    }
+    else {
+        birth_date = document.getElementById("profileBirthDate").value + "T00:00:00+01:00";
+        sendProfileToContextManager(document.getElementById("profileName").value,
+                                    document.getElementById("profileSurname").value,
+                                    birth_date,
+                                    document.getElementById("profileGender").value,
+                                    document.getElementById("profileState").value,
+                                    document.getElementById("profileCity").value,
+                                    document.getElementById("profilePostalCode").value,
+                                    document.getElementById("profileAddress").value);
+        document.getElementById("edit_button").innerHTML = "EDIT PROFILE";
+        document.getElementById("cancel_changes").style.display = "none";
+        document.getElementById("profileName").setAttribute("disabled", true);
+        document.getElementById("profileSurname").setAttribute("disabled", true);
+        document.getElementById("profileBirthDate").setAttribute("disabled", true);
+        document.getElementById("profileGender").setAttribute("disabled", true);
+        document.getElementById("profileState").setAttribute("disabled", true);
+        document.getElementById("profileCity").setAttribute("disabled", true);
+        document.getElementById("profilePostalCode").setAttribute("disabled", true);
+        document.getElementById("profileAddress").setAttribute("disabled", true);
+    }
+}
+
+function discardChanges() {
+    getProfileFromContextManager();
+    document.getElementById("edit_button").innerHTML = "EDIT PROFILE";
+    document.getElementById("cancel_changes").style.display = "none";    
+    document.getElementById("profileName").setAttribute("disabled", true);
+    document.getElementById("profileSurname").setAttribute("disabled", true);
+    document.getElementById("profileBirthDate").setAttribute("disabled", true);
+    document.getElementById("profileGender").setAttribute("disabled", true);
+    document.getElementById("profileState").setAttribute("disabled", true);
+    document.getElementById("profileCity").setAttribute("disabled", true);
+    document.getElementById("profilePostalCode").setAttribute("disabled", true);
+    document.getElementById("profileAddress").setAttribute("disabled", true);
+}
 
 function sendProfileToContextManager(name, surname, birth_date, gender, state, city, postal_code, address) {
     var profileObj = {
@@ -73,6 +122,7 @@ function sendProfileToContextManager(name, surname, birth_date, gender, state, c
         dataType: 'json',
         data: JSON.stringify(profileObj),
         success: function (response) {
+            console.log("enviado:", JSON.stringify(profileObj));
             $("#response").html(JSON.stringify(response));
         },
         error: function (err) {
@@ -95,7 +145,7 @@ function getProfileFromContextManager() {
             console.log("Context response profile", response);
             document.querySelector('#profileName').parentNode.MaterialTextfield.change(response.name);
             document.querySelector('#profileSurname').parentNode.MaterialTextfield.change(response.surname);
-            document.querySelector('#profileBirthDate').parentNode.MaterialTextfield.change(response.birth_date);
+            document.querySelector('#profileBirthDate').parentNode.MaterialTextfield.change(response.birth_date.substring(0,10));
             if (response.gender == 'Male')
                 document.querySelector('#profileGender').parentNode.MaterialTextfield.change(GenderMale);
             else

@@ -73,6 +73,11 @@ and open the template in the editor.
         <script src="js/plugins/material_design/material.min.js"></script>
         <script src="js/plugins/Jquery/jquery-1.9.1.min.js"></script>
 
+        <style>
+            input:disabled {
+                color: black !important;
+            }
+        </style>
 
         <link rel="stylesheet" href="css/custom.css">
 
@@ -240,21 +245,21 @@ and open the template in the editor.
                                         </div>
                                         <div>
                                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                                <input class="mdl-textfield__input" type="text" id="profileName" />
+                                                <input class="mdl-textfield__input" type="text" id="profileName" disabled/>
                                                 <label class="mdl-textfield__label" for="profileName"><?php echo(PROFILE_PROFILECARD_NAME);?>
                                                 </label>
                                             </div>
                                         </div>
                                         <div>
                                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                                <input class="mdl-textfield__input" type="text" id="profileSurname" />
+                                                <input class="mdl-textfield__input" type="text" id="profileSurname" disabled/>
                                                 <label class="mdl-textfield__label" for="profileSurname"><?php echo(PROFILE_PROFILECARD_SURNAME);?>
                                                 </label>
                                             </div>
                                         </div>
                                         <div>
                                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                                <input class="mdl-textfield__input" type="text" pattern="\d{4}-\d{2}-\d{2}" id="profileBirthDate" />
+                                                <input class="mdl-textfield__input" type="text" pattern="\d{4}-\d{2}-\d{2}" id="profileBirthDate" disabled/>
                                                 <label class="mdl-textfield__label" for="profileBirthDate"><?php echo(PROFILE_PROFILECARD_BIRTHDATE);?>
                                                 </label>
                                                 <span class="mdl-textfield__error">YYYY-MM-DD</span>
@@ -262,10 +267,10 @@ and open the template in the editor.
                                         </div>
                                         <div>
                                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                                <input class="mdl-textfield__input" type="text" pattern="(Male|Female)" id="profileGender" />
+                                                <input class="mdl-textfield__input" type="text" pattern="(<?php echo(PROFILE_PROFILECARD_GENDER_MALE);?>|<?php echo(PROFILE_PROFILECARD_GENDER_FEMALE);?>)" id="profileGender" disabled/>
                                                 <label class="mdl-textfield__label" for="profileGender"><?php echo(PROFILE_PROFILECARD_GENDER);?>
                                                 </label>
-                                                <span class="mdl-textfield__error">Enter Male or Female</span>
+                                                <span class="mdl-textfield__error"><?php echo(PROFILE_PROFILECARD_GENDER_MALE);?> or <?php echo(PROFILE_PROFILECARD_GENDER_FEMALE);?></span>
                                             </div>
                                         </div>
                                     
@@ -274,28 +279,28 @@ and open the template in the editor.
                                         </div>
                                         <div>
                                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                                <input class="mdl-textfield__input" type="text" id="profileState" />
+                                                <input class="mdl-textfield__input" type="text" id="profileState" disabled/>
                                                 <label class="mdl-textfield__label" for="profileState"><?php echo(PROFILE_PROFILECARD_STATE);?>
                                                 </label>
                                             </div>
                                         </div>
                                         <div>
                                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                                <input class="mdl-textfield__input" type="text" id="profileCity" />
+                                                <input class="mdl-textfield__input" type="text" id="profileCity" disabled/>
                                                 <label class="mdl-textfield__label" for="profileCity"><?php echo(PROFILE_PROFILECARD_CITY);?>
                                                 </label>
                                             </div>
                                         </div>
                                         <div>
                                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                                <input class="mdl-textfield__input" type="text" id="profilePostalCode" />
+                                                <input class="mdl-textfield__input" type="text" id="profilePostalCode" disabled/>
                                                 <label class="mdl-textfield__label" for="profilePostalCode"><?php echo(PROFILE_PROFILECARD_POSTALCODE);?>
                                                 </label>
                                             </div>
                                         </div>
                                         <div>
                                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                                <input class="mdl-textfield__input" type="text" id="profileAddress" />
+                                                <input class="mdl-textfield__input" type="text" id="profileAddress" disabled/>
                                                 <label class="mdl-textfield__label" for="profileAddress"><?php echo(PROFILE_PROFILECARD_ADDRESS);?>
                                                 </label>
                                             </div>
@@ -304,7 +309,8 @@ and open the template in the editor.
                                 </div>
 
                                 <div class="mdl-card__actions mdl-card--border">
-                                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" onclick="editProfile()">EDIT PROFILE</button>
+                                    <button id="edit_button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" onclick="editProfile()">EDIT PROFILE</button>
+                                    <button id="cancel_changes" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" onclick="discardChanges()" style="display:none">CANCEL CHANGES</button>
                                 </div>
 
                             </div>
