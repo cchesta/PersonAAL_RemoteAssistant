@@ -85,28 +85,44 @@ function init() {
     snackbar = document.getElementById("snackbar-log");
 
     getWeightData(drawWeightChart);
-
+    getRespirationRate();
+    getHeartRate();
+    getBodyTemperature();
+    
+/*
     //velocity animation
     $('.mdl-card').velocity('transition.slideUpBigIn', {
         stagger: 250,
         display: 'flex'
     });
+*/
 
+    document.getElementById("hr_plot_chart").style.display = 'none';
+    document.getElementById("rr_plot_chart").style.display = 'none';
 }
 
 function manageCapture() {
 
     if (!capture) {
         console.log("start capture");
+        document.getElementById("hr_plot_chart").style.display = 'block';
+        document.getElementById("rr_plot_chart").style.display = 'block';
+        document.getElementById("hr_value_box").style.display = 'none';
+        document.getElementById("rr_value_box").style.display = 'none';
+        document.getElementById("bt_value_box").style.display = 'none';
         rrTimer = setInterval(getRespirationRate, 5000);
         hrTimer = setInterval(getHeartRate, 5000);
         //setInterval(getTime, 60000);    
-
         document.getElementById("captureControl").innerHTML = "stop";
         capture = true;
     }
     else {
-        console.log("stop capture");
+        console.log("stop capture");    
+        document.getElementById("hr_plot_chart").style.display = 'none';
+        document.getElementById("rr_plot_chart").style.display = 'none';
+        document.getElementById("hr_value_box").style.display = 'block';
+        document.getElementById("rr_value_box").style.display = 'block';
+        document.getElementById("bt_value_box").style.display = 'block';
         clearInterval(rrTimer);
         clearInterval(hrTimer);
         document.getElementById("captureControl").innerHTML = "play_arrow";
@@ -259,6 +275,9 @@ function drawRRChart() {
     var minDate = rrData[0][0];
     var maxDate = rrData[rrData.length-1][0];
 
+    if (!capture)
+        return;
+
     var options = {
         grid: {
             color: '#f2f2f2',
@@ -314,6 +333,9 @@ function drawHRChart() {
     var minDate = hrData[0][0];
     var maxDate = hrData[hrData.length-1][0];
 
+    if (!capture)
+        return;
+    
     var options = {
         grid: {
             color: '#f2f2f2',
@@ -444,7 +466,9 @@ function getRespirationRate() {
         success: function (response) {
             console.log("Context response Respiration Rate", response);
             respirationRate = response.value;
-            drawRRChart();
+            document.getElementById("respiration_rate_box").innerHTML = respirationRate + breathMsg;
+            if (capture)
+                drawRRChart();
         },
         error: function () {
             console.log("Error while getting respiration rate data");
@@ -465,10 +489,33 @@ function getHeartRate() {
         success: function (response) {
             console.log("Context response Heart Rate", response);
             heartRate = response.value;
-            drawHRChart();
+            document.getElementById("ecg_hr_box").innerHTML = heartRate + " bpm";
+            if (capture)
+                drawHRChart();
         },
         error: function () {
             console.log("Error while getting heart rate data");
+        }
+    });
+}
+
+function getBodyTemperature() {
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        url: contextUrl + "cm/rest/user/" + userName + "/bodyTemperature/",
+        dataType: 'json',
+
+        success: function (response) {
+            console.log("Context response Body Temperature", response);
+            bodyTemperature = response.value;
+            document.getElementById("body_temperature_box").innerHTML = bodyTemperature + " ºC";
+        },
+        error: function () {
+            console.log("Error while getting body temperature data");
         }
     });
 }

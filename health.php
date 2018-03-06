@@ -46,12 +46,6 @@ if (isset($_SESSION['personAAL_user']) && $_SESSION['personAAL_user'] != "")
 else
     myRedirect("login.php", TRUE);
 
-
-//MOVED FROM INDEX.PHP
-$surveyinfo = new SurveyData($_SESSION['personAAL_user']);
-$bmi = sprintf('%0.2f',(($surveyinfo->getWeight() * 10000)/ ($surveyinfo->getHeight()*$surveyinfo->getHeight())));
-
-
 ?>
 
 <!DOCTYPE html>
@@ -146,38 +140,59 @@ and open the template in the editor.
 
                 <div class="mdl-grid">
 
-                    <div id="realTimePlot1" class="mdl-grid mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet grid-no-padding">
+                    <div class="mdl-grid mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet grid-no-padding">
 
-                        <div class="weight-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet no-stretch">
+                        <div class="weight-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--top mdl-cell--12-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet no-stretch">
                             <div class="mdl-card__title">
                                 <div class="mdl-card__title-text">
                                     <?php echo(HEALTH_WEIGHTPLOT_TITLE);?>
                                 </div>
                             </div>
                             <div class="mdl-card__supporting-text mdl-card--expand">
-                                <div id="plot-weight" class="center" style="width:100%;height:400px;"></div>
+                                <div id="plot-weight" class="center" style="width:100%;height:350px;"></div>
                             </div>
                         </div>
 
-                        <div class="weight-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet no-stretch">
+                        <div class="weight-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--top mdl-cell--12-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet no-stretch">
                             <div class="mdl-card__title">
                                 <div class="mdl-card__title-text">
                                     <?php echo(HEALTH_BMIPLOT_TITLE);?>
                                 </div>
                             </div>
                             <div class="mdl-card__supporting-text mdl-card--expand">
-                                <div id="plot-bmi" class="center" style="width:100%;height:400px;"></div>
+                                <div id="plot-bmi" class="center" style="width:100%;height:350px;"></div>
                             </div>
                         </div>
 
                     </div>
 
 
-                    <div id="realTimePlot2" class="mdl-grid mdl-cell mdl-cell--6-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-cell--order-3-phone">
+                    <div class="mdl-grid mdl-cell mdl-cell--6-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-cell--order-3-phone">
 
-                        <div class="plot-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet grey no-stretch">
+                         <div id="hr_value_box" class="heart-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue" style="height:228px;">
+                            <div class="mdl-card__title">
+                                <h2 class="mdl-card__title-text"><?php echo(HEART_CARD_TITLE);?></h2>
+                            </div>
+                            <div id="ecg_hr_box" class="mdl-card__actions mdl-card--border" ></div>
+                        </div>
+
+                        <div id="rr_value_box" class="breath-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue" style="height:228px;">
+                            <div class="mdl-card__title">
+                                <h2 class="mdl-card__title-text"><?php echo(BREATH_CARD_TITLE);?></h2>
+                            </div>
+                            <div id="respiration_rate_box" class="mdl-card__actions mdl-card--border"></div>
+                        </div>
+                        
+                        <div id="bt_value_box" class="temperature-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue" style="height:228px;">
+                            <div class="mdl-card__title">
+                                <h2 class="mdl-card__title-text"><?php echo(TEMPERATURE_CARD_TITLE);?></h2>
+                            </div>
+                            <div id="body_temperature_box" class="mdl-card__actions mdl-card--border"></div>
+                        </div>
+                        
+                        <div id="hr_plot_chart" class="plot-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet grey no-stretch" style="display:none">
                             <div class="mdl-card__supporting-text mdl-card--expand">
-                                <div id="plot-HR" class="center" style="width:100%;height:400px;"></div>
+                                <div id="plot-HR" class="center" style="width:100%;height:350px;"></div>
                             </div>
                             <div class="mdl-card__actions mdl-card--border">
                                 <div class="plot-title">
@@ -189,9 +204,9 @@ and open the template in the editor.
                             </div>
                         </div>
                         
-                        <div class="plot-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet grey no-stretch">
+                        <div id="rr_plot_chart" class="plot-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet grey no-stretch" style="display:none">
                             <div class="mdl-card__supporting-text mdl-card--expand">
-                                <div id="plot-BREATH" class="center" style="width:100%;height:400px;"></div>
+                                <div id="plot-BREATH" class="center" style="width:100%;height:350px;"></div>
                             </div>
                             <div class="mdl-card__actions mdl-card--border">
                                 <div class="plot-title">
