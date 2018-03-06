@@ -45,9 +45,6 @@ window.onload = init;
         break;
         }
 
-        //velocity animation
-        $('.mdl-card').velocity('transition.slideUpBigIn', {stagger: 250, display: 'flex'});
-
     }
 
     function writelog(message)

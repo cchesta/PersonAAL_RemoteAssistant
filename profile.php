@@ -464,16 +464,18 @@ and open the template in the editor.
 
                                 </div>
 
+                                <div class="mdl-card__actions mdl-card--border">
+                                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" onclick="editProfile()">EDIT PROFILE</button>
+                                </div>
+
                             </div>
+                            
               <div class="interest-list-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet no-stretch hide-phone _delete-phone_">
                                 <div class="mdl-card__title">
                                     <h6 class="mdl-card__title-text">
                                         <?php echo(PROFILE_INTERESTS_TITLE);?>
                                     </h6>
                                     <div class="mdl-layout-spacer"></div>
-                                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" data-toggle="modal" data-target="#add-interest-modal">
-                                        <i class="material-icons">add</i>
-                                    </button>
                                 </div>
                                 <div class="mdl-card__supporting-text mdl-card--expand">
                                     <div id="interestList" class="mdl-list">
@@ -510,6 +512,9 @@ and open the template in the editor.
                                             <a class="mdl-list__item-secondary-action" onclick="removeInterest(this)"><i class="material-icons">cancel</i></a>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="mdl-card__actions mdl-card--border">
+                                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" data-toggle="modal" data-target="#add-interest-modal">ADD INTEREST</button>
                                 </div>
                             </div>
                         
