@@ -46,6 +46,7 @@ define("ENTRY_PLAN", "Kalender");
 //define("ENTRY_SERVICES", "Services");
 define("ENTRY_PROFILE", "Profil");
 define("ENTRY_CONTACTS", "Kontakter");
+define("ENTRY_HUELIGHTS", "Hue Lights");
 define("ENTRY_LOGOUT", "Logg ut");
 
 //INDEX PAGE

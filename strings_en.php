@@ -48,6 +48,7 @@ define("ENTRY_PLAN", "Plan");
 //define("ENTRY_SERVICES", "Services");
 define("ENTRY_PROFILE", "Profile");
 define("ENTRY_CONTACTS", "Contacts");
+define("ENTRY_HUELIGHTS", "Hue Lights");
 define("ENTRY_LOGOUT", "Logout");
 
 

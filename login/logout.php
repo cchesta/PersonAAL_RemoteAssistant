@@ -1,6 +1,8 @@
 <?php 
-require __DIR__ . '/vendor/autoload.php';
-require __DIR__ . '/dotenv-loader.php';
+
+require __DIR__ . '\login\vendor\autoload.php';
+require __DIR__ . '\login\dotenv-loader.php';
+
 use Auth0\SDK\Auth0;
 
 $domain        = getenv('AUTH0_DOMAIN');
