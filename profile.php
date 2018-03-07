@@ -108,6 +108,7 @@ and open the template in the editor.
         <script>
             var prevShoppingListID;
             var prevClickedElement;
+            var interestsList;
 
 
             $(document).ready(function() {
@@ -143,46 +144,6 @@ and open the template in the editor.
                 document.getElementById("add-interest").style.display = "block";
             }
 
-            function hideInterestList() {
-                if (shoppingMenuReduced === true) {
-                    var animationSequence = [];
-                    animationSequence.push({
-                        e: $('#' + prevShoppingListID),
-                        p: 'transition.fadeOut'
-                    });
-                    animationSequence.push({
-                        e: $('#hide-back-arrow'),
-                        p: 'transition.fadeOut',
-                        o: {
-                            sequenceQueue: false
-                        }
-                    });
-                    animationSequence.push({
-                        e: $('#shopping-list'),
-                        p: {
-                            width: '100%'
-                        },
-                        o: {
-                            sequenceQueue: false,
-                            delay: 200
-                        }
-                    });
-                    animationSequence.push({
-                        e: $('.list-hidable'),
-                        p: 'transition.fadeIn',
-                        o: {
-                            duration: 200
-                        }
-                    });
-
-                    $.Velocity.RunSequence(animationSequence);
-
-                    prevClickedElement.style.backgroundColor = "";
-
-                    shoppingMenuReduced = false;
-                }
-            }
-
         </script>
 
     </head>
@@ -198,14 +159,6 @@ and open the template in the editor.
                     <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" onclick="window.location='index.php';">
                         <i class="material-icons">home</i>
                     </button>
-                </div>
-                <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-                    <a href="#patient-info" class="mdl-layout__tab is-active" onclick="disableAddButton()">
-                        <?php echo(PROFILE_PROFILECARD_TITLE);?>
-                    </a>
-                    <a href="#patient-interest" class="mdl-layout__tab" onclick="enableAddButton()">
-                        <?php echo(PROFILE_INTERESTS_TITLE);?>
-                    </a>
                 </div>
             </header>
 
@@ -223,8 +176,7 @@ and open the template in the editor.
 
             <main class="mdl-layout__content">
 
-                <!-- PHONE LAYOUT -->
-                <section class="mdl-layout__tab-panel is-active" id="patient-info">
+
                     <div class="page-content">
 
                         <div class="mdl-grid">
@@ -233,78 +185,78 @@ and open the template in the editor.
                                 //$userInfo= new UserData($_SESSION['personAAL_user']);        
                             ?>
                             <div class="patient-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet no-stretch">
-                                <div class="mdl-card__title hide-phone">
+                                <div class="mdl-card__title">
                                     <h6 class="mdl-card__title-text">
                                         <?php echo(PROFILE_PROFILECARD_TITLE);?>
                                     </h6>
                                 </div>
 
                                 <div class="mdl-card__supporting-text mdl-card--expand">
-                                        <div class="icon-textfield">
-                                            <i class="material-icons">person</i>
-                                        </div>
-                                        <div>
-                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                                <input class="mdl-textfield__input" type="text" id="profileName" disabled/>
-                                                <label class="mdl-textfield__label" for="profileName"><?php echo(PROFILE_PROFILECARD_NAME);?>
+                                    <div class="icon-textfield">
+                                        <i class="material-icons">person</i>
+                                    </div>
+                                    <div>
+                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                            <input class="mdl-textfield__input" type="text" id="profileName" disabled/>
+                                            <label class="mdl-textfield__label" for="profileName"><?php echo(PROFILE_PROFILECARD_NAME);?>
                                                 </label>
-                                            </div>
                                         </div>
-                                        <div>
-                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                                <input class="mdl-textfield__input" type="text" id="profileSurname" disabled/>
-                                                <label class="mdl-textfield__label" for="profileSurname"><?php echo(PROFILE_PROFILECARD_SURNAME);?>
+                                    </div>
+                                    <div>
+                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                            <input class="mdl-textfield__input" type="text" id="profileSurname" disabled/>
+                                            <label class="mdl-textfield__label" for="profileSurname"><?php echo(PROFILE_PROFILECARD_SURNAME);?>
                                                 </label>
-                                            </div>
                                         </div>
-                                        <div>
-                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                                <input class="mdl-textfield__input" type="text" pattern="\d{4}-\d{2}-\d{2}" id="profileBirthDate" disabled/>
-                                                <label class="mdl-textfield__label" for="profileBirthDate"><?php echo(PROFILE_PROFILECARD_BIRTHDATE);?>
+                                    </div>
+                                    <div>
+                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                            <input class="mdl-textfield__input" type="text" pattern="\d{4}-\d{2}-\d{2}" id="profileBirthDate" disabled/>
+                                            <label class="mdl-textfield__label" for="profileBirthDate"><?php echo(PROFILE_PROFILECARD_BIRTHDATE);?>
                                                 </label>
-                                                <span class="mdl-textfield__error">YYYY-MM-DD</span>
-                                            </div>
+                                            <span class="mdl-textfield__error">YYYY-MM-DD</span>
                                         </div>
-                                        <div>
-                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                                <input class="mdl-textfield__input" type="text" pattern="(<?php echo(PROFILE_PROFILECARD_GENDER_MALE);?>|<?php echo(PROFILE_PROFILECARD_GENDER_FEMALE);?>)" id="profileGender" disabled/>
-                                                <label class="mdl-textfield__label" for="profileGender"><?php echo(PROFILE_PROFILECARD_GENDER);?>
+                                    </div>
+                                    <div>
+                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                            <input class="mdl-textfield__input" type="text" pattern="(<?php echo(PROFILE_PROFILECARD_GENDER_MALE);?>|<?php echo(PROFILE_PROFILECARD_GENDER_FEMALE);?>)" id="profileGender" disabled/>
+                                            <label class="mdl-textfield__label" for="profileGender"><?php echo(PROFILE_PROFILECARD_GENDER);?>
                                                 </label>
-                                                <span class="mdl-textfield__error"><?php echo(PROFILE_PROFILECARD_GENDER_MALE);?> or <?php echo(PROFILE_PROFILECARD_GENDER_FEMALE);?></span>
-                                            </div>
+                                            <span class="mdl-textfield__error"><?php echo(PROFILE_PROFILECARD_GENDER_MALE);?> or <?php echo(PROFILE_PROFILECARD_GENDER_FEMALE);?></span>
                                         </div>
-                                    
-                                        <div class="icon-textfield">
-                                            <i class="material-icons">home</i>
-                                        </div>
-                                        <div>
-                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                                <input class="mdl-textfield__input" type="text" id="profileState" disabled/>
-                                                <label class="mdl-textfield__label" for="profileState"><?php echo(PROFILE_PROFILECARD_STATE);?>
+                                    </div>
+
+                                    <div class="icon-textfield">
+                                        <i class="material-icons">home</i>
+                                    </div>
+                                    <div>
+                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                            <input class="mdl-textfield__input" type="text" id="profileState" disabled/>
+                                            <label class="mdl-textfield__label" for="profileState"><?php echo(PROFILE_PROFILECARD_STATE);?>
                                                 </label>
-                                            </div>
                                         </div>
-                                        <div>
-                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                                <input class="mdl-textfield__input" type="text" id="profileCity" disabled/>
-                                                <label class="mdl-textfield__label" for="profileCity"><?php echo(PROFILE_PROFILECARD_CITY);?>
+                                    </div>
+                                    <div>
+                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                            <input class="mdl-textfield__input" type="text" id="profileCity" disabled/>
+                                            <label class="mdl-textfield__label" for="profileCity"><?php echo(PROFILE_PROFILECARD_CITY);?>
                                                 </label>
-                                            </div>
                                         </div>
-                                        <div>
-                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                                <input class="mdl-textfield__input" type="text" id="profilePostalCode" disabled/>
-                                                <label class="mdl-textfield__label" for="profilePostalCode"><?php echo(PROFILE_PROFILECARD_POSTALCODE);?>
+                                    </div>
+                                    <div>
+                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                            <input class="mdl-textfield__input" type="text" id="profilePostalCode" disabled/>
+                                            <label class="mdl-textfield__label" for="profilePostalCode"><?php echo(PROFILE_PROFILECARD_POSTALCODE);?>
                                                 </label>
-                                            </div>
                                         </div>
-                                        <div>
-                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                                <input class="mdl-textfield__input" type="text" id="profileAddress" disabled/>
-                                                <label class="mdl-textfield__label" for="profileAddress"><?php echo(PROFILE_PROFILECARD_ADDRESS);?>
+                                    </div>
+                                    <div>
+                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                            <input class="mdl-textfield__input" type="text" id="profileAddress" disabled/>
+                                            <label class="mdl-textfield__label" for="profileAddress"><?php echo(PROFILE_PROFILECARD_ADDRESS);?>
                                                 </label>
-                                            </div>
                                         </div>
+                                    </div>
 
                                 </div>
 
@@ -315,7 +267,7 @@ and open the template in the editor.
 
                             </div>
 
-                            <div class="interest-list-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet no-stretch hide-phone _delete-phone_">
+                            <div class="interest-list-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet no-stretch">
                                 <div class="mdl-card__title">
                                     <h6 class="mdl-card__title-text">
                                         <?php echo(PROFILE_INTERESTS_TITLE);?>
@@ -324,38 +276,6 @@ and open the template in the editor.
                                 </div>
                                 <div class="mdl-card__supporting-text mdl-card--expand">
                                     <div id="interestList" class="mdl-list">
-                                        <div data-interest="Baseball" class="mdl-list__item">
-                                            <span class="mdl-list__item-primary-content">
-                                                <span>
-                                                    <?php echo(PROFILE_ADDINTERESTS_SPORTS_1);?>
-                                                </span>
-                                            </span>
-                                            <a class="mdl-list__item-secondary-action" onclick="removeInterest(this)"><i class="material-icons">cancel</i></a>
-                                        </div>
-                                        <div data-interest="Swim" class="mdl-list__item">
-                                            <span class="mdl-list__item-primary-content">
-                                                <span>
-                                                    <?php echo(PROFILE_ADDINTERESTS_SPORTS_4);?>
-                                                </span>
-                                            </span>
-                                            <a class="mdl-list__item-secondary-action" onclick="removeInterest(this)"><i class="material-icons">cancel</i></a>
-                                        </div>
-                                        <div data-interest="Documentary" class="mdl-list__item">
-                                            <span class="mdl-list__item-primary-content">
-                                                <span>
-                                                    <?php echo(PROFILE_ADDINTERESTS_PROGRAMS_1);?>
-                                                </span>
-                                            </span>
-                                            <a class="mdl-list__item-secondary-action" onclick="removeInterest(this)"><i class="material-icons">cancel</i></a>
-                                        </div>
-                                        <div data-interest="Cooking" class="mdl-list__item">
-                                            <span class="mdl-list__item-primary-content">
-                                                <span>
-                                                    <?php echo(PROFILE_ADDINTERESTS_OTHERS_2);?>
-                                                </span>
-                                            </span>
-                                            <a class="mdl-list__item-secondary-action" onclick="removeInterest(this)"><i class="material-icons">cancel</i></a>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="mdl-card__actions mdl-card--border">
@@ -366,62 +286,6 @@ and open the template in the editor.
                         </div>
 
                     </div>
-                </section>
-                <section class="mdl-layout__tab-panel hide-desktop_tablet" id="patient-interest">
-                    <div class="page-content mdl-grid">
-
-                        <div class="interest-list-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col-phone no-stretch">
-                            <div class="mdl-card__title hide-phone">
-                                <h6 class="mdl-card__title-text">
-                                    <?php echo(PROFILE_INTERESTS_TITLE);?>
-                                </h6>
-                                <div class="mdl-layout-spacer"></div>
-                                <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" data-toggle="modal" data-target="#add-interest-modal">
-				    <i class="material-icons">add</i>
-				</button>
-                            </div>
-                            <div class="mdl-card__supporting-text mdl-card--expand">
-                                <div id="interestList" class="mdl-list">
-                                    <div data-interest="Baseball" class="mdl-list__item">
-                                        <span class="mdl-list__item-primary-content">
-					    <span>
-                                                <?php echo(PROFILE_ADDINTERESTS_SPORTS_1);?>
-                                            </span>
-                                        </span>
-                                        <a class="mdl-list__item-secondary-action" onclick="removeInterest(this)"><i class="material-icons">cancel</i></a>
-                                    </div>
-                                    <div data-interest="Swim" class="mdl-list__item">
-                                        <span class="mdl-list__item-primary-content">
-					    <span>
-                                                <?php echo(PROFILE_ADDINTERESTS_SPORTS_4);?>
-                                            </span>
-                                        </span>
-                                        <a class="mdl-list__item-secondary-action" onclick="removeInterest(this)"><i class="material-icons">cancel</i></a>
-                                    </div>
-                                    <div data-interest="Documentary" class="mdl-list__item">
-                                        <span class="mdl-list__item-primary-content">
-					    <span>
-                                                <?php echo(PROFILE_ADDINTERESTS_PROGRAMS_1);?>
-                                            </span>
-                                        </span>
-                                        <a class="mdl-list__item-secondary-action" onclick="removeInterest(this)"><i class="material-icons">cancel</i></a>
-                                    </div>
-                                    <div data-interest="Cooking" class="mdl-list__item">
-                                        <span class="mdl-list__item-primary-content">
-					    <span>
-                                                <?php echo(PROFILE_ADDINTERESTS_OTHERS_2);?>
-                                            </span>
-                                        </span>
-                                        <a class="mdl-list__item-secondary-action" onclick="removeInterest(this)"><i class="material-icons">cancel</i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone floating-button-fix-cell"></div>
-
-                    </div>
-                </section>
 
             </main>
         </div>
@@ -442,8 +306,8 @@ and open the template in the editor.
                             <div id="shopping-list" class="shopping-list-action mdl-list mdl-shadow--2dp">
                                 <div class="mdl-list__item" onclick="showShoppingList(this, 'sports-list')">
                                     <span class="mdl-list__item-primary-content">
-					<i class="material-icons mdl-list__item-avatar">fitness_center</i>
-					<span class="list-hidable">
+					                   <i class="material-icons mdl-list__item-avatar">fitness_center</i>
+					                   <span class="list-hidable">
                                             <?php echo(PROFILE_ADDINTERESTS_SPORTS);?>
                                         </span>
                                     </span>
@@ -451,8 +315,8 @@ and open the template in the editor.
                                 </div>
                                 <div class="mdl-list__item" onclick="showShoppingList(this, 'programs-list')">
                                     <span class="mdl-list__item-primary-content">
-					<i class="material-icons mdl-list__item-avatar">tv</i>
-					<span class="list-hidable">
+                                        <i class="material-icons mdl-list__item-avatar">tv</i>
+                                        <span class="list-hidable">
                                             <?php echo(PROFILE_ADDINTERESTS_PROGRAMS);?>
                                         </span>
                                     </span>
@@ -460,14 +324,14 @@ and open the template in the editor.
                                 </div>
                                 <div class="mdl-list__item" onclick="showShoppingList(this, 'others-list')">
                                     <span class="mdl-list__item-primary-content">
-					<i class="material-icons mdl-list__item-avatar">reorder</i>
-					<span class="list-hidable">
+                                        <i class="material-icons mdl-list__item-avatar">reorder</i>
+                                        <span class="list-hidable">
                                             <?php echo(PROFILE_ADDINTERESTS_OTHERS);?>
                                         </span>
                                     </span>
                                     <span class="mdl-list__item-secondary-content">
-					<a class="mdl-list__item-secondary-action list-hidable" href="#"><i class="material-icons">navigate_next</i></a>
-				    </span>
+                                        <a class="mdl-list__item-secondary-action list-hidable" href="#"><i class="material-icons">navigate_next</i></a>
+                                    </span>
                                 </div>
                             </div>
 
@@ -478,15 +342,15 @@ and open the template in the editor.
                             <ul id="sports-list" class="mdl-list shopping-card-content-list ">
                                 <li data-interest="Baseball" class="mdl-list__item">
                                     <span class="mdl-list__item-primary-content">
-					<span>
+                                        <span>
                                             <?php echo(PROFILE_ADDINTERESTS_SPORTS_1);?>
                                         </span>
                                     </span>
-                                    <a class="mdl-list__item-secondary-action" onclick="addInterest(this)"><i class="material-icons">done</i></a>
+                                    <a class="mdl-list__item-secondary-action" onclick="addInterest(this)"><i class="material-icons">add_circle_outline</i></a>
                                 </li>
                                 <li class="mdl-list__item" data-interest="Basketball">
                                     <span class="mdl-list__item-primary-content">
-					<span>
+                                        <span>
                                             <?php echo(PROFILE_ADDINTERESTS_SPORTS_2);?>
                                         </span>
                                     </span>
@@ -494,7 +358,7 @@ and open the template in the editor.
                                 </li>
                                 <li class="mdl-list__item" data-interest="Football">
                                     <span class="mdl-list__item-primary-content">
-					<span>
+                                        <span>
                                             <?php echo(PROFILE_ADDINTERESTS_SPORTS_3);?>
                                         </span>
                                     </span>
@@ -502,15 +366,15 @@ and open the template in the editor.
                                 </li>
                                 <li class="mdl-list__item" data-interest="Swim">
                                     <span class="mdl-list__item-primary-content">
-					<span>
+                                        <span>
                                             <?php echo(PROFILE_ADDINTERESTS_SPORTS_4);?>
                                         </span>
                                     </span>
-                                    <a class="mdl-list__item-secondary-action" onclick="addInterest(this)"><i class="material-icons">done</i></a>
+                                    <a class="mdl-list__item-secondary-action" onclick="addInterest(this)"><i class="material-icons">add_circle_outline</i></a>
                                 </li>
                                 <li class="mdl-list__item" data-interest="Tennis">
                                     <span class="mdl-list__item-primary-content">
-					<span>
+                                        <span>
                                             <?php echo(PROFILE_ADDINTERESTS_SPORTS_5);?>
                                         </span>
                                     </span>
@@ -518,7 +382,7 @@ and open the template in the editor.
                                 </li>
                                 <li class="mdl-list__item" data-interest="Volleyball">
                                     <span class="mdl-list__item-primary-content">
-					<span>
+                                        <span>
                                             <?php echo(PROFILE_ADDINTERESTS_SPORTS_6);?>
                                         </span>
                                     </span>
@@ -534,11 +398,11 @@ and open the template in the editor.
                                             <?php echo(PROFILE_ADDINTERESTS_PROGRAMS_1);?>
                                         </span>
                                     </span>
-                                    <a class="mdl-list__item-secondary-action" onclick="addInterest(this)"><i class="material-icons">done</i></a>
+                                    <a class="mdl-list__item-secondary-action" onclick="addInterest(this)"><i class="material-icons">add_circle_outline</i></a>
                                 </li>
                                 <li class="mdl-list__item" data-interest="TV news">
                                     <span class="mdl-list__item-primary-content">
-					<span>
+                                        <span>
                                             <?php echo(PROFILE_ADDINTERESTS_PROGRAMS_2);?>
                                         </span>
                                     </span>
@@ -546,7 +410,7 @@ and open the template in the editor.
                                 </li>
                                 <li class="mdl-list__item" data-interest="Talk show">
                                     <span class="mdl-list__item-primary-content">
-					<span>
+                                        <span>
                                             <?php echo(PROFILE_ADDINTERESTS_PROGRAMS_3);?>
                                         </span>
                                     </span>
@@ -558,7 +422,7 @@ and open the template in the editor.
                             <ul id="others-list" class="mdl-list shopping-card-content-list ">
                                 <li class="mdl-list__item" data-interest="Cinema">
                                     <span class="mdl-list__item-primary-content">
-					<span>
+                                        <span>
                                             <?php echo(PROFILE_ADDINTERESTS_OTHERS_1);?>
                                         </span>
                                     </span>
@@ -566,15 +430,15 @@ and open the template in the editor.
                                 </li>
                                 <li class="mdl-list__item" data-interest="Cooking">
                                     <span class="mdl-list__item-primary-content">
-					<span>
+                                        <span>
                                             <?php echo(PROFILE_ADDINTERESTS_OTHERS_2);?>
                                         </span>
                                     </span>
-                                    <a class="mdl-list__item-secondary-action" onclick="addInterest(this)"><i class="material-icons">done</i></a>
+                                    <a class="mdl-list__item-secondary-action" onclick="addInterest(this)"><i class="material-icons">add_circle_outline</i></a>
                                 </li>
                                 <li class="mdl-list__item" data-interest="Monuments">
                                     <span class="mdl-list__item-primary-content">
-					<span>
+                                        <span>
                                             <?php echo(PROFILE_ADDINTERESTS_OTHERS_3);?>
                                         </span>
                                     </span>
@@ -582,7 +446,7 @@ and open the template in the editor.
                                 </li>
                                 <li class="mdl-list__item" data-interest="Museums">
                                     <span class="mdl-list__item-primary-content">
-					<span>
+                                        <span>
                                             <?php echo(PROFILE_ADDINTERESTS_OTHERS_4);?>
                                         </span>
                                     </span>
@@ -590,7 +454,7 @@ and open the template in the editor.
                                 </li>
                                 <li class="mdl-list__item" data-interest="Theater">
                                     <span class="mdl-list__item-primary-content">
-					<span>
+                                        <span>
                                             <?php echo(PROFILE_ADDINTERESTS_OTHERS_5);?>
                                         </span>
                                     </span>
@@ -603,8 +467,8 @@ and open the template in the editor.
                         <div class="mdl-card__actions mdl-card--border">
                             <div class="mdl-layout-spacer"></div>
                             <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect right-button" data-dismiss="modal">
-			    Ok
-			    </a>
+                                Close
+                            </a>
                         </div>
                     </div>
 
