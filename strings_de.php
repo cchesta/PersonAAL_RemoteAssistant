@@ -163,6 +163,35 @@ define("PLAN_GOALS_SOCIAL_ACTIVITY", "Soziale Aktivitäten");
 define("PLAN_SETGOALS_SOCIAL_ACTIVITY", "Soziale Aktivitäten");
 define("PLAN_GOALS_ACTIVITY", "aktivitäten");
 
+//NEW CALENDAR
+
+define("PLAN_ACTIVITY_ADD", "Add event");
+define("PLAN_ACTIVITY_TITLE", "Title");
+define("PLAN_ACTIVITY_TYPE", "Type of activity");
+define("PLAN_ACTIVITY_TYPE_RECEIVE_GEST", "Receive guest");
+define("PLAN_ACTIVITY_TYPE_CALL_SOMEONE", "Call someone");
+define("PLAN_ACTIVITY_TYPE_VISIT_SOMEONE", "Visit Someone");    
+define("PLAN_ACTIVITY_TYPE_CINEMA", "Go to the cinema");
+define("PLAN_ACTIVITY_TYPE_THEATRE", "Go to the theatre");
+define("PLAN_ACTIVITY_TYPE_RESTAURANT", "Go to a restaurant");
+define("PLAN_ACTIVITY_TYPE_PUB", "Go to a pub");      
+define("PLAN_ACTIVITY_TYPE_RELIGIOUS_ACTIVITY", "Religious activity");
+define("PLAN_ACTIVITY_OTHER", "Other", "Other activity");
+define("PLAN_ACTIVITY_START_TIME", "Start Time");
+define("PLAN_ACTIVITY_END_TIME", "End time");
+
+define("CALENDAR_NEXT_BUTTON", "NÄCHSTER");
+define("CALENDAR_PREVIOUS_BUTTON", "BISHERIGE");
+define("CALENDAR_CANCEL_BUTTON", "STORNIEREN");
+define("CALENDAR_SUBMIT_BUTTON", "EINREICHEN")
+define("CALENDAR_ADVANCED_SETTINGS_BUTTON", "ERWEITERTE EINSTELLUNGEN");
+
+define("PLAN_ACTIVITY_STEP1", "Wählen Sie Start und Endzeit");
+define("PLAN_ACTIVITY_STEP2", "Wählen Sie Aktivität");
+define("PLAN_ACTIVITY_STEP3", "Erweiterte Einstellungen");
+
+
+
 //FITNESS PAGE
 define("FITNESS_ALERT_TITLE", "Bitte führen Sie die Übungen vorsichtig durch und stoppen Sie sofort, sollten Schmerzen auftreten!");
 define("CLOSE_BUTTON", "Schliessen");
@@ -183,52 +212,6 @@ define("SEARCHRESULT_TITLE", "Ergebnisse für");
 define("FITNESS_SEARCHRESULT_DIFFICULTY", "Schwierigkeit");
 define("FITNESS_SEARCHRESULT_BODYPARTS", "Köperregionen");
 
-//DIET PAGE
-define("DIET_SEARCH_FOODTYPE", "Speise");
-define("DIET_SEARCH_FOODTYPE_PASTA", "Nudelgerichte");
-define("DIET_SEARCH_FOODTYPE_MEAT", "Fleisch");
-define("DIET_SEARCH_FOODTYPE_VEGAN", "Vegane Gerichte");
-define("DIET_SEARCH_FOODTYPE_DESSERT", "Nachspeise");
-define("NUMBER_INPUT_ERROR", "Eingabe entspricht keiner Telefonnumer!");
-define("DIET_SEARCH_ALLERGIES", "Allergien/Intoleranzen");
-define("DIET_SEARCH_ALLERGIES_LACTOSE", "Laktose");
-define("DIET_SEARCH_ALLERGIES_GLUTEN", "Gluten");
-define("DIET_SNACKBAR", '"Max kcal" muss höher liegen als "Min kcal"!');
-define("DIET_SEARCHRESULT_FOODCATEGORY", "Speisen");
-define("DIET_SEARCHRESULT_ALLERGENES", "Allergene");
-define("SHOW_RECIPE_BUTTON", "zeige Rezepte an");
-
-//SHOPPING PAGE
-define("SERVICES_SHOPPING_TITLE", "Einkaufen");
-define("SERVICES_SHOPPING_DRINKS", "Getränke");
-define("SERVICES_SHOPPING_DRINKS_1", "Mineralwasser");
-define("SERVICES_SHOPPING_DRINKS_2", "Tee");
-define("SERVICES_SHOPPING_DRINKS_3", "Milch");
-define("SERVICES_SHOPPING_FROZENFOODS", "Tiefkühlkost");
-define("SERVICES_SHOPPING_FROZENFOODS_1", "Pizza");
-define("SERVICES_SHOPPING_FROZENFOODS_2", "Kartoffeln");
-define("SERVICES_SHOPPING_FROZENFOODS_3", "Spinat");
-define("SERVICES_SHOPPING_FROZENFOODS_4", "Speiseeis");
-define("SERVICES_SHOPPING_PASTA", "Nudelgerichte");
-define("SERVICES_SHOPPING_MEAT", "Fleisch");
-define("SERVICES_SHOPPING_MEAT_1", "Rindfleisch");
-define("SERVICES_SHOPPING_MEAT_2", "Schweinefleisch");
-define("SERVICES_SHOPPING_MEAT_3", "Poulet (Geflügel)");
-define("DESELECT_BUTTON", "gesamte Auswahl löschen");
-define("BUY_BUTTON", "kaufen");
-define("SERVICES_SHOPPING_CONFIRMED_TITLE", "Bestellung bestätigt");
-define("SERVICES_SERVICES_TITLE", "Services");
-define("SERVICES_SERVICES_ASSISTANCE", "Assistenz");
-define("SERVICES_SERVICES_ELECTRIC", "Elektrik");
-define("SERVICES_SERVICES_COMMUNICATION", "Kommunikation");
-define("SERVICES_SERVICES_REPAIRS", "Reparaturen");
-define("SERVICES_SERVICES_CLEANING", "Reinigung");
-define("SERVICES_SERVICES_FORM_HINT_TITLE", "Titel");
-define("SERVICES_SERVICES_FORM_HINT_MESSAGE", "Nachricht");
-define("SEND_BUTTON", "senden");
-define("SERVICES_SNACKBAR_MESSAGE", "Nachricht");
-define("SERVICES_SNACKBAR_SENT", "gesendet!");
-    
 
 //PROFILE PAGE
 define("PROFILE_PROFILECARD_TITLE", "Persönliche Angaben");
@@ -278,6 +261,11 @@ define("CONTACTS_FORM_NAME", "Name");
 define("CONTACTS_FORM_PHONE", "Telefonnummer");
 define("ADD_BUTTON", "hinzufügen");
 
+//types of relationships
+define("CONTACTS_FROM_RELATIONSHIP_CLOSE_FAMILY", "Nahes Familienmitglied");
+define("CONTACTS_FROM_RELATIONSHIP_OTHER_FAMILY", "Andere Familienmitglieder");
+define("CONTACTS_FROM_RELATIONSHIP_FRIEND", "Freund");
+define("CONTACTS_FROM_RELATIONSHIP_NEIGHBOUR", "Nachbar");
 
 ?>
 

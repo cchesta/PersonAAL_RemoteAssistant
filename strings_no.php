@@ -165,6 +165,34 @@ define("PLAN_GOALS_SOCIAL_ACTIVITY", "Sosiale Aktiviteter");
 define("PLAN_SETGOALS_SOCIAL_ACTIVITY", "Sosiale Aktiviteter");
 define("PLAN_GOALS_ACTIVITY","aktiviteter");
 
+//NEW CALENDAR
+
+define("PLAN_ACTIVITY_ADD", "Add event");
+define("PLAN_ACTIVITY_TITLE", "Title");
+define("PLAN_ACTIVITY_TYPE", "Type of activity");
+define("PLAN_ACTIVITY_TYPE_RECEIVE_GEST", "Receive guest");
+define("PLAN_ACTIVITY_TYPE_CALL_SOMEONE", "Call someone");
+define("PLAN_ACTIVITY_TYPE_VISIT_SOMEONE", "Visit Someone");    
+define("PLAN_ACTIVITY_TYPE_CINEMA", "Go to the cinema");
+define("PLAN_ACTIVITY_TYPE_THEATRE", "Go to the theatre");
+define("PLAN_ACTIVITY_TYPE_RESTAURANT", "Go to a restaurant");
+define("PLAN_ACTIVITY_TYPE_PUB", "Go to a pub");      
+define("PLAN_ACTIVITY_TYPE_RELIGIOUS_ACTIVITY", "Religious activity");
+define("PLAN_ACTIVITY_OTHER", "Other", "Other activity");
+define("PLAN_ACTIVITY_START_TIME", "Start Time");
+define("PLAN_ACTIVITY_END_TIME", "End time");
+
+define("CALENDAR_NEXT_BUTTON", "NESTE");
+define("CALENDAR_PREVIOUS_BUTTON", "TIDLIGERE");
+define("CALENDAR_CANCEL_BUTTON", "AVBRYT");
+define("CALENDAR_SUBMIT_BUTTON", "SENDE INN")
+define("CALENDAR_ADVANCED_SETTINGS_BUTTON", "AVANSERTE INNSTILLINGER");
+
+define("PLAN_ACTIVITY_STEP1", "Velg Start og sluttid");
+define("PLAN_ACTIVITY_STEP2", "Velg aktivitet");
+define("PLAN_ACTIVITY_STEP3", "Avanserte innstillinger");
+
+
 //PROFILE PAGE
 define("PROFILE_PROFILECARD_TITLE", "Om meg");
 define("PROFILE_PROFILECARD_NAME", "Fornavn");
@@ -213,6 +241,12 @@ define("CONTACTS_FORM_NAME", "Navn");
 define("CONTACTS_FORM_PHONE", "Telefonnummer");
 define("ADD_BUTTON", "Legg til");
 
+//types of relationships
+define("CONTACTS_FROM_RELATIONSHIP_CLOSE_FAMILY", "Nært Familiemedlem");
+define("CONTACTS_FROM_RELATIONSHIP_OTHER_FAMILY", "Annet Familiemedlem");
+define("CONTACTS_FROM_RELATIONSHIP_FRIEND", "Venn");
+define("CONTACTS_FROM_RELATIONSHIP_NEIGHBOUR", "Nabo");
+
 
 //FITNESS PAGE
 define("FITNESS_ALERT_TITLE", "Be careful and stop working out when you experience some pain!");
@@ -238,55 +272,5 @@ define("FITNESS_SEARCHRESULT_DIFFICULTY", "Difficulty");
 define("FITNESS_SEARCHRESULT_BODYPARTS", "Body parts");
 
 
-//DIET PAGE
-define("DIET_SEARCH_FOODTYPE", "Food type");
-define("DIET_SEARCH_FOODTYPE_PASTA", "pasta");
-define("DIET_SEARCH_FOODTYPE_MEAT", "meat");
-define("DIET_SEARCH_FOODTYPE_VEGAN", "vegan");
-define("DIET_SEARCH_FOODTYPE_DESSERT", "dessert");
-define("NUMBER_INPUT_ERROR", "Input is not a number!");
-define("DIET_SEARCH_ALLERGIES", "Allergies/intolerances");
-define("DIET_SEARCH_ALLERGIES_LACTOSE", "lactose");
-define("DIET_SEARCH_ALLERGIES_GLUTEN", "gluten");
-
-define("DIET_SNACKBAR", '"Max kcal" must be greater than "Min kcal"!');
-
-define("DIET_SEARCHRESULT_FOODCATEGORY", "Food category");
-define("DIET_SEARCHRESULT_ALLERGENES", "Allergenes");
-
-define("SHOW_RECIPE_BUTTON", "SHOW RECIPE");
-
-//SHOPPING PAGE
-define("SERVICES_SHOPPING_TITLE", "Shopping");
-define("SERVICES_SHOPPING_DRINKS", "Drinks");
-define("SERVICES_SHOPPING_DRINKS_1", "Water");
-define("SERVICES_SHOPPING_DRINKS_2", "Tea");
-define("SERVICES_SHOPPING_DRINKS_3", "Milk");
-define("SERVICES_SHOPPING_FROZENFOODS", "Frozen Foods");
-define("SERVICES_SHOPPING_FROZENFOODS_1", "Pizza");
-define("SERVICES_SHOPPING_FROZENFOODS_2", "Potatoes");
-define("SERVICES_SHOPPING_FROZENFOODS_3", "Spinach");
-define("SERVICES_SHOPPING_FROZENFOODS_4", "Ice cream");
-define("SERVICES_SHOPPING_PASTA", "Pasta");
-define("SERVICES_SHOPPING_MEAT", "Meat");
-define("SERVICES_SHOPPING_MEAT_1", "Beef");
-define("SERVICES_SHOPPING_MEAT_2", "Pig");
-define("SERVICES_SHOPPING_MEAT_3", "Chicken");
-define("DESELECT_BUTTON", "DESELECT ALL");
-define("BUY_BUTTON", "BUY");
-define("SERVICES_SHOPPING_CONFIRMED_TITLE", "Order confirmed");
-
-define("SERVICES_SERVICES_TITLE", "Services");
-define("SERVICES_SERVICES_ASSISTANCE", "Assistance");
-define("SERVICES_SERVICES_ELECTRIC", "Electrical problem");
-define("SERVICES_SERVICES_COMMUNICATION", "Communication problem");
-define("SERVICES_SERVICES_REPAIRS", "General repairs");
-define("SERVICES_SERVICES_CLEANING", "Cleaning service");
-define("SERVICES_SERVICES_FORM_HINT_TITLE", "Title");
-define("SERVICES_SERVICES_FORM_HINT_MESSAGE", "Message");
-define("SEND_BUTTON", "SEND");
-
-define("SERVICES_SNACKBAR_MESSAGE", "Message");
-define("SERVICES_SNACKBAR_SENT", "sent!");
     
 ?>
