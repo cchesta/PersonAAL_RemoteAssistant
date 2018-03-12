@@ -9,50 +9,90 @@ and open the template in the editor.
 include 'miscLib.php';
 include 'DButils.php';
 
+// Require composer autoloader
+ require __DIR__ . '\login\vendor\autoload.php';
+ require __DIR__ . '\login\dotenv-loader.php';
+
+ use Auth0\SDK\Auth0;
+
+ $domain        = getenv('AUTH0_DOMAIN');
+ $client_id     = getenv('AUTH0_CLIENT_ID');
+ $client_secret = getenv('AUTH0_CLIENT_SECRET');
+ $redirect_uri  = getenv('AUTH0_CALLBACK_URL');
+
+ $auth0 = new Auth0([
+   'domain' => $domain,
+   'client_id' => $client_id,
+   'client_secret' => $client_secret,
+   'redirect_uri' => $redirect_uri,
+   'audience' => 'https://' . $domain . '/userinfo',
+   'persist_id_token' => true,
+   'persist_access_token' => true,
+   'persist_refresh_token' => true,
+ ]);
+
+ $userInfo = $auth0->getUser();
+
+ if(!$userInfo)
+ {
+    echo("<script>console.log('index: No user info');</script>");
+    myRedirect("login.php", TRUE);
+ }
+ else
+ {
+     echo("<script>console.log('index user_id: ".$userInfo['sub']."');</script>");
+     echo("<script>console.log('index nickname: ".$userInfo['nickname']."');</script>");
+     $user = $userInfo['nickname'];
+
+     //SET Language
+//     session_start();
+//     $_SESSION['personAAL_user'] = $user;
+     setLanguage();
+ }
 
 //REDIRECT SU HTTPS
 //if(!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == "")
 //    HTTPtoHTTPS();
 
-if(!isCookieEnabled())
-{
-    //TODO handle disabled cookie error
-    //myRedirect("error.php?err=DISABLED_COOKIE", TRUE);
-}
-
-
-//SESSIONE
-session_start();
-setLanguage();
-
-//verifico se è stato effettuato il login
-if (isset($_SESSION['personAAL_user']) && $_SESSION['personAAL_user'] != "")
-{
-    $t=time();
-    $diff=0;
-    $new=FALSE;
-    
-    //VERIFICO SE LA SESSIONE E' SCADUTA
-    if (isset($_SESSION['personAAL_time']))
-    {
-	$t0=$_SESSION['personAAL_time'];
-	$diff=($t-$t0); // inactivity period
-    }
-    else
-	$new=TRUE;
-        
-    if ($new || ($diff > SESSION_TIMEOUT))
-    { 
-	//DISTRUGGO LA SESSIONE
-	mySessionDestroy();
-	myRedirect("login.php?notify=".SESSION_EXPIRED, TRUE);
-    }
-    else
-	$_SESSION['personAAL_time']=time();  //update time 
-    
-}
-else
-    myRedirect("login.php", TRUE);
+//if(!isCookieEnabled())
+//{
+//    //TODO handle disabled cookie error
+//    //myRedirect("error.php?err=DISABLED_COOKIE", TRUE);
+//}
+//
+//
+////SESSIONE
+//session_start();
+//setLanguage();
+//
+////verifico se è stato effettuato il login
+//if (isset($_SESSION['personAAL_user']) && $_SESSION['personAAL_user'] != "")
+//{
+//    $t=time();
+//    $diff=0;
+//    $new=FALSE;
+//    
+//    //VERIFICO SE LA SESSIONE E' SCADUTA
+//    if (isset($_SESSION['personAAL_time']))
+//    {
+//	$t0=$_SESSION['personAAL_time'];
+//	$diff=($t-$t0); // inactivity period
+//    }
+//    else
+//	$new=TRUE;
+//        
+//    if ($new || ($diff > SESSION_TIMEOUT))
+//    { 
+//	//DISTRUGGO LA SESSIONE
+//	mySessionDestroy();
+//	myRedirect("login.php?notify=".SESSION_EXPIRED, TRUE);
+//    }
+//    else
+//	$_SESSION['personAAL_time']=time();  //update time 
+//    
+//}
+//else
+//    myRedirect("login.php", TRUE);
 
 ?>
 
@@ -105,6 +145,8 @@ else
         <script src="./js/plugins/adaptation/websocket-connection.js"></script>		
         <script src="./js/plugins/adaptation/adaptation-script.js"></script>		
         <script src="./js/plugins/adaptation/delegate.js"></script>
+        <script src="./js/plugins/adaptation/jshue.js"></script>
+	<script src="./js/plugins/adaptation/command.js"></script>
         
 
 <!--        script for tables-->
@@ -361,12 +403,10 @@ else
 		    <a class="mdl-navigation__link" href="index.php"><i class="material-icons">home</i><?php echo(ENTRY_HOME);?></a>
                     <a class="mdl-navigation__link" href="health.php"><i class="material-icons">local_hospital</i><?php echo(ENTRY_HEALTH);?></a>
                     <a class="mdl-navigation__link" href="plan.php"><i class="material-icons">date_range</i><?php echo(ENTRY_PLAN);?></a>
-<!--                    <a class="mdl-navigation__link" href="fitness.php"><i class="material-icons">fitness_center</i><?php echo(ENTRY_FITNESS);?></a>
-                    <a class="mdl-navigation__link" href="diet.php"><i class="material-icons">restaurant</i><?php echo(ENTRY_DIET);?></a>
-                    <a class="mdl-navigation__link" href="services.php"><i class="material-icons">local_grocery_store</i><?php echo(ENTRY_SERVICES);?></a>-->
 		    <a class="mdl-navigation__link" href="profile.php"><i class="material-icons">info</i><?php echo(ENTRY_PROFILE);?></a>
 		    <a class="mdl-navigation__link mdl-navigation__link-selected" href="contacts.php"><i class="material-icons">group</i><?php echo(ENTRY_CONTACTS);?></a>
-                    <a class="mdl-navigation__link" href="login.php?notify=LOGOUT"><i class="material-icons">power_settings_new</i><?php echo(ENTRY_LOGOUT);?></a>
+                    <a class="mdl-navigation__link" href="huelights.php"><i class="material-icons">flare</i><?php echo(ENTRY_HUELIGHTS);?></a>
+                     <a class="mdl-navigation__link" href="logout.php"><i class="material-icons">power_settings_new</i><?php echo(ENTRY_LOGOUT);?></a>
                 </nav>
             </div>
             <main class="mdl-layout__content">
@@ -458,82 +498,6 @@ else
                                     }
                                     
                                     ?>
-                                    
-<!--                                <tr>
-                                        <td>
-                                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored remove-button" onclick="deleteContact(this)">
-                                                <i class="material-icons red">remove_circle</i>
-                                            </button>
-                                            Son
-                                        </td>
-                                        <td>
-                                            <span class="mdl-chip mdl-chip-online">
-                                                <span class="mdl-chip__text">active</span>
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
-                                                <i class="material-icons">call</i>
-                                            </button>
-                                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
-                                                <i class="material-icons">video_call</i>
-                                            </button>
-                                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
-                                                <i class="material-icons">message</i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored remove-button" onclick="deleteContact(this)">
-                                                <i class="material-icons red">remove_circle</i>
-                                            </button>
-                                            Medic
-                                        </td>
-                                        <td>
-                                            <span class="mdl-chip mdl-chip-busy">
-                                                <span class="mdl-chip__text">busy</span>
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" disabled>
-                                                <i class="material-icons">call</i>
-                                            </button>
-                                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" disabled>
-                                                <i class="material-icons">video_call</i>
-                                            </button>
-                                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
-                                                <i class="material-icons">message</i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored remove-button" onclick="deleteContact(this)">
-                                                <i class="material-icons red">remove_circle</i>
-                                            </button>
-                                            Psychologist
-                                        </td>
-                                        <td>
-                                            <span class="mdl-chip mdl-chip-offline">
-                                                <span class="mdl-chip__text">offline</span>
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" disabled>
-                                                <i class="material-icons">call</i>
-                                            </button>
-                                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" disabled>
-                                                <i class="material-icons">video_call</i>
-                                            </button>
-                                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
-                                                <i class="material-icons">message</i>
-                                            </button>
-                                        </td>
-                                        
-                                    </tr>-->
-                                    
-                                    
                                     
                                 </tbody>
                             </table>

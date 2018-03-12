@@ -25,71 +25,85 @@
       'persist_access_token' => true,
       'persist_refresh_token' => true,
     ]);
-
+    
+//    $accesstoken = $auth0->getAccessToken();
+//    $idtoken = $auth0->getIdToken();
     $userInfo = $auth0->getUser();
+    
+    
+    if(!$userInfo)
+    {
+       echo("<script>console.log('login: No user info');</script>");
+    }
+    else
+    {
+//        $user = $userInfo['sub'];
+        $user = $userInfo['nickname'];
+        
 
+        $_SESSION['personAAL_user']= $user;	 
+        sendGETData("notify", LOGIN_SUCCESS, TRUE);	 
+        myRedirect("index.php",TRUE);
+
+    }
+    
+   
       
     //REDIRECT SU HTTPS
 //    if(!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == "")
 //	HTTPtoHTTPS();
     
-    if(!isCookieEnabled())
-    {
-	myRedirect("login.php?notify=".DISABLED_COOKIE, TRUE);
-    }
+//    if(!isCookieEnabled())
+//    {
+//	myRedirect("login.php?notify=".DISABLED_COOKIE, TRUE);
+//    }
     
-    //LOGOUT
-    if(isset($_REQUEST['notify']) && $_REQUEST['notify'] == LOGOUT)
-    {
-	mySessionDestroy();
-    }
-    
-    //session_start();
-    
+     
     //utente loggato
-    if (isset($_SESSION['personAAL_user']) && $_SESSION['personAAL_user'] != "")
-    {
-	$_SESSION['personAAL_time']=time();
-	myRedirect("index.php",TRUE);
-    }
+//    if (isset($_SESSION['personAAL_user']) && $_SESSION['personAAL_user'] != "")
+//    {
+//	$_SESSION['personAAL_time']=time();
+//	myRedirect("index.php",TRUE);
+//    }
     
     
     //PROCEDURA PER IL LOGIN
-    if(isset($_REQUEST['submit']) && $_REQUEST['submit'] !== "")
-    {
-	$_REQUEST['submit']= "";
-	unset($_REQUEST['submit']);
-	
-	if(!isset($_REQUEST['username']) || !isset($_REQUEST['password']) || $_REQUEST['username'] == "" || $_REQUEST['password'] == "")
-	    sendGETData("notify", EMPTY_CREDENTIAL, TRUE);
-	else
-	{
-            
-	    $user= strip_tags($_REQUEST['username']);
-	    $pw= strip_tags($_REQUEST['password']);
-
-	    if(isValidCredential($user, FALSE) && isValidCredential($pw, TRUE))
-	    {
-		//credenziali sintatticamente valide
-		$result= login($user, $pw);
-
-		//Wrong credentials
-		if($result === FALSE)
-		   sendGETData("notify", WRONG_USERNAME_OR_PASSWORD , TRUE);
-//		else if($result === -1)
-//		    sendGETData("notify", DB_CONNECTION_ERROR , TRUE);
-		 
-		 //username e password esatti
-		 $_SESSION['personAAL_user']= $user;
-		 
-		 sendGETData("notify", LOGIN_SUCCESS, TRUE);
-		 
-	    }
-	    else
-		sendGETData("notify", INVALID_CREDENTIAL, TRUE);
-	}
-	
-    }
+//    if(isset($_REQUEST['submit']) && $_REQUEST['submit'] !== "")
+//    {
+//	$_REQUEST['submit']= "";
+//	unset($_REQUEST['submit']);
+//	
+//	if(!isset($_REQUEST['username']) || !isset($_REQUEST['password']) || $_REQUEST['username'] == "" || $_REQUEST['password'] == "")
+//	    sendGETData("notify", EMPTY_CREDENTIAL, TRUE);
+//	else
+//	{
+//            
+//	    $user= strip_tags($_REQUEST['username']);
+//	    $pw= strip_tags($_REQUEST['password']);
+//
+//	    if(isValidCredential($user, FALSE) && isValidCredential($pw, TRUE))
+//	    {
+//		//credenziali sintatticamente valide
+//		$result= login($user, $pw);
+//
+//		//Wrong credentials
+//		if($result === FALSE)
+//		   sendGETData("notify", WRONG_USERNAME_OR_PASSWORD , TRUE);
+////		else if($result === -1)
+////		    sendGETData("notify", DB_CONNECTION_ERROR , TRUE);
+//		 
+//		 //username e password esatti
+//		 $_SESSION['personAAL_user']= $user;
+//		 
+//		 sendGETData("notify", LOGIN_SUCCESS, TRUE);
+//		 
+//	    }
+//	    else
+//		sendGETData("notify", INVALID_CREDENTIAL, TRUE);
+//	}
+//	
+//    }
+    
  
 $selected='en';
 
@@ -151,25 +165,12 @@ setLanguage();
         
         <!--  AUTH0-->
         
-<!--        <script src="http://code.jquery.com/jquery-3.1.0.min.js" type="text/javascript"></script>-->
         <script src="https://cdn.auth0.com/js/auth0/8.7/auth0.min.js"></script>
-
-<!--        <script type="text/javascript" src="//use.typekit.net/iws6ohy.js"></script>
-        <script type="text/javascript">try{Typekit.load();}catch(e){}</script>-->
-
-<!--        <meta name="viewport" content="width=device-width, initial-scale=1">-->
-
-        <!-- font awesome from BootstrapCDN -->
-<!--        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">-->
-<!--        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">-->
-
         <script>
           var AUTH0_CLIENT_ID = '<?php echo getenv("AUTH0_CLIENT_ID") ?>';
           var AUTH0_DOMAIN = '<?php echo getenv("AUTH0_DOMAIN") ?>';
           var AUTH0_CALLBACK_URL = '<?php echo getenv("AUTH0_CALLBACK_URL") ?>';
         </script>
-
-
         <script src="login/public/app.js"> </script>
         <link href="login/public/app.css" rel="stylesheet">
         
@@ -202,73 +203,16 @@ setLanguage();
                 </div>
             </header>
             
-            <main class="mdl-layout__content">
-                <div class="page-content center-content">
-                    
-                <div class="login-card mdl-card mdl-shadow--4dp">
-                    
-                    <form role="form" action="login.php" method="POST" onsubmit="return confLogin()">
-                        
-                        <div class="mdl-card__title">
-                            <div class="mdl-card__title-text">
-                            <?php echo(LOGIN_WELCOME);?>   
-                            </div>
-                        </div>
-                        <div class="mdl-card__supporting-text mdl-card--expand">
-                                <div class="card-choice-textfield">
-                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                        <input class="mdl-textfield__input" type="text" name="username" id="username">
-                                        <label class="mdl-textfield__label" for="username"><?php echo(LOGIN_USERNAME_HINT);?> </label>
-                                    </div>
-                                </div>
-                                <div class="card-choice-textfield">
-                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                        <input class="mdl-textfield__input" type="password" name="password" id="password">
-                                        <label class="mdl-textfield__label" for="password"><?php echo(LOGIN_PASSWORD_HINT);?></label>
-                                    </div>
-                                </div>
-                            
-                            <?php
+            
+<!--            AUTH0 login-->
 
-                                if(isset($_REQUEST['notify']) && $_REQUEST['notify'] != null && $_REQUEST['notify'] != LOGOUT)
-                                {
-                                    setLoginErrText($_REQUEST['notify']);
-                                }
-
-                            ?>
-
-
-
-                        </div>
-                        <div class="mdl-card__actions mdl-card--border">
-                            <input class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-dismiss="modal" type="submit" name ="submit"
-                                   value="<?php echo(LOGIN_LOGIN_BUTTON);?>">
-                        </div>
-                    </form>
-                </div>
-                <a class="registration-link" href="register.php"><?php echo(LOGIN_REGISTRATION_TEXT);?></a>
-                
-                </div>
-            </main>
-
-<!--            <div class="container">
+            <div class="container">
                 <div class="login-page clearfix">
-                  <?php if(!$userInfo): ?>
                   <div class="login-box auth0-box before">
                     <a class="btn btn-primary btn-lg btn-login btn-block">SignIn</a>
                   </div>
-                  <?php else: ?>
-                  <div class="logged-in-box auth0-box logged-in">
-                    <h1 id="logo"><img src="//cdn.auth0.com/samples/auth0_logo_final_blue_RGB.png" /></h1>
-                    <img class="avatar" src="<?php echo $userInfo['picture'] ?>"/>
-                    <h2>Welcome <span class="nickname"><?php echo $userInfo['nickname'] ?></span></h2>
-                    <button class="btn-m btn-warning btn-logout">Logout</button>
-                  </div>
-                  <?php endif ?>
                 </div>
-            </div>-->
-
+            </div>
         </div>        
     </body>
-    
 </html>

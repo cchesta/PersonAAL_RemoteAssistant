@@ -3,15 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/PersonAAL/Development/RemoteAssistant_v2.0/js/plugins/adaptation/adaptation-script.js</file>
+            <file>file:/C:/PersonAAL/Development/RemoteAssistant_v2.0/DButils.php</file>
             <file>file:/C:/PersonAAL/Development/RemoteAssistant_v2.0/login.php</file>
+            <file>file:/C:/PersonAAL/Development/RemoteAssistant_v2.0/contacts.php</file>
             <file>file:/C:/PersonAAL/Development/RemoteAssistant_v2.0/index.php</file>
-            <file>file:/C:/PersonAAL/Development/RemoteAssistant_v2.0/strings_de.php</file>
-            <file>file:/C:/PersonAAL/Development/RemoteAssistant_v2.0/js/plugins/adaptation/command.js</file>
-            <file>file:/C:/PersonAAL/Development/RemoteAssistant_v2.0/js/plugins/adaptation/context-data.js</file>
-            <file>file:/C:/PersonAAL/Development/RemoteAssistant_v2.0/strings_no.php</file>
-            <file>file:/C:/PersonAAL/Development/RemoteAssistant_v2.0/strings_en.php</file>
-            <file>file:/C:/PersonAAL/Development/RemoteAssistant_v2.0/huelights.php</file>
+            <file>file:/C:/PersonAAL/Development/RemoteAssistant_v2.0/profile.php</file>
+            <file>file:/C:/PersonAAL/Development/RemoteAssistant_v2.0/plan.php</file>
+            <file>file:/C:/PersonAAL/Development/RemoteAssistant_v2.0/health.php</file>
         </group>
     </open-files>
 </project-private>

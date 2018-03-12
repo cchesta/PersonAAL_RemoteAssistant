@@ -3,50 +3,91 @@
 include 'miscLib.php';
 include 'DButils.php';
 
+// Require composer autoloader
+ require __DIR__ . '\login\vendor\autoload.php';
+ require __DIR__ . '\login\dotenv-loader.php';
+
+ use Auth0\SDK\Auth0;
+
+ $domain        = getenv('AUTH0_DOMAIN');
+ $client_id     = getenv('AUTH0_CLIENT_ID');
+ $client_secret = getenv('AUTH0_CLIENT_SECRET');
+ $redirect_uri  = getenv('AUTH0_CALLBACK_URL');
+
+ $auth0 = new Auth0([
+   'domain' => $domain,
+   'client_id' => $client_id,
+   'client_secret' => $client_secret,
+   'redirect_uri' => $redirect_uri,
+   'audience' => 'https://' . $domain . '/userinfo',
+   'persist_id_token' => true,
+   'persist_access_token' => true,
+   'persist_refresh_token' => true,
+ ]);
+
+ $userInfo = $auth0->getUser();
+
+ if(!$userInfo)
+ {
+    echo("<script>console.log('index: No user info');</script>");
+    myRedirect("login.php", TRUE);
+ }
+ else
+ {
+     echo("<script>console.log('index user_id: ".$userInfo['sub']."');</script>");
+     echo("<script>console.log('index nickname: ".$userInfo['nickname']."');</script>");
+     $user = $userInfo['nickname'];
+
+     //SESSIONE
+//     session_start();
+     $_SESSION['personAAL_user'] = $user;
+     setLanguage();
+ }
+
 
 //REDIRECT SU HTTPS
 //if(!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == "")
 //    HTTPtoHTTPS();
 
-if(!isCookieEnabled())
-{
-    //TODO handle disabled cookie error
-    //myRedirect("error.php?err=DISABLED_COOKIE", TRUE);
-}
-
-
-//SESSIONE
-session_start();
-setLanguage();
-
-//verifico se è stato effettuato il login
-if (isset($_SESSION['personAAL_user']) && $_SESSION['personAAL_user'] != "")
-{
-    $t=time();
-    $diff=0;
-    $new=FALSE;
-    
-    //VERIFICO SE LA SESSIONE E' SCADUTA
-    if (isset($_SESSION['personAAL_time']))
-    {
-	$t0=$_SESSION['personAAL_time'];
-	$diff=($t-$t0); // inactivity period
-    }
-    else
-	$new=TRUE;
-        
-    if ($new || ($diff > SESSION_TIMEOUT))
-    { 
-	//DISTRUGGO LA SESSIONE
-	mySessionDestroy();
-	myRedirect("login.php?notify=".SESSION_EXPIRED, TRUE);
-    }
-    else
-	$_SESSION['personAAL_time']=time();  //update time 
-    
-}
-else
-    myRedirect("login.php", TRUE);
+//if(!isCookieEnabled())
+//{
+//    //TODO handle disabled cookie error
+//    //myRedirect("error.php?err=DISABLED_COOKIE", TRUE);
+//}
+//
+//
+////SESSIONE
+//session_start();
+//setLanguage();
+//
+////verifico se è stato effettuato il login
+//if (isset($_SESSION['personAAL_user']) && $_SESSION['personAAL_user'] != "")
+//{
+//    $t=time();
+//    $diff=0;
+//    $new=FALSE;
+//    
+//    //VERIFICO SE LA SESSIONE E' SCADUTA
+//    if (isset($_SESSION['personAAL_time']))
+//    {
+//	$t0=$_SESSION['personAAL_time'];
+//	$diff=($t-$t0); // inactivity period
+//    }
+//    else
+//	$new=TRUE;
+//        
+//    if ($new || ($diff > SESSION_TIMEOUT))
+//    { 
+//	//DISTRUGGO LA SESSIONE
+//	mySessionDestroy();
+//	myRedirect("login.php?notify=".SESSION_EXPIRED, TRUE);
+//    }
+//    else
+//	$_SESSION['personAAL_time']=time();  //update time 
+//    
+//}
+//else
+//    myRedirect("login.php", TRUE);
 ?>
 
 <html>
@@ -89,6 +130,7 @@ else
                 <script src="./js/plugins/adaptation/websocket-connection.js"></script>		
                 <script src="./js/plugins/adaptation/adaptation-script.js"></script>		
                 <script src="./js/plugins/adaptation/delegate.js"></script>
+                <script src="./js/plugins/adaptation/context-data.js"></script>
                 <script src="./js/plugins/adaptation/jshue.js"></script>
 		<script src="./js/plugins/adaptation/command.js"></script>
                 
@@ -116,7 +158,7 @@ else
 		    <a class="mdl-navigation__link" href="profile.php"><i class="material-icons">info</i><?php echo(ENTRY_PROFILE);?></a>
 		    <a class="mdl-navigation__link" href="contacts.php"><i class="material-icons">group</i><?php echo(ENTRY_CONTACTS);?></a>
                     <a class="mdl-navigation__link" href="huelights.php"><i class="material-icons">flare</i><?php echo(ENTRY_HUELIGHTS);?></a>
-                    <a class="mdl-navigation__link" href="login.php?notify=LOGOUT"><i class="material-icons">power_settings_new</i><?php echo(ENTRY_LOGOUT);?></a>
+                    <a class="mdl-navigation__link" href="logout.php"><i class="material-icons">power_settings_new</i><?php echo(ENTRY_LOGOUT);?></a>
                 </nav>
             </div>
             <main class="mdl-layout__content">

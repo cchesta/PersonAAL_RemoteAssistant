@@ -81,7 +81,6 @@
                 sendDataToPage("login.php", "notify", REGISTRATION_SUCCESSFUL, TRUE);
         }
     }
-        
             
 ?>
 

@@ -17,7 +17,7 @@ define("DB_NAME","personaal");
 
 
 /*ritorna:
- * -1: errorri con la connessione col database
+ * -1: errori con la connessione col database
  * FALSE: credenziali non valide
  * TRUE: login effettuato con successo
  */
@@ -32,7 +32,8 @@ function login($user, $pw, $returnUser = FALSE)
     // Check connection
     if ($conn->connect_error)
     {
-        echo("Connection failed: " . $conn->connect_error);
+//        echo("Connection failed: " . $conn->connect_error);
+        echo("<script>console.log('DButils - login: Connection failed:".$conn->connect_error."');</script>");
         $conn->close();
         return -1;
     } 
@@ -76,8 +77,44 @@ function login($user, $pw, $returnUser = FALSE)
     
 }
 
+function retrieveUser($user)
+{ 
+    // Create connection
+    $conn = new mysqli(DB_SERVER_NAME, DB_USERNAME, DB_PASSWORD, DB_NAME);
+    // Check connection
+    if ($conn->connect_error)
+    {
+//        echo("Connection failed: " . $conn->connect_error);
+        echo("<script>console.log('DButils - retrieveUser: Connection failed:".$conn->connect_error."');</script>");
+        $conn->close();
+        return -1;
+    } 
+
+    $sql = "SELECT * FROM users WHERE usersid='".$user."'";
+    $result = $conn->query($sql);
+
+    if(!$result){
+//        echo('There was an error running the query [' . $conn->error . ']');
+        $conn->close();
+        return -1;
+    }
 
 
+    if ($result->num_rows > 0)
+    {
+        // right username and password
+        $row = $result->fetch_assoc();
+    }
+    else
+    {
+        //TODO username not present
+        $conn->close();
+        return FALSE;
+    }
+
+    $conn->close();
+    return TRUE;    
+}
 
 function resetWeeklyGoals()
 {
@@ -194,6 +231,89 @@ function register($username, $password, $name, $surname, $birthDate, $gender, $s
     return TRUE;
 }
 
+function initializeUser($username)
+{
+    // Create connection
+    $conn = new mysqli(DB_SERVER_NAME, DB_USERNAME, DB_PASSWORD, DB_NAME);
+    // Check connection
+    if ($conn->connect_error)
+    {
+        echo("Connection failed: " . $conn->connect_error);
+        $conn->close();
+        return FALSE;
+    } 
+
+    $password= sha1('password');
+
+    //create user row
+    $createUserSql = "INSERT INTO users (usersid, password, userType, name, surname, gender, birthDate, state, city, cap, address, weight, height, age, motivation) VALUES ('". $username ."','". $password ."','patient','name','surname','gender','1900-01-01','state','city','cap','address','0','0','0','wellness')";           
+    $result = $conn->query($createUserSql);
+    
+
+    if(!$result){
+        echo('There was an error running the query [' . $conn->error . ']');
+        $conn->close();
+        return FALSE;
+    }
+
+    $conn->close();
+    return TRUE;
+}
+
+function initializePlan($username)
+{
+    // Create connection
+    $conn = new mysqli(DB_SERVER_NAME, DB_USERNAME, DB_PASSWORD, DB_NAME);
+    // Check connection
+    if ($conn->connect_error)
+    {
+        echo("Connection failed: " . $conn->connect_error);
+        $conn->close();
+        return FALSE;
+    } 
+    
+    //create plan row
+    $createPlanSql = "INSERT INTO plan (usersid, walkWeekGoal, exerciseWeekGoal, meetWeekGoal, actualWeekWalk, actualWeekExercise, actualWeekMeet, events) VALUES ('". $username ."', '0', '0', '0', '0', '0', '0', '[]')";
+    $result = $conn->query($createPlanSql);
+    
+
+    if(!$result){
+        echo('There was an error running the query [' . $conn->error . ']');
+        $conn->close();
+        return FALSE;
+    }
+
+    $conn->close();
+    return TRUE;
+}
+
+function initializeWeight($username)
+{
+    // Create connection
+    $conn = new mysqli(DB_SERVER_NAME, DB_USERNAME, DB_PASSWORD, DB_NAME);
+    // Check connection
+    if ($conn->connect_error)
+    {
+        echo("Connection failed: " . $conn->connect_error);
+        $conn->close();
+        return FALSE;
+    } 
+    
+    //create weight row
+    $createWeightSql = "INSERT INTO weight (usersid, weightJSON) VALUES ('". $username ."', '[]');";
+    $result = $conn->query($createWeightSql);
+    
+
+    if(!$result){
+        echo('There was an error running the query [' . $conn->error . ']');
+        $conn->close();
+        return FALSE;
+    }
+
+    $conn->close();
+    return TRUE;
+}
+
 
 /***************************************************  DATABSE MANAGER CLASSES ************************************************************/
 /*
@@ -243,7 +363,7 @@ class WeightData{
             $JSONdate = json_decode($row['weightJSON'], true);
 
             if($JSONdate === NULL)
-                echo("error parsing weight JSON");
+                echo("<script>console.log('DButils - WeightData: error parsing weight JSON');</script>");
             else
             {
                 $this->dataArray = $JSONdate;
@@ -253,7 +373,7 @@ class WeightData{
         else
         {
             //TODO wrong username or password
-            echo "no results";
+            echo("<script>console.log('DButils - WeightData: no results');</script>");
         }
         
     }
@@ -375,7 +495,8 @@ class FindData{
         else
         {
             //TODO wrong username or password
-            echo "no results";
+//            echo "no results";
+            echo("<script>console.log('DButils - FindData: no results');</script>");
         }
         
     }
@@ -503,7 +624,8 @@ class UserData{
         else
         {
             //TODO wrong username or password
-            echo "no results";
+//            echo "no results";
+            echo("<script>console.log('DButils - UserData: no results');</script>");
         }
         
     }
@@ -578,7 +700,8 @@ class SurveyData{
         else
         {
             //TODO wrong username or password
-            echo "no results";
+            echo("<script>console.log('DButils - SurveyData: no results');</script>");
+//            echo "no results";
         }
     }
     public function getWeight()
@@ -747,6 +870,7 @@ class Plan{
         else
         {
             //TODO wrong username or password
+//            echo("<script>console.log('DButils - Plan: no results');</script>");
             echo "no results";
         }
         

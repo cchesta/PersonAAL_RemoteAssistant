@@ -1,55 +1,119 @@
 <!DOCTYPE html>
 
-
 <?php
 
 include 'miscLib.php';
 include 'DButils.php';
+
+// Require composer autoloader
+ require __DIR__ . '\login\vendor\autoload.php';
+ require __DIR__ . '\login\dotenv-loader.php';
+
+ use Auth0\SDK\Auth0;
+
+ $domain        = getenv('AUTH0_DOMAIN');
+ $client_id     = getenv('AUTH0_CLIENT_ID');
+ $client_secret = getenv('AUTH0_CLIENT_SECRET');
+ $redirect_uri  = getenv('AUTH0_CALLBACK_URL');
+
+ $auth0 = new Auth0([
+   'domain' => $domain,
+   'client_id' => $client_id,
+   'client_secret' => $client_secret,
+   'redirect_uri' => $redirect_uri,
+   'audience' => 'https://' . $domain . '/userinfo',
+   'persist_id_token' => true,
+   'persist_access_token' => true,
+   'persist_refresh_token' => true,
+ ]);
+
+ $userInfo = $auth0->getUser();
+
+ if(!$userInfo)
+ {
+    echo("<script>console.log('index: No user info');</script>");
+    myRedirect("login.php", TRUE);
+ }
+ else
+ {
+    echo("<script>console.log('index user_id: ".$userInfo['sub']."');</script>");
+    echo("<script>console.log('index nickname: ".$userInfo['nickname']."');</script>");
+    $user = $userInfo['nickname'];
+     
+    $result= retrieveUser($user);
+
+//  User not registered to DB
+    if($result === FALSE) 
+    {
+        $regresult= initializeUser($user);
+        $planresult= initializePlan($user);
+        $weightResult=initializeWeight($user);
+
+
+        if(($regresult === TRUE) && ($planresult===TRUE) && ($weightResult===TRUE)) 
+            echo("<script>console.log('Registration to DB successful');</script>");
+
+        else
+            echo("<script>console.log('Error in registration to DB');</script>");
+    }
+    else if($result === -1)
+        echo("<script>console.log('DB connection error');</script>");
+            
+
+
+     $_SESSION['personAAL_user'] = $user;
+     setLanguage();
+//        foreach($userInfo as $key=>$value){ 
+//            echo("<script> console.log('key: ".$key."');</script>");
+//            echo("<script> console.log('user info: ".$value."');</script>");
+//        }
+ }
+   
 
 
 //REDIRECT SU HTTPS
 //if(!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == "")
 //    HTTPtoHTTPS();
 
-if(!isCookieEnabled())
-{
-    //TODO handle disabled cookie error
-    //myRedirect("error.php?err=DISABLED_COOKIE", TRUE);
-}
+//if(!isCookieEnabled())
+//{
+//    //TODO handle disabled cookie error
+//    //myRedirect("error.php?err=DISABLED_COOKIE", TRUE);
+//}
 
 
 //SESSIONE
-session_start();
-setLanguage();
+//session_start();
+//setLanguage();
 
 //verifico se è stato effettuato il login
-if (isset($_SESSION['personAAL_user']) && $_SESSION['personAAL_user'] != "")
-{
-    $t=time();
-    $diff=0;
-    $new=FALSE;
+//if (isset($_SESSION['personAAL_user']) && $_SESSION['personAAL_user'] != "")
+//{
+//    $t=time();
+//    $diff=0;
+//    $new=FALSE;
+//    
+//    //VERIFICO SE LA SESSIONE E' SCADUTA
+//    if (isset($_SESSION['personAAL_time']))
+//    {
+//	$t0=$_SESSION['personAAL_time'];
+//	$diff=($t-$t0); // inactivity period
+//    }
+//    else
+//	$new=TRUE;
+//        
+//    if ($new || ($diff > SESSION_TIMEOUT))
+//    { 
+//	//DISTRUGGO LA SESSIONE
+//	mySessionDestroy();
+//	myRedirect("login.php?notify=".SESSION_EXPIRED, TRUE);
+//    }
+//    else
+//	$_SESSION['personAAL_time']=time();  //update time 
     
-    //VERIFICO SE LA SESSIONE E' SCADUTA
-    if (isset($_SESSION['personAAL_time']))
-    {
-	$t0=$_SESSION['personAAL_time'];
-	$diff=($t-$t0); // inactivity period
-    }
-    else
-	$new=TRUE;
-        
-    if ($new || ($diff > SESSION_TIMEOUT))
-    { 
-	//DISTRUGGO LA SESSIONE
-	mySessionDestroy();
-	myRedirect("login.php?notify=".SESSION_EXPIRED, TRUE);
-    }
-    else
-	$_SESSION['personAAL_time']=time();  //update time 
-    
-}
-else
-    myRedirect("login.php", TRUE);
+//}
+//else
+//    myRedirect("login.php", TRUE);
 
 ?>
 
@@ -62,11 +126,7 @@ else
         <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
         <meta http-equiv="Pragma" content="no-cache" />
         <meta http-equiv="Expires" content="0" />
-        
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        
-      
-        
         
         <!--  UI CSS & JS-->
         
@@ -106,7 +166,19 @@ else
         <script src="./js/plugins/adaptation/adaptation-script.js"></script>		
         <script src="./js/plugins/adaptation/delegate.js"></script>
         <script src="./js/plugins/adaptation/context-data.js"></script>
+        <script src="./js/plugins/adaptation/jshue.js"></script>
         <script src="./js/plugins/adaptation/command.js"></script>
+        
+               <!--  AUTH0-->
+        
+        <script src="https://cdn.auth0.com/js/auth0/8.7/auth0.min.js"></script>
+        <script>
+          var AUTH0_CLIENT_ID = '<?php echo getenv("AUTH0_CLIENT_ID") ?>';
+          var AUTH0_DOMAIN = '<?php echo getenv("AUTH0_DOMAIN") ?>';
+          var AUTH0_CALLBACK_URL = '<?php echo getenv("AUTH0_CALLBACK_URL") ?>';
+        </script>
+        <script src="login/public/app.js"> </script>
+        <link href="login/public/app.css" rel="stylesheet">
         
 	<?php
 	    $plan= new Plan($_SESSION['personAAL_user']);
@@ -116,16 +188,12 @@ else
 		$walkPerc= ($plan->getActualWalk() * 100) / $plan->getWalkGoal();
 	    if($walkPerc > 100)
 		$walkPerc= 100;
-	    //$walkPerc= 25;
             
 	    $exercisePerc= 0;
 	    if($plan->getExerciseGoal() != 0)
 		$exercisePerc= ($plan->getActualExercise() * 100) / $plan->getExerciseGoal();
 	    if($exercisePerc > 100)
 		$exercisePerc= 100;
-	    //$exercisePerc= 50;    
-//	    echo($walkPerc.'  '.$exercisePerc);
-            
             
                 
             $surveyinfo = new SurveyData($_SESSION['personAAL_user']);
@@ -135,7 +203,12 @@ else
 //            echo("age= ". $surveyinfo->getAge() .";");
 //            echo("motivation= ". $surveyinfo->getMotivation() .";");
             
-            $bmi = sprintf('%0.2f',(($surveyinfo->getWeight() * 10000)/ ($surveyinfo->getHeight()*$surveyinfo->getHeight())));
+            if($surveyinfo->getHeight()!=0){                
+                $bmi = sprintf('%0.2f',(($surveyinfo->getWeight() * 10000)/ ($surveyinfo->getHeight()*$surveyinfo->getHeight())));
+            }
+            else {
+                $bmi = sprintf('%0.2f',0);
+            }
             
 	?>
 	
@@ -313,7 +386,7 @@ else
 		    <a class="mdl-navigation__link" href="profile.php"><i class="material-icons">info</i><?php echo(ENTRY_PROFILE);?></a>
 		    <a class="mdl-navigation__link" href="contacts.php"><i class="material-icons">group</i><?php echo(ENTRY_CONTACTS);?></a>
                     <a class="mdl-navigation__link" href="huelights.php"><i class="material-icons">flare</i><?php echo(ENTRY_HUELIGHTS);?></a>
-                    <a class="mdl-navigation__link" href="login.php?notify=LOGOUT"><i class="material-icons">power_settings_new</i><?php echo(ENTRY_LOGOUT);?></a>
+                    <a class="mdl-navigation__link" href="logout.php"><i class="material-icons">power_settings_new</i><?php echo(ENTRY_LOGOUT);?></a>
                 </nav>
             </div>
             <main class="mdl-layout__content">
@@ -378,7 +451,6 @@ else
                                                 <?php
                                                     //get walk goal info
                                                     echo($plan->getActualWalk() . ' / ' . $plan->getWalkGoal());
-                                                    //echo ("500/2000")
                                                 ?>
 
                                                 <div class="goal-info-text">
@@ -402,7 +474,6 @@ else
                                             echo($plan->getActualWalk() . ' / '. $plan->getWalkGoal() .' '. INDEX_STEPSCARD_STEPS);
                                         ?>
                                     </div>
-<!--                                    <div id="daily_steps" class="goal-message-text"></div>-->
                                 </div>
                             </div>
 
@@ -419,7 +490,6 @@ else
                                             <?php
                                                 //get exercise goal info
                                                 echo($plan->getActualExercise() . ' / ' . $plan->getExerciseGoal());
-                                                //echo("30/60")
                                             ?>
                                             <div class="goal-info-text">
                                                 <?php echo(INDEX_STEPSCARD_EXERCISE);?>
@@ -441,7 +511,6 @@ else
                                             echo($plan->getActualExercise() . ' / '. $plan->getExerciseGoal() .' '. INDEX_STEPSCARD_EXERCISE);
                                         ?>
                                     </div>
-<!--                                    <div id="persuasive-message" class="goal-message-text"></div>-->
                                 </div>
                             </div> 
                            <div  class="message-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
@@ -450,14 +519,6 @@ else
                                 </div>
                                <div class="mdl-card__actions mdl-card--border" id="persuasive-message"></div>
                             </div>
-              <!--          <div   class="weather-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
-                                <div class="mdl-card__title">
-                                    <h2 class="mdl-card__title-text"><?php echo(WEATHER_CARD_TITLE);?></h2>
-                                </div>
-                                <div class="mdl-card__actions mdl-card--border">
-                                    <iframe width="300" height="80" scrolling="no" frameborder="no" noresize="noresize" src="http://www.ilmeteo.it/box/previsioni.php?citta=8129&type=real1&width=250&ico=1&lang=eng&days=6&font=Arial&fontsize=12&bg=FFFFFF&fg=000000&bgtitle=0099FF&fgtitle=FFFFFF&bgtab=F0F0F0&fglink=1773C2"></iframe>
-                                </div>
-                            </div>-->
                         </div>
                         
                         <div id="fitness" class="mdl-grid mdl-cell mdl-cell--4-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-cell--order-3-phone"> 
@@ -500,33 +561,11 @@ else
                                 </table>
                             </div>
                         </div>
-
- 
-<!--                            <div  class="heart-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
-                                <div class="mdl-card__title">
-                                    <h2 class="mdl-card__title-text"><?php echo(HEART_CARD_TITLE);?></h2>
-                                </div>
-                                <div id="ecg_hr" class="mdl-card__actions mdl-card--border"></div>
-                            </div>
-                            <div   class="breath-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
-                                <div class="mdl-card__title">
-                                    <h2 class="mdl-card__title-text"><?php echo(BREATH_CARD_TITLE);?></h2>
-                                </div>
-                                <div id="respiration_rate" class="mdl-card__actions mdl-card--border"></div>
-                            </div>
-                            <div   class="temperature-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
-                                <div class="mdl-card__title">
-                                    <h2 class="mdl-card__title-text"><?php echo(TEMPERATURE_CARD_TITLE);?></h2>
-                                </div>
-                                <div id="body_temperature" class="mdl-card__actions mdl-card--border"></div>
-                            </div>-->
-
-                           
-                        </div>
                     </div>
                 </div>
-            </main>
-        </div>   
+            </div>
+        </main>
+    </div>   
 
         
 
@@ -738,12 +777,8 @@ else
 			    </a>
 			</div>
 		    </div>
-                    
                 </div>
-
             </div>
         </div>
-            
     </body>
-    
 </html>
