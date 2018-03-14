@@ -146,17 +146,17 @@ define("HEALTH_SNACKBAR_STOP", "Kobler opp til BITalino.");
 define("HEALTH_WEIGHTPLOT_DATE_HINT", "Dato");
 
 //PLAN PAGE
-define("PLAN_SETGOALS_TITLE", "Lag ditt ukentlige mål");
-define("PLAN_SETGOALS_EXERCISE", "Trening");
-define("PLAN_SETGOALS_WALK", "Gå tur (skritt)");
-define("PLAN_SETGOALS_MEET", "Sosialt (møte personer)");
-define("PLAN_SETGOALS_ATLEAST", "minst");
-define("PLAN_SETGOALS_MORETHAN", "mer enn");
-define("PLAN_SNACKBAR", "Sett opp mål først!");
-define("PLAN_GOALS_TITLE", "Ukesmål");
-define("PLAN_GOALS_EXERCISE", "Trening");
-define("PLAN_GOALS_WALK", "Å gå tur");
-define("PLAN_GOALS_MEET", "Sosialt");
+define("PLAN_SETGOALS_TITLE", "Wochenziele setzen");
+define("PLAN_SETGOALS_EXERCISE", "Fitness�bungen (minuten)");
+define("PLAN_SETGOALS_WALK", "Bewegung (minuten)");
+define("PLAN_SETGOALS_MEET", "Verabredungen (Personen)");
+define("PLAN_SETGOALS_ATLEAST", "mindestes");
+define("PLAN_SETGOALS_MORETHAN", "mehr als");
+define("PLAN_SNACKBAR", "Bitte zuerst Zielwert angeben!");
+define("PLAN_GOALS_TITLE", "Wochenziele");
+define("PLAN_GOALS_EXERCISE", "Fitnessübungen");
+define("PLAN_GOALS_WALK", "Bewegung");
+define("PLAN_GOALS_MEET", "Verabredungen");
 define("PLAN_GOALS_MIN", "min");
 define("PLAN_GOALS_STEPS", "Skritt");
 define("PLAN_GOALS_PERSONS", "Personer");
@@ -177,15 +177,62 @@ define("UNDONE_BUTTON", "ANGRE");
 
 //NEW
 //invite a friend to join activity
-define("INVITE_FRIEND_BUTTON", "INVITER VENN");
-define("ACCEPT_INVITATION_BUTTON", "AKSEPTERER");
-define("DECLINE_INVITATION_BUTTON", "AVSLÅ");
+define("INVITE_FRIEND_BUTTON", "INVITE FRIEND");
+define("ACCEPT_INVITATION_BUTTON", "ACCEPT");
+define("DECLINE_INVITATION_BUTTON", "DECLINE");
+//NEW SET GOALS CARD 
+define("PLAN_GOALS_SOCIAL_ACTIVITY", "Soziale Aktivitäten");
+define("PLAN_SETGOALS_SOCIAL_ACTIVITY", "Soziale Aktivitäten");
+define("PLAN_GOALS_ACTIVITY", "aktivitäten");
 
-//set a start and end time for an activity in the plan
-define("START_TIME", "Start");
-define("END_TIME", "Slutt");
+//NEW CALENDAR
+
+define("PLAN_ACTIVITY_ADD", "Add event");
+define("PLAN_ACTIVITY_TITLE", "Title");
+define("PLAN_ACTIVITY_TYPE", "Type of activity");
+define("PLAN_ACTIVITY_TYPE_RECEIVE_GEST", "Receive guest");
+define("PLAN_ACTIVITY_TYPE_CALL_SOMEONE", "Call someone");
+define("PLAN_ACTIVITY_TYPE_VISIT_SOMEONE", "Visit Someone");    
+define("PLAN_ACTIVITY_TYPE_CINEMA", "Go to the cinema");
+define("PLAN_ACTIVITY_TYPE_THEATRE", "Go to the theatre");
+define("PLAN_ACTIVITY_TYPE_RESTAURANT", "Go to a restaurant");
+define("PLAN_ACTIVITY_TYPE_PUB", "Go to a pub");      
+define("PLAN_ACTIVITY_TYPE_RELIGIOUS_ACTIVITY", "Religious activity");
+define("PLAN_ACTIVITY_OTHER", "Other", "Other activity");
+define("PLAN_ACTIVITY_START_TIME", "Start Time");
+define("PLAN_ACTIVITY_END_TIME", "End time");
+
+define("CALENDAR_NEXT_BUTTON", "NÄCHSTER");
+define("CALENDAR_PREVIOUS_BUTTON", "BISHERIGE");
+define("CALENDAR_CANCEL_BUTTON", "STORNIEREN");
+define("CALENDAR_SUBMIT_BUTTON", "EINREICHEN")
+define("CALENDAR_ADVANCED_SETTINGS_BUTTON", "ERWEITERTE EINSTELLUNGEN");
+
+define("PLAN_ACTIVITY_STEP1", "Wählen Sie Start und Endzeit");
+define("PLAN_ACTIVITY_STEP2", "Wählen Sie Aktivität");
+define("PLAN_ACTIVITY_STEP3", "Erweiterte Einstellungen");
 
 
+
+//FITNESS PAGE
+define("FITNESS_ALERT_TITLE", "Bitte führen Sie die Übungen vorsichtig durch und stoppen Sie sofort, sollten Schmerzen auftreten!");
+define("CLOSE_BUTTON", "Schliessen");
+define("SEARCH_TITLE", "Suchfilter");
+define("FITNESS_SEARCH_BODYPARTS", "trainierter Körperbereich");
+define("FITNESS_SEARCH_BODYPARTS_UPPER", "Oberkörper");
+define("FITNESS_SEARCH_BODYPARTS_LOWER", "Beine");
+define("FITNESS_SEARCH_BODYPARTS_ABDOMINAL", "Bauchbereich");
+define("FITNESS_SEARCH_DIFFICULTY", "Schwierigkeit");
+define("FITNESS_SEARCH_DIFFICULTY_EASY", "einfach");
+define("FITNESS_SEARCH_DIFFICULTY_MEDIUM", "mittel");
+define("FITNESS_SEARCH_DIFFICULTY_HARD", "schwer");
+define("SEARCH_BUTTON", "suchen");
+define("FITNESS_SHOWEXERCISE_BUTTON", "Übung anzeigen");
+define("FITNESS_SHOWEXERCISE_TRAINEDPARTS", "trainierte Körperbereiche");
+define("SEARCHRESULT_NORESULTS", "Keine Ergebnisse");
+define("SEARCHRESULT_TITLE", "Ergebnisse für");
+define("FITNESS_SEARCHRESULT_DIFFICULTY", "Schwierigkeit");
+define("FITNESS_SEARCHRESULT_BODYPARTS", "Köperregionen");
 
 
 //PROFILE PAGE
@@ -240,11 +287,10 @@ define("CONTACTS_FORM_PHONE", "Telefonnummer");
 define("ADD_BUTTON", "Legg til");
 
 //types of relationships
-define("CONTACTS_FROM_RELATIONSHIP_CLOSE_FAMILY", "Nært Familiemedlem
-");
-define("CONTACTS_FROM_RELATIONSHIP_OTHER_FAMILY", "Annet Familiemedlem");
-define("CONTACTS_FROM_RELATIONSHIP_FRIEND", "Venn");
-define("CONTACTS_FROM_RELATIONSHIP_NEIGHBOUR", "Nabo");
+define("CONTACTS_FROM_RELATIONSHIP_CLOSE_FAMILY", "Nahes Familienmitglied");
+define("CONTACTS_FROM_RELATIONSHIP_OTHER_FAMILY", "Andere Familienmitglieder");
+define("CONTACTS_FROM_RELATIONSHIP_FRIEND", "Freund");
+define("CONTACTS_FROM_RELATIONSHIP_NEIGHBOUR", "Nachbar");
 
 
 //FITNESS PAGE
