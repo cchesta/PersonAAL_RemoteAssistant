@@ -191,8 +191,6 @@ function compareDateTimes(dTempDate1, dTempDate2)
 	return (iDateTimeDiff === 0) ? iDateTimeDiff: (iDateTimeDiff/Math.abs(iDateTimeDiff));
 }
 
-
-/*
 var oEventsTemplate = 
 [
 	//--------------------------------- Birthdays ------------------------------------------------------
@@ -1057,7 +1055,6 @@ var oEventsTemplate =
 	//---------------------------------------------------------------------------------------
 ];
 
-*/
 function generateJsonEvents(dFromDate, dToDate)
 {	
 	var iMaxIdentifier = 0,

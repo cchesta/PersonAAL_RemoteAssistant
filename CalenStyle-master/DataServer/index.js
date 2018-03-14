@@ -339,7 +339,6 @@ function compareDateTimes(dTempDate1, dTempDate2)
 	return (iDateTimeDiff === 0) ? iDateTimeDiff: (iDateTimeDiff/Math.abs(iDateTimeDiff));
 }
 
-/*
 var oEventsTemplate = 
 [
 	//--------------------------------- Birthdays ------------------------------------------------------
@@ -1204,7 +1203,6 @@ var oEventsTemplate =
 	//---------------------------------------------------------------------------------------
 ];
 
-
 function generateJsonEvents(dFromDate, dToDate)
 {
 	var iMaxIdentifier = 0,
@@ -1530,8 +1528,6 @@ function generateJsonEvents(dFromDate, dToDate)
 	return sJsonStr;
 }
 
-*/
-
 function getEventCalendarList(dFromDate, dToDate)
 {
 	var oArrEventCalendars = [];
@@ -1790,12 +1786,12 @@ function setEventFilterCriteriaArray(isFilledTag)
 	}
 	var sArrDisplayStatusType = ["show", "show", "show", "show"];
 
-	//var oArrValuesPeople = ["Merlin", "Agnes", "Dora", "Victor", "Edwin", "Sam", "Kelvin", "Matt", "Sandra", "Celine", "Donna", "Arnold", "Richard", "Felicia", "Jennifer", "Scott"];
-	//var oArrValuesSelectedPeople = [];
-	//if(isFilledTag)
-	//{
-	//	oArrValuesSelectedPeople = ["Merlin", "Agnes", "Dora", "Victor", "Edwin", "Sam", "Kelvin", "Matt", "Sandra", "Celine", "Donna", "Arnold", "Richard", "Felicia", "Jennifer", "Scott"];
-	//}
+	var oArrValuesPeople = ["Merlin", "Agnes", "Dora", "Victor", "Edwin", "Sam", "Kelvin", "Matt", "Sandra", "Celine", "Donna", "Arnold", "Richard", "Felicia", "Jennifer", "Scott"];
+	var oArrValuesSelectedPeople = [];
+	if(isFilledTag)
+	{
+		oArrValuesSelectedPeople = ["Merlin", "Agnes", "Dora", "Victor", "Edwin", "Sam", "Kelvin", "Matt", "Sandra", "Celine", "Donna", "Arnold", "Richard", "Felicia", "Jennifer", "Scott"];
+	}
 
 	var oArrValuesTag = ["Personal", "Work"];
 	var oArrValuesSelectedTag = [];
