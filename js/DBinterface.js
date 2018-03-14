@@ -170,6 +170,117 @@ function addSurveyData(weight, height, age, motivation)
 
 
     
+
+
+
+/*******  ACTIVITY DATA **********/
+
+
+
+function addActivity(title, start_date, end_date, all_day,done, type, intensity,callback){
+    jQuery.ajax({
+            type: "POST",
+            url: 'ajax_request.php',
+            dataType: 'json',
+            data: {functionname: 'addActivity', arguments: [title, start_date, end_date, all_day,done, type, intensity]},
+
+            success: function (obj, textstatus) {
+                          if( !('error' in obj) ) {
+                              console.log("addActivity success");
+                              console.log(obj.result);
+                              callback( obj.result);
+                          }
+                          else {
+                              console.log("error");
+                              console.log(obj.error);
+                          }
+                    },
+            error: function (ob, textstatus) {
+                console.log("error" + textstatus);
+                console.log(ob);
+            }
+        });
+}
+
+
+
+function getActivity( callback){
+    console.log("HEREEE");
+    jQuery.ajax({
+            type: "POST",
+            url: 'ajax_request.php',
+            dataType: 'json',
+            data: {functionname: 'getActivity', arguments: []},
+
+            success: function (obj, textstatus) {
+                          if( !('error' in obj) ) {
+                              console.log("getActivity success");
+                              console.log(obj.result);
+                              callback(obj.result);
+                          }
+                          else {
+                              console.log("error");
+                              console.log(obj.error);
+                          }
+                    },
+            error: function (ob, textstatus) {
+                console.log("error2" + textstatus);
+                console.log(ob);
+            }
+        });
+}
+
+function getActivityFromLastAccess(userId){
+     jQuery.ajax({
+            type: "POST",
+            url: 'ajax_request.php',
+            dataType: 'json',
+            data: {functionname: 'getActivitiesFromLastAccess', arguments: [userId]},
+
+            success: function (obj, textstatus) {
+                          if( !('error' in obj) ) {
+                              console.log("getActivitiesFromLastAccess success");
+                              console.log(obj.result);
+                          }
+                          else {
+                              console.log("error");
+                              console.log(obj.error);
+                          }
+                    },
+            error: function (ob, textstatus) {
+                console.log("error" + textstatus);
+                console.log(ob);
+            }
+        });
+    
+}
+
+
+function setActivityDone(activityId){
+    jQuery.ajax({
+            type: "POST",
+            url: 'ajax_request.php',
+            dataType: 'json',
+            data: {functionname: 'addActivity', arguments: [activityId]},
+
+            success: function (obj, textstatus) {
+                          if( !('error' in obj) ) {
+                              console.log("setActivityDone success");
+                              console.log(obj.result);
+                          }
+                          else {
+                              console.log("error");
+                              console.log(obj.error);
+                          }
+                    },
+            error: function (ob, textstatus) {
+                console.log("error" + textstatus);
+                console.log(ob);
+            }
+        });
+}
+ 
+
     
 /*******   PLAN DATA   *********/
 
@@ -179,7 +290,7 @@ function addSurveyData(weight, height, age, motivation)
  * @param {type} exerciseGoal
  * @param {type} meetGoal
  * @returns {undefined}
- */
+
 function setWeekGoals(walkGoal, exerciseGoal, meetGoal, actualWeekWalk, actualWeekExercise, actualWeekMeet)
 {
     jQuery.ajax({
@@ -204,7 +315,7 @@ function setWeekGoals(walkGoal, exerciseGoal, meetGoal, actualWeekWalk, actualWe
             }
         });
 }
-
+*/
 
 /* add new event to DB
  * 
@@ -351,293 +462,9 @@ function saveEventList(calendar)
 
 
 
-/*******   FITNESS DATA   *********/
-
-/* add exercise record on DB
- * 
- * ex of exercise JS obj:
- * {
-        id: '1', //should be automatically set by mysql (auto increment attribute)
-        image: 'img/ex1.gif',
-        title: 'Triceps push up',
-        instructions: [
-            'Use a stable bench or two chairs as support',
-            'Start with folded arms',
-            'Push up using triceps, breath out',
-            'Go down slowly while breathing'
-        ],
-        isometry: false,
-        repetition: 10,
-        series: 3,
-        restTimeMilliseconds: 6000,
-        bodyPartUpper: true,
-        bodyPartLower: false,
-        bodyPartAbdominal: false,
-        difficulty: "medium"
-    };
- * 
- * @param {type} exercise obj
- * @returns {null}
- */
-function addFitnessExercise(exercise)
-{
-    exercise= JSON.stringify(exercise);
-    console.log(exercise);
-    
-    jQuery.ajax({
-            type: "POST",
-            url: 'ajax_request.php',
-            dataType: 'json',
-            data: {functionname: 'addFitnessExercise', arguments: [exercise]},
-
-            success: function (obj, textstatus) {
-                          if( !('error' in obj) ) {
-                              console.log("addFitnessExercise success");
-                              console.log(obj.result);
-                          }
-                          else {
-                              console.log("error");
-                              console.log(obj.error);
-                          }
-                    },
-            error: function (ob, textstatus) {
-                console.log("error" + textstatus);
-                console.log(ob);
-            }
-        });
-}
-
-/* get exercise information using chosen filters
- * 
- * @param {function} callback
- * @param {bool} bodyPartUpperFilter
- * @param {bool} bodyPartLowerFilter
- * @param {bool} bodyPartAbdominalFilter
- * @param {string} difficultyFilter "easy", "medium" or "hard"
- * @returns {string} array of exercise objects, false if something goes wrong
- */
-function getFitnessExercise(callback, fromSearch, bodyPartUpperFilter, bodyPartLowerFilter, bodyPartAbdominalFilter, difficultyFilter)
-{
-    jQuery.ajax({
-            type: "POST",
-            url: 'ajax_request.php',
-            dataType: 'json',
-            data: {functionname: 'getFitnessExercise', arguments: [bodyPartUpperFilter, bodyPartLowerFilter, bodyPartAbdominalFilter, difficultyFilter]},
-
-            success: function (obj, textstatus) {
-                          if( !('error' in obj) ) {
-                              console.log("getFitnessExercise success");
-                              console.log(obj.result);
-                              
-                              //parse result into JS object
-                              var result= JSON.parse(obj.result);
-                              console.log(result);
-                              
-                              callback(result, fromSearch);
-                          }
-                          else {
-                              console.log("error");
-                              console.log(obj.error);
-                          }
-                    },
-            error: function (ob, textstatus) {
-                console.log("error" + textstatus);
-                console.log(ob);
-            }
-        });
-}
-
-
-/* get the image related to the exercise and print it on the screen
- * 
- * @param {function} callback 
- * @param {object} HTMLelement
- * @param {int} exerciseID
- * @returns {null}
- */
-function getExerciseImage(callback, HTMLelement, exerciseID)
-{
-    jQuery.ajax({
-            type: "POST",
-            url: 'ajax_request.php',
-            dataType: 'json',
-            data: {functionname: 'getExerciseImage', arguments: [exerciseID]},
-
-            success: function (obj, textstatus) {
-                          if( !('error' in obj) ) {
-                              console.log("getExerciseImage success");
-                              //console.log(obj.result);
-                              //custom callback - refers to setCardBackground(...) in fitness.php
-                              callback(HTMLelement, obj.result);
-                          }
-                          else {
-                              console.log("error");
-                              console.log(obj.error);
-                          }
-                    },
-            error: function (ob, textstatus) {
-                console.log("error" + textstatus);
-                console.log(ob);
-            }
-        });
-}
 
 
 
-
-
-
-/*******   DIET DATA   *********/
-
-/* insert diet recipe in DB
- * 
- * 
- * recipe JS object:
- * 
- * var recipe5= {
-        image: 'img/food5.jpg',
-        title: 'Spaghetti with tomatoes and basil',
-        ingredientList: [
-            {
-                ingredient: 'spaghetti',
-                quantity: '100gr'
-            },
-            {
-                ingredient: 'basil',
-                quantity: '10gr'
-            },
-            {
-                ingredient: 'tomatoe',
-                quantity: '2'
-            }
-        ],
-        foodTypeList: [
-            'snack'
-        ],
-        allergenList: [
-            'gluten'
-        ],
-        instructions: 'Will be added soon!',
-        prepareTime: 6000,
-        kcal: 300
-    };
- * 
- * 
- * @param {type} recipe
- * @returns {null}
- */
-function addDietRecipe(recipe)
-{
-    recipe= JSON.stringify(recipe);
-    console.log(recipe);
-    
-    jQuery.ajax({
-            type: "POST",
-            url: 'ajax_request.php',
-            dataType: 'json',
-            data: {functionname: 'addDietRecipe', arguments: [recipe]},
-
-            success: function (obj, textstatus) {
-                          if( !('error' in obj) ) {
-                              console.log("addDietRecipe success");
-                              console.log(obj.result);
-                          }
-                          else {
-                              console.log("error");
-                              console.log(obj.error);
-                          }
-                    },
-            error: function (ob, textstatus) {
-                console.log("error" + textstatus);
-                console.log(ob);
-            }
-        });
-}
-
-
-/* get all the recipes with filters
- * 
- * @param {function} callback
- * @param {int} minKcal
- * @param {int} maxKcal
- * @param {array} foodTypeList
- * @param {array} allergenList
- * @returns {undefined}
- */
-function getDietRecipes(callback, fromSearch, minKcal, maxKcal, foodTypeList, allergenList)
-{
-    
-    //fix - empty array ([]) is not considered as valid argument
-    if(foodTypeList !== null && foodTypeList.length <= 0)
-        foodTypeList= null;
-
-    //fix - empty array ([]) is not considered as valid argument
-    if(allergenList !== null && allergenList.length <= 0)
-        allergenList= null;
-    
-    jQuery.ajax({
-            type: "POST",
-            url: 'ajax_request.php',
-            dataType: 'json',
-            data: {functionname: 'getDietRecipes', arguments: [minKcal, maxKcal, foodTypeList, allergenList]},
-
-            success: function (obj, textstatus) {
-                          if( !('error' in obj) ) {
-                              console.log("getDietRecipes success");
-                              //console.log(obj.result);
-                              
-                              //parse result into JS object
-                              var result= JSON.parse(obj.result);
-                              console.log(result);
-                              
-                              callback(result, fromSearch);
-                          }
-                          else {
-                              console.log("error");
-                              console.log(obj.error);
-                          }
-                    },
-            error: function (ob, textstatus) {
-                console.log("error" + textstatus);
-                console.log(ob);
-            }
-        });
-}
-
-
-/* get the image related to the recipe and print it on the screen (using a callback)
- * 
- * @param {function} callback 
- * @param {object} HTMLelement
- * @param {int} recipeID
- * @returns {null}
- */
-function getRecipeImage(callback, HTMLelement, recipeID)
-{
-    jQuery.ajax({
-            type: "POST",
-            url: 'ajax_request.php',
-            dataType: 'json',
-            data: {functionname: 'getRecipeImage', arguments: [recipeID]},
-
-            success: function (obj, textstatus) {
-                          if( !('error' in obj) ) {
-                              console.log("getRecipeImage success");
-                              //console.log(obj.result);
-                              //custom callback - refers to setCardBackground(...) in diet.php
-                              callback(HTMLelement, obj.result);
-                          }
-                          else {
-                              console.log("error");
-                              console.log(obj.error);
-                          }
-                    },
-            error: function (ob, textstatus) {
-                console.log("error" + textstatus);
-                console.log(ob);
-            }
-        });
-}
 
 
 
