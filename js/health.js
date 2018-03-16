@@ -45,11 +45,11 @@ var weightDateMsg;
 //real time plot tables
 var realTimePlot;
 
+
 var breathMsg;
 
 
 var contextUrl = "https://giove.isti.cnr.it:8443/";
-var userName = "john";
 var appName = "personAAL";
 
 var capture;
@@ -60,6 +60,7 @@ function init() {
     //internationalization
     var userLang = getUserLanguage();
     console.log(userLang);
+
 
     switch (userLang) {
         case 'en':
@@ -431,13 +432,16 @@ function getWeightData(callback) {
     });
 }
 
+
 function getHeightData(callback) {
+
     $.ajax({
         type: "GET",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
+      
         url: contextUrl + "cm/rest/user/" + userName + "/height/",
         dataType: 'json',
 
@@ -448,18 +452,43 @@ function getHeightData(callback) {
         error: function () {
             console.log("Error while getting height data");
             callback();
+
         }
     });
 }
 
-
-function getRespirationRate() {
+function getRespirationRate() {	
+    console.log("getRespirationRate");
     $.ajax({
         type: "GET",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
+        url: contextUrl + "cm/rest/user/" +userName + "/respirationRate/", 
+        dataType: 'json',
+        
+        success: function (response) {            
+            console.log("Context response Respiration Rate", response);
+            $("#respiration_rate").html(response.value + " rpm");
+            $respirationRate=response.value;
+        },
+        error: function ()
+        {
+            console.log("Error while getting respiration rate data");
+        }
+    });
+}
+
+function getRespirationRate() {
+
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+
         url: contextUrl + "cm/rest/user/" + userName + "/respirationRate/",
         dataType: 'json',
 
@@ -515,7 +544,8 @@ function getBodyTemperature() {
             document.getElementById("body_temperature_box").innerHTML = bodyTemperature + " ºC";
         },
         error: function () {
-            console.log("Error while getting body temperature data");
+
+        console.log("Error while getting body temperature data");
         }
     });
 }

@@ -5,6 +5,7 @@
     include 'DButils.php';
     
     
+    setLanguage();
     //filter POST vars from html tags and delete whitespaces at start/end of the string
     foreach($_REQUEST as &$value)
     {
@@ -80,7 +81,6 @@
                 sendDataToPage("login.php", "notify", REGISTRATION_SUCCESSFUL, TRUE);
         }
     }
-        
             
 ?>
 

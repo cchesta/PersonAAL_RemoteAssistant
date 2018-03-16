@@ -340,6 +340,30 @@ and open the template in the editor.
     background: rgba(0, 0, 0, 0.4);
  } 
  
+  /*Message info card*/
+
+.message-info-card .mdl-card__supporting-text {
+    color: rgba(0,0,0, 0.7);
+    font-size: 17px;
+}
+  
+.message-info-card > .mdl-card__title {
+    height: 176px;
+    color: #fff;
+    background: url('../img/message.jpg') center / cover;
+}
+
+.message-info-card .mdl-card__actions {
+    
+    min-height: 52px;
+    padding: 16px;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    color: #fff;
+    box-sizing: border-box;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.4);
+ } 
+ 
  /*heart info card*/
 
 .heart-info-card .mdl-card__supporting-text {
@@ -424,7 +448,7 @@ and open the template in the editor.
 .medication-info-card > .mdl-card__title {
     height: 176px;
     color: #fff;
-    background: url('../img/book.jpg') center / cover;
+    background: url('../img/pills.jpg') center / cover;
 }
 
 .medication-info-card .mdl-card__actions {
@@ -878,11 +902,11 @@ and open the template in the editor.
     background: rgba(0, 0, 0, 0.4);
     
 }
-.goal-card .mdl-card__actions .goal-message-text{
+/*.goal-card .mdl-card__actions .goal-message-text{
     padding-bottom: 20px;
     font-size: 20px;
     color: #dd2c00;
-}
+}*/
 
 /*TODO: top margin must be adaptable*/
 .goal-card .percent {

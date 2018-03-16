@@ -1,8 +1,8 @@
 
 var contextManagerUrl = "https://giove.isti.cnr.it:8443/cm/";
-//var userName = "cchesta";
-var userName = "john"
+
 var appName  = "personAAL";
+
 
 function sendECG_HR(val) {	
     $.ajax({
@@ -11,7 +11,7 @@ function sendECG_HR(val) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextManagerUrl + "cm/rest/user/"+userName+"/heartRate/"+val,        
+        url: contextManagerUrl + "rest/user/"+userName+"/heartRate/"+val,        
         success: function (response) {            
             console.log("Context response", response);
         },
@@ -26,7 +26,7 @@ function sendLightDataToContext(val) {
     var data = {
         PropertyRefs: [
             {
-                "namespace": contextManagerUrl+"cm/",
+                "namespace": contextManagerUrl,
                 "propertyName": "light_level",
                 "aspectName": "environment",
                 "propertyValue": val
@@ -40,7 +40,7 @@ function sendTemperatureDataToContext(val) {
     var data = {
         PropertyRefs: [
             {
-                "namespace": contextManagerUrl+"cm/",
+                "namespace": contextManagerUrl,
                 "propertyName": "temperature",
                 "aspectName": "environment",
                 "propertyValue": val
@@ -57,7 +57,7 @@ function sendEnvironmentDataToContext(data) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextManagerUrl+"cm/rest/user/"+userName+"/environment",
+        url: contextManagerUrl+"rest/user/"+userName+"/environment",
         dataType: 'json',
         data: JSON.stringify(data),
         success: function (response) {            
@@ -78,19 +78,19 @@ function sendMentalStateDataToContext() {
 	var data = {
 		PropertyRefs:[
 				{
-                "namespace": contextManagerUrl+"cm/",
+                "namespace": contextManagerUrl,
                 "propertyName": "curr_attention",
                 "aspectName": "mentalState",
                 "propertyValue": attention
             },
 			{
-                "namespace": contextManagerUrl+"cm/",
+                "namespace": contextManagerUrl,
                 "propertyName": "curr_meditation",
                 "aspectName": "mentalState",
                 "propertyValue": meditation
             },
 			{
-                "namespace": contextManagerUrl+"cm/",
+                "namespace": contextManagerUrl,
                 "propertyName": "curr_blinking",
                 "aspectName": "mentalState",
                 "propertyValue": blinking
@@ -103,7 +103,7 @@ function sendMentalStateDataToContext() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextManagerUrl + "cm/rest/user/"+userName+"/mentalState",
+        url: contextManagerUrl + "rest/user/"+userName+"/mentalState",
         dataType: 'json',
         data: JSON.stringify(data),
         success: function (response) {            
