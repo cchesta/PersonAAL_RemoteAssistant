@@ -5,11 +5,13 @@
         <group>
             <file>file:/C:/PersonAAL/Development/RemoteAssistant_v2.0/DButils.php</file>
             <file>file:/C:/PersonAAL/Development/RemoteAssistant_v2.0/login.php</file>
+            <file>file:/C:/PersonAAL/Development/RemoteAssistant_v2.0/js/plugins/adaptation/adaptation-script.js</file>
+            <file>file:/C:/PersonAAL/Development/RemoteAssistant_v2.0/health.php</file>
             <file>file:/C:/PersonAAL/Development/RemoteAssistant_v2.0/contacts.php</file>
+            <file>file:/C:/PersonAAL/Development/RemoteAssistant_v2.0/plan.php</file>
+            <file>file:/C:/PersonAAL/Development/RemoteAssistant_v2.0/js/contacts.js</file>
             <file>file:/C:/PersonAAL/Development/RemoteAssistant_v2.0/index.php</file>
             <file>file:/C:/PersonAAL/Development/RemoteAssistant_v2.0/profile.php</file>
-            <file>file:/C:/PersonAAL/Development/RemoteAssistant_v2.0/plan.php</file>
-            <file>file:/C:/PersonAAL/Development/RemoteAssistant_v2.0/health.php</file>
         </group>
     </open-files>
 </project-private>

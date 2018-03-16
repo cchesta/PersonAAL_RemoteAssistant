@@ -35,7 +35,7 @@ var realTimePlot;
 
 var contextUrl = "https://giove.isti.cnr.it:8443/";
 //var userName = "cchesta";
-var userName = "john";
+//var userName = "john";
 var appName  = "personAAL";
 
 

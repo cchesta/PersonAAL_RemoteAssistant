@@ -2,7 +2,7 @@
 
 var appName  = "personAAL";
 
-var contextManagerUrl = "https://giove.isti.cnr.it:8443/cm/";
+//var contextManagerUrl = "https://giove.isti.cnr.it:8443/cm/";
 	
 function subscribeToAdaptationEngine() {
     var subscriptionRequest = '{' +

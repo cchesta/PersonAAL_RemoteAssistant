@@ -1,19 +1,22 @@
 <?php
 
-
 //DB for public vm
 //define("DB_SERVER_NAME", "localhost");
 //define("DB_USERNAME", "root");
 //define("DB_PASSWORD", "Vsw1e3t56.");
 //define("DB_NAME","personaal");
 
-//DB for local 
-define("DB_SERVER_NAME", "accessible-serv.lasige.di.fc.ul.pt");
-define("DB_USERNAME", "personaal");
-define("DB_PASSWORD", "personaalfcul");
-define("DB_NAME","remote_assistant");
+//DB for local (FCID)
+//define("DB_SERVER_NAME", "accessible-serv.lasige.di.fc.ul.pt");
+//define("DB_USERNAME", "personaal");
+//define("DB_PASSWORD", "personaalfcul");
+//define("DB_NAME","remote_assistant");
 
-
+//DB for local (REPLY)
+define("DB_SERVER_NAME", "localhost");
+define("DB_USERNAME", "root");
+define("DB_PASSWORD", null);
+define("DB_NAME","personaal");
 
 
 /*ritorna:
@@ -874,7 +877,7 @@ class Activity {
         $this->intensity = $intensity;
         $this-> activityId = $activityId;
     }
-
+}
 
     /*
     public function getActivity($user){
