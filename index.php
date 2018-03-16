@@ -306,30 +306,10 @@ include 'DButils.php';
             console.log('motivation: ' + motivation);
             sendMotivationDataToContext(motivation);
             
-//            var score_5 = $("input[type='radio'][name='answer_5']:checked").val();
-//            //console.log('score_5: ' + score_5);
-//            
-//            var score_6 = $("input[type='radio'][name='answer_6']:checked").val();
-//            //console.log('score_6: ' + score_6);
-//            
-//            var score_7 = $("input[type='radio'][name='answer_7']:checked").val();
-//            //console.log('score_7: ' + score_7);
-//            
-//            var score_8 = $("input[type='radio'][name='answer_8']:checked").val();
-//            //console.log('score_8: ' + score_8);
-//            
-//            var score_9 = $("input[type='radio'][name='answer_9']:checked").val();
-//            //console.log('score_9: ' + score_9);
-            
-//            var score = Number(score_5) + Number(score_6) + Number(score_7) + Number(score_8) + Number(score_9);
-//            console.log('score: ' + score);
-//            console.log(Date.now());
-            
+
             //add weight data to db
             addWeightData(Date.now(), weight);
             
-            //add FiND questionnaire data to db
-//            addFindData(Date.now(), score);
             
             //add survey data to db
             addSurveyData(weight, height, age, motivation);
@@ -361,11 +341,9 @@ include 'DButils.php';
                 
         
     </head>
-    <body>
-
-
-
-        
+    
+    
+    <body>    
         <!-- The drawer is always open in large screens. The header is always shown, even in small screens. -->
         <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer">
             <header class="mdl-layout__header">
@@ -389,6 +367,7 @@ include 'DButils.php';
                     <a class="mdl-navigation__link" href="logout.php"><i class="material-icons">power_settings_new</i><?php echo(ENTRY_LOGOUT);?></a>
                 </nav>
             </div>
+        
             <main class="mdl-layout__content">
                 <div class="page-content">
                     
@@ -589,9 +568,7 @@ include 'DButils.php';
 			    </a>
 			</div>
 		    </div>
-                    
                 </div>
-
             </div>
         </div>
         
@@ -674,9 +651,9 @@ include 'DButils.php';
                                     <?php echo(INDEX_SURVEY_QUESTION4);?>
                                 </div>
                                 <div class="mdl-radio survey-mdl-radio" id="input_motivation">
-                                     <label class="mdl-radio-label survey-mdl-radio__label">
+                                    <label class="mdl-radio-label survey-mdl-radio__label">
                                         <input class="mdl-radio__button" type="radio" value="wellness" name="motivation" checked>
-                                         <?php echo(INDEX_SURVEY_MOTIVATION1);?>                                    
+                                         <?php echo(INDEX_SURVEY_MOTIVATION1);?>                                   
                                     </label>
                                     <label class="mdl-radio-label survey-mdl-radio__label">
                                         <input class="mdl-radio__button" type="radio" value="health" name="motivation">
@@ -691,83 +668,8 @@ include 'DButils.php';
                                         <?php echo(INDEX_SURVEY_MOTIVATION4);?>
                                     </label>
                                 </div>
-<!--                            </div>
-                                <div class="survey-question-container">
-                                <div class="survey-question">
-                                    <?php echo(INDEX_SURVEY_QUESTION5);?>
-                                </div>
-                                <div class="mdl-radio survey-mdl-radio" id="input_motivation">
-                                    <label class="mdl-radio-label survey-mdl-radio__label">
-                                        <input class="mdl-radio__button" type="radio" value="0" name="answer_5" checked>
-                                         <?php echo(ANSWER_5a);?>
-                                    </label>
-                                    <label class="mdl-radio-label survey-mdl-radio__label">
-                                        <input class="mdl-radio__button" type="radio" value="1" name="answer_5">
-                                        <?php echo(ANSWER_5b);?>
-                                    </label>
-                                </div>
                             </div>
-                            <div class="survey-question-container">
-                                <div class="survey-question">
-                                    <?php echo(INDEX_SURVEY_QUESTION6);?>
-                                </div>
-                                <div class="mdl-radio survey-mdl-radio" id="input_motivation">
-                                    <label class="mdl-radio-label survey-mdl-radio__label">
-                                        <input class="mdl-radio__button" type="radio" value="0" name="answer_6" checked>
-                                         <?php echo(ANSWER_6a);?>
-                                    </label>
-                                    <label class="mdl-radio-label survey-mdl-radio__label">
-                                        <input class="mdl-radio__button" type="radio" value="1" name="answer_6">
-                                        <?php echo(ANSWER_6b);?>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="survey-question-container">
-                                <div class="survey-question">
-                                    <?php echo(INDEX_SURVEY_QUESTION7);?>
-                                </div>
-                                <div class="mdl-radio survey-mdl-radio" id="input_motivation">
-                                    <label class="mdl-radio-label survey-mdl-radio__label">
-                                        <input class="mdl-radio__button" type="radio" value="0" name="answer_7" checked>
-                                         <?php echo(ANSWER_7a);?>
-                                    </label>
-                                    <label class="mdl-radio-label survey-mdl-radio__label">
-                                        <input class="mdl-radio__button" type="radio" value="1" name="answer_7">
-                                        <?php echo(ANSWER_7b);?>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="survey-question-container">
-                                <div class="survey-question">
-                                    <?php echo(INDEX_SURVEY_QUESTION8);?>
-                                </div>
-                                <div class="mdl-radio survey-mdl-radio" id="input_motivation">
-                                    <label class="mdl-radio-label survey-mdl-radio__label">
-                                        <input class="mdl-radio__button" type="radio" value="0" name="answer_8" checked>
-                                         <?php echo(ANSWER_8a);?>
-                                    </label>
-                                    <label class="mdl-radio-label survey-mdl-radio__label">
-                                        <input class="mdl-radio__button" type="radio" value="1" name="answer_8">
-                                        <?php echo(ANSWER_8b);?>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="survey-question-container">
-                                <div class="survey-question">
-                                    <?php echo(INDEX_SURVEY_QUESTION9);?>
-                                </div>
-                                <div class="mdl-radio survey-mdl-radio" id="input_motivation">
-                                    <label class="mdl-radio-label survey-mdl-radio__label">
-                                        <input class="mdl-radio__button" type="radio" value="0" name="answer_9" checked>
-                                         <?php echo(ANSWER_9a);?>
-                                    </label>
-                                    <label class="mdl-radio-label survey-mdl-radio__label">
-                                        <input class="mdl-radio__button" type="radio" value="1" name="answer_9">
-                                        <?php echo(ANSWER_9b);?>
-                                    </label>
-                                </div>
-                            </div>-->
-                          
+                        </div>                 
 			<div class="mdl-card__actions mdl-card--border">
                             <a id="survey-modal-cancel" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-dismiss="modal">
 				<?php echo(CANCEL_BUTTON);?>
