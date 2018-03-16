@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 
-
 //var userName = "john";
 var appName  = "personAAL";
 var contextUrl = "https://giove.isti.cnr.it:8443/";
@@ -194,6 +193,34 @@ function sendStepGoalToContext(val) {
     });
 }
 
+
+
+//NEW
+function sendMeetGoalToContext(val){
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        url: contextUrl + "cm/rest/user/" + userName + "/environment/meetGoal/" + val,
+        success: function (response) {            
+        console.log("Context response Meet Goal", response);
+        },
+        error: function()
+        {
+            console.log("Error while sending meet goal to context");
+        }
+    });
+}
+
+
+
+
+
+
+
+
 function getTime() {
          var d = new Date();
 
@@ -292,7 +319,7 @@ function getMedicationOccurred()
 //				'Accept': 'application/json',
 //				'Content-Type': 'application/json'
 //			},
-//			url: "http://giove.isti.cnr.it:8880/cm/rest/user/john/medication_planned",
+//			url: "https://giove.isti.cnr.it:8443/cm/rest/user/john/medication_planned",
 //			dataType: 'json',
 //			data: JSON.stringify(medicationObj),
 //			success: function (response) {     

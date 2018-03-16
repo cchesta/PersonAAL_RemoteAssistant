@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-
 <?php
 
 include 'miscLib.php';
@@ -117,6 +115,7 @@ include 'DButils.php';
 
 ?>
 
+<!DOCTYPE html>
 
 <html>
     <head>
@@ -168,6 +167,7 @@ include 'DButils.php';
         <script src="./js/plugins/adaptation/context-data.js"></script>
         <script src="./js/plugins/adaptation/jshue.js"></script>
         <script src="./js/plugins/adaptation/command.js"></script>
+        <script src="./js/index.js"></script>
         
                <!--  AUTH0-->
         
@@ -492,6 +492,9 @@ include 'DButils.php';
                                     </div>
                                 </div>
                             </div> 
+
+<!--                    </div>-->
+
                            <div  class="message-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
                                 <div class="mdl-card__title">
                                     <h2 class="mdl-card__title-text"><?php echo(MESSAGE_CARD_TITLE);?></h2>
@@ -501,6 +504,7 @@ include 'DButils.php';
                         </div>
                         
                         <div id="fitness" class="mdl-grid mdl-cell mdl-cell--4-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-cell--order-3-phone"> 
+
                             <div  class="weight-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
                                 <div class="mdl-card__title">
                                     <h2 class="mdl-card__title-text"><?php echo(WEIGHT_CARD_TITLE);?></h2>
@@ -517,6 +521,16 @@ include 'DButils.php';
                                     <?php echo($bmi);?>
                                 </div>
                             </div>
+                          
+<!--                            <div   class="weather-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
+                                <div class="mdl-card__title">
+                                    <h2 class="mdl-card__title-text"><?php echo(WEATHER_CARD_TITLE);?></h2>
+                                </div>
+                                <div class="mdl-card__actions mdl-card--border">
+                                    <iframe width="300" height="80" scrolling="no" frameborder="no" noresize="noresize" src="http://www.ilmeteo.it/box/previsioni.php?citta=8129&type=real1&width=250&ico=1&lang=eng&days=6&font=Arial&fontsize=12&bg=FFFFFF&fg=000000&bgtitle=0099FF&fgtitle=FFFFFF&bgtab=F0F0F0&fglink=1773C2"></iframe>
+                                </div>
+                            </div>-->
+                        </div>
 
                             <div   class="medication-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
                                 <div class="mdl-card__title">
@@ -547,6 +561,37 @@ include 'DButils.php';
     </div>   
 
         
+        
+        <!-- NEW -->
+        <!-- INVITATION MODAL 
+        <div id="info-modal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content
+                <div class="modal-content">
+                    
+                    <div class="info-modal-card mdl-card">
+                        <div class="mdl-card__supporting-text mdl-card--expand">
+                            <i class="material-icons">info</i>
+                            <div id="modal-alert-text">
+                            </div>
+			</div>
+			<div class="mdl-card__actions mdl-card--border">
+                            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-dismiss="modal">
+				<?php //echo(ACCEPT_INVITATION_BUTTON);?>      
+			    </a>
+                            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-dismiss="modal">
+				<?php //echo(DECLINE_INVITATION_BUTTON);?>
+                                
+			    </a>
+                
+			</div>
+		    </div>
+                    
+                </div>
+
+            </div>
+        </div> -->
 
         
         <!-- ALERT MODAL -->

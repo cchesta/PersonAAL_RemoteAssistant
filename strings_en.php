@@ -1,4 +1,4 @@
- <?php
+<?php
 
 // LOGIN PAGE
 define("LOGIN_WELCOME", "Welcome!");
@@ -115,11 +115,14 @@ define("MEDICATION_PLANNED_TIME", "Time");
 
 //HEALTH PAGE
 define("HEALTH_WEIGHTPLOT_TITLE", "WEIGHT");
+define("HEALTH_BMIPLOT_TITLE", "BMI");
 define("HEALTH_SCOREPLOT_TITLE", "SCORE");
 
 define("HEALTH_ECGPLOT_TITLE", "ECG");
+define("HEALTH_HRPLOT_TITLE", "HEART RATE");
 define("HEALTH_ACCPLOT_TITLE", "Accelerometer");
-define("HEALTH_TEMPPLOT_TITLE", "Temperature °C");
+define("HEALTH_TEMPPLOT_TITLE", "TEMPERATURE");
+define("HEALTH_BREATHPLOT_TITLE", "RESPIRATION RATE");
 
 define("HEALTH_DATABUTTON_START", "START ACQUISITION");
 define("HEALTH_DATABUTTON_STOP", "STOP ACQUISITION");
@@ -132,8 +135,8 @@ define("HEALTH_WEIGHTPLOT_DATE_HINT", "Date");
 
 //PLAN PAGE
 define("PLAN_SETGOALS_TITLE", "Set weekly goals");
-define("PLAN_SETGOALS_EXERCISE", "Exercise");
-define("PLAN_SETGOALS_WALK", "Walk (steps)");
+define("PLAN_SETGOALS_EXERCISE", "Exercise (hours)");
+define("PLAN_SETGOALS_WALK", "Walk (hours)");
 define("PLAN_SETGOALS_MEET", "Meet (persons)");
 define("PLAN_SETGOALS_ATLEAST", "at least");
 define("PLAN_SETGOALS_MORETHAN", "more than");
@@ -145,6 +148,7 @@ define("PLAN_GOALS_EXERCISE", "Exercise");
 define("PLAN_GOALS_WALK", "Walk");
 define("PLAN_GOALS_MEET", "Meet");
 define("PLAN_GOALS_MIN", "min");
+define("PLAN_GOALS_HOURS", "hours");
 define("PLAN_GOALS_STEPS", "steps");
 define("PLAN_GOALS_PERSONS", "persons");
 define("PLAN_GOALS_COOK", "cook");
@@ -157,88 +161,53 @@ define("PLAN_CALENDAR_EVENT_WALK", "Walk");
 define("PLAN_CALENDAR_EVENT_MEET", "Meet");
 define("PLAN_CALENDAR_EVENT_COOK", "Cook");
 
-define("PLAN_SETEVENT_HOUR", "Hour");
+define("PLAN_SETEVENT_HOUR", "hour");
 define("PLAN_SETEVENT_MIN", "min");
 
 define("REMOVE_EVENT_BUTTON", "REMOVE EVENT");
 define("DONE_BUTTON", "DONE");
 define("UNDONE_BUTTON", "UNDONE");
 
-//FITNESS PAGE
-//define("FITNESS_ALERT_TITLE", "Be careful and stop working out when you experience some pain!");
-//define("CLOSE_BUTTON", "CLOSE");
-//
-//define("SEARCH_TITLE", "Search filters");
-//define("FITNESS_SEARCH_BODYPARTS", "Training body part");
-//define("FITNESS_SEARCH_BODYPARTS_UPPER", "Upper");
-//define("FITNESS_SEARCH_BODYPARTS_LOWER", "Lower");
-//define("FITNESS_SEARCH_BODYPARTS_ABDOMINAL", "Abdominal");
-//define("FITNESS_SEARCH_DIFFICULTY", "Difficulty");
-//define("FITNESS_SEARCH_DIFFICULTY_EASY", "easy");
-//define("FITNESS_SEARCH_DIFFICULTY_MEDIUM", "medium");
-//define("FITNESS_SEARCH_DIFFICULTY_HARD", "hard");
-//define("SEARCH_BUTTON", "SEARCH");
-//
-//define("FITNESS_SHOWEXERCISE_BUTTON", "SHOW EXERCISE");
-//define("FITNESS_SHOWEXERCISE_TRAINEDPARTS", "Trained body parts");
-//
-//define("SEARCHRESULT_NORESULTS", "No results");
-//define("SEARCHRESULT_TITLE", "Results for");
-//define("FITNESS_SEARCHRESULT_DIFFICULTY", "Difficulty");
-//define("FITNESS_SEARCHRESULT_BODYPARTS", "Body parts");
+//NEW
+//invite a friend to join activity
+define("INVITE_FRIEND_BUTTON", "INVITE FRIEND");
+define("ACCEPT_INVITATION_BUTTON", "ACCEPT");
+define("DECLINE_INVITATION_BUTTON", "DECLINE");
+//NEW SET GOALS CARD
+define("PLAN_GOALS_SOCIAL_ACTIVITY", "Social Activities");
+define("PLAN_SETGOALS_SOCIAL_ACTIVITY", "Social Activities");
+define("PLAN_GOALS_ACTIVITY", "activities");
 
+//set a start and end time for an activity in the plan
+define("START_TIME", "Start");
+define("END_TIME", "End");
+//NEW CALENDAR
 
-//DIET PAGE
-//define("DIET_SEARCH_FOODTYPE", "Food type");
-//define("DIET_SEARCH_FOODTYPE_PASTA", "pasta");
-//define("DIET_SEARCH_FOODTYPE_MEAT", "meat");
-//define("DIET_SEARCH_FOODTYPE_VEGAN", "vegan");
-//define("DIET_SEARCH_FOODTYPE_DESSERT", "dessert");
-//define("NUMBER_INPUT_ERROR", "Input is not a number!");
-//define("DIET_SEARCH_ALLERGIES", "Allergies/intolerances");
-//define("DIET_SEARCH_ALLERGIES_LACTOSE", "lactose");
-//define("DIET_SEARCH_ALLERGIES_GLUTEN", "gluten");
-//
-//define("DIET_SNACKBAR", '"Max kcal" must be greater than "Min kcal"!');
-//
-//define("DIET_SEARCHRESULT_FOODCATEGORY", "Food category");
-//define("DIET_SEARCHRESULT_ALLERGENES", "Allergenes");
-//
-//define("SHOW_RECIPE_BUTTON", "SHOW RECIPE");
+define("PLAN_ACTIVITY_ADD", "Add event");
+define("PLAN_ACTIVITY_TITLE", "Title");
+define("PLAN_ACTIVITY_TYPE", "Type of activity");
+define("PLAN_ACTIVITY_TYPE_RECEIVE_GEST", "Receive guest");
+define("PLAN_ACTIVITY_TYPE_CALL_SOMEONE", "Call someone");
+define("PLAN_ACTIVITY_TYPE_VISIT_SOMEONE", "Visit Someone");    
+define("PLAN_ACTIVITY_TYPE_CINEMA", "Go to the cinema");
+define("PLAN_ACTIVITY_TYPE_THEATRE", "Go to the theatre");
+define("PLAN_ACTIVITY_TYPE_RESTAURANT", "Go to a restaurant");
+define("PLAN_ACTIVITY_TYPE_PUB", "Go to a pub");      
+define("PLAN_ACTIVITY_TYPE_RELIGIOUS_ACTIVITY", "Religious activity");
+define("PLAN_ACTIVITY_OTHER", "Other", "Other activity");
+define("PLAN_ACTIVITY_START_TIME", "Start Time");
+define("PLAN_ACTIVITY_END_TIME", "End time");
 
-//SHOPPING PAGE
-//define("SERVICES_SHOPPING_TITLE", "Shopping");
-//define("SERVICES_SHOPPING_DRINKS", "Drinks");
-//define("SERVICES_SHOPPING_DRINKS_1", "Water");
-//define("SERVICES_SHOPPING_DRINKS_2", "Tea");
-//define("SERVICES_SHOPPING_DRINKS_3", "Milk");
-//define("SERVICES_SHOPPING_FROZENFOODS", "Frozen Foods");
-//define("SERVICES_SHOPPING_FROZENFOODS_1", "Pizza");
-//define("SERVICES_SHOPPING_FROZENFOODS_2", "Potatoes");
-//define("SERVICES_SHOPPING_FROZENFOODS_3", "Spinach");
-//define("SERVICES_SHOPPING_FROZENFOODS_4", "Ice cream");
-//define("SERVICES_SHOPPING_PASTA", "Pasta");
-//define("SERVICES_SHOPPING_MEAT", "Meat");
-//define("SERVICES_SHOPPING_MEAT_1", "Beef");
-//define("SERVICES_SHOPPING_MEAT_2", "Pig");
-//define("SERVICES_SHOPPING_MEAT_3", "Chicken");
-//define("DESELECT_BUTTON", "DESELECT ALL");
-//define("BUY_BUTTON", "BUY");
-//define("SERVICES_SHOPPING_CONFIRMED_TITLE", "Order confirmed");
-//
-//define("SERVICES_SERVICES_TITLE", "Services");
-//define("SERVICES_SERVICES_ASSISTANCE", "Assistance");
-//define("SERVICES_SERVICES_ELECTRIC", "Electrical problem");
-//define("SERVICES_SERVICES_COMMUNICATION", "Communication problem");
-//define("SERVICES_SERVICES_REPAIRS", "General repairs");
-//define("SERVICES_SERVICES_CLEANING", "Cleaning service");
-//define("SERVICES_SERVICES_FORM_HINT_TITLE", "Title");
-//define("SERVICES_SERVICES_FORM_HINT_MESSAGE", "Message");
-//define("SEND_BUTTON", "SEND");
-//
-//define("SERVICES_SNACKBAR_MESSAGE", "Message");
-//define("SERVICES_SNACKBAR_SENT", "sent!");
-    
+define("CALENDAR_NEXT_BUTTON", "NEXT");
+define("CALENDAR_PREVIOUS_BUTTON", "PREVIOUS");
+define("CALENDAR_CANCEL_BUTTON", "CANCEL");
+define("CALENDAR_SUBMIT_BUTTON", "SUBMIT");
+define("CALENDAR_ADVANCED_SETTINGS_BUTTON", "ADVANCED SETTINGS");
+
+define("PLAN_ACTIVITY_STEP1", "Choose Start and End Time");
+define("PLAN_ACTIVITY_STEP2", "Choose Activity");
+define("PLAN_ACTIVITY_STEP3", "Advanced Settings");
+
 
 //PROFILE PAGE
 define("PROFILE_PROFILECARD_TITLE", "My Info");
@@ -278,6 +247,8 @@ define("PROFILE_ADDINTERESTS_OTHERS_5", "Theater");
 define("CONTACTS_CONTACTSCARD_TITLE", "Contacts");
 define("CONTACTS_CONTACTSCARD_HEADER_NAME", "Name");
 define("CONTACTS_CONTACTSCARD_HEADER_STATUS", "Status");
+define("CONTACTS_CONTACTSCARD_HEADER_EMAIL", "Email");
+define("CONTACTS_CONTACTSCARD_HEADER_PHONE", "Phone");
 define("CONTACTS_CONTACTSCARD_HEADER_ACTIONS", "Actions");
 define("REMOVE_BUTTON", "REMOVE");
 
@@ -287,10 +258,16 @@ define("CONTACTS_CONTACTSCARD_STATUS_BUSY", "Busy");
 
 define("CONTACTS_FORM_TITLE", "Add contact");
 define("CONTACTS_FORM_NAME", "Name");
+define("CONTACTS_FORM_EMAIL", "Email");
 define("CONTACTS_FORM_PHONE", "Phone Number");
+define("CONTACTS_FROM_RELATIONSHIP", "Relationship");
 define("ADD_BUTTON", "ADD");
 
+//types of relationships
+define("CONTACTS_FROM_RELATIONSHIP_CLOSE_FAMILY", "Close Family");
+define("CONTACTS_FROM_RELATIONSHIP_OTHER_FAMILY", "Other Family");
+define("CONTACTS_FROM_RELATIONSHIP_FRIEND", "Friend");
+define("CONTACTS_FROM_RELATIONSHIP_NEIGHBOUR", "Neighbour");
 
-//TODO inserire traduzioni per il testo del modal mostrato in caso di heart rate troppo alta
 
 ?>

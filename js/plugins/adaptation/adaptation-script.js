@@ -1,11 +1,9 @@
 /* global stompSessionId */
 
-
-//var userName = "john";
 var appName  = "personAAL";
-var contextManagerUrl = "https://giove.isti.cnr.it:8443/";
 
-
+var contextManagerUrl = "https://giove.isti.cnr.it:8443/cm/";
+	
 function subscribeToAdaptationEngine() {
     var subscriptionRequest = '{' +
             '"userName" : "' + userName + '",' +
@@ -16,11 +14,12 @@ function subscribeToAdaptationEngine() {
     console.log(subscriptionRequest);
     $.ajax({
         type: "POST",
+        crossDomain: true,
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextManagerUrl + "NewAdaptationEngine/rest/subscribe",
+        url: "https://giove.isti.cnr.it:8443/NewAdaptationEngine/rest/subscribe",
         dataType: 'json',
         data: subscriptionRequest,
         success: function (response) {  
@@ -225,6 +224,32 @@ function applyInvokeFunction(invokeF) {
 
 
 
+function processInteractiveNotification(message) {
+    console.log("Interactive notification received");
+
+    var parser = new DOMParser(),
+        doc = parser.parseFromString(message, "application/xml"),
+        messagetext = doc.getElementsByTagName("text")[0],
+        options = doc.getElementsByTagName("option"),
+        content = "";
+    
+    content = "<p>" + messagetext.textContent + "</p>";
+    
+    for (var p = 0; p < options.length; p++) {
+        var label = options[p].firstChild;
+        var labeltext = label.textContent;
+        var address = options[p].lastChild;
+        var addressvalue = address.textContent;
+        content += "<a style='button' url='" + addressvalue + "'>";
+        content += labeltext;
+        content += "</a>"
+    }
+    
+    return content;
+    // check styles
+}
+
+
 function applyAlarm(inputParams) {
 	console.log("Apply Alarm");
     var alarmText;
@@ -234,6 +259,8 @@ function applyAlarm(inputParams) {
         if(inputParams[i].name === 'alarmText'){
             alarmText = inputParams[i].value.constant.value;
             //show alert modal
+            if (alarmText[0] == '<')
+                alarmText = processInteractiveNotification(alarmText);
             showAlertModal(alarmText);
         }  
         else if(inputParams[i].name === 'reminderText'){
@@ -268,6 +295,7 @@ function applyAlarm(inputParams) {
  */
 function showAlertModal(alarmText)
 {
+    console.log("html is " + alarmText);
     $("#modal-alert-text").html(alarmText);
     $("#alert-modal").modal({ keyboard: false, backdrop: 'static'});
 }

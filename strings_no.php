@@ -1,4 +1,4 @@
- <?php
+<?php
 
 // LOGIN PAGE
 define("LOGIN_WELCOME", "Velkommen!");
@@ -112,10 +112,13 @@ define("MEDICATION_PLANNED_TIME", "Tid");
 
 //HEALTH PAGE
 define("HEALTH_WEIGHTPLOT_TITLE", "Vekt");
+define("HEALTH_BMIPLOT_TITLE", "BMI");
 define("HEALTH_SCOREPLOT_TITLE", "Skåring"); 
 define("HEALTH_ECGPLOT_TITLE", "EKG");
+define("HEALTH_HRPLOT_TITLE", "PULS");
 define("HEALTH_ACCPLOT_TITLE", "Skritteller");
-define("HEALTH_TEMPPLOT_TITLE", "Temperatur °C");
+define("HEALTH_TEMPPLOT_TITLE", "TEMPERATUR");
+define("HEALTH_BREATHPLOT_TITLE", "RESPIRASJONSFREKVENS");
 
 define("HEALTH_DATABUTTON_START", "START UNDERSØKELSEN");
 define("HEALTH_DATABUTTON_STOP", "STOP UNDERSØKELSEN");
@@ -129,8 +132,8 @@ define("HEALTH_WEIGHTPLOT_DATE_HINT", "Dato");
 
 //PLAN PAGE
 define("PLAN_SETGOALS_TITLE", "Lag ditt ukentlige mål");
-define("PLAN_SETGOALS_EXERCISE", "Trening");
-define("PLAN_SETGOALS_WALK", "Gå tur (skritt)");
+define("PLAN_SETGOALS_EXERCISE", "Trening (minutter)");
+define("PLAN_SETGOALS_WALK", "Gå tur (minutter)");
 define("PLAN_SETGOALS_MEET", "Sosialt (møte personer)");
 define("PLAN_SETGOALS_ATLEAST", "minst");
 define("PLAN_SETGOALS_MORETHAN", "mer enn");
@@ -156,6 +159,51 @@ define("PLAN_SETEVENT_MIN", "min");
 define("REMOVE_EVENT_BUTTON", "FJERN HENDELSE");
 define("DONE_BUTTON", "FERDIG");
 define("UNDONE_BUTTON", "ANGRE");
+
+//NEW
+//invite a friend to join activity
+define("INVITE_FRIEND_BUTTON", "INVITER VENN");
+define("ACCEPT_INVITATION_BUTTON", "AKSEPTERER");
+define("DECLINE_INVITATION_BUTTON", "AVSLÅ");
+//invite a friend to join activity
+define("INVITE_FRIEND_BUTTON", "INVITE FRIEND");
+define("ACCEPT_INVITATION_BUTTON", "ACCEPT");
+define("DECLINE_INVITATION_BUTTON", "DECLINE");
+//NEW SET GOALS CARD
+define("PLAN_GOALS_SOCIAL_ACTIVITY", "Sosiale Aktiviteter");
+define("PLAN_SETGOALS_SOCIAL_ACTIVITY", "Sosiale Aktiviteter");
+define("PLAN_GOALS_ACTIVITY","aktiviteter");
+
+//set a start and end time for an activity in the plan
+define("START_TIME", "Start");
+define("END_TIME", "Slutt");
+//NEW CALENDAR
+
+define("PLAN_ACTIVITY_ADD", "Add event");
+define("PLAN_ACTIVITY_TITLE", "Title");
+define("PLAN_ACTIVITY_TYPE", "Type of activity");
+define("PLAN_ACTIVITY_TYPE_RECEIVE_GEST", "Receive guest");
+define("PLAN_ACTIVITY_TYPE_CALL_SOMEONE", "Call someone");
+define("PLAN_ACTIVITY_TYPE_VISIT_SOMEONE", "Visit Someone");    
+define("PLAN_ACTIVITY_TYPE_CINEMA", "Go to the cinema");
+define("PLAN_ACTIVITY_TYPE_THEATRE", "Go to the theatre");
+define("PLAN_ACTIVITY_TYPE_RESTAURANT", "Go to a restaurant");
+define("PLAN_ACTIVITY_TYPE_PUB", "Go to a pub");      
+define("PLAN_ACTIVITY_TYPE_RELIGIOUS_ACTIVITY", "Religious activity");
+define("PLAN_ACTIVITY_OTHER", "Other", "Other activity");
+define("PLAN_ACTIVITY_START_TIME", "Start Time");
+define("PLAN_ACTIVITY_END_TIME", "End time");
+
+define("CALENDAR_NEXT_BUTTON", "NESTE");
+define("CALENDAR_PREVIOUS_BUTTON", "TIDLIGERE");
+define("CALENDAR_CANCEL_BUTTON", "AVBRYT");
+define("CALENDAR_SUBMIT_BUTTON", "SENDE INN")
+define("CALENDAR_ADVANCED_SETTINGS_BUTTON", "AVANSERTE INNSTILLINGER");
+
+define("PLAN_ACTIVITY_STEP1", "Velg Start og sluttid");
+define("PLAN_ACTIVITY_STEP2", "Velg aktivitet");
+define("PLAN_ACTIVITY_STEP3", "Avanserte innstillinger");
+
 
 //PROFILE PAGE
 define("PROFILE_PROFILECARD_TITLE", "Om meg");
@@ -195,6 +243,8 @@ define("PROFILE_ADDINTERESTS_OTHERS_5", "Teater");
 define("CONTACTS_CONTACTSCARD_TITLE", "Kontakter");
 define("CONTACTS_CONTACTSCARD_HEADER_NAME", "Navn");
 define("CONTACTS_CONTACTSCARD_HEADER_STATUS", "Status");
+define("CONTACTS_CONTACTSCARD_HEADER_EMAIL", "Email");
+define("CONTACTS_CONTACTSCARD_HEADER_PHONE", "Phone");
 define("CONTACTS_CONTACTSCARD_HEADER_ACTIONS", "Handling");
 define("REMOVE_BUTTON", "FJERN");
 define("CONTACTS_CONTACTSCARD_STATUS_ONLINE", "Pålogget");
@@ -202,8 +252,15 @@ define("CONTACTS_CONTACTSCARD_STATUS_OFFLINE", "Avlogget");
 define("CONTACTS_CONTACTSCARD_STATUS_BUSY", "Opptatt");
 define("CONTACTS_FORM_TITLE", "Legg til kontakt");
 define("CONTACTS_FORM_NAME", "Navn");
+define("CONTACTS_FORM_EMAIL", "Email");
 define("CONTACTS_FORM_PHONE", "Telefonnummer");
 define("ADD_BUTTON", "Legg til");
+
+//types of relationships
+define("CONTACTS_FROM_RELATIONSHIP_CLOSE_FAMILY", "Nært Familiemedlem");
+define("CONTACTS_FROM_RELATIONSHIP_OTHER_FAMILY", "Annet Familiemedlem");
+define("CONTACTS_FROM_RELATIONSHIP_FRIEND", "Venn");
+define("CONTACTS_FROM_RELATIONSHIP_NEIGHBOUR", "Nabo");
 
 
 //FITNESS PAGE

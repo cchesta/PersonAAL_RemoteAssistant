@@ -1,0 +1,11 @@
+<message>
+    <text>Message text</text>
+    <option index="1">
+        <label>Button label</label>
+        <address>url to call</address>
+    </option>
+    <option index="2">
+        <label>Button label</label>
+        <address>url to call</address>
+    </option>
+</message>

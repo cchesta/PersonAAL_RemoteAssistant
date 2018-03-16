@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-
 <?php
     include 'miscLib.php';
     include 'DButils.php';
@@ -136,7 +134,6 @@ $_SESSION['languages'] = $selected;
 setLanguage();
    
 ?>
-
 
 <html>
     <head>

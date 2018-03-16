@@ -1805,13 +1805,17 @@ and open the template in the editor.
     right: 10px;
     top: 8px;
 }
+
+.calendar-card .mdl-card__subtitle-text{
+    color: #fff;
+}
 .calendar-card .mdl-card__menu .material-icons{
     font-size: 36px;
 }
 .calendar-card #calendar-prev{
     margin-right: 5px;
 }
-/*calendar*/
+calendar
 #external-events {
         width: 100%;
         text-align: left;
@@ -1868,7 +1872,7 @@ and open the template in the editor.
     border: 2px solid #ddd;
 }
 #calendar tr, #calendar th, #calendar td{
-/*    border: 2px solid #ddd;*/
+   border: 2px solid #ddd;
 }
 #calendar .fc-today {
     background: rgba(63, 81, 181, 0.1);
@@ -1879,6 +1883,14 @@ and open the template in the editor.
     font-size: 12px;
     height: 30px;
 }
+    
+
+
+
+/*PICKER */
+.c-datepicker {
+    z-index: 99999;
+}     
 
 
 
@@ -2131,6 +2143,34 @@ and open the template in the editor.
     align-items: flex-end;
     justify-content: flex-end;
 }
+
+
+
+/*NEW CALENDAR - ADD EVENT CARD */
+
+.addEvent-modal{
+    width: 100%;
+}
+
+.addEvent-modal .mdl-card__title-text{
+    letter-spacing: 0.02em;
+    font-size: 20px;
+}
+
+.addEvent-modal .mdl-card__title{
+  color: #fff;
+  height: 52px;
+  padding: 16px;
+  background: #3E4EB8;
+}
+
+.addEvent-modal .mdl-card__actions{
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+
 
 
 /*TIME PICKER DIALOG*/
@@ -2422,3 +2462,7 @@ and open the template in the editor.
     font-size: 16px;
 }
 
+    
+
+    
+    

@@ -92,6 +92,11 @@ define("GET_EVENTS", "getEvents");
 define("SAVE_EVENT_LIST", "saveEventList");
 
 
+/*************  ACTIVITY ***************/
+define("ADD_ACTIVITY", 'addActivity');
+define('SET_ACTIVITY_DONE', 'setActivityDone');
+define ('GET_ACTIVITY', 'getActivity');
+define('GET_ACTIVITY_LAST_ACCESSS','getActivityFromLastAccess' );
 
 
 /*************  FITNESS  **************/
@@ -219,6 +224,11 @@ define("GET_USER_DATA", "getUserData");
             
             case GET_USER_LANGUAGE:
                 break;
+                
+            case GET_ACTIVITY:
+                break;
+            
+                
             
             default:
                 $aResult['error'] = 'No function arguments!';
@@ -297,6 +307,61 @@ define("GET_USER_DATA", "getUserData");
                 }
                 break;
             
+               //  function that adds activity to db
+            case ADD_ACTIVITY:
+                if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 7) )
+                   $aResult['error'] = 'Error in arguments!';
+                else
+                {
+                   
+                    $aResult['result']= Activity::addActivity($_SESSION['personAAL_user'], $_POST['arguments'][0],$_POST['arguments'][1],$_POST['arguments'][2],$_POST['arguments'][3],$_POST['arguments'][4],$_POST['arguments'][5],$_POST['arguments'][6]);
+
+                                        
+                }
+                break;
+                
+                //function that updates if activity was completed 
+            case SET_ACTIVITY_DONE:
+                if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) )
+                   $aResult['error'] = 'Error in arguments!';
+                else
+                {  $aResult['result'] = Activity::setActivityDone($_POST['arguments'][0]);
+                }
+                break;
+           
+                //function that gets all the activitys info from a specific user
+            case GET_ACTIVITY:
+                
+                  $aResult['result'] = Activity::getActivity($_SESSION['personAAL_user']);
+                
+                break;
+                
+            case GET_ACTIVITY_LAST_ACCESSS:
+                if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) )
+                   $aResult['error'] = 'Error in arguments!';
+                else
+                {  $aResult['result'] = Activity::getActivityFromLastAccess([$_SESSION['personAAL_user']]);
+                }
+                break;
+                
+                /*
+                
+            case ADD_USER_CONTACT:
+                if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 2) )
+                   $aResult['error'] = 'Error in arguments!';
+                else
+                {
+                    $aResult['result']= UserContacts::addContact($_SESSION['personAAL_user'], $_POST['arguments'][0], $_POST['arguments'][1]);
+
+//                    $aResult['result'] = $_POST['arguments'][0];
+                }
+                break;     
+	    
+                
+                
+                */
+                
+                
             //function that add event on DB    
             case ADD_EVENT:
                 if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) )
@@ -439,7 +504,7 @@ define("GET_USER_DATA", "getUserData");
                     $aResult['result'] = json_encode($userData);
                 }
                 break;
-		
+
             default:
                $aResult['error'] = 'Not found function '.$_POST['functionname'].'!';
                break;
