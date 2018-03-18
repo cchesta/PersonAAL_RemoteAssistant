@@ -33,6 +33,25 @@ function discoverBridge()
     }).catch(e => console.log('Error finding bridges', e));
 }
 
+function getHueUsername(){
+    var bridge = hue.bridge(ipHueBridge);
+    bridge.createUser(appName +'#' + userName).then(data => {
+    // extract bridge-generated username from returned data
+        if (data[0].success !== undefined)
+            {
+                hueUsername = data[0].success.username;
+                console.log('Hue username: %s', hueUsername);
+                document.getElementById("unHue").innerHTML = hueUsername;
+            }
+            else if(data[0].error !== undefined)
+            {
+                console.log('Error while getting user name', data[0].error.description);
+                document.getElementById("unHue").innerHTML = data[0].error.description;
+            }
+    });
+}
+
+
 function getUsername() {
 	var jsonString = { "devicetype" : appName +"#" + userName };
         console.log("Get username request: " + JSON.stringify(jsonString));

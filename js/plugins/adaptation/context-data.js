@@ -9,15 +9,8 @@ var appName  = "personAAL";
 var contextUrl = "https://giove.isti.cnr.it:8443/";
 
 window.onload = function() {
-//   setInterval(getECG_HR, 5000); 
-//   setInterval(getRespirationRate, 5000); 
-//   setInterval(getBodyTemperature, 5000); 
-   setInterval(getDailySteps, 5000); 
-   setInterval(getMedicationPlanned, 5000);
-   //setInterval(getMedicationOccurred, 5000);
-   setInterval(getTime, 60000);
-   
-   //internationalization
+       //internationalization
+    
     var userLang = getUserLanguage(); 
     console.log("User Language: " + userLang);
 
@@ -42,7 +35,17 @@ window.onload = function() {
             youdidMsg= 'You did ';
             stepsMsg= ' steps today!';
         break;
-        }    
+        }
+        
+//   setInterval(getECG_HR, 5000); 
+//   setInterval(getRespirationRate, 5000); 
+//   setInterval(getBodyTemperature, 5000); 
+    setInterval(getDailySteps, 5000); 
+    setInterval(getMedicationPlanned, 5000);
+//   setInterval(getMedicationOccurred, 5000);
+    setInterval(getTime, 60000);
+   
+    
 };
 
 //var heartRate = "";

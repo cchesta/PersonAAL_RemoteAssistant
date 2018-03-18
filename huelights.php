@@ -25,6 +25,7 @@ include 'DButils.php';
    'persist_refresh_token' => true,
  ]);
 
+
  $userInfo = $auth0->getUser();
 
  if(!$userInfo)
@@ -120,6 +121,9 @@ include 'DButils.php';
                 <!-- VELOCITY -->
                 <script src="js/plugins/velocity/velocity.min.js"></script>
                 <script src="js/plugins/velocity/velocity.ui.min.js"></script>
+                
+                <!-- javascript functions for DB (ajax requests)-->
+                <script src="js/DBinterface.js"></script>
 
                 <!-- ADAPTATION SCRIPTS -->
                 <script type="text/javascript">
@@ -167,7 +171,8 @@ include 'DButils.php';
                     <button onclick="discoverBridge()">Discover Bridge</button> <br>
                     <div id="ipHue"></div><br>
                     <br>
-                    <button onclick="getUsername()">Set Username</button> <br>
+<!--                    <button onclick="getUsername()">Set Username</button> <br>-->
+                    <button onclick="getHueUsername()">Set Username</button> <br>
                     <div id="unHue"></div><br>
                     <br>
                     <button onclick="getLightState();">Get Light State</button><br>
