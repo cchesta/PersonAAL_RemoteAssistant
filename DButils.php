@@ -24,61 +24,61 @@ define("DB_NAME","personaal");
  * FALSE: credenziali non valide
  * TRUE: login effettuato con successo
  */
-function login($user, $pw, $returnUser = FALSE)
-{
-    /*$json= file_get_contents("http://localhost:8888/BancomatWs/json/saldo/1");
-	echo $json;*/
-
-
-    // Create connection
-    $conn = new mysqli(DB_SERVER_NAME, DB_USERNAME, DB_PASSWORD, DB_NAME);
-    // Check connection
-    if ($conn->connect_error)
-    {
-//        echo("Connection failed: " . $conn->connect_error);
-        echo("<script>console.log('DButils - login: Connection failed:".$conn->connect_error."');</script>");
-        $conn->close();
-        return -1;
-    } 
-
-    $pw= sha1($pw);
-
-    $sql = "SELECT * FROM users WHERE usersid='".$user."' AND password='".$pw."'";
-    $result = $conn->query($sql);
-
-    if(!$result){
-        //        echo('There was an error running the query [' . $conn->error . ']');
-        $conn->close();
-        return -1;
-    }
-
-
-    if ($result->num_rows > 0)
-    {
-        // right username and password
-        $row = $result->fetch_assoc();
-        //        echo("id: ".$row['usersid']." pass: ".$row['password']);
-    }
-    else
-    {
-        //TODO wrong username or password
-        //        echo "Wrong username or password";
-        $conn->close();
-        return FALSE;
-    }
-
-    $conn->close();
-
-    //return the logged user information, used for PersonAAL plugin
-    if($returnUser === TRUE)
-    {
-        return new UserData($user);
-    }
-
-    return TRUE;
-
-
-}
+//function login($user, $pw, $returnUser = FALSE)
+//{
+//    /*$json= file_get_contents("http://localhost:8888/BancomatWs/json/saldo/1");
+//	echo $json;*/
+//
+//
+//    // Create connection
+//    $conn = new mysqli(DB_SERVER_NAME, DB_USERNAME, DB_PASSWORD, DB_NAME);
+//    // Check connection
+//    if ($conn->connect_error)
+//    {
+////        echo("Connection failed: " . $conn->connect_error);
+//        echo("<script>console.log('DButils - login: Connection failed:".$conn->connect_error."');</script>");
+//        $conn->close();
+//        return -1;
+//    } 
+//
+//    $pw= sha1($pw);
+//
+//    $sql = "SELECT * FROM users WHERE usersid='".$user."' AND password='".$pw."'";
+//    $result = $conn->query($sql);
+//
+//    if(!$result){
+//        //        echo('There was an error running the query [' . $conn->error . ']');
+//        $conn->close();
+//        return -1;
+//    }
+//
+//
+//    if ($result->num_rows > 0)
+//    {
+//        // right username and password
+//        $row = $result->fetch_assoc();
+//        //        echo("id: ".$row['usersid']." pass: ".$row['password']);
+//    }
+//    else
+//    {
+//        //TODO wrong username or password
+//        //        echo "Wrong username or password";
+//        $conn->close();
+//        return FALSE;
+//    }
+//
+//    $conn->close();
+//
+//    //return the logged user information, used for PersonAAL plugin
+//    if($returnUser === TRUE)
+//    {
+//        return new UserData($user);
+//    }
+//
+//    return TRUE;
+//
+//
+//}
 
 function retrieveUser($user)
 { 
@@ -176,63 +176,63 @@ function resetWeeklyGoals()
 
 
 
-function register($username, $password, $name, $surname, $birthDate, $gender, $state, $city, $cap, $address)
-{
-    // Create connection
-    $conn = new mysqli(DB_SERVER_NAME, DB_USERNAME, DB_PASSWORD, DB_NAME);
-    // Check connection
-    if ($conn->connect_error)
-    {
-        echo("Connection failed: " . $conn->connect_error);
-        $conn->close();
-        return FALSE;
-    } 
-
-    //check if user already exists
-
-    $checkUserSql = "SELECT * FROM users WHERE usersid='".$username."'";
-    $checkUserResult = $conn->query($checkUserSql);
-
-    if ($checkUserResult->num_rows > 0)
-    {
-        //username already used
-        $conn->close();
-        return -1;
-    }
-
-    $password= sha1($password);
-
-    //create user row
-    $createUserSql = "INSERT INTO users (usersid, password, userType, name, surname, gender, birthDate, state, city, cap, address)"
-        . " VALUES "
-        . "("
-        . " '". $username ."',"
-        . " '". $password ."',"
-        . " 'patient',"
-        . " '". $name ."',"
-        . " '". $surname  ."',"
-        . " '". $gender ."',"
-        . " '". $birthDate ."',"
-        . " '". $state ."',"
-        . " '". $city ."',"
-        . " '". $cap ."',"
-        . " '". $address ."'"
-        . ")";
-
-
-
-    $result = $conn->query($createUserSql);
-
-
-    if(!$result){
-        echo('There was an error running the query [' . $conn->error . ']');
-        $conn->close();
-        return FALSE;
-    }
-
-    $conn->close();
-    return TRUE;
-}
+//function register($username, $password, $name, $surname, $birthDate, $gender, $state, $city, $cap, $address)
+//{
+//    // Create connection
+//    $conn = new mysqli(DB_SERVER_NAME, DB_USERNAME, DB_PASSWORD, DB_NAME);
+//    // Check connection
+//    if ($conn->connect_error)
+//    {
+//        echo("Connection failed: " . $conn->connect_error);
+//        $conn->close();
+//        return FALSE;
+//    } 
+//
+//    //check if user already exists
+//
+//    $checkUserSql = "SELECT * FROM users WHERE usersid='".$username."'";
+//    $checkUserResult = $conn->query($checkUserSql);
+//
+//    if ($checkUserResult->num_rows > 0)
+//    {
+//        //username already used
+//        $conn->close();
+//        return -1;
+//    }
+//
+//    $password= sha1($password);
+//
+//    //create user row
+//    $createUserSql = "INSERT INTO users (usersid, password, userType, name, surname, gender, birthDate, state, city, cap, address)"
+//        . " VALUES "
+//        . "("
+//        . " '". $username ."',"
+//        . " '". $password ."',"
+//        . " 'patient',"
+//        . " '". $name ."',"
+//        . " '". $surname  ."',"
+//        . " '". $gender ."',"
+//        . " '". $birthDate ."',"
+//        . " '". $state ."',"
+//        . " '". $city ."',"
+//        . " '". $cap ."',"
+//        . " '". $address ."'"
+//        . ")";
+//
+//
+//
+//    $result = $conn->query($createUserSql);
+//
+//
+//    if(!$result){
+//        echo('There was an error running the query [' . $conn->error . ']');
+//        $conn->close();
+//        return FALSE;
+//    }
+//
+//    $conn->close();
+//    return TRUE;
+//}
 
 
 function alterTableUser($user){

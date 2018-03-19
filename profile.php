@@ -36,10 +36,9 @@ include 'DButils.php';
  {
      echo("<script>console.log('index user_id: ".$userInfo['sub']."');</script>");
      echo("<script>console.log('index nickname: ".$userInfo['nickname']."');</script>");
-     $user = $userInfo['nickname'];
+     $user = $userInfo['sub'];
 
      //SET Language
-//     session_start();
      $_SESSION['personAAL_user'] = $user;
      setLanguage();
  }

@@ -35,8 +35,7 @@
     }
     else
     {
-//        $user = $userInfo['sub'];
-        $user = $userInfo['nickname'];
+        $user = $userInfo['sub'];
         
 
         $_SESSION['personAAL_user']= $user;	 
