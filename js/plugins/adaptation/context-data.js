@@ -81,7 +81,7 @@ window.onload = function() {
 //            'Accept': 'application/json',
 //            'Content-Type': 'application/json'
 //        },
-//        url: contextUrl + "cm/rest/user/" +userName + "/respirationRate/", 
+//        url: contextUrl + "cm/rest/user/" +token + "/respirationRate/", 
 //        dataType: 'json',
 //        
 //        success: function (response) {            
@@ -103,7 +103,7 @@ window.onload = function() {
 //            'Accept': 'application/json',
 //            'Content-Type': 'application/json'
 //        },
-//        url: contextUrl + "cm/rest/user/"+ userName + "/bodyTemperature/", 
+//        url: contextUrl + "cm/rest/user/"+ token + "/bodyTemperature/", 
 //        dataType: 'json',
 //        
 //        success: function (response) {            
@@ -125,7 +125,7 @@ function getDailySteps() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/"+ userName + "/steps/", 
+        url: contextUrl + "cm/rest/user/"+ token + "/steps/", 
         dataType: 'json',
         
         success: function (response) {            
@@ -146,7 +146,7 @@ function sendMotivationDataToContext(val) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userName + "/motivation/" + val,
+        url: contextUrl + "cm/rest/user/" + token + "/motivation/" + val,
         dataType: 'json',
         success: function (response) {            
             console.log("Context response Motivation", response);
@@ -165,7 +165,7 @@ function sendAgeToContext(val) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userName + "/personalData/age/" + val,
+        url: contextUrl + "cm/rest/user/" + token + "/personalData/age/" + val,
         dataType: 'json',
         success: function (response) {            
             console.log("Context response Age", response);
@@ -184,7 +184,7 @@ function sendStepGoalToContext(val) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userName + "/stepsGoal/" + val,
+        url: contextUrl + "cm/rest/user/" + token + "/stepsGoal/" + val,
         dataType: 'json',
         success: function (response) {            
             console.log("Context response Steps Goal", response);
@@ -206,7 +206,7 @@ function sendMeetGoalToContext(val){
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userName + "/environment/meetGoal/" + val,
+        url: contextUrl + "cm/rest/user/" + token + "/environment/meetGoal/" + val,
         success: function (response) {            
         console.log("Context response Meet Goal", response);
         },
@@ -247,7 +247,7 @@ function sendTimeToContextManager(timeValue) {
              'Accept': 'application/json',
              'Content-Type': 'application/json'
          },
-         url: contextUrl + "cm/rest/user/" + userName + "/time/" + timeValue,
+         url: contextUrl + "cm/rest/user/" + token + "/time/" + timeValue,
          dataType: 'json',
          success: function (response) {
              console.log("Context response", response);
@@ -267,7 +267,7 @@ function getMedicationPlanned()
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/"+ userName + "/medication_planned/", 
+        url: contextUrl + "cm/rest/user/"+ token + "/medication_planned/", 
 //        url: contextUrl + "cm/rest/user/roytest/medication_planned/",
         dataType: 'json',
         
@@ -292,7 +292,7 @@ function getMedicationOccurred()
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/"+ userName + "/medication_occurred/", 
+        url: contextUrl + "cm/rest/user/"+ token + "/medication_occurred/", 
         dataType: 'json',
         
         success: function (response) {            

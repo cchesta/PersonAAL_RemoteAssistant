@@ -142,7 +142,7 @@ function getMedicationOccurred()
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/"+ userName + "/medication_occurred/", 
+        url: contextUrl + "cm/rest/user/"+ token + "/medication_occurred/", 
         dataType: 'json',
         
         success: function (response) {            
@@ -170,7 +170,7 @@ function getBodyTemperature() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/"+ userName + "/bodyTemperature/", 
+        url: contextUrl + "cm/rest/user/"+ token + "/bodyTemperature/", 
         dataType: 'json',
         
         success: function (response) {            
@@ -192,7 +192,7 @@ function getRespirationRate() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" +userName + "/respirationRate/", 
+        url: contextUrl + "cm/rest/user/" +token + "/respirationRate/", 
         dataType: 'json',
         
         success: function (response) {            
@@ -214,7 +214,7 @@ function getECG_HR() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userName + "/heartRate/", 
+        url: contextUrl + "cm/rest/user/" + token + "/heartRate/", 
         dataType: 'json',
         
         success: function (response) {            

@@ -419,7 +419,7 @@ function getWeightData(callback) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userName + "/weight/history/getNlastValues/10",
+        url: contextUrl + "cm/rest/user/" + token + "/weight/history/getNlastValues/10",
         dataType: 'json',
 
         success: function (response) {
@@ -442,7 +442,7 @@ function getHeightData(callback) {
             'Content-Type': 'application/json'
         },
       
-        url: contextUrl + "cm/rest/user/" + userName + "/height/",
+        url: contextUrl + "cm/rest/user/" + token + "/height/",
         dataType: 'json',
 
         success: function (response) {
@@ -465,7 +465,7 @@ function getRespirationRate() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" +userName + "/respirationRate/", 
+        url: contextUrl + "cm/rest/user/" +token + "/respirationRate/", 
         dataType: 'json',
         
         success: function (response) {            
@@ -489,7 +489,7 @@ function getRespirationRate() {
             'Content-Type': 'application/json'
         },
 
-        url: contextUrl + "cm/rest/user/" + userName + "/respirationRate/",
+        url: contextUrl + "cm/rest/user/" + token + "/respirationRate/",
         dataType: 'json',
 
         success: function (response) {
@@ -512,7 +512,7 @@ function getHeartRate() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userName + "/heartRate/",
+        url: contextUrl + "cm/rest/user/" + token + "/heartRate/",
         dataType: 'json',
 
         success: function (response) {
@@ -535,7 +535,7 @@ function getBodyTemperature() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userName + "/bodyTemperature/",
+        url: contextUrl + "cm/rest/user/" + token + "/bodyTemperature/",
         dataType: 'json',
 
         success: function (response) {

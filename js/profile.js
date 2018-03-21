@@ -10,7 +10,7 @@ var socket;
 
 
 var contextUrl = "https://giove.isti.cnr.it:8443/";
-//var userName = "cchesta";
+//var token = "cchesta";
 //var userName = "john";
 var appName = "personAAL";
 
@@ -216,7 +216,7 @@ function sendProfileToContextManager(name, surname, birth_date, gender, state, c
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userName + "/profile/",
+        url: contextUrl + "cm/rest/user/" + token + "/profile/",
         dataType: 'json',
         data: JSON.stringify(profileObj),
         success: function (response) {
@@ -236,7 +236,7 @@ function getProfileFromContextManager() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userName + "/profile/",
+        url: contextUrl + "cm/rest/user/" + token + "/profile/",
         dataType: 'json',
 
         success: function (response) {
@@ -282,7 +282,7 @@ function sendInterestListToContextManager(interestListObj) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userName + "/interest_list/",
+        url: contextUrl + "cm/rest/user/" + token + "/interest_list/",
         dataType: 'json',
         data: JSON.stringify(interestListObj),
         success: function (response) {
@@ -302,7 +302,7 @@ function getInterestListFromContextManager() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userName + "/interest_list/",
+        url: contextUrl + "cm/rest/user/" + token + "/interest_list/",
         dataType: 'json',
 
         success: function (response) {

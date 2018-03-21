@@ -27,6 +27,8 @@ include 'DButils.php';
 
 
  $userInfo = $auth0->getUser();
+ $idtoken = $auth0->getIdToken();
+ 
 
  if(!$userInfo)
  {
@@ -128,6 +130,7 @@ include 'DButils.php';
                 <!-- ADAPTATION SCRIPTS -->
                 <script type="text/javascript">
                     var userName = "<?php echo $_SESSION['personAAL_user']?>";
+                    var token = "<?php echo $idtoken ?>";
                 </script>
                 <script src="./js/plugins/adaptation/sockjs-1.1.1.js"></script>
                 <script src="./js/plugins/adaptation/stomp.js"></script>
