@@ -133,6 +133,8 @@ function manageCapture() {
 
 function drawWeightChart() {
 
+    if (weightArray.length == 0)
+        return;
     data = [];
     for (var i=0, l=weightArray.length; i<l; i++) {
         data.push(new Array(new Date(weightArray[i].timestamp).getTime(), parseFloat(weightArray[i].weight)));
@@ -423,7 +425,10 @@ function getWeightData(callback) {
         dataType: 'json',
 
         success: function (response) {
-            weightArray = response.historyUserWeight;
+            if (response.historyUserWeight === undefined)
+                weightArray = [];
+            else
+                weightArray = response.historyUserWeight;
             callback();
         },
         error: function () {

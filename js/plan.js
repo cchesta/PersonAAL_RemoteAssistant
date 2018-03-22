@@ -244,7 +244,7 @@ function getMeetGoalFromContext(callback1,callback2,callback3){
             meetGoal = Number(response.value);
             $("#meet_goal_text").html(Number(response.value));
             smMeet = false;
-            document.getElementById("slide_03").MaterialSlider.change(response.value);
+            document.getElementById("slide_03").value = response.value;
             $("#inp_text_03").val(response.value);
             callback1(callback2,callback3);
         },

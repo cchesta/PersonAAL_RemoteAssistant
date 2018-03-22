@@ -163,7 +163,10 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
             .mdl-step {
                 height: auto;
             }
-
+            
+            .mdl-step__content {
+                height: auto;
+            }
 
             .calendarContOuter
             {			
@@ -244,16 +247,7 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                 echo("meetGoal= ". $p->getMeetGoal() .";");
 
                 ?>
-
-                if(walkGoal !== 0 && exerciseGoal !== 0 && meetGoal !== 0)
-                {
-                    setupGoalSettingsCard();
-                    $('#goal-settings-card').hide();
-                }
-                else
-                    $('#goal-view-card').hide();
-
-
+                        
                 //for mobile animation fix
                 fixGridHeight= document.getElementById("fix-grid").style.height;
 
@@ -860,7 +854,12 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                 else
                     document.getElementById("meet-result-icon").textContent= "hourglass_empty";
 
-
+                if(walkGoal !== 0 && exerciseGoal !== 0 && meetGoal !== 0)
+                {
+                    $('#goal-settings-card').hide();
+                }
+                else
+                    $('#goal-view-card').hide();
             }
 
             /*update actual and goal values,*/
@@ -1130,7 +1129,7 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                                 <li id="step2" class="mdl-step mdl-step--editable">
                                     <span class="mdl-step__label">
                                         <span class="mdl-step__title">
-                                            <span class="mdl-step__title-text">Chose type of activity</span>
+                                            <span class="mdl-step__title-text">Enter activity name and chose type of activity</span>
                                         </span>
                                     </span>
                                     <div class="mdl-step__content">
@@ -1139,6 +1138,7 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                                             <label class="mdl-textfield__label" for="aName">Activity name</label>
                                         </div>
                                         <div>
+                                            <p>Activity type</p>
                                             <div>
                                                 <label for="aWalk" class="mdl-radio mdl-js-radio">
                                                     <input type="radio" id="aWalk" name="aType" value="Walk" class="mdl-radio__button" onclick="enableNextStep()">
