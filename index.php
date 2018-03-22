@@ -265,6 +265,7 @@ include 'DButils.php';
 
             //add weight data to db
             addWeightData(Date.now(), weight);
+            sendWeightToContext(weight);
             
             
             //add survey data to db

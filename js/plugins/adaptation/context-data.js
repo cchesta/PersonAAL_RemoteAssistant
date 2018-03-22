@@ -42,81 +42,13 @@ window.onload = function() {
 //   setInterval(getBodyTemperature, 5000); 
     setInterval(getDailySteps, 5000); 
     setInterval(getMedicationPlanned, 5000);
+    setInterval(getWeight, 5000);
 //   setInterval(getMedicationOccurred, 5000);
     setInterval(getTime, 60000);
    
     
 };
 
-//var heartRate = "";
-//var respirationRate = "";
-//var bodyTemperature = "";
-//
-//function getECG_HR() {	
-//    $.ajax({
-//        type: "GET",
-//        headers: {
-//            'Accept': 'application/json',
-//            'Content-Type': 'application/json'
-//        },
-//        url: contextUrl + "cm/rest/user/" + userName + "/heartRate/", 
-//        dataType: 'json',
-//        
-//        success: function (response) {            
-//            console.log("Context response Hearth Rate", response);
-//            $("#ecg_hr").html(response.value + " bpm");
-//            $heartRate=response.value;
-//        },
-//        error: function ()
-//        {
-//            console.log("Error while getting heart rate data");
-//        }
-//    });
-//}
-//
-//function getRespirationRate() {	
-//    $.ajax({
-//        type: "GET",
-//        headers: {
-//            'Accept': 'application/json',
-//            'Content-Type': 'application/json'
-//        },
-//        url: contextUrl + "cm/rest/user/" +token + "/respirationRate/", 
-//        dataType: 'json',
-//        
-//        success: function (response) {            
-//            console.log("Context response Respiration Rate", response);
-//            $("#respiration_rate").html(response.value + breathMsg);
-//            $respirationRate=response.value;
-//        },
-//        error: function ()
-//        {
-//            console.log("Error while getting respiration rate data");
-//        }
-//    });
-//}
-//
-//function getBodyTemperature() {	
-//    $.ajax({
-//        type: "GET",
-//        headers: {
-//            'Accept': 'application/json',
-//            'Content-Type': 'application/json'
-//        },
-//        url: contextUrl + "cm/rest/user/"+ token + "/bodyTemperature/", 
-//        dataType: 'json',
-//        
-//        success: function (response) {            
-//            console.log("Context response Body Temperature", response);
-//            $("#body_temperature").html(response.value + " °C");
-//            $bodyTemperature=response.value;
-//        },
-//        error: function ()
-//        {
-//            console.log("Error while getting body temperature data");
-//        }
-//    });
-//}
 
 function getDailySteps() {	
     $.ajax({
@@ -138,6 +70,7 @@ function getDailySteps() {
         }
     });
 }
+
 
 function sendMotivationDataToContext(val) {
     $.ajax({
@@ -173,6 +106,25 @@ function sendAgeToContext(val) {
         error: function ()
         {
             console.log("Error while sending age to context");
+        }
+    });
+}
+
+function sendWeightToContext(val) {
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        url: contextUrl + "cm/rest/user/" + token + "/personalData/weight/" + val,
+        dataType: 'json',
+        success: function (response) {            
+            console.log("Context response Weight", response);
+        },
+        error: function ()
+        {
+            console.log("Error while sending weight to context");
         }
     });
 }
@@ -216,11 +168,6 @@ function sendMeetGoalToContext(val){
         }
     });
 }
-
-
-
-
-
 
 
 
