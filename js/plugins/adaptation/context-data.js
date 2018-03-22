@@ -42,7 +42,6 @@ window.onload = function() {
 //   setInterval(getBodyTemperature, 5000); 
     setInterval(getDailySteps, 5000); 
     setInterval(getMedicationPlanned, 5000);
-    setInterval(getWeight, 5000);
 //   setInterval(getMedicationOccurred, 5000);
     setInterval(getTime, 60000);
    
