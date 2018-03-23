@@ -851,20 +851,6 @@ class Activity {
     public $all_day;
     public $done;
     public $activityId;
-    /*
-    public function Activity($userID,$title,$type,$intensity,$start_date,$end_date,$all_day,$done,$activityId){
-        $this->userID = $userID;
-        $this->title = $title;
-        $this->type  = $type;
-        $this->intensity = $intensity;
-        $this->start_date = $start_date;
-        $this->end_date = $end_date;
-        $this->all_day = $all_day;
-        $this->done = $done;
-        $this-> activityId = $activityId;
-
-    }
-   */ 
 
     public function Activity($userID,$title,$start_date,$end_date,$all_day,$done,$type,$intensity,$activityId){
         $this->userID = $userID;
@@ -877,52 +863,6 @@ class Activity {
         $this->intensity = $intensity;
         $this-> activityId = $activityId;
     }
-}
-
-    /*
-    public function getActivity($user){
-        // Create connection
-        $conn = new mysqli(DB_SERVER_NAME, DB_USERNAME, DB_PASSWORD, DB_NAME);
-        // Check connection
-        if ($conn->connect_error)
-        {
-            echo("Connection failed: " . $conn->connect_error);
-            $conn->close();
-            return;
-        } 
-
-        $sql = "SELECT * FROM activity WHERE usersid='".$user."'";
-        $result = $conn->query($sql);
-        $conn->close();
-        if(!$result)
-        {
-            echo('There was an error running the query [' . $conn->error . ']');
-            $conn->close();
-            return;
-        }
-        if ($result->num_rows > 0)
-        {
-
-            $activitiesArray=[];
-            while($row = $result->fetch_assoc())
-            {
-                //save variables
-                $this->userID= $user;
-                $this->title= $row['title'];
-                $this->type= $row['type'];
-                $this->intensity= $row['intensity'];
-                $this->start_date= $row['start_date'];
-                $this->end_date= $row['end_date'];
-                $this->all_day= $row['all_day'];
-                $this->done= $row['done'];
-            }
-
-            return $activitiesArray;
-
-        }   
-        else
-        {
-
 
     public function addActivity($userID, $title, $start_date, $end_date, $all_day, $done, $type, $intensity){
         // Create connection
@@ -938,10 +878,6 @@ class Activity {
         //convert start_date and end_date to mysql datetime format
         $mysqldateStart = date( 'Y-m-d H:i:s', strtotime($start_date) );
         $mysqldateEnd = date( 'Y-m-d H:i:s', strtotime($end_date) );
-        //$mysqldateStart = date( 'Y-m-d H:i:s', $start_date );
-        //$mysqldateEnd = date( 'Y-m-d H:i:s', $end_date );
-        // echo('start date: '.$start_date);
-        //echo($all_day);
 
         $sql = "INSERT INTO activity (userID, title, start_date, end_date, all_day,done,type, intensity)"
             . " VALUES "
@@ -955,9 +891,7 @@ class Activity {
             . " '". $intensity ."'"
             . ")";
 
-        //echo($sql);
         $result= $conn->query($sql);
-        //echo($result);
         $last_id = $conn->insert_id;
         //echo ("New record created successfully. Last inserted ID is: " . $last_id);
 
@@ -1018,23 +952,15 @@ class Activity {
                     $row['activityId']
 
                 );
-                //echo($activity);
                 array_push($activitiesArray, $activity);
             }
-            //echo($activitiesArray);
             return $activitiesArray;
-
         }   
         else
         {
             return false;
             echo "no results";
         }
-
-
-
-
-
     }
 
     public function getActivitiesFromLastAccess($userId){
@@ -1207,7 +1133,7 @@ class Plan{
         else
         {
             //TODO wrong username or password
-            echo "no results";
+            //echo "no results";
         }
 
     }

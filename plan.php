@@ -4,8 +4,8 @@ include 'miscLib.php';
 include 'DButils.php';
 
 // Require composer autoloader
- require __DIR__ . '\login\vendor\autoload.php';
- require __DIR__ . '\login\dotenv-loader.php';
+ require __DIR__ . DIRECTORY_SEPARATOR . 'login' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+ require __DIR__ . DIRECTORY_SEPARATOR . 'login' . DIRECTORY_SEPARATOR . 'dotenv-loader.php';
 
  use Auth0\SDK\Auth0;
 
@@ -236,16 +236,16 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
 
                 //goals
                 <?php
-
-                $p = new Plan($_SESSION['personAAL_user']);
-
-                echo("walkActualAmount= ". $p->getActualWalk() .";");
-                echo("exerciseActualAmount= ". $p->getActualExercise() .";");
-                echo("meetActualAmount= ". $p->getActualMeet() .";");
-                echo("walkGoal= ". $p->getWalkGoal() .";");
-                echo("exerciseGoal= ". $p->getExerciseGoal() .";");
-                echo("meetGoal= ". $p->getMeetGoal() .";");
-
+//
+//                $p = new Plan($_SESSION['personAAL_user']);
+//
+//                echo("walkActualAmount= ". $p->getActualWalk() .";");
+//                echo("exerciseActualAmount= ". $p->getActualExercise() .";");
+//                echo("meetActualAmount= ". $p->getActualMeet() .";");
+//                echo("walkGoal= ". $p->getWalkGoal() .";");
+//                echo("exerciseGoal= ". $p->getExerciseGoal() .";");
+//                echo("meetGoal= ". $p->getMeetGoal() .";");
+//
                 ?>
                         
                 //for mobile animation fix
@@ -576,10 +576,23 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
             };
 
             function enableNextStep() {
-                if ($('#aName').val().length > 0) {
-                    $('#step2Button').removeAttr('disabled');
-                    $('#dialogSubmit').removeAttr('disabled');
-                }
+                if ($('#aName').val().length == 0) {
+                    var activityTypeOptions = $("[name=aType]");
+                    var activityType = activityTypeOptions.filter(':checked').val();
+                    switch (activityType) {
+                        case "Exercise":
+                            $('#aName')[0].parentElement.MaterialTextfield.change("Exercise");
+                            break;
+                        case "Walk":
+                            $('#aName')[0].parentElement.MaterialTextfield.change("Walk");
+                            break;
+                        case "Social":
+                            $('#aName')[0].parentElement.MaterialTextfield.change("Social");
+                            break;
+                    };
+                };
+                $('#step2Button').removeAttr('disabled');
+                $('#dialogSubmit').removeAttr('disabled');
             };
 
 

@@ -18,7 +18,7 @@ function init() {
 
     //internationalization
     var userLang = getUserLanguage();
-    console.log(userLang);
+    //console.log(userLang);
 
 
 }
@@ -36,10 +36,12 @@ function sendContactsToContextManager(contactsObj) {
         dataType: 'json',
         data: JSON.stringify(contactsObj),
         success: function (response) {
-            $("#response").html(JSON.stringify(response));
+            console.log("Contacts sent successfully.", response)
+            //$("#response").html(JSON.stringify(response));
         },
         error: function (err) {
-            $("#response").html(JSON.stringify(err));
+            //$("#response").html(JSON.stringify(err));
+            console.log("Error sending contacts: ", err);
         }
     });
 }
@@ -65,7 +67,7 @@ function getContactsFromContextManager(callback) {
         },
         error: function ()
         {
-            console.log("Error while getting contact list");
+            console.log("Error getting contact list");
             contactList = [];
         }
     });

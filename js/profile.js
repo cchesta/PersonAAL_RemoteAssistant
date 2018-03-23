@@ -254,7 +254,7 @@ function getProfileFromContextManager() {
             document.querySelector('#profileAddress').parentNode.MaterialTextfield.change(response.address);
         },
         error: function () {
-            console.log("Error while getting body temperature data");
+            console.log("Error getting profile from context manager");
         }
     });
 }
@@ -286,10 +286,12 @@ function sendInterestListToContextManager(interestListObj) {
         dataType: 'json',
         data: JSON.stringify(interestListObj),
         success: function (response) {
-            $("#response").html(JSON.stringify(response));
+            console.log("Interests successfully sent", response);
+            //$("#response").html(JSON.stringify(response));
         },
         error: function (err) {
-            $("#response").html(JSON.stringify(err));
+            console.log("Error sending interests", err);
+            //$("#response").html(JSON.stringify(err));
         }
     });
 

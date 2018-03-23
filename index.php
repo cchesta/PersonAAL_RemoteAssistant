@@ -4,8 +4,8 @@ include 'miscLib.php';
 include 'DButils.php';
 
 // Require composer autoloader
- require __DIR__ . '\login\vendor\autoload.php';
- require __DIR__ . '\login\dotenv-loader.php';
+ require __DIR__ . DIRECTORY_SEPARATOR . 'login' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+ require __DIR__ . DIRECTORY_SEPARATOR . 'login' . DIRECTORY_SEPARATOR . 'dotenv-loader.php';
 
  use Auth0\SDK\Auth0;
 
@@ -30,13 +30,13 @@ include 'DButils.php';
 
  if(!$userInfo)
  {
-    echo("<script>console.log('index: No user info');</script>");
+    //echo("<script>console.log('index: No user info');</script>");
     myRedirect("login.php", TRUE);
  }
  else
  {
-    echo("<script>console.log('index user_id: ".$userInfo['sub']."');</script>");
-    echo("<script>console.log('index nickname: ".$userInfo['nickname']."');</script>");
+    //echo("<script>console.log('index user_id: ".$userInfo['sub']."');</script>");
+    //echo("<script>console.log('index nickname: ".$userInfo['nickname']."');</script>");
     $user = $userInfo['sub'];
      
     $result= retrieveUser($user);
@@ -133,8 +133,12 @@ include 'DButils.php';
           var AUTH0_DOMAIN = '<?php echo getenv("AUTH0_DOMAIN") ?>';
           var AUTH0_CALLBACK_URL = '<?php echo getenv("AUTH0_CALLBACK_URL") ?>';
         </script>
-        <script src="login/public/app.js"> </script>
-        <link href="login/public/app.css" rel="stylesheet">
+        <!--<script src="login/public/app.js"> </script>
+        <link href="login/public/app.css" rel="stylesheet">-->
+        
+        <style>
+            .goal-info {text-align: center}
+        </style>
         
 	<?php
 	    $plan= new Plan($_SESSION['personAAL_user']);
@@ -315,11 +319,11 @@ include 'DButils.php';
             <div class="mdl-layout__drawer">
                 <span class="mdl-layout-title"><?php echo(MENU_TITLE);?></span>
                 <nav class="mdl-navigation">
-		    <a class="mdl-navigation__link mdl-navigation__link-selected" href="index.php"><i class="material-icons">home</i><?php echo(ENTRY_HOME);?></a>
+                    <a class="mdl-navigation__link mdl-navigation__link-selected" href="index.php"><i class="material-icons">home</i><?php echo(ENTRY_HOME);?></a>
                     <a class="mdl-navigation__link" href="health.php"><i class="material-icons">local_hospital</i><?php echo(ENTRY_HEALTH);?></a>
                     <a class="mdl-navigation__link" href="plan.php"><i class="material-icons">date_range</i><?php echo(ENTRY_PLAN);?></a>
-		    <a class="mdl-navigation__link" href="profile.php"><i class="material-icons">info</i><?php echo(ENTRY_PROFILE);?></a>
-		    <a class="mdl-navigation__link" href="contacts.php"><i class="material-icons">group</i><?php echo(ENTRY_CONTACTS);?></a>
+                    <a class="mdl-navigation__link" href="profile.php"><i class="material-icons">info</i><?php echo(ENTRY_PROFILE);?></a>
+                    <a class="mdl-navigation__link" href="contacts.php"><i class="material-icons">group</i><?php echo(ENTRY_CONTACTS);?></a>
                     <a class="mdl-navigation__link" href="huelights.php"><i class="material-icons">flare</i><?php echo(ENTRY_HUELIGHTS);?></a>
                     <a class="mdl-navigation__link" href="logout.php"><i class="material-icons">power_settings_new</i><?php echo(ENTRY_LOGOUT);?></a>
                 </nav>
@@ -564,7 +568,7 @@ include 'DButils.php';
                         <div class="mdl-card__title mdl-card--border">
                             <?php echo(INDEX_SURVEY_TITLE);?>
                         </div>
-                        <div class="mdl-card__supporting-text mdl-card--expand">
+                        <div class="mdl-card__supporting-text mdl-card--expand" style="height: auto">
                             <div class="survey-question-container">
                                 <div class="survey-question">
                                     <?php echo(INDEX_SURVEY_QUESTION1);?>

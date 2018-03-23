@@ -205,7 +205,6 @@ function addActivity(title, start_date, end_date, all_day,done, type, intensity,
 
 
 function getActivity( callback){
-    console.log("HEREEE");
     jQuery.ajax({
             type: "POST",
             url: 'ajax_request.php',
@@ -224,7 +223,7 @@ function getActivity( callback){
                           }
                     },
             error: function (ob, textstatus) {
-                console.log("error2" + textstatus);
+                console.log("error2 " + textstatus);
                 console.log(ob);
             }
         });

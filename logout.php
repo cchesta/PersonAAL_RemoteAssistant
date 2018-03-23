@@ -4,8 +4,8 @@ include 'miscLib.php';
 include 'DButils.php';
 
 // Require composer autoloader
- require __DIR__ . '\login\vendor\autoload.php';
- require __DIR__ . '\login\dotenv-loader.php';
+ require __DIR__ . DIRECTORY_SEPARATOR . 'login' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+ require __DIR__ . DIRECTORY_SEPARATOR . 'login' . DIRECTORY_SEPARATOR . 'dotenv-loader.php';
 
  use Auth0\SDK\Auth0;
 
@@ -29,7 +29,7 @@ include 'DButils.php';
 
 $auth0->logout(); 
 mySessionDestroy();
-echo("<script>console.log('Logout, returinig to login');</script>");
+//echo("<script>console.log('Logout, returinig to login');</script>");
 myRedirect("login.php", TRUE);
 die();
 

@@ -4,8 +4,8 @@ include 'miscLib.php';
 include 'DButils.php';
 
 // Require composer autoloader
- require __DIR__ . '\login\vendor\autoload.php';
- require __DIR__ . '\login\dotenv-loader.php';
+ require __DIR__ . DIRECTORY_SEPARATOR . 'login' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+ require __DIR__ . DIRECTORY_SEPARATOR . 'login' . DIRECTORY_SEPARATOR . 'dotenv-loader.php';
 
  use Auth0\SDK\Auth0;
 
@@ -171,14 +171,14 @@ include 'DButils.php';
             <main class="mdl-layout__content">
                 <div class="page-content">
                     <br>
-                    <button onclick="discoverBridge()">Discover Bridge</button> <br>
+                    <button class="mdl-button mdl-js-button mdl-button--raised" style="margin-left: 2em" onclick="discoverBridge()">Discover Bridge</button> <br>
                     <div id="ipHue"></div><br>
                     <br>
 <!--                    <button onclick="getUsername()">Set Username</button> <br>-->
-                    <button onclick="getHueUsername()">Set Username</button> <br>
+                    <button class="mdl-button mdl-js-button mdl-button--raised" style="margin-left: 2em" onclick="getHueUsername()">Set Username</button> <br>
                     <div id="unHue"></div><br>
                     <br>
-                    <button onclick="getLightState();">Get Light State</button><br>
+                    <button class="mdl-button mdl-js-button mdl-button--raised" style="margin-left: 2em" onclick="getLightState();">Get Light State</button><br>
                     <br>
 <!--                    Response: <div id="res"></div>
                     <br>-->
