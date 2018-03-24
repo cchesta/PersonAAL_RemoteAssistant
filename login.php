@@ -124,21 +124,25 @@ setLanguage();
                     <span class="mdl-layout-title">PersonAAL</span>
                     
                     <div class="mdl-layout-spacer"></div>
-                    
-                    <table border="1" width="2" cellspacing="1" cellpadding="1">
+
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+                        <table>
                             <tr>
                                 <td>
-                                <form action=""<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-                                <select name="languages" onchange="this.form.submit();">
-                                    <?php echo get_options($selected); ?>
-                                </select>
-                                </form>  
+                                    <form action=""<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                                        <div>
+                                            <select name="languages" onchange="this.form.submit();">
+                                                <?php echo get_options($selected); ?>
+                                            </select>
+                                        </div>
+                                    </form>
                                 </td>
-                                <td>
+                                <td style="padding-left: 1rem; padding-right: 1rem; vertical-align: top">
                                     <img src="img/<?php echo $selected; ?>.jpg" width="30" height="20" alt="en"/>
                                 </td>
                             </tr>
-                    </table>
+                        </table>
+                    </div>
                 </div>
             </header>
             
