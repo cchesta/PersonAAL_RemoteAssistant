@@ -117,7 +117,7 @@ function getMedicationPlanned()
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/"+ userName + "/medication_planned/", 
+        url: contextUrl + "cm/rest/user/"+ token + "/medication_planned/",
 //        url: contextUrl + "cm/rest/user/roytest/medication_planned/",
         dataType: 'json',
         
@@ -192,7 +192,7 @@ function getRespirationRate() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" +token + "/respirationRate/", 
+        url: contextUrl + "cm/rest/user/" + token + "/respirationRate/",
         dataType: 'json',
         
         success: function (response) {            

@@ -135,6 +135,8 @@ function drawWeightChart() {
 
     if (weightArray.length == 0)
         return;
+    if (weightArray.constructor !== Array)
+        weightArray = new Array(weightArray);
     data = [];
     for (var i=0, l=weightArray.length; i<l; i++) {
         data.push(new Array(new Date(weightArray[i].timestamp).getTime(), parseFloat(weightArray[i].weight)));
@@ -207,7 +209,7 @@ function drawBMIChart() {
 
     data = [];
     for (var i=0, l=weightArray.length; i<l; i++) {
-        data.push(new Array(new Date(weightArray[i].timestamp).getTime(), parseFloat(weightArray[i].weight)/(height*height)));
+        data.push(new Array(new Date(weightArray[i].timestamp).getTime(), parseFloat(weightArray[i].weight)*10000/(height*height)));
     }
 
     var maxDate = data[0][0];
@@ -421,7 +423,7 @@ function getWeightData(callback) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + token + "/weight/history/getNlastValues/10",
+        url: contextUrl + "cm/rest/user/" + userId + "/weight/history/getNlastValues/10",
         dataType: 'json',
 
         success: function (response) {
@@ -429,6 +431,7 @@ function getWeightData(callback) {
                 weightArray = [];
             else
                 weightArray = response.historyUserWeight;
+            console.log("Weight data: ", weightArray);
             callback();
         },
         error: function () {
@@ -447,7 +450,7 @@ function getHeightData(callback) {
             'Content-Type': 'application/json'
         },
       
-        url: contextUrl + "cm/rest/user/" + token + "/height/",
+        url: contextUrl + "cm/rest/user/" + userId + "/height/",
         dataType: 'json',
 
         success: function (response) {
@@ -470,7 +473,7 @@ function getRespirationRate() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" +token + "/respirationRate/", 
+        url: contextUrl + "cm/rest/user/" + token + "/respirationRate/",
         dataType: 'json',
         
         success: function (response) {            

@@ -146,6 +146,7 @@ and open the template in the editor.
         <script type="text/javascript">
             var userName = "<?php echo $_SESSION['personAAL_user']?>";
             var token = "<?php echo $idtoken ?>";
+            var userId = "<?php echo $userInfo['sub']?>";
         </script>
         <script src="./js/plugins/adaptation/sockjs-1.1.1.js"></script>
         <script src="./js/plugins/adaptation/stomp.js"></script>

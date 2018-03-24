@@ -78,7 +78,7 @@ function sendMotivationDataToContext(val) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + token + "/motivation/" + val,
+        url: contextUrl + "cm/rest/user/" + userId + "/motivation/" + val,
         dataType: 'json',
         success: function (response) {            
             console.log("Context response Motivation", response);
@@ -97,7 +97,7 @@ function sendAgeToContext(val) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + token + "/personalData/age/" + val,
+        url: contextUrl + "cm/rest/user/" + userId + "/personalData/age/" + val,
         dataType: 'json',
         success: function (response) {            
             console.log("Context response Age", response);
@@ -116,9 +116,28 @@ function sendWeightToContext(val) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + token + "/personalData/weight/" + val,
+        url: contextUrl + "cm/rest/user/" + userId + "/weight/" + val,
         dataType: 'json',
         success: function (response) {            
+            console.log("Context response Weight", response);
+        },
+        error: function ()
+        {
+            console.log("Error while sending weight to context");
+        }
+    });
+}
+
+function sendHeightToContext(val) {
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        url: contextUrl + "cm/rest/user/" + userId + "/height/" + val,
+        dataType: 'json',
+        success: function (response) {
             console.log("Context response Weight", response);
         },
         error: function ()
@@ -157,7 +176,7 @@ function sendMeetGoalToContext(val){
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + token + "/environment/meetGoal/" + val,
+        url: contextUrl + "cm/rest/user/" + userId + "/environment/meetGoal/" + val,
         success: function (response) {            
         console.log("Context response Meet Goal", response);
         },
