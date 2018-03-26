@@ -232,6 +232,9 @@ define("GET_USER_DATA", "getUserData");
             case GET_ACTIVITY_LAST_ACCESSS:
                 break;
             
+            case UPDATE_LAST_ACCESS:
+                break;
+            
                 
             
             default:

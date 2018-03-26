@@ -475,7 +475,7 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                 console.log("ARRAY: ",lastAccessActivitiesArray[i] );
 
                 
-                
+                /*
                 activityCard.querySelector('#dialogNo').addEventListener('click', function() {
 
                     console.log("SAID NO INSIDE ", i);
@@ -484,7 +484,46 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                     ShowActivityLAstAccess(i+1);
                     
                 });
+                */
                
+                activityCard.querySelector('#dialogNo').onclick = function(){
+                    console.log("SAID NO INSIDE ", i);
+                    activityCard.close();
+
+                    ShowActivityLAstAccess(i+1);
+                    
+                };
+                
+                activityCard.querySelector('#dialogYes').onclick = function(){
+                    var activity_intensity = lastAccessActivitiesArray[i][4];
+                    var activity_name = lastAccessActivitiesArray[i][0] ;
+                    var activity_type = lastAccessActivitiesArray[i][1];
+
+                    //activity duration    
+                    var start = new Date(lastAccessActivitiesArray[i][2]);
+                    var end = new Date (lastAccessActivitiesArray[i][3]);
+                    var difference = end.getTime() - start.getTime();             
+                    var completed_duration = Math.round(difference/60000);
+
+                    var completed_time = start.getHours() + '.' + ('0'+start.getMinutes()).slice(-2);
+                    var completed_timestamp = moment(start).format() ;     
+
+
+                    console.log("SAID YES INSIDE", i);
+
+                    //SEND TO CM     
+                    sendCompletedActivityToContext(activity_intensity, activity_name,activity_type,completed_duration,completed_time,completed_timestamp);      
+
+                    setActivityDone(lastAccessActivitiesArray[i][5]); 
+                    console.log("ACTIVITY ID YES: ", lastAccessActivitiesArray[i][5]);
+
+                    activityCard.close();
+
+                    ShowActivityLAstAccess(i+1);
+                };
+
+
+                /*
                 activityCard.querySelector('#dialogYes').addEventListener('click', function(){
 
                     var activity_intensity = lastAccessActivitiesArray[i][4];
@@ -514,10 +553,16 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                     ShowActivityLAstAccess(i+1);
 
                 });
-                //updateLastAccess();
+                
+                */
+                
+                
+                updateLastAccess();
 
             }
-
+            
+            
+          
 
 
 
