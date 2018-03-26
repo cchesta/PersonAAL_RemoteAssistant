@@ -295,12 +295,43 @@ function getCompletedActivityFromContext(callback){
         url: contextUrl + "cm/rest/user/"+ userName + "/activity/CompletedActivity/history/getValuesFromDateToNow/" + yyyymmdd, 
         dataType: 'json',
 
-        success: function (response) {            
+        success: function (response) {
+            //if no history -> return 0
             console.log("Context response completed activity", response);
-            console.log("1st Position: ", ((response.historyCompletedActivity)[0]));
+            //console.log("1st Position: ", ((response.historyCompletedActivity)[0]));
             actualMeet = 0;
             actualWalk = 0;
             actualExercise = 0; 
+            
+            
+            
+            if(!response.historyCompletedActivity){
+                //actualMeet = 0;
+                //actualWalk = 0;
+                //actualExercise = 0; 
+            }
+            else if(response.historyCompletedActivity.constructor!==Array){
+                switch(response.historyCompletedActivity.activity_type){
+                    case activityTypeExercise:
+                        actualExercise += Number(response.historyCompletedActivity.completed_duration);
+                        
+                        console.log("ACTUAL EXERCISE", actualExercise);
+                        break;
+
+                    case activityTypeWalk:
+                        actualWalk += Number(response.historyCompletedActivity.completed_duration);
+                      
+                        console.log("ACTUAL WALK", actualWalk);
+                        break;
+
+                    case activityTypeSocial:
+                        actualMeet +=1;
+                        
+                        console.log("ACTUAL MEET", actualMeet);
+                        break;
+                }
+            }
+            else{
             for(var i = 0; i<(response.historyCompletedActivity).length; i++){
                 switch((response.historyCompletedActivity)[i].activity_type){
                     case activityTypeExercise:
@@ -322,6 +353,7 @@ function getCompletedActivityFromContext(callback){
                         break;
                 }
             };
+            }
             $("#actual_exercise_text").html(getHour(Number(actualExercise)));
             $("#actual_walk_text").html(getHour(Number(actualWalk)));
             $("#actual_meet_text").html(Number(actualMeet));
@@ -359,10 +391,10 @@ function sendCompletedActivityToContext(activity_intensity, activity_name,activi
         dataType: 'json',
         data: JSON.stringify(CompletedActivityObj),
         success: function (response) {     
-            $("#response").html(JSON.stringify(response));
+            console.log(response);
         },
         error : function(err) {
-            $("#response").html(JSON.stringify(err));
+            console.log(response);
         }
     });
 

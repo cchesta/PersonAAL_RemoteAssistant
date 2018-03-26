@@ -916,7 +916,7 @@ class Activity {
 
     }
 
-    public function getActivitiesFromLastAccess($userId){
+    public function getActivitiesFromLastAccess($user){
         // Create connection
         $conn = new mysqli(DB_SERVER_NAME, DB_USERNAME, DB_PASSWORD, DB_NAME);
         // Check connection
@@ -926,12 +926,16 @@ class Activity {
             $conn->close();
             return;
         } 
+        // tem de ser de ontem
+        $currentDate = date('Y-m-d H:i:s');
 
-        $currentDate = date();
-
-
-        $sql = "SELECT activityId FROM activity, users WHERE usersid='".$user."' AND activity.startDate > users.last_access_plan AND event.startDate<'".$currentDate."  AND activity.done = '0' ";
-
+        
+        //$sql = "SELECT activityId FROM activity a, users u WHERE u.usersid='". $user ."' AND   a.userid='". $user ."' AND a.start_date > u.last_access_plan AND a.start_date <'".$currentDate."'  AND a.done = 0 ";
+        //echo("USERID: ". $user);
+        //echo($sql);
+        
+        $sql = "SELECT title, start_date, end_date, type, intensity, activityId FROM activity a, users u WHERE u.usersid='". $user ."' AND   a.userid='". $user ."' AND a.start_date > u.last_access_plan AND a.start_date <'".$currentDate."'  AND a.done = 0 ";
+        
         $result = $conn->query($sql);
         $conn->close();
         if(!$result)
@@ -946,21 +950,16 @@ class Activity {
             $activitiesToDoArray=[];
             while($row = $result->fetch_assoc())
             {
-                $activity = new Activity(
-                    $row['title'],
-                    $row['type'],
-                    $row['intensity'],
-                    $row['start_date'],
-                    $row['end_date'],
-                    $row['all_day'],
-                    $row['done']
-
-                );
-
-                array_push($activitiesToDoArray, $activity);
+                $activityInfo = [ $row['title'],$row['type'],$row['start_date'],$row['end_date'], $row['intensity'], $row['activityId']];
+                
+            array_push($activitiesToDoArray,$activityInfo );
             }
-
+            
+            //array_push($activitiesToDoArray, $row['activityId']);
+            
+            //echo("activities_to_do: " . $activitiesToDoArray);
             return $activitiesToDoArray;
+            
 
         }   
         else
@@ -971,6 +970,37 @@ class Activity {
 
     }
 
+    
+    public function updateLastAccess($user){
+         // Create connection
+        $conn = new mysqli(DB_SERVER_NAME, DB_USERNAME, DB_PASSWORD, DB_NAME);
+        // Check connection
+        if ($conn->connect_error)
+        {
+            //            echo("Connection failed: " . $conn->connect_error);
+            $conn->close();
+            return false;
+        } 
+        
+        $currentDate = date('Y-m-d H:i:s');
+        
+        $sql = "UPDATE users SET last_access_plan= '".$currentDate."' WHERE usersid='". $user ."'";
+        
+        $result = $conn->query($sql);
+        $conn->close();
+        
+        if(!$result)
+        {
+            echo('There was an error running the query [' . $conn->error . ']');
+            $conn->close();
+            return;
+        }
+        else{
+            return $result;
+        }
+        
+        
+    }
 
 
     public function setActivityDone($activityId){
@@ -985,7 +1015,7 @@ class Activity {
         } 
 
 
-        $sql = "UPDATE activity SET done='1' WHERE usersid='".$this->userID."' AND activityId ='".$this->activityId."'";
+        $sql = "UPDATE activity SET done=1 WHERE activityId ='".$activityId."'";
 
         $result = $conn->query($sql);
         $conn->close();

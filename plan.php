@@ -118,7 +118,7 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
         <script type="text/javascript" src="CalenStyle-master/src/calenstyle.js"></script>
         <script type="text/javascript" src="CalenStyle-master/demo/js/CalJsonGenerator.js"></script>
         <link rel="stylesheet" href="ripjar-material-datetime-picker/dist/material-datetime-picker.css">
-        
+
 
 
         <!-- VELOCITY -->
@@ -198,10 +198,13 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
             var allDay;
 
             var dialog;
+            var activityCard;
+            var lastAccessActivitiesArray;
             
-            var SocialColor = 'A04220'; 
-            var WalkColor = '105924';
-            var ExerciseColor = '3568BA' ;
+
+            var SocialColor = '#A04220'; 
+            var WalkColor = '#105924';
+            var ExerciseColor = '#3568BA' ;
 
             var SocialIcon = 'cs-icon-Meeting';
             var WalkIcon = 'cs-icon-Running';
@@ -311,10 +314,14 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                         sourceFetchType: "ALL",
                         sourceType: "JSON",
                         source: {
-                            
+
                         }
                     }],
 
+
+                    eventClicked: function(sView, selector, eventObject){
+                        console.log("EVENT_OBJECT: ", eventObject);  
+                    },
 
                     cellClicked: function(sView, dSelectedDateTime, bIsAllDay, pClickedAt) {
 
@@ -357,58 +364,163 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
 
                 });
 
+
+                //TEST FOR SHOW PLANNED ACTIVITIES IN CARDS
+                //$('#activityModal').modal('show');
+
             });
 
+            //Add to calendar activities taken from DB
             function addActivitiesToCalendar(activitiesArray){
                 var icon;
                 var color;
                 for(var i = 0; i< activitiesArray.length; i++){
-                switch(activitiesArray[i].type){
-                    case 'Social':
-                        color = SocialColor;
-                        icon = SocialIcon;
-                        break;
-                        
-                    case 'Walk':
-                        color = WalkColor;
-                        icon = WalkIcon;
-                        break;
-                        
-                    case 'Exercise':
-                        color = ExerciseColor;
-                        icon = ExerciseIcon;
-                        break;
-                }
+                    switch(activitiesArray[i].type){
+                        case 'Social':
+                            color = SocialColor;
+                            icon = SocialIcon;
+                            break;
+
+                        case 'Walk':
+                            color = WalkColor;
+                            icon = WalkIcon;
+                            break;
+
+                        case 'Exercise':
+                            color = ExerciseColor;
+                            icon = ExerciseIcon;
+                            break;
+                    }
                     var activityAddedd = [{
-                    "id": activitiesArray[i].activityId,
-                    "isAllDay": activitiesArray[i].all_day == 0? false: true ,
-                    "start": new Date(activitiesArray[i].start_date),
-                    "end": new Date(activitiesArray[i].end_date),
-                    "tag": activitiesArray[i].type,
-                    "title": activitiesArray[i].title,
-                    "description": activitiesArray[i].intensity,
-                    "singleColor": color,
-                    "icon": icon,
-                  
-                }];
-                    
+                        "calEventId": Number(activitiesArray[i].activityId),    
+                        "id": Number(activitiesArray[i].activityId),
+                        "isAllDay": activitiesArray[i].all_day == 0? false: true ,
+                        "start": new Date(activitiesArray[i].start_date),
+                        "end": new Date(activitiesArray[i].end_date),
+                        "tag": activitiesArray[i].type,
+                        "title": activitiesArray[i].title,
+                        "description": activitiesArray[i].intensity,
+                        "singleColor": color,
+                        "icon": icon,
+
+                    }];
+
                     //console.log("ACTIVITY_DB: ", activityAddedd);
-                calendar.addEventsForSource(activityAddedd, "cal1");
-                calendar.refreshView();
+                    calendar.addEventsForSource(activityAddedd, "cal1");
+                    calendar.refreshView();
+
                 }
 
-                
+                getActivitiesFromLastAccess(fillActivityCard);
+
+                //DRAFT -- WRONG PLACE 
+                //$('#ac_title').html(activitiesArray[i].title);
+                //$('#ac_type').html(activitiesArray[i].type);
+                //$('#ac_start_date').html(new Date(activitiesArray[i].start_date));
+
+                //getActivitiesFromLastAccess(activitiesArray[i].userid);
 
 
-
-
-
-                //getActivityFromLastAccess()
+                //hashtable
+                //indice - id na Bd, valor-id no calendario
 
             }  
 
-            
-            
+
+
+            function fillActivityCard(lastAccessActivities){
+                lastAccessActivitiesArray =  lastAccessActivities;
+                //activityCard = document.getElementById('activityCard');
+                //console.log(" last access", lastAccessActivitiesArray);
+                //console.log("Calendar: ", calendar.getEventWithId(51));
+                activityCard = document.querySelector('#activityDialog');
+                console.log("activity card: ", activityCard);
+
+              
+                
+                
+                ShowActivityLAstAccess(0);
+            }
+
+
+            function ShowActivityLAstAccess(i){
+
+                let aux = i;
+                if(i>=lastAccessActivitiesArray.length){
+                    console.log("END: ", i);
+                    updateGoalFields();
+                    return;
+                }
+                $('#ac_title').html(lastAccessActivitiesArray[i][0]);
+                $('#ac_type').html(lastAccessActivitiesArray[i][1]);
+                $('#ac_start_date').html(lastAccessActivitiesArray[i][2]);
+
+
+                switch(lastAccessActivitiesArray[i][1]){
+                    case "Exercise":
+                        $('#activityDialog').css({'background':ExerciseColor});
+                        break;
+
+                    case "Walk":
+                        $('#activityDialog').css({'background':WalkColor});
+                        break;
+
+                    case "Social":
+                        $('#activityDialog').css({'background':SocialColor});
+                        break;    
+                }
+
+                activityCard.show();
+                console.log("OUTSITE EVENT LISTENER ", i);
+                console.log("ARRAY: ",lastAccessActivitiesArray[i] );
+
+                
+                
+                activityCard.querySelector('#dialogNo').addEventListener('click', function() {
+
+                    console.log("SAID NO INSIDE ", i);
+                    activityCard.close();
+
+                    ShowActivityLAstAccess(i+1);
+                    
+                });
+               
+                activityCard.querySelector('#dialogYes').addEventListener('click', function(){
+
+                    var activity_intensity = lastAccessActivitiesArray[i][4];
+                    var activity_name = lastAccessActivitiesArray[i][0] ;
+                    var activity_type = lastAccessActivitiesArray[i][1];
+
+                    //activity duration    
+                    var start = new Date(lastAccessActivitiesArray[i][2]);
+                    var end = new Date (lastAccessActivitiesArray[i][3]);
+                    var difference = end.getTime() - start.getTime();             
+                    var completed_duration = Math.round(difference/60000);
+
+                    var completed_time = start.getHours() + '.' + ('0'+start.getMinutes()).slice(-2);
+                    var completed_timestamp = moment(start).format() ;     
+
+
+                    console.log("SAID YES INSIDE", i);
+
+                    //SEND TO CM     
+                    sendCompletedActivityToContext(activity_intensity, activity_name,activity_type,completed_duration,completed_time,completed_timestamp);      
+
+                    //setActivityDone(lastAccessActivitiesArray[i][5]); 
+                    console.log("ACTIVITY ID YES: ", lastAccessActivitiesArray[i][5]);
+
+                    activityCard.close();
+
+                    ShowActivityLAstAccess(i+1);
+
+                });
+                //updateLastAccess();
+
+            }
+
+
+
+
             // Dialog scripts
             $(function() {
                 dialog = document.querySelector('dialog');
@@ -472,6 +584,7 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                 }
 
                 var activity = [{
+                    "calEventId": activityId,
                     "id": activityId, // replace with value returned from DB
                     "isAllDay": allDay, // Optional
                     "start": (allDay? startDate +  ' 00:00': startDate),
@@ -533,20 +646,21 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                             $('#advancedexercise').show();
                             $('#advancedsocial').hide();
                             break;
-                            
-                            
+
+
                         case 'Walk':
                             $('#advancedsteps').show();
                             $('#advancedexercise').hide();
                             $('#advancedsocial').hide();
-                        
+
                             var bIsAllDay = $("#ipAllDay").is(':checked'),
                                 dStartDateTime = parseDateInFormat(bIsAllDay, $("#aStart").val()),
                                 dEndDateTime = parseDateInFormat(bIsAllDay, $("#aEnd").val());
 
                             var dif = dEndDateTime.getTime() - dStartDateTime.getTime();
                             var result = Math.round(dif/60000);
-                            
+
+
                             document.getElementById('slide_as').max = 100 * (result);
                             document.getElementById('slide_as').MaterialSlider.change(0);
                             //$("#slide_as").max= 100* (difMins);
@@ -554,8 +668,8 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                             $('#advancedsteps').show();
                             $('#advancedsocial').hide();
                             break;
-                            
-                            
+
+
                         case "Social":
                             $('#advancedsteps').hide();
                             $('#advancedexercise').hide();
@@ -666,8 +780,8 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                     var sDateTest = parseDateInFormat(bIsAllDay, val.format("DD-MM-YYYY HH:mm"));
                     var eDateTest = parseDateInFormat(bIsAllDay, $("#aEnd").val());
                     if(calendar.compareDateTimes(sDateTest, eDateTest)  <= 0){
-                    input1.value = val.format("DD-MM-YYYY HH:mm");
-                    startDate = val.format("DD-MM-YYYY HH:mm");
+                        input1.value = val.format("DD-MM-YYYY HH:mm");
+                        startDate = val.format("DD-MM-YYYY HH:mm");
                         document.getElementById('aStart').parentElement.classList.remove('is-invalid');
                     }
                     else{
@@ -699,14 +813,14 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                     var sDateTest = parseDateInFormat(bIsAllDay, $("#aStart").val());
                     var eDateTest = parseDateInFormat(bIsAllDay, val.format("DD-MM-YYYY HH:mm"));
                     if(calendar.compareDateTimes(sDateTest, eDateTest)  <= 0){
-                    input2.value = val.format("DD-MM-YYYY HH:mm");
-                    endDate = val.format("DD-MM-YYYY HH:mm");
+                        input2.value = val.format("DD-MM-YYYY HH:mm");
+                        endDate = val.format("DD-MM-YYYY HH:mm");
                         document.getElementById('aStart').parentElement.classList.remove('is-invalid');
                     }
                     else{
                         document.getElementById('aEnd').parentElement.className+=' is-invalid';
                     }
-                    
+
                 })
                 .on('close', () => dialog.showModal());
 
@@ -767,7 +881,7 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                 var cardSequence= [];
                 cardSequence.push({ e: $('#goal-settings-card'), p: 'transition.slideDownBigOut', o: {display: 'none'}});
                 cardSequence.push({ e: $('#goal-view-card'), p: 'transition.slideUpBigIn', o: {display: 'flex',
-                complete: calendarFixedAnimation}});
+                                                                                               complete: calendarFixedAnimation}});
 
                 //mobile glitch fix for animation
                 if($(window).width() <= 479)
@@ -860,6 +974,7 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
 
 
                 getCompletedActivityFromContext(updateIcons);
+
 
             }
 
@@ -1296,6 +1411,61 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
 
 
 
+
+            <!--DIALOG WITH PLANNED ACTIVITIES  -->                           
+            <dialog id="activityDialog" class="mdl-dialog " style="z-index:9; width:fit-content">
+                <h5 class="mdl-dialog__title">Did you complete this activity?</h5>
+                <div class="mdl-dialog__content">
+
+
+                    <span style="font-weight:bold">Name: </span>
+                    <span id="ac_title"></span>
+                    <div></div>
+                    <span style="font-weight:bold">Type: </span>
+                    <span id="ac_type"></span>
+                    <div></div>
+                    <span style="font-weight:bold">Start Date: </span>
+                    <span id="ac_start_date"></span>
+
+
+                </div>
+                <div class="mdl-dialog__actions">
+                    <button id="dialogYes" type="button" class="mdl-button">YES</button>
+                    <button id="dialogNo" type="button" class="mdl-button">NO</button>
+                </div>
+
+            </dialog>
+
+
+
+
+            <!--DIALOG WITH CARD : PLANNED ACTIVITIES
+
+
+            <dialog id="activityDialog" class="mdl-dialog" style="width:content-fit; z-index:9">
+                <div class="mdl-dialog__content">
+                    <div id="activityCard" style="width:inherit">
+                        <div class="mdl-card__title  " id="activity-card__title" >
+                            <h2 class="mdl-card__title-text">Did you complete this activity?</h2>
+                        </div>
+                        <div class="mdl-card__supporting-text  " id="acContent" >
+                            <span>Title of activity</span>
+                            <div id="ac_title"></div>
+                            <span>Type of activity</span>
+                            <div id="ac_type"></div>
+                            <span>Start Date</span>
+                            <div id="ac_start_date"></div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="mdl-dialog__actions">
+                    <button id="dialogYes" type="button" class="mdl-button">YES</button>
+                    <button id="dialogNo" type="button" class="mdl-button">NO</button>
+                </div>
+            </dialog>
+
+-->
 
 
 

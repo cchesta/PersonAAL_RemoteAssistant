@@ -230,17 +230,19 @@ function getActivity( callback){
         });
 }
 
-function getActivityFromLastAccess(userId){
+function getActivitiesFromLastAccess(callback){
+    console.log("HERE: Last_access");
      jQuery.ajax({
             type: "POST",
             url: 'ajax_request.php',
             dataType: 'json',
-            data: {functionname: 'getActivitiesFromLastAccess', arguments: [userId]},
+            data: {functionname: 'getActivitiesFromLastAccess', arguments: []},
 
             success: function (obj, textstatus) {
                           if( !('error' in obj) ) {
                               console.log("getActivitiesFromLastAccess success");
                               console.log(obj.result);
+                              callback(obj.result);
                           }
                           else {
                               console.log("error");
@@ -261,7 +263,7 @@ function setActivityDone(activityId){
             type: "POST",
             url: 'ajax_request.php',
             dataType: 'json',
-            data: {functionname: 'addActivity', arguments: [activityId]},
+            data: {functionname: 'setActivityDone', arguments: [activityId]},
 
             success: function (obj, textstatus) {
                           if( !('error' in obj) ) {
@@ -279,6 +281,32 @@ function setActivityDone(activityId){
             }
         });
 }
+
+function updateLastAccess(){
+    jQuery.ajax({
+            type: "POST",
+            url: 'ajax_request.php',
+            dataType: 'json',
+            data: {functionname: 'updateLastAccess', arguments: []},
+
+            success: function (obj, textstatus) {
+                          if( !('error' in obj) ) {
+                              console.log("updateLastAccess success");
+                              console.log(obj.result);
+                          }
+                          else {
+                              console.log("error");
+                              console.log(obj.error);
+                          }
+                    },
+            error: function (ob, textstatus) {
+                console.log("error" + textstatus);
+                console.log(ob);
+            }
+        });
+}
+
+
  
 
     
