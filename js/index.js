@@ -117,8 +117,8 @@ function getMedicationPlanned()
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/"+ token + "/medication_planned/",
-//        url: contextUrl + "cm/rest/user/roytest/medication_planned/",
+        url: encodeURI ( contextUrl + "cm/rest/user/"+ token + "/medication_planned/"),
+//        url: encodeURI ( contextUrl + "cm/rest/user/roytest/medication_planned/"),
         dataType: 'json',
         
         success: function (response) {            
@@ -142,7 +142,7 @@ function getMedicationOccurred()
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/"+ token + "/medication_occurred/", 
+        url: encodeURI ( contextUrl + "cm/rest/user/"+ token + "/medication_occurred/"), 
         dataType: 'json',
         
         success: function (response) {            
@@ -170,7 +170,7 @@ function getBodyTemperature() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/"+ token + "/bodyTemperature/", 
+        url: encodeURI ( contextUrl + "cm/rest/user/"+ token + "/bodyTemperature/"), 
         dataType: 'json',
         
         success: function (response) {            
@@ -192,7 +192,7 @@ function getRespirationRate() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + token + "/respirationRate/",
+        url: encodeURI ( contextUrl + "cm/rest/user/" + token + "/respirationRate/"),
         dataType: 'json',
         
         success: function (response) {            
@@ -214,7 +214,7 @@ function getECG_HR() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + token + "/heartRate/", 
+        url: encodeURI ( contextUrl + "cm/rest/user/" + token + "/heartRate/"), 
         dataType: 'json',
         
         success: function (response) {            

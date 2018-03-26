@@ -56,7 +56,7 @@ function getDailySteps() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/"+ token + "/steps/", 
+        url: encodeURI ( contextUrl + "cm/rest/user/"+ token + "/steps/"), 
         dataType: 'json',
         
         success: function (response) {            
@@ -78,7 +78,7 @@ function sendMotivationDataToContext(val) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userId + "/motivation/" + val,
+        url: encodeURI ( contextUrl + "cm/rest/user/" + userId + "/motivation/" + val),
         dataType: 'json',
         success: function (response) {            
             console.log("Context response Motivation", response);
@@ -97,7 +97,7 @@ function sendAgeToContext(val) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userId + "/personalData/age/" + val,
+        url: encodeURI ( contextUrl + "cm/rest/user/" + userId + "/personalData/age/" + val),
         dataType: 'json',
         success: function (response) {            
             console.log("Context response Age", response);
@@ -116,7 +116,7 @@ function sendWeightToContext(val) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userId + "/weight/" + val,
+        url: encodeURI ( contextUrl + "cm/rest/user/" + userId + "/weight/" + val),
         dataType: 'json',
         success: function (response) {            
             console.log("Context response Weight", response);
@@ -135,7 +135,7 @@ function sendHeightToContext(val) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userId + "/height/" + val,
+        url: encodeURI ( contextUrl + "cm/rest/user/" + userId + "/height/" + val),
         dataType: 'json',
         success: function (response) {
             console.log("Context response Weight", response);
@@ -154,7 +154,7 @@ function sendStepGoalToContext(val) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + token + "/stepsGoal/" + val,
+        url: encodeURI ( contextUrl + "cm/rest/user/" + token + "/stepsGoal/" + val),
         dataType: 'json',
         success: function (response) {            
             console.log("Context response Steps Goal", response);
@@ -176,7 +176,7 @@ function sendMeetGoalToContext(val){
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userId + "/environment/meetGoal/" + val,
+        url: encodeURI ( contextUrl + "cm/rest/user/" + userId + "/environment/meetGoal/" + val),
         success: function (response) {            
         console.log("Context response Meet Goal", response);
         },
@@ -212,7 +212,7 @@ function sendTimeToContextManager(timeValue) {
              'Accept': 'application/json',
              'Content-Type': 'application/json'
          },
-         url: contextUrl + "cm/rest/user/" + token + "/time/" + timeValue,
+         url: encodeURI ( contextUrl + "cm/rest/user/" + token + "/time/" + timeValue),
          dataType: 'json',
          success: function (response) {
              console.log("Context response", response);
@@ -232,8 +232,8 @@ function getMedicationPlanned()
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/"+ token + "/medication_planned/", 
-//        url: contextUrl + "cm/rest/user/roytest/medication_planned/",
+        url: encodeURI ( contextUrl + "cm/rest/user/"+ token + "/medication_planned/"), 
+//        url: encodeURI ( contextUrl + "cm/rest/user/roytest/medication_planned/"),
         dataType: 'json',
         
         success: function (response) {            
@@ -257,7 +257,7 @@ function getMedicationOccurred()
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/"+ token + "/medication_occurred/", 
+        url: encodeURI ( contextUrl + "cm/rest/user/"+ token + "/medication_occurred/"), 
         dataType: 'json',
         
         success: function (response) {            
@@ -287,7 +287,7 @@ function getMedicationOccurred()
 //				'Accept': 'application/json',
 //				'Content-Type': 'application/json'
 //			},
-//			url: "https://giove.isti.cnr.it:8443/cm/rest/user/john/medication_planned",
+//			url: encodeURI ( "https://giove.isti.cnr.it:8443/cm/rest/user/john/medication_planned"),
 //			dataType: 'json',
 //			data: JSON.stringify(medicationObj),
 //			success: function (response) {     

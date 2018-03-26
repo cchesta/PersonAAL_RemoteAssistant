@@ -216,7 +216,7 @@ function sendProfileToContextManager(name, surname, birth_date, gender, state, c
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userId + "/profile/",
+        url: encodeURI ( contextUrl + "cm/rest/user/" + userId + "/profile/"),
         dataType: 'json',
         data: JSON.stringify(profileObj),
         success: function (response) {
@@ -236,7 +236,7 @@ function getProfileFromContextManager() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userId + "/profile/",
+        url: encodeURI ( contextUrl + "cm/rest/user/" + userId + "/profile/"),
         dataType: 'json',
 
         success: function (response) {
@@ -282,7 +282,7 @@ function sendInterestListToContextManager(interestListObj) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userId + "/interest_list/",
+        url: encodeURI ( contextUrl + "cm/rest/user/" + userId + "/interest_list/"),
         dataType: 'json',
         data: JSON.stringify(interestListObj),
         success: function (response) {
@@ -304,7 +304,7 @@ function getInterestListFromContextManager() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userId + "/interest_list/",
+        url: encodeURI ( contextUrl + "cm/rest/user/" + userId + "/interest_list/"),
         dataType: 'json',
 
         success: function (response) {

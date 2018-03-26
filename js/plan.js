@@ -94,7 +94,7 @@ function sendExerciseGoalsToContext(val){
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin' : '*'
         },
-        url: contextUrl + "cm/rest/user/" + userId + "/environment/exerciseGoal/" + val,
+        url: encodeURI ( contextUrl + "cm/rest/user/" + userId + "/environment/exerciseGoal/" + val),
         success: function (response) {            
             console.log("Context response Exercise Goal", response);
             $("#exercise_goal_text").html(Number(response.value));
@@ -115,7 +115,7 @@ function sendStepGoalToContext(val) {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin' : '*'
         },
-        url: contextUrl + "cm/rest/user/" + userId + "/stepsGoal/" + val,
+        url: encodeURI ( contextUrl + "cm/rest/user/" + userId + "/stepsGoal/" + val),
         dataType: 'json',
         success: function (response) {            
             console.log("Context response Steps Goal", response);
@@ -135,7 +135,7 @@ function sendWalkGoalToContext(val){
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin' : '*'
         },
-        url: contextUrl + "cm/rest/user/" + userId + "/environment/walkGoal/" + val,
+        url: encodeURI ( contextUrl + "cm/rest/user/" + userId + "/environment/walkGoal/" + val),
         dataType: 'json',
         success: function (response) {            
             console.log("Context response Walk Goal", response);
@@ -156,7 +156,7 @@ function sendMeetGoalToContext(val){
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin' : '*'
         },
-        url: contextUrl + "cm/rest/user/" + userId + "/environment/meetGoal/" + val,
+        url: encodeURI ( contextUrl + "cm/rest/user/" + userId + "/environment/meetGoal/" + val),
         success: function (response) {            
             console.log("Context response Meet Goal", response);
             $("#meet_goal_text").html(Number(response.value));
@@ -176,7 +176,7 @@ function getExerciseGoalFromContext(callback3){
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin' : '*'
         },
-        url: contextUrl + "cm/rest/user/"+ userId + "/environment/exerciseGoal/",
+        url: encodeURI ( contextUrl + "cm/rest/user/"+ userId + "/environment/exerciseGoal/"),
         dataType: 'json',
 
         success: function (response) {            
@@ -205,7 +205,7 @@ function getWalkGoalFromContext(callback2,callback3){
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin' : '*'
         },
-        url: contextUrl + "cm/rest/user/"+ userId + "/environment/walkGoal/",
+        url: encodeURI ( contextUrl + "cm/rest/user/"+ userId + "/environment/walkGoal/"),
         dataType: 'json',
 
         success: function (response) {            
@@ -236,7 +236,7 @@ function getMeetGoalFromContext(callback1,callback2,callback3){
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin' : '*'
         },
-        url: contextUrl + "cm/rest/user/" + userId + "/environment/meetGoal/",
+        url: encodeURI ( contextUrl + "cm/rest/user/" + userId + "/environment/meetGoal/"),
         dataType: 'json',
 
         success: function (response) {            
@@ -292,7 +292,7 @@ function getCompletedActivityFromContext(callback){
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin' : '*'
         },
-        url: contextUrl + "cm/rest/user/"+ token + "/activity/CompletedActivity/history/getValuesFromDateToNow/" + yyyymmdd, 
+        url: encodeURI ( contextUrl + "cm/rest/user/"+ token + "/activity/CompletedActivity/history/getValuesFromDateToNow/" + yyyymmdd), 
         dataType: 'json',
 
         success: function (response) {
@@ -367,7 +367,7 @@ function sendCompletedActivityToContext(activity_intensity, activity_name,activi
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin' : '*'
         },
-        url: contextUrl + "cm/rest/user/" + token + "/activity/CompletedActivity/",			  
+        url: encodeURI ( contextUrl + "cm/rest/user/" + token + "/activity/CompletedActivity/"),			  
         dataType: 'json',
         data: JSON.stringify(CompletedActivityObj),
         success: function (response) {     
@@ -388,7 +388,7 @@ function getDailySteps() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/"+ userId + "/steps/",
+        url: encodeURI ( contextUrl + "cm/rest/user/"+ userId + "/steps/"),
         dataType: 'json',
 
         success: function (response) {            

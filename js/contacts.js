@@ -32,7 +32,7 @@ function sendContactsToContextManager(contactsObj) {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*'
         },
-        url: contextUrl + "cm/rest/user/" + userId + "/contact_list/",
+        url: encodeURI ( contextUrl + "cm/rest/user/" + userId + "/contact_list/"),
         dataType: 'json',
         data: JSON.stringify(contactsObj),
         success: function (response) {
@@ -55,7 +55,7 @@ function getContactsFromContextManager(callback) {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*'
         },
-        url: contextUrl + "cm/rest/user/" + userId + "/contact_list/",
+        url: encodeURI ( contextUrl + "cm/rest/user/" + userId + "/contact_list/"),
         dataType: 'json',
         success: function (response) {            
             contactList = Object.values(response);

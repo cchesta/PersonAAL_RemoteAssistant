@@ -423,7 +423,7 @@ function getWeightData(callback) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userId + "/weight/history/getNlastValues/10",
+        url: encodeURI (contextUrl + "cm/rest/user/" + userId + "/weight/history/getNlastValues/10"),
         dataType: 'json',
 
         success: function (response) {
@@ -450,7 +450,7 @@ function getHeightData(callback) {
             'Content-Type': 'application/json'
         },
       
-        url: contextUrl + "cm/rest/user/" + userId + "/height/",
+        url: encodeURI(contextUrl + "cm/rest/user/" + userId + "/height/"),
         dataType: 'json',
 
         success: function (response) {
@@ -465,28 +465,28 @@ function getHeightData(callback) {
     });
 }
 
-function getRespirationRate() {	
-    console.log("getRespirationRate");
-    $.ajax({
-        type: "GET",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        url: contextUrl + "cm/rest/user/" + token + "/respirationRate/",
-        dataType: 'json',
-        
-        success: function (response) {            
-            console.log("Context response Respiration Rate", response);
-            $("#respiration_rate").html(response.value + " rpm");
-            $respirationRate=response.value;
-        },
-        error: function ()
-        {
-            console.log("Error while getting respiration rate data");
-        }
-    });
-}
+//function getRespirationRate() {	
+//    console.log("getRespirationRate");
+//    $.ajax({
+//        type: "GET",
+//        headers: {
+//            'Accept': 'application/json',
+//            'Content-Type': 'application/json'
+//        },
+//        url: encodeURI ( contextUrl + "cm/rest/user/" + token + "/respirationRate/"),
+//        dataType: 'json',
+//        
+//        success: function (response) {            
+//            console.log("Context response Respiration Rate", response);
+//            $("#respiration_rate").html(response.value + " rpm");
+//            $respirationRate=response.value;
+//        },
+//        error: function ()
+//        {
+//            console.log("Error while getting respiration rate data");
+//        }
+//    });
+//}
 
 function getRespirationRate() {
 
@@ -497,7 +497,7 @@ function getRespirationRate() {
             'Content-Type': 'application/json'
         },
 
-        url: contextUrl + "cm/rest/user/" + token + "/respirationRate/",
+        url: encodeURI ( contextUrl + "cm/rest/user/" + token + "/respirationRate/"),
         dataType: 'json',
 
         success: function (response) {
@@ -520,7 +520,7 @@ function getHeartRate() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + token + "/heartRate/",
+        url: encodeURI ( contextUrl + "cm/rest/user/" + token + "/heartRate/"),
         dataType: 'json',
 
         success: function (response) {
@@ -543,7 +543,7 @@ function getBodyTemperature() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + token + "/bodyTemperature/",
+        url: encodeURI ( contextUrl + "cm/rest/user/" + token + "/bodyTemperature/"),
         dataType: 'json',
 
         success: function (response) {
