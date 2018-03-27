@@ -203,8 +203,8 @@ include 'DButils.php';
                         <br>
                         <select id="room1">
                             <option value="LivingRoom">Living Room</option>
-                            <option value="Bathroom">Bathroom</option>
-                            <option value="Bedroom">Bedroom</option>
+                            <option value="Kitchen">Kitchen</option>
+                            <option value="Entrance">Entrance</option>
                         </select>
                     </div>
                     <div id="status2" style="width:auto; height:auto; border:2px solid blue; padding:10px; margin:10px; visibility:hidden">
@@ -218,8 +218,8 @@ include 'DButils.php';
                         <br>
                         <select id="room2">
                             <option value="LivingRoom">Living Room</option>
-                            <option value="Bathroom">Bathroom</option>
-                            <option value="Bedroom">Bedroom</option>
+                            <option value="Kitchen">Kitchen</option>
+                            <option value="Entrance">Entrance</option>
                         </select>
                     </div>
                     <div id="status3" style="width:auto; height:auto; border:2px solid blue; padding:10px; margin:10px; visibility:hidden">
@@ -233,8 +233,8 @@ include 'DButils.php';
                         <br>
                         <select id="room3">
                             <option value="LivingRoom">Living Room</option>
-                            <option value="Bathroom">Bathroom</option>
-                            <option value="Bedroom">Bedroom</option>
+                            <option value="Kitchen">Kitchen</option>
+                            <option value="Entrance">Entrance</option>
                         </select>
                     </div>
                 </div>
