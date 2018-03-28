@@ -292,7 +292,7 @@ function getCompletedActivityFromContext(callback){
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin' : '*'
         },
-        url: encodeURI ( contextUrl + "cm/rest/user/"+ token + "/activity/CompletedActivity/history/getValuesFromDateToNow/" + yyyymmdd), 
+        url: encodeURI ( contextUrl + "cm/rest/user/"+ userId + "/activity/CompletedActivity/history/getValuesFromDateToNow/" + yyyymmdd),
         dataType: 'json',
 
         success: function (response) {
@@ -308,13 +308,13 @@ function getCompletedActivityFromContext(callback){
             }
             else if(response.historyCompletedActivity.constructor!==Array){
                 switch(response.historyCompletedActivity.activity_type){
-                    case activityTypeExercise:
+                    case 'Exercise':
                         actualExercise += Number(response.historyCompletedActivity.completed_duration);
                         break;
-                    case activityTypeWalk:
+                    case 'Walk':
                         actualWalk += Number(response.historyCompletedActivity.completed_duration);
                         break;
-                    case activityTypeSocial:
+                    case 'Social':
                         actualMeet +=1;
                         break;
                 }
@@ -322,14 +322,14 @@ function getCompletedActivityFromContext(callback){
             else{
             for(var i = 0; i<(response.historyCompletedActivity).length; i++){
                 switch((response.historyCompletedActivity)[i].activity_type){
-                    case activityTypeExercise:
+                    case 'Exercise':
                         actualExercise += Number((response.historyCompletedActivity)[i].completed_duration);
                         break;
-                    case activityTypeWalk:
+                    case 'Walk':
                         actualWalk += Number((response.historyCompletedActivity)[i].completed_duration);
                         break;
-                    case activityTypeSocial:
-                        actualMeet +=1;
+                    case 'Social':
+                        actualMeet += Number(1);
                         break;
                 }
             };

@@ -7,16 +7,16 @@
 //define("DB_NAME","personaal");
 
 //DB for local (FCID)
-//define("DB_SERVER_NAME", "accessible-serv.lasige.di.fc.ul.pt");
-//define("DB_USERNAME", "personaal");
-//define("DB_PASSWORD", "personaalfcul");
-//define("DB_NAME","remote_assistant");
+define("DB_SERVER_NAME", "accessible-serv.lasige.di.fc.ul.pt");
+define("DB_USERNAME", "personaal");
+define("DB_PASSWORD", "personaalfcul");
+define("DB_NAME","remote_assistant");
 
 //DB for local (REPLY)
-define("DB_SERVER_NAME", "localhost");
-define("DB_USERNAME", "root");
-define("DB_PASSWORD", null);
-define("DB_NAME","personaal");
+//define("DB_SERVER_NAME", "localhost");
+//define("DB_USERNAME", "root");
+//define("DB_PASSWORD", null);
+//define("DB_NAME","personaal");
 
 
 /*ritorna:
@@ -873,8 +873,7 @@ class Activity {
             //     echo("Connection failed: " . $conn->connect_error);
             $conn->close();
             return false;
-        } 
-
+        }
         //convert start_date and end_date to mysql datetime format
         $mysqldateStart = date( 'Y-m-d H:i:s', strtotime($start_date) );
         $mysqldateEnd = date( 'Y-m-d H:i:s', strtotime($end_date) );
@@ -893,10 +892,7 @@ class Activity {
 
         $result= $conn->query($sql);
         $last_id = $conn->insert_id;
-        //echo ("New record created successfully. Last inserted ID is: " . $last_id);
-
         $conn->close();
-
         if(!$result)
         {
             //echo('There was an error running the query [' . $conn->error . ']');
@@ -905,12 +901,8 @@ class Activity {
         }
         else{
             return $last_id;
-        }   
+        }
     }
-
-
-
-
     public function getActivity($user){
         // Create connection
         $conn = new mysqli(DB_SERVER_NAME, DB_USERNAME, DB_PASSWORD, DB_NAME);
@@ -920,26 +912,21 @@ class Activity {
             echo("Connection failed: " . $conn->connect_error);
             $conn->close();
             return;
-        } 
-
+        }
         $sql = "SELECT * FROM activity WHERE userid='". $user ."'";
         $result = $conn->query($sql);
         $conn->close();
-
         if(!$result)
         {
             echo('There was an error running the query [' . $conn->error . ']');
-
             return false;
         }
         if ($result->num_rows > 0)
         {
-
             $activitiesArray=[];
             while($row = $result->fetch_assoc())
             {
                 //echo("ROW ". $row);
-
                 $activity = new Activity(
                     $row['userid'],
                     $row['title'],
@@ -950,20 +937,20 @@ class Activity {
                     $row['type'],
                     $row['intensity'],
                     $row['activityId']
-
                 );
+                //echo($activity);
                 array_push($activitiesArray, $activity);
             }
+            //echo($activitiesArray);
             return $activitiesArray;
-        }   
+        }
         else
         {
             return false;
             echo "no results";
         }
     }
-
-    public function getActivitiesFromLastAccess($userId){
+    public function getActivitiesFromLastAccess($user){
         // Create connection
         $conn = new mysqli(DB_SERVER_NAME, DB_USERNAME, DB_PASSWORD, DB_NAME);
         // Check connection
@@ -972,12 +959,11 @@ class Activity {
             echo("Connection failed: " . $conn->connect_error);
             $conn->close();
             return;
-        } 
+        }
 
-        $currentDate = date();
+        $currentDate = date('Y-m-d H:i:s');
 
-
-        $sql = "SELECT activityId FROM activity, users WHERE usersid='".$user."' AND activity.startDate > users.last_access_plan AND event.startDate<'".$currentDate."  AND activity.done = '0' ";
+        $sql = "SELECT title, start_date, end_date, type, intensity, activityId FROM activity a, users u WHERE u.usersid='". $user ."' AND   a.userid='". $user ."' AND a.start_date > u.last_access_plan AND a.start_date <'".$currentDate."'  AND a.done = 0 ";
 
         $result = $conn->query($sql);
         $conn->close();
@@ -989,38 +975,23 @@ class Activity {
         }
         if ($result->num_rows > 0)
         {
-
             $activitiesToDoArray=[];
             while($row = $result->fetch_assoc())
             {
-                $activity = new Activity(
-                    $row['title'],
-                    $row['type'],
-                    $row['intensity'],
-                    $row['start_date'],
-                    $row['end_date'],
-                    $row['all_day'],
-                    $row['done']
+                $activityInfo = [ $row['title'],$row['type'],$row['start_date'],$row['end_date'], $row['intensity'], $row['activityId']];
 
-                );
-
-                array_push($activitiesToDoArray, $activity);
+                array_push($activitiesToDoArray,$activityInfo );
             }
-
             return $activitiesToDoArray;
-
-        }   
+        }
         else
         {
             //return false;
             echo "no results";
         }
-
     }
 
-
-
-    public function setActivityDone($activityId){
+    public function updateLastAccess($user){
         // Create connection
         $conn = new mysqli(DB_SERVER_NAME, DB_USERNAME, DB_PASSWORD, DB_NAME);
         // Check connection
@@ -1029,13 +1000,15 @@ class Activity {
             //            echo("Connection failed: " . $conn->connect_error);
             $conn->close();
             return false;
-        } 
+        }
 
+        $currentDate = date('Y-m-d H:i:s');
 
-        $sql = "UPDATE activity SET done='1' WHERE usersid='".$this->userID."' AND activityId ='".$this->activityId."'";
+        $sql = "UPDATE users SET last_access_plan= '".$currentDate."' WHERE usersid='". $user ."'";
 
         $result = $conn->query($sql);
         $conn->close();
+
         if(!$result)
         {
             echo('There was an error running the query [' . $conn->error . ']');
@@ -1048,8 +1021,29 @@ class Activity {
 
 
     }
-
-
+    public function setActivityDone($activityId){
+        // Create connection
+        $conn = new mysqli(DB_SERVER_NAME, DB_USERNAME, DB_PASSWORD, DB_NAME);
+        // Check connection
+        if ($conn->connect_error)
+        {
+            //            echo("Connection failed: " . $conn->connect_error);
+            $conn->close();
+            return false;
+        }
+        $sql = "UPDATE activity SET done=1 WHERE activityId ='".$activityId."'";
+        $result = $conn->query($sql);
+        $conn->close();
+        if(!$result)
+        {
+            echo('There was an error running the query [' . $conn->error . ']');
+            $conn->close();
+            return;
+        }
+        else{
+            return $result;
+        }
+    }
 }
 
 

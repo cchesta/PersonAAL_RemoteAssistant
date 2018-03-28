@@ -96,7 +96,8 @@ define("SAVE_EVENT_LIST", "saveEventList");
 define("ADD_ACTIVITY", 'addActivity');
 define('SET_ACTIVITY_DONE', 'setActivityDone');
 define ('GET_ACTIVITY', 'getActivity');
-define('GET_ACTIVITY_LAST_ACCESSS','getActivityFromLastAccess' );
+define('GET_ACTIVITY_LAST_ACCESSS','getActivitiesFromLastAccess' );
+define('UPDATE_LAST_ACCESS', 'updateLastAccess');
 
 
 /*************  FITNESS  **************/
@@ -227,8 +228,12 @@ define("GET_USER_DATA", "getUserData");
                 
             case GET_ACTIVITY:
                 break;
-            
-                
+
+            case GET_ACTIVITY_LAST_ACCESSS:
+                break;
+
+            case UPDATE_LAST_ACCESS:
+                break;
             
             default:
                 $aResult['error'] = 'No function arguments!';
@@ -335,13 +340,16 @@ define("GET_USER_DATA", "getUserData");
                   $aResult['result'] = Activity::getActivity($_SESSION['personAAL_user']);
                 
                 break;
-                
+
             case GET_ACTIVITY_LAST_ACCESSS:
-                if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) )
-                   $aResult['error'] = 'Error in arguments!';
-                else
-                {  $aResult['result'] = Activity::getActivityFromLastAccess([$_SESSION['personAAL_user']]);
-                }
+
+                $aResult['result'] = Activity::getActivitiesFromLastAccess($_SESSION['personAAL_user']);
+
+                break;
+
+            case UPDATE_LAST_ACCESS:
+                $aResult['result'] = Activity::updateLastAccess($_SESSION['personAAL_user']);
+
                 break;
                 
                 /*
