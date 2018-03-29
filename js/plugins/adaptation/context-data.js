@@ -35,19 +35,89 @@ window.onload = function() {
             youdidMsg= 'You did ';
             stepsMsg= ' steps today!';
         break;
-        }
-        
+    }
+
+    getHomeTemperature();
+    getHomeHumidity();
+    getMotion();
+    getMedicationPlanned();
+
 //   setInterval(getECG_HR, 5000); 
 //   setInterval(getRespirationRate, 5000); 
 //   setInterval(getBodyTemperature, 5000); 
-    setInterval(getDailySteps, 5000); 
-    setInterval(getMedicationPlanned, 5000);
+//    setInterval(getDailySteps, 60000);
+    setInterval(getMedicationPlanned, 60000);
 //   setInterval(getMedicationOccurred, 5000);
     setInterval(getTime, 60000);
    
     
 };
 
+function getHomeTemperature()
+{
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        url: encodeURI ( contextUrl + "cm/rest/user/"+ userId + "/environment/temperature"),
+        dataType: 'json',
+
+        success: function (response) {
+            console.log("Home temperature: ", response);
+            $("#hometemperaturevalue").html(response.value);
+        },
+        error: function ()
+        {
+            console.log("Error getting home temperature");
+        }
+    });
+}
+
+function getHomeHumidity()
+{
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        url: encodeURI ( contextUrl + "cm/rest/user/"+ userId + "/environment/humidity"),
+        dataType: 'json',
+
+        success: function (response) {
+            console.log("Home humidity: ", response);
+            $("#homehumidityvalue").html(response.value);
+        },
+        error: function ()
+        {
+            console.log("Error getting home humidity");
+        }
+    });
+}
+
+function getMotion()
+{
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        url: encodeURI ( contextUrl + "cm/rest/user/"+ userId + "/environment/motion"),
+        dataType: 'json',
+
+        success: function (response) {
+            console.log("Motion: ", response);
+            $("#motionvalue").html(response.value);
+        },
+        error: function ()
+        {
+            console.log("Error getting motion");
+        }
+    });
+}
 
 function getDailySteps() {	
     $.ajax({
