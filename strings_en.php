@@ -171,6 +171,42 @@ define("REMOVE_EVENT_BUTTON", "REMOVE EVENT");
 define("DONE_BUTTON", "DONE");
 define("UNDONE_BUTTON", "UNDONE");
 
+define("STEPPER_STEP1", "Confirm date and time");
+define("STEPPER_STEP1_ALLDAY", "All day");
+define("STEPPER_STEP1_START", "Start time");
+define("STEPPER_STEP1_END", "End time");
+define("STEPPER_STEP1_ERROR", "Start date and time should be earlier than End date and time");
+define("STEPPER_STEP2", "Enter activity name and chose type of activity");
+define("STEPPER_STEP2_ACTIVITYNAME", "Activity name");
+define("STEPPER_STEP2_ACTIVITYTYPE", "Activity type");
+define("STEPPER_STEP2_ACTIVITYWALK", "Walking");
+define("STEPPER_STEP2_ACTIVITYEXERCISE", "Exercise");
+define("STEPPER_STEP2_ACTIVITYSOCIAL", "Social activity");
+define("STEPPER_STEP3", "Enter activity details");
+define("STEPPER_STEP3_EXERCISEINTENSITY", "Intensity Of Exercise : ");
+define("STEPPER_STEP3_EXERCISEINTENSITYHIGH", "High");
+define("STEPPER_STEP3_EXERCISEINTENSITYMODERATE", "Moderate");
+define("STEPPER_STEP3_EXERCISEINTENSITYLOW", "Low");
+define("STEPPER_STEP3_WALKSTEPS", "Number of Steps : ");
+define("STEPPER_STEP3_SOCIALTYPE", "Type of Social Activity : ");
+define("STEPPER_STEP3_SOCIALTYPERECEIVE", "Receive guest");
+define("STEPPER_STEP3_SOCIALTYPECALL", "Call someone");
+define("STEPPER_STEP3_SOCIALTYPEVISIT", "Visit someone");
+define("STEPPER_STEP3_SOCIALTYPECINEMA", "Cinema");
+define("STEPPER_STEP3_SOCIALTYPETHEATRE", "Theatre");
+define("STEPPER_STEP3_SOCIALTYPERESTAURANT", "Restaurant");
+define("STEPPER_STEP3_SOCIALTYPEPUB", "Pub");
+define("STEPPER_STEP3_SOCIALTYPERELIGIOUS", "Religious");
+define("STEPPER_STEP3_SOCIALTYPEOTHER", "Other");
+define("STEPPER_CONTINUE", "CONTINUE");
+define("STEPPER_BACK", "BACK");
+define("STEPPER_SUBMIT", "Submit");
+define("STEPPER_CANCEL", "Cancel");
+
+define("COMPLETED_TITLE", "Did you complete this activity?");
+define("COMPLETED_YES", "YES");
+define("COMPLETED_NO", "NO");
+
 //NEW
 //invite a friend to join activity
 define("INVITE_FRIEND_BUTTON", "INVITE FRIEND");
@@ -225,6 +261,9 @@ define("PROFILE_PROFILECARD_POSTALCODE", "Postal code");
 define("PROFILE_PROFILECARD_CITY", "City");
 define("PROFILE_PROFILECARD_ADDRESS", "Address");
 
+define("PROFILE_EDIT", "EDIT PROFILE");
+define("PROFILE_SAVE", "SAVE CHANGES");
+
 define("PROFILE_INTERESTS_TITLE", "Interests");
 define("PROFILE_ADDINTERESTS_TITLE", "Add interest");
 define("PROFILE_ADDINTERESTS_SPORTS", "Sports");
@@ -244,6 +283,7 @@ define("PROFILE_ADDINTERESTS_OTHERS_2", "Cooking");
 define("PROFILE_ADDINTERESTS_OTHERS_3", "Monuments");
 define("PROFILE_ADDINTERESTS_OTHERS_4", "Museums");
 define("PROFILE_ADDINTERESTS_OTHERS_5", "Theater");
+define("PROFILE_INTERESTS_CLOSE", "CLOSE");
 
 
 //CONTACTS PAGE
@@ -254,6 +294,7 @@ define("CONTACTS_CONTACTSCARD_HEADER_EMAIL", "Email");
 define("CONTACTS_CONTACTSCARD_HEADER_PHONE", "Phone");
 define("CONTACTS_CONTACTSCARD_HEADER_ACTIONS", "Actions");
 define("REMOVE_BUTTON", "REMOVE");
+define("PROFILE_REMOVE_DONE", "DONE");
 
 define("CONTACTS_CONTACTSCARD_STATUS_ONLINE", "Online");
 define("CONTACTS_CONTACTSCARD_STATUS_OFFLINE", "Offline");
@@ -263,7 +304,7 @@ define("CONTACTS_FORM_TITLE", "Add contact");
 define("CONTACTS_FORM_NAME", "Name");
 define("CONTACTS_FORM_EMAIL", "Email");
 define("CONTACTS_FORM_PHONE", "Phone Number");
-define("CONTACTS_FROM_RELATIONSHIP", "Relationship");
+define("CONTACTS_FORM_RELATIONSHIP", "Relationship");
 define("ADD_BUTTON", "ADD");
 
 //types of relationships

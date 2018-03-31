@@ -111,11 +111,14 @@ define("MEDICATION_PLANNED_TIME", "Uhrzeit");
 //HEALTH PAGE
 define("HEALTH_ECGPLOT_TITLE", "EKG");
 define("HEALTH_WEIGHTPLOT_TITLE", "GEWICHT");
+define("HEALTH_BMIPLOT_TITLE", "QKI");
 define("HEALTH_SCOREPLOT_TITLE", "Wert"); 
 define("HEALTH_WEIGHTPLOT_DATE_HINT", "Datum");
 
 define("HEALTH_ACCPLOT_TITLE", "Beschleunigungsmessung");
 define("HEALTH_TEMPPLOT_TITLE", "Temperatur °C");
+define("HEALTH_HRPLOT_TITLE", "PULS");
+define("HEALTH_BREATHPLOT_TITLE", "ATEMFREQUENZ");
 
 define("HEALTH_DATABUTTON_START", "Erfassung starten");
 define("HEALTH_DATABUTTON_STOP", "Erfassung beenden");
@@ -127,23 +130,27 @@ define("HEALTH_SNACKBAR_STOP", "Getrennt von BITalino.");
 
 //PLAN PAGE
 define("PLAN_SETGOALS_TITLE", "Wochenziele setzen");
-define("PLAN_SETGOALS_EXERCISE", "Fitness�bungen");
-define("PLAN_SETGOALS_WALK", "Bewegung (Schritte)");
+define("PLAN_SETGOALS_EXERCISE", "Fitnessübungen (Stunden)");
+define("PLAN_SETGOALS_WALK", "Bewegung (Stunden)");
 define("PLAN_SETGOALS_MEET", "Verabredungen (Personen)");
 define("PLAN_SETGOALS_ATLEAST", "mindestes");
 define("PLAN_SETGOALS_MORETHAN", "mehr als");
+
 define("PLAN_SNACKBAR", "Bitte zuerst Zielwert angeben!");
+
 define("PLAN_GOALS_TITLE", "Wochenziele");
 define("PLAN_GOALS_EXERCISE", "Fitnessübungen");
 define("PLAN_GOALS_WALK", "Bewegung");
 define("PLAN_GOALS_MEET", "Verabredungen");
 define("PLAN_GOALS_MIN", "min");
+define("PLAN_GOALS_HOURS", "stunden");
 define("PLAN_GOALS_STEPS", "Schritte");
 define("PLAN_GOALS_PERSONS", "Personen");
 define("PLAN_GOALS_COOK", "Kochen");
 define("PLAN_GOALS_MODIFY", "ändern");
+
 define("PLAN_CALENDAR_TITLE", "Kalender");
-define("PLAN_CALENDAR_INSTRUCTIONS", "Wählen Sie ein Ereignis an und verschieben Sie es in den Kalender, um es zu planen oder um Ihre Teilnahme festzuhalten.");
+define("PLAN_CALENDAR_INSTRUCTIONS", "Klicken Sie auf den Kalender, um mit der Planung einer Aktivität zu beginnen");
 define("PLAN_CALENDAR_EVENT_EXERCISE", "Fitnessübungen");
 define("PLAN_CALENDAR_EVENT_WALK", "Bewegung");
 define("PLAN_CALENDAR_EVENT_MEET", "Verabredungen");
@@ -154,6 +161,43 @@ define("PLAN_SETEVENT_MIN", "min");
 define("REMOVE_EVENT_BUTTON", "Ereignis entfernen");
 define("DONE_BUTTON", "erledigt");
 define("UNDONE_BUTTON", "unerledigt");
+
+define("STEPPER_STEP1", "Bestätigen Sie Datum und Uhrzeit");
+define("STEPPER_STEP1_ALLDAY", "Den ganzen Tag");
+define("STEPPER_STEP1_START", "Startzeit");
+define("STEPPER_STEP1_END", "Endzeit");
+define("STEPPER_STEP1_ERROR", "Startdatum und -uhrzeit sollten früher als Enddatum und -uhrzeit sein");
+define("STEPPER_STEP2", "Geben Sie den Namen der Aktivität ein und wählen Sie den Aktivitätstyp");
+define("STEPPER_STEP2_ACTIVITYNAME", "Aktivitätsname");
+define("STEPPER_STEP2_ACTIVITYTYPE", "Aktivitätsart");
+define("STEPPER_STEP2_ACTIVITYWALK", "Gehen");
+define("STEPPER_STEP2_ACTIVITYEXERCISE", "Übung");
+define("STEPPER_STEP2_ACTIVITYSOCIAL", "Soziale Aktivität");
+define("STEPPER_STEP3", "Geben Sie Aktivitätsdetails ein");
+define("STEPPER_STEP3_EXERCISEINTENSITY", "Intensität der Übung : ");
+define("STEPPER_STEP3_EXERCISEINTENSITYHIGH", "Hoch");
+define("STEPPER_STEP3_EXERCISEINTENSITYMODERATE", "Mäßig");
+define("STEPPER_STEP3_EXERCISEINTENSITYLOW", "Niedrig");
+define("STEPPER_STEP3_WALKSTEPS", "Anzahl der Schritte : ");
+define("STEPPER_STEP3_SOCIALTYPE", "Art der sozialen Aktivität : ");
+define("STEPPER_STEP3_SOCIALTYPERECEIVE", "Erhalten Sie Gast");
+define("STEPPER_STEP3_SOCIALTYPECALL", "Jemanden anrufen");
+define("STEPPER_STEP3_SOCIALTYPEVISIT", "Besuche jemanden");
+define("STEPPER_STEP3_SOCIALTYPECINEMA", "Kino");
+define("STEPPER_STEP3_SOCIALTYPETHEATRE", "Theater");
+define("STEPPER_STEP3_SOCIALTYPERESTAURANT", "Restaurant");
+define("STEPPER_STEP3_SOCIALTYPEPUB", "Kneipe");
+define("STEPPER_STEP3_SOCIALTYPERELIGIOUS", "Religiös");
+define("STEPPER_STEP3_SOCIALTYPEOTHER", "Andere");
+define("STEPPER_CONTINUE", "FORTSETZEN");
+define("STEPPER_BACK", "ZURÜCK");
+define("STEPPER_SUBMIT", "Einreichen");
+define("STEPPER_CANCEL", "Stornieren");
+
+define("COMPLETED_TITLE", "Hast du diese Aktivität abgeschlossen?");
+define("COMPLETED_YES", "JA");
+define("COMPLETED_NO", "NEIN");
+
 
 //FITNESS PAGE
 //define("FITNESS_ALERT_TITLE", "Bitte führen Sie die Übungen vorsichtig durch und stoppen Sie sofort, sollten Schmerzen auftreten!");
@@ -234,6 +278,9 @@ define("PROFILE_PROFILECARD_POSTALCODE", "Postleitzahl");
 define("PROFILE_PROFILECARD_CITY", "Stadt");
 define("PROFILE_PROFILECARD_ADDRESS", "Strasse und Hausnummer");
 
+define("PROFILE_EDIT", "PROFIL BEARBEITEN");
+define("PROFILE_SAVE", "PROFIL SICHERN");
+
 define("PROFILE_INTERESTS_TITLE", "Interessen");
 define("PROFILE_ADDINTERESTS_TITLE", "Interessen hinzufügen");
 define("PROFILE_ADDINTERESTS_SPORTS", "Sport");
@@ -253,6 +300,7 @@ define("PROFILE_ADDINTERESTS_OTHERS_2", "Kochen");
 define("PROFILE_ADDINTERESTS_OTHERS_3", "Sehenswürdigkeiten");
 define("PROFILE_ADDINTERESTS_OTHERS_4", "Museen");
 define("PROFILE_ADDINTERESTS_OTHERS_5", "Theater");
+define("PROFILE_INTERESTS_CLOSE", "SCHLIESSEN");
 
 
 //NEW
@@ -294,29 +342,30 @@ define("PLAN_ACTIVITY_STEP3", "Erweiterte Einstellungen");
 
 //CONTACTS PAGE
 
-define("CONTACTS_CONTACTSCARD_TITLE", "Contacts");
+define("CONTACTS_CONTACTSCARD_TITLE", "Kontakte");
 define("CONTACTS_CONTACTSCARD_HEADER_NAME", "Name");
 define("CONTACTS_CONTACTSCARD_HEADER_STATUS", "Status");
 define("CONTACTS_CONTACTSCARD_HEADER_EMAIL", "Email");
-define("CONTACTS_CONTACTSCARD_HEADER_PHONE", "Phone");
-define("CONTACTS_CONTACTSCARD_HEADER_ACTIONS", "Actions");
-define("REMOVE_BUTTON", "REMOVE");
+define("CONTACTS_CONTACTSCARD_HEADER_PHONE", "Telefon");
+define("CONTACTS_CONTACTSCARD_HEADER_ACTIONS", "Aktionen");
+define("REMOVE_BUTTON", "LÖSCHEN");
+define("PROFILE_REMOVE_DONE", "SCHLIESSEN");
 
 define("CONTACTS_CONTACTSCARD_STATUS_ONLINE", "Online");
 define("CONTACTS_CONTACTSCARD_STATUS_OFFLINE", "Offline");
-define("CONTACTS_CONTACTSCARD_STATUS_BUSY", "Busy");
+define("CONTACTS_CONTACTSCARD_STATUS_BUSY", "Beschäftigt");
 
-define("CONTACTS_FORM_TITLE", "Add contact");
+define("CONTACTS_FORM_TITLE", "Kontakt hinzufügen");
 define("CONTACTS_FORM_NAME", "Name");
 define("CONTACTS_FORM_EMAIL", "Email");
-define("CONTACTS_FORM_PHONE", "Phone Number");
-define("CONTACTS_FROM_RELATIONSHIP", "Relationship");
-define("ADD_BUTTON", "ADD");
+define("CONTACTS_FORM_PHONE", "Telefonnummer");
+define("CONTACTS_FORM_RELATIONSHIP", "Beziehung");
+define("ADD_BUTTON", "HINZUFÜGEN");
 
 //types of relationships
-define("CONTACTS_FROM_RELATIONSHIP_CLOSE_FAMILY", "Close Family");
-define("CONTACTS_FROM_RELATIONSHIP_OTHER_FAMILY", "Other Family");
-define("CONTACTS_FROM_RELATIONSHIP_FRIEND", "Friend");
-define("CONTACTS_FROM_RELATIONSHIP_NEIGHBOUR", "Neighbour");
+define("CONTACTS_FROM_RELATIONSHIP_CLOSE_FAMILY", "Enger Familienkreis");
+define("CONTACTS_FROM_RELATIONSHIP_OTHER_FAMILY", "Andere Familie");
+define("CONTACTS_FROM_RELATIONSHIP_FRIEND", "Freund");
+define("CONTACTS_FROM_RELATIONSHIP_NEIGHBOUR", "Nachbar");
     
 ?>

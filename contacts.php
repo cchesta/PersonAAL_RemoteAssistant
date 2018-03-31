@@ -205,7 +205,7 @@ and open the template in the editor.
                 //                                { width: "10px", targets: 1},
                 //                                { width: "20px", targets: 2}
                 //                            ]
-                var socialCardTitleInnerHTML = '<h6 class="mdl-card__title-text">Contacts</h6>' +
+                var socialCardTitleInnerHTML = '<h6 class="mdl-card__title-text"><?php echo(CONTACTS_CONTACTSCARD_TITLE);?></h6>' +
                     '<div class="mdl-layout-spacer"></div>' +
                     '<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable' +
                     'mdl-textfield--floating-label mdl-textfield--align-right">' +
@@ -301,7 +301,7 @@ and open the template in the editor.
                 if (socialTable.data().count() !== 0 && removeMode === false) {
                     $('.remove-button').velocity('transition.fadeIn');
 
-                    document.getElementById("remove-contact-button").textContent = "DONE";
+                    document.getElementById("remove-contact-button").textContent = "<?php echo(PROFILE_REMOVE_DONE);?>";
                     document.getElementById("remove-contact-button").onclick = function() {
                         hideRemoveButtons();
                     };
@@ -584,7 +584,7 @@ and open the template in the editor.
                             <!--Choose relationship type -->
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                 <h5>
-                                    <?php echo(CONTACTS_FROM_RELATIONSHIP);?>
+                                    <?php echo(CONTACTS_FORM_RELATIONSHIP);?>
                                 </h5>
                                 <label id="check1" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox1">
                                     <input type="checkbox" id="checkbox1" class="mdl-checkbox__input">

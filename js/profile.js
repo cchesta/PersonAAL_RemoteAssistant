@@ -152,7 +152,7 @@ function hideInterestList() {
 
 function editProfile() {
     if (document.getElementById("profileName").disabled) {
-        document.getElementById("edit_button").innerHTML = "SAVE CHANGES";
+        document.getElementById("edit_button").innerHTML = saveButtonLabel;
         document.getElementById("cancel_changes").style.display = "block";
         document.getElementById("profileName").removeAttribute("disabled");
         document.getElementById("profileSurname").removeAttribute("disabled");
@@ -172,7 +172,7 @@ function editProfile() {
             document.getElementById("profileCity").value,
             document.getElementById("profilePostalCode").value,
             document.getElementById("profileAddress").value);
-        document.getElementById("edit_button").innerHTML = "EDIT PROFILE";
+        document.getElementById("edit_button").innerHTML = editButtonLabel;
         document.getElementById("cancel_changes").style.display = "none";
         document.getElementById("profileName").setAttribute("disabled", true);
         document.getElementById("profileSurname").setAttribute("disabled", true);
@@ -187,7 +187,7 @@ function editProfile() {
 
 function discardChanges() {
     getProfileFromContextManager();
-    document.getElementById("edit_button").innerHTML = "EDIT PROFILE";
+    document.getElementById("edit_button").innerHTML = editButtonLabel;
     document.getElementById("cancel_changes").style.display = "none";
     document.getElementById("profileName").setAttribute("disabled", true);
     document.getElementById("profileSurname").setAttribute("disabled", true);

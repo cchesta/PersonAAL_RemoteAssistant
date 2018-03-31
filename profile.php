@@ -120,6 +120,9 @@ and open the template in the editor.
             $(document).ready(function() {
                 shoppingMenuReduced = false;
 
+                editButtonLabel = "<?php echo(PROFILE_EDIT);?>";
+                saveButtonLabel = "<?php echo(PROFILE_SAVE);?>";
+
                 //delete all phone elements if in desktop/tablet mode
                 if ($(window).width() <= 479) {
                     var toRemoveElements = document.querySelectorAll('._delete-phone_');
@@ -266,8 +269,8 @@ and open the template in the editor.
                                 </div>
 
                                 <div class="mdl-card__actions mdl-card--border">
-                                    <button id="edit_button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" onclick="editProfile()">EDIT PROFILE</button>
-                                    <button id="cancel_changes" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" onclick="discardChanges()" style="display:none">CANCEL CHANGES</button>
+                                    <button id="edit_button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" onclick="editProfile()"><?php echo(PROFILE_EDIT);?></button>
+                                    <button id="cancel_changes" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" onclick="discardChanges()" style="display:none"><?php echo(CANCEL_BUTTON);?></button>
                                 </div>
 
                             </div>
@@ -284,7 +287,7 @@ and open the template in the editor.
                                     </div>
                                 </div>
                                 <div class="mdl-card__actions mdl-card--border">
-                                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" data-toggle="modal" data-target="#add-interest-modal">ADD INTEREST</button>
+                                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" data-toggle="modal" data-target="#add-interest-modal"><?php echo(PROFILE_ADDINTERESTS_TITLE);?></button>
                                 </div>
                             </div>
                         </div>
@@ -469,7 +472,7 @@ and open the template in the editor.
                         <div class="mdl-card__actions mdl-card--border">
                             <div class="mdl-layout-spacer"></div>
                             <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect right-button" data-dismiss="modal">
-                                Close
+                                <?php echo(PROFILE_INTERESTS_CLOSE);?>
                             </a>
                         </div>
                     </div>

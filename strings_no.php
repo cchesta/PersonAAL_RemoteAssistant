@@ -115,7 +115,7 @@ define("MEDICATION_PLANNED_TIME", "Tid");
 
 //HEALTH PAGE
 define("HEALTH_WEIGHTPLOT_TITLE", "Vekt");
-define("HEALTH_BMIPLOT_TITLE", "BMI");
+define("HEALTH_BMIPLOT_TITLE", "KMI");
 define("HEALTH_SCOREPLOT_TITLE", "Skåring"); 
 define("HEALTH_ECGPLOT_TITLE", "EKG");
 define("HEALTH_HRPLOT_TITLE", "PULS");
@@ -140,18 +140,22 @@ define("PLAN_SETGOALS_WALK", "Gå tur (minutter)");
 define("PLAN_SETGOALS_MEET", "Sosialt (møte personer)");
 define("PLAN_SETGOALS_ATLEAST", "minst");
 define("PLAN_SETGOALS_MORETHAN", "mer enn");
+
 define("PLAN_SNACKBAR", "Sett opp mål først!");
+
 define("PLAN_GOALS_TITLE", "Ukesmål");
 define("PLAN_GOALS_EXERCISE", "Trening");
 define("PLAN_GOALS_WALK", "Å gå tur");
 define("PLAN_GOALS_MEET", "Sosialt");
 define("PLAN_GOALS_MIN", "min");
+define("PLAN_GOALS_HOURS", "timer");
 define("PLAN_GOALS_STEPS", "Skritt");
 define("PLAN_GOALS_PERSONS", "Personer");
 define("PLAN_GOALS_COOK", "Lage mat");
 define("PLAN_GOALS_MODIFY", "ENDRE");
+
 define("PLAN_CALENDAR_TITLE", "Kalender");
-define("PLAN_CALENDAR_INSTRUCTIONS", "Dra en hendelse inn i kalenderen for å planlegge for fremtidig aktivitet eller rapportere hva du allerede har gjort.");
+define("PLAN_CALENDAR_INSTRUCTIONS", "Klikk på kalenderen for å starte planleggingen av en aktivitet");
 define("PLAN_CALENDAR_EVENT_EXERCISE", "Trening");
 define("PLAN_CALENDAR_EVENT_WALK", "Gå tur");
 define("PLAN_CALENDAR_EVENT_MEET", "Sosialt");
@@ -162,6 +166,42 @@ define("PLAN_SETEVENT_MIN", "min");
 define("REMOVE_EVENT_BUTTON", "FJERN HENDELSE");
 define("DONE_BUTTON", "FERDIG");
 define("UNDONE_BUTTON", "ANGRE");
+
+define("STEPPER_STEP1", "Bekreft dato og klokkeslett");
+define("STEPPER_STEP1_ALLDAY", "Hele dagen");
+define("STEPPER_STEP1_START", "Starttid");
+define("STEPPER_STEP1_END", "Sluttid");
+define("STEPPER_STEP1_ERROR", "Startdato og klokkeslett skal være tidligere enn sluttdato og klokkeslett");
+define("STEPPER_STEP2", "Skriv inn aktivitetsnavn og velg type aktivitet");
+define("STEPPER_STEP2_ACTIVITYNAME", "Aktivitetsnavn");
+define("STEPPER_STEP2_ACTIVITYTYPE", "Aktivitetstype");
+define("STEPPER_STEP2_ACTIVITYWALK", "Gå");
+define("STEPPER_STEP2_ACTIVITYEXERCISE", "Trening");
+define("STEPPER_STEP2_ACTIVITYSOCIAL", "Sosial aktivitet");
+define("STEPPER_STEP3", "Skriv inn aktivitetsdetaljer");
+define("STEPPER_STEP3_EXERCISEINTENSITY", "Intensitet av trening : ");
+define("STEPPER_STEP3_EXERCISEINTENSITYHIGH", "Høy");
+define("STEPPER_STEP3_EXERCISEINTENSITYMODERATE", "Moderat");
+define("STEPPER_STEP3_EXERCISEINTENSITYLOW", "Lav");
+define("STEPPER_STEP3_WALKSTEPS", "Antall trinn : ");
+define("STEPPER_STEP3_SOCIALTYPE", "Type sosial aktivitet : ");
+define("STEPPER_STEP3_SOCIALTYPERECEIVE", "Motta gjest");
+define("STEPPER_STEP3_SOCIALTYPECALL", "Ring noen");
+define("STEPPER_STEP3_SOCIALTYPEVISIT", "Besøk noen");
+define("STEPPER_STEP3_SOCIALTYPECINEMA", "Kino");
+define("STEPPER_STEP3_SOCIALTYPETHEATRE", "Teater");
+define("STEPPER_STEP3_SOCIALTYPERESTAURANT", "Restaurant");
+define("STEPPER_STEP3_SOCIALTYPEPUB", "Pub");
+    define("STEPPER_STEP3_SOCIALTYPERELIGIOUS", "Religiøs");
+define("STEPPER_STEP3_SOCIALTYPEOTHER", "Annen");
+define("STEPPER_CONTINUE", "FORTSETTE");
+define("STEPPER_BACK", "TILBAKE");
+define("STEPPER_SUBMIT", "Sende inn");
+define("STEPPER_CANCEL", "Avbryt");
+
+define("COMPLETED_TITLE", "Har du fullført denne aktiviteten?");
+define("COMPLETED_YES", "JA");
+define("COMPLETED_NO", "NEI");
 
 //NEW
 //invite a friend to join activity
@@ -218,6 +258,9 @@ define("PROFILE_PROFILECARD_POSTALCODE", "Postnummer");
 define("PROFILE_PROFILECARD_CITY", "Poststed");
 define("PROFILE_PROFILECARD_ADDRESS", "Adresse");
 
+define("PROFILE_EDIT", "REDIGER PROFIL");
+define("PROFILE_SAVE", "LAGRE PROFIL");
+
 define("PROFILE_INTERESTS_TITLE", "Interesser");
 define("PROFILE_ADDINTERESTS_TITLE", "Legg til interesser");
 define("PROFILE_ADDINTERESTS_SPORTS", "Sport");
@@ -237,6 +280,7 @@ define("PROFILE_ADDINTERESTS_OTHERS_2", "Lage mat");
 define("PROFILE_ADDINTERESTS_OTHERS_3", "Severdigheter");
 define("PROFILE_ADDINTERESTS_OTHERS_4", "Museum");
 define("PROFILE_ADDINTERESTS_OTHERS_5", "Teater");
+define("PROFILE_INTERESTS_CLOSE", "LUKK");
 
 
 //CONTACTS PAGE
@@ -247,6 +291,8 @@ define("CONTACTS_CONTACTSCARD_HEADER_EMAIL", "Email");
 define("CONTACTS_CONTACTSCARD_HEADER_PHONE", "Phone");
 define("CONTACTS_CONTACTSCARD_HEADER_ACTIONS", "Handling");
 define("REMOVE_BUTTON", "FJERN");
+define("PROFILE_REMOVE_DONE", "LUKK");
+
 define("CONTACTS_CONTACTSCARD_STATUS_ONLINE", "Pålogget");
 define("CONTACTS_CONTACTSCARD_STATUS_OFFLINE", "Avlogget");
 define("CONTACTS_CONTACTSCARD_STATUS_BUSY", "Opptatt");
@@ -254,6 +300,7 @@ define("CONTACTS_FORM_TITLE", "Legg til kontakt");
 define("CONTACTS_FORM_NAME", "Navn");
 define("CONTACTS_FORM_EMAIL", "Email");
 define("CONTACTS_FORM_PHONE", "Telefonnummer");
+define("CONTACTS_FORM_RELATIONSHIP", "Forhold");
 define("ADD_BUTTON", "Legg til");
 
 //types of relationships

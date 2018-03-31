@@ -127,6 +127,7 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
         <link rel="stylesheet" type="text/css" href="CalenStyle-master/src/calenstyle-jquery-ui-override.css" />
         <link rel="stylesheet" type="text/css" href="CalenStyle-master/src/calenstyle-iconfont.css" />
         <script type="text/javascript" src="CalenStyle-master/src/calenstyle.js"></script>
+        <script type="text/javascript" src="CalenStyle-master/i18n/calenstyle-i18n.js"></script>
         <script type="text/javascript" src="CalenStyle-master/demo/js/CalJsonGenerator.js"></script>
         <link rel="stylesheet" href="ripjar-material-datetime-picker/dist/material-datetime-picker.css">
 
@@ -298,8 +299,13 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
 
                 getMeetGoalFromContext(getWalkGoalFromContext,getExerciseGoalFromContext,updateGoalFields);
 
+                var sLang = "<?php echo($_SESSION['languages']);?>";
+                var i18n = $.CalenStyle.i18n[sLang];
+                var oViewDisplayNames = i18n["viewDisplayNames"];
 
                 $(".calendarContOuter").CalenStyle({
+
+                    language: sLang,
 
                     inputTZOffset: '',
                     outputTZOffset: '',
@@ -307,15 +313,15 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                     viewsToDisplay : [
                         {
                             "viewName": "DetailedMonthView",
-                            "viewDisplayName": "Month"
+                            viewDisplayName: oViewDisplayNames["DetailedMonthView"]
                         },
                         {
                             "viewName": "WeekView",
-                            "viewDisplayName": "Week"
+                            viewDisplayName: oViewDisplayNames["WeekView"]
                         },
                         {
                             "viewName": "DayView",
-                            "viewDisplayName": "Day"
+                            viewDisplayName: oViewDisplayNames["DayView"]
                         }
                     ],
                     visibleView: "WeekView",
@@ -1076,7 +1082,7 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                                                     <span id="actual_exercise_text"></span>
                                                     <span>/</span>
                                                     <span id="exercise_goal_text"></span>
-                                                    <span> <?php echo(PLAN_GOALS_HOURS);?></span>    
+                                                    <span> <?php echo(PLAN_GOALS_HOURS);?></span>
                                                 </p>
                                             </span>
 
@@ -1145,8 +1151,8 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
 
                         <div id="calendar-card" class="calendar-card mdl-cell mdl-cell--8-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet no-stretch mdl-card mdl-shadow--4dp">
                             <div class="mdl-card__title">
-                                <h2 class="mdl-card__title-text">Planner&nbsp;</h2>
-                                <span class="mdl-card__subtitle-text"> - Click on the calendar to start scheduling an activity</span>
+                                <h2 class="mdl-card__title-text"><?php echo(PLAN_CALENDAR_TITLE);?>&nbsp;</h2>
+                                <span class="mdl-card__subtitle-text"> - <?php echo(PLAN_CALENDAR_INSTRUCTIONS);?></span>
                             </div>
 
                             <div class="mdl-card__media">
@@ -1168,24 +1174,24 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                                 <li id="step1" class="mdl-step mdl-step--editable">
                                     <span class="mdl-step__label">
                                         <span class="mdl-step__title">
-                                            <span class="mdl-step__title-text">Confirm date and time</span>
+                                            <span class="mdl-step__title-text"><?php echo(STEPPER_STEP1);?></span>
                                         </span>
                                     </span>
                                     <div class="mdl-step__content">
 
                                         <label id="ipAllDay-group" class="mdl-checkbox mdl-js-checkbox">
-                                            <input id="ipAllDay" type="checkbox" class = "mdl-checkbox__input" onclick="validateAllDayChecked()"> All Day
+                                            <input id="ipAllDay" type="checkbox" class = "mdl-checkbox__input" onclick="validateAllDayChecked()"> <?php echo(STEPPER_STEP1_ALLDAY);?>
                                         </label>
                                         <div id="ipAlertStartEnd" class="alert alert-danger" role="alert">
-                                            Start DateTime should be earlier than End DateTime
+                                            <?php echo(STEPPER_STEP1_ERROR);?>
                                         </div>
 
 
 
                                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                             <input class="mdl-textfield__input" type="text" id="aStart" onclick="showTimePickerStart()">
-                                            <label class="mdl-textfield__label" for="aStart">Start time</label>
-                                            <span class="mdl-textfield__error">Start DateTime should be earlier than End DateTime </span>
+                                            <label class="mdl-textfield__label" for="aStart"><?php echo(STEPPER_STEP1_START);?></label>
+                                            <span class="mdl-textfield__error"><?php echo(STEPPER_STEP1_ERROR);?></span>
 
                                         </div>
 
@@ -1193,8 +1199,8 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 
                                             <input class="mdl-textfield__input" type="text" id="aEnd" onclick="showTimePickerEnd()">
-                                            <label class="mdl-textfield__label" for="aEnd">End time</label>
-                                            <span class="mdl-textfield__error">Start DateTime should be earlier than End DateTime </span>
+                                            <label class="mdl-textfield__label" for="aEnd"><?php echo(STEPPER_STEP1_END);?></label>
+                                            <span class="mdl-textfield__error"><?php echo(STEPPER_STEP1_ERROR);?></span>
 
                                         </div>
 
@@ -1206,61 +1212,61 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
 
 
                                     <div class="mdl-step__actions">
-                                        <button class="mdl-button mdl-js-button" onclick="moveToNext()" data-stepper-continue>Continue</button>
+                                        <button class="mdl-button mdl-js-button" onclick="moveToNext()" data-stepper-continue><?php echo(STEPPER_CONTINUE);?></button>
                                     </div>
                                 </li>
                                 <li id="step2" class="mdl-step mdl-step--editable">
                                     <span class="mdl-step__label">
                                         <span class="mdl-step__title">
-                                            <span class="mdl-step__title-text">Enter activity name and chose type of activity</span>
+                                            <span class="mdl-step__title-text"><?php echo(STEPPER_STEP2);?></span>
                                         </span>
                                     </span>
                                     <div class="mdl-step__content">
                                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                             <input class="mdl-textfield__input" type="text" id="aName">
-                                            <label class="mdl-textfield__label" for="aName">Activity name</label>
+                                            <label class="mdl-textfield__label" for="aName"><?php echo(STEPPER_STEP2_ACTIVITYNAME);?></label>
                                         </div>
                                         <div>
-                                            <p>Activity type</p>
+                                            <p><?php echo(STEPPER_STEP2_ACTIVITYTYPE);?></p>
                                             <div>
                                                 <label for="aWalk" class="mdl-radio mdl-js-radio">
                                                     <input type="radio" id="aWalk" name="aType" value="Walk" class="mdl-radio__button" onclick="enableNextStep()">
-                                                    <span class="mdl-radio__label">Walking</span>
+                                                    <span class="mdl-radio__label"><?php echo(STEPPER_STEP2_ACTIVITYWALK);?></span>
                                                 </label>
                                             </div>
                                             <div>
                                                 <label for="aExercise" class="mdl-radio mdl-js-radio">
                                                     <input type="radio" id="aExercise" name="aType" value="Exercise" class="mdl-radio__button" onclick="enableNextStep()">
-                                                    <span class="mdl-radio__label">Exercise</span>
+                                                    <span class="mdl-radio__label"><?php echo(STEPPER_STEP2_ACTIVITYEXERCISE);?></span>
                                                 </label>
                                             </div>
                                             <div>
                                                 <label for="aSocial" class="mdl-radio mdl-js-radio">
                                                     <input type="radio" id="aSocial" name="aType" value="Social" class="mdl-radio__button" onclick="enableNextStep()">
-                                                    <span class="mdl-radio__label">Social activity</span>
+                                                    <span class="mdl-radio__label"><?php echo(STEPPER_STEP2_ACTIVITYSOCIAL);?></span>
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="mdl-step__actions">
-                                        <button id="step2Button" class="mdl-button mdl-js-button" onclick="moveToNext()" data-stepper-continue disabled>Continue</button>
-                                        <button class="mdl-button mdl-js-button" onclick="moveToPrevious()" data-stepper-back>Back</button>
+                                        <button id="step2Button" class="mdl-button mdl-js-button" onclick="moveToNext()" data-stepper-continue disabled><?php echo(STEPPER_CONTINUE);?></button>
+                                        <button class="mdl-button mdl-js-button" onclick="moveToPrevious()" data-stepper-back><?php echo(STEPPER_BACK);?></button>
                                     </div>
                                 </li>
                                 <li id="step3" class="mdl-step mdl-step--editable mdl-step--optional">
                                     <span class="mdl-step__label">
                                         <span class="mdl-step__title">
-                                            <span class="mdl-step__title-text">Enter activity details</span>
+                                            <span class="mdl-step__title-text"><?php echo(STEPPER_STEP3);?></span>
                                         </span>
                                     </span>
                                     <div class="mdl-step__content">
                                         <div id="advancedexercise" class="mdl-card__supporting-text mdl-card--expand">
-                                            <label class="mdl-layout-title">Intensity Of Exercise : </label>
+                                            <label class="mdl-layout-title"><?php echo(STEPPER_STEP3_EXERCISEINTENSITY);?></label>
 
                                             <div class="radio">
                                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
                                                     <input id="radioe1" name="exerciseintensity" type="radio" class = "mdl-radio__button" value="High">
-                                                    <span class="mdl-radio__label">High</span>
+                                                    <span class="mdl-radio__label"><?php echo(STEPPER_STEP3_EXERCISEINTENSITYHIGH);?></span>
                                                 </label>
                                             </div>
 
@@ -1268,14 +1274,14 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                                             <div class="radio">
                                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
                                                     <input id="radioe2" name="exerciseintensity" type="radio" class = "mdl-radio__button" value="Moderate">
-                                                    <span class="mdl-radio__label">Moderate</span>
+                                                    <span class="mdl-radio__label"><?php echo(STEPPER_STEP3_EXERCISEINTENSITYMODERATE);?></span>
                                                 </label>
                                             </div>
 
                                             <div class="radio">
                                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
                                                     <input id="radioe3" name="exerciseintensity" type="radio" class = "mdl-radio__button" value="Low">
-                                                    <span class="mdl-radio__label">Low</span>
+                                                    <span class="mdl-radio__label"><?php echo(STEPPER_STEP3_EXERCISEINTENSITYLOW);?></span>
                                                 </label>
                                             </div>
 
@@ -1283,7 +1289,7 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                                         </div>
 
                                         <div id="advancedsteps" class="mdl-card__supporting-text mdl-card--expand">
-                                            <label class="mdl-layout-title">Number of Steps : </label>
+                                            <label class="mdl-layout-title"><?php echo(STEPPER_STEP3_WALKSTEPS);?></label>
 
                                             <div class="card-choice-group">
 
@@ -1301,76 +1307,76 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
 
 
                                         <div id="advancedsocial" class="mdl-card__supporting-text mdl-card--expand">
-                                            <label class="mdl-layout-title">Type of Social Activity : </label>
+                                            <label class="mdl-layout-title"><?php echo(STEPPER_STEP3_SOCIALTYPE);?></label>
                                             <div class="radio">
                                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
                                                     <input id="radio1" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Receive Guests">
-                                                    <span class="mdl-radio__label">Receive guest</span>
+                                                    <span class="mdl-radio__label"><?php echo(STEPPER_STEP3_SOCIALTYPERECEIVE);?></span>
                                                 </label>
                                             </div>
                                             <div class="radio">
                                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
                                                     <input id="radio1" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Call Someone">
-                                                    <span class="mdl-radio__label">Call someone</span>
+                                                    <span class="mdl-radio__label"><?php echo(STEPPER_STEP3_SOCIALTYPECALL);?></span>
                                                 </label>
                                             </div>
                                             <div class="radio">
                                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
                                                     <input id="radio1" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Visit Someone">
-                                                    <span class="mdl-radio__label">Visit someone</span>
+                                                    <span class="mdl-radio__label"><?php echo(STEPPER_STEP3_SOCIALTYPEVISIT);?></span>
                                                 </label>
                                             </div>
 
                                             <div class="radio">
                                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
                                                     <input id="radio1" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Cinema">
-                                                    <span class="mdl-radio__label">Cinema</span>
+                                                    <span class="mdl-radio__label"><?php echo(STEPPER_STEP3_SOCIALTYPECINEMA);?></span>
                                                 </label>
                                             </div>
                                             <div class="radio">
                                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
                                                     <input id="radio1" name="socialIntensity" type="radio" class = "mdl-radio__button">
-                                                    <span class="mdl-radio__label">Theatre</span>
+                                                    <span class="mdl-radio__label"><?php echo(STEPPER_STEP3_SOCIALTYPETHEATRE);?></span>
                                                 </label>
                                             </div>
                                             <div class="radio">
                                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
                                                     <input id="radio1" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Restaurant">
-                                                    <span class="mdl-radio__label">Restaurant</span>
+                                                    <span class="mdl-radio__label"><?php echo(STEPPER_STEP3_SOCIALTYPERESTAURANT);?></span>
                                                 </label>
                                             </div>
                                             <div class="radio">
                                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
                                                     <input id="radio1" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Pub">
-                                                    <span class="mdl-radio__label">Pub</span>
+                                                    <span class="mdl-radio__label"><?php echo(STEPPER_STEP3_SOCIALTYPEPUB);?></span>
                                                 </label>
                                             </div>
 
                                             <div class="radio">
                                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
                                                     <input id="radio1" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Religious">
-                                                    <span class="mdl-radio__label">Religious</span>
+                                                    <span class="mdl-radio__label"><?php echo(STEPPER_STEP3_SOCIALTYPERELIGIOUS);?></span>
                                                 </label>
                                             </div>
 
                                             <div class="radio">
                                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
                                                     <input id="radio1" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Other">
-                                                    <span class="mdl-radio__label">Other</span>
+                                                    <span class="mdl-radio__label"><?php echo(STEPPER_STEP3_SOCIALTYPEOTHER);?></span>
                                                 </label>
                                             </div>
 
                                         </div>
                                     </div>
                                     <div class="mdl-step__actions">
-                                        <button class="mdl-button mdl-js-button" onclick="moveToPrevious()" data-stepper-back>Back</button>
+                                        <button class="mdl-button mdl-js-button" onclick="moveToPrevious()" data-stepper-back><?php echo(STEPPER_BACK);?></button>
                                     </div>
                                 </li>
                             </ul>
                         </div>
                         <div class="mdl-dialog__actions">
-                            <button type="button" class="mdl-button" id="dialogSubmit" disabled>Submit</button>
-                            <button type="button" class="mdl-button close" id="dialogCancel">Cancel</button>
+                            <button type="button" class="mdl-button" id="dialogSubmit" disabled><?php echo(STEPPER_SUBMIT);?></button>
+                            <button type="button" class="mdl-button close" id="dialogCancel"><?php echo(STEPPER_CANCEL);?></button>
                         </div>
                     </dialog>
 
@@ -1391,7 +1397,7 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
 
         <!--DIALOG WITH PLANNED ACTIVITIES  -->
         <dialog id="activityDialog" class="mdl-dialog " style="z-index:9; width:fit-content; top: 60px">
-            <h5 class="mdl-dialog__title" style="color: white">Did you complete this activity?</h5>
+            <h5 class="mdl-dialog__title" style="color: white"><?php echo(COMPLETED_TITLE);?></h5>
             <div class="mdl-dialog__content">
 
 
@@ -1407,8 +1413,8 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
 
             </div>
             <div class="mdl-dialog__actions">
-                <button id="dialogYes" type="button" class="mdl-button" style="color: white">YES</button>
-                <button id="dialogNo" type="button" class="mdl-button" style="color: white">NO</button>
+                <button id="dialogYes" type="button" class="mdl-button" style="color: white"><?php echo(COMPLETED_YES);?></button>
+                <button id="dialogNo" type="button" class="mdl-button" style="color: white"><?php echo(COMPLETED_NO);?></button>
             </div>
 
         </dialog>

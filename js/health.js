@@ -68,7 +68,7 @@ function init() {
             break;
 
         case 'de':
-            breathMsg = ' breaths/minute'
+            breathMsg = ' atemzüge/minute'
             break;
 
         case 'no':
@@ -354,6 +354,7 @@ function drawHRChart() {
             min: minDate,
             max: maxDate,
             timeformat: "%H:%M:%S",
+            ticks: 5,
             tickLength: 0 // hide gridlines
         },
         axisLabels: {
