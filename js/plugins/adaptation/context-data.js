@@ -61,12 +61,12 @@ function getHomeTemperature()
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: encodeURI ( contextUrl + "cm/rest/user/"+ userId + "/environment/temperature"),
+        url: encodeURI ( contextUrl + "cm/rest/environment/"+ userId + "Environment/temperature"),
         dataType: 'json',
 
         success: function (response) {
             console.log("Home temperature: ", response);
-            $("#hometemperaturevalue").html(response.value);
+            $("#hometemperaturevalue").html(response.value + ' ºC');
         },
         error: function ()
         {
@@ -83,12 +83,12 @@ function getHomeHumidity()
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: encodeURI ( contextUrl + "cm/rest/user/"+ userId + "/environment/humidity"),
+        url: encodeURI ( contextUrl + "cm/rest/environment/"+ userId + "Environment/humidity"),
         dataType: 'json',
 
         success: function (response) {
             console.log("Home humidity: ", response);
-            $("#homehumidityvalue").html(response.value);
+            $("#homehumidityvalue").html(response.value + '%');
         },
         error: function ()
         {
@@ -105,7 +105,7 @@ function getMotion()
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: encodeURI ( contextUrl + "cm/rest/user/"+ userId + "/environment/motion"),
+        url: encodeURI ( contextUrl + "cm/rest/environment/"+ userId + "Environment/motion"),
         dataType: 'json',
 
         success: function (response) {
