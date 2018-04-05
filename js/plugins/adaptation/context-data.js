@@ -1,4 +1,4 @@
-/* 
+﻿/* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -37,20 +37,16 @@ window.onload = function() {
         break;
     }
 
-    getHomeTemperature();
-    getHomeHumidity();
-    getMotion();
-    getMedicationPlanned();
+    
 
-//   setInterval(getECG_HR, 5000); 
-//   setInterval(getRespirationRate, 5000); 
-//   setInterval(getBodyTemperature, 5000); 
 //    setInterval(getDailySteps, 60000);
     setInterval(getMedicationPlanned, 60000);
 //   setInterval(getMedicationOccurred, 5000);
     setInterval(getTime, 60000);
-   
-    
+    setInterval(getHomeTemperature, 60000);
+    setInterval(getHomeHumidity, 60000);
+    setInterval(getMotion, 60000);
+       
 };
 
 function getHomeTemperature()
