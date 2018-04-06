@@ -13,7 +13,7 @@ define("DB_CONNECTION_ERROR_MESSAGE", "Kan ikke koble til databasen.");
 define("EMPTY_CREDENTIAL_MESSAGE", "Dette feltet må fylles ut.");
 define("INVALID_CREDENTIAL_MESSAGE", "Ugyldig informasjon.");
 define("REGISTRATION_SUCCESSFUL_MESSAGE", "Registreringen er ferdig. Vennligst logg inn.");
-define("REGISTRATION_ERROR_MESSAGE", "Feilmelding: Registreringen kan ikke gjennomføres (kanskje brukernavnet allerede er i bruk)"); //trad
+define("REGISTRATION_ERROR_MESSAGE", "Feilmelding: Registreringen kan ikke gjennomføres. Brukernavnet er allerede i bruk."); //trad
 
 //REGISTRATION PAGE
 define("REGISTRATION_FORM_TITLE", "Registrering");
@@ -192,7 +192,7 @@ define("STEPPER_STEP3_SOCIALTYPECINEMA", "Kino");
 define("STEPPER_STEP3_SOCIALTYPETHEATRE", "Teater");
 define("STEPPER_STEP3_SOCIALTYPERESTAURANT", "Restaurant");
 define("STEPPER_STEP3_SOCIALTYPEPUB", "Pub");
-    define("STEPPER_STEP3_SOCIALTYPERELIGIOUS", "Religiøs");
+define("STEPPER_STEP3_SOCIALTYPERELIGIOUS", "Religiøs");
 define("STEPPER_STEP3_SOCIALTYPEOTHER", "Annen");
 define("STEPPER_CONTINUE", "FORTSETTE");
 define("STEPPER_BACK", "TILBAKE");
@@ -204,8 +204,8 @@ define("COMPLETED_YES", "JA");
 define("COMPLETED_NO", "NEI");
 
 //NEW
-//invite a friend to join activity
-define("INVITE_FRIEND_BUTTON", "INVITER VENN");
+//invite a friend to join activity ("inviter en venn til å bli med på aktivitet")
+define("INVITE_FRIEND_BUTTON", "INVITER EN VENN");
 define("ACCEPT_INVITATION_BUTTON", "AKSEPTERER");
 define("DECLINE_INVITATION_BUTTON", "AVSLÅ");
 
@@ -219,20 +219,20 @@ define("START_TIME", "Start");
 define("END_TIME", "Slutt");
 //NEW CALENDAR
 
-define("PLAN_ACTIVITY_ADD", "Add event");
-define("PLAN_ACTIVITY_TITLE", "Title");
-define("PLAN_ACTIVITY_TYPE", "Type of activity");
-define("PLAN_ACTIVITY_TYPE_RECEIVE_GEST", "Receive guest");
-define("PLAN_ACTIVITY_TYPE_CALL_SOMEONE", "Call someone");
-define("PLAN_ACTIVITY_TYPE_VISIT_SOMEONE", "Visit Someone");    
-define("PLAN_ACTIVITY_TYPE_CINEMA", "Go to the cinema");
-define("PLAN_ACTIVITY_TYPE_THEATRE", "Go to the theatre");
-define("PLAN_ACTIVITY_TYPE_RESTAURANT", "Go to a restaurant");
-define("PLAN_ACTIVITY_TYPE_PUB", "Go to a pub");      
-define("PLAN_ACTIVITY_TYPE_RELIGIOUS_ACTIVITY", "Religious activity");
-define("PLAN_ACTIVITY_OTHER", "Other", "Other activity");
-define("PLAN_ACTIVITY_START_TIME", "Start Time");
-define("PLAN_ACTIVITY_END_TIME", "End time");
+define("PLAN_ACTIVITY_ADD", "Add event"); "Legg til en begivenhet"
+define("PLAN_ACTIVITY_TITLE", "Title"); "Titel"  
+define("PLAN_ACTIVITY_TYPE", "Type of activity"); "Type aktivitet"
+define("PLAN_ACTIVITY_TYPE_RECEIVE_GEST", "Receive guest"); "Motta gjest(er)"
+define("PLAN_ACTIVITY_TYPE_CALL_SOMEONE", "Call someone"); "Ringe noen"
+define("PLAN_ACTIVITY_TYPE_VISIT_SOMEONE", "Visit Someone"); "Besøke noen"    
+define("PLAN_ACTIVITY_TYPE_CINEMA", "Go to the cinema"); "Gå på kino"
+define("PLAN_ACTIVITY_TYPE_THEATRE", "Go to the theatre"); "Gå på teater"
+define("PLAN_ACTIVITY_TYPE_RESTAURANT", "Go to a restaurant"); "Gå på en restaurant"
+define("PLAN_ACTIVITY_TYPE_PUB", "Go to a pub"); "Gå på pub/ bar"      
+define("PLAN_ACTIVITY_TYPE_RELIGIOUS_ACTIVITY", "Religious activity"); "Aktivitet knyttet til religion eller livssyn"
+define("PLAN_ACTIVITY_OTHER", "Other", "Other activity"); "Annen aktivitet"
+define("PLAN_ACTIVITY_START_TIME", "Start Time"); "Tidspunkt for start" 
+define("PLAN_ACTIVITY_END_TIME", "End time"); "Tidspunkt for slutt"
 
 define("CALENDAR_NEXT_BUTTON", "NESTE");
 define("CALENDAR_PREVIOUS_BUTTON", "TIDLIGERE");
@@ -308,7 +308,6 @@ define("CONTACTS_FROM_RELATIONSHIP_CLOSE_FAMILY", "Nært Familiemedlem");
 define("CONTACTS_FROM_RELATIONSHIP_OTHER_FAMILY", "Annet Familiemedlem");
 define("CONTACTS_FROM_RELATIONSHIP_FRIEND", "Venn");
 define("CONTACTS_FROM_RELATIONSHIP_NEIGHBOUR", "Nabo");
-
 
 //FITNESS PAGE
 //define("FITNESS_ALERT_TITLE", "Be careful and stop working out when you experience some pain!");
