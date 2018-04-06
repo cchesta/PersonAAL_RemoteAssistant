@@ -158,7 +158,7 @@ define("PLAN_GOALS_COOK", "cook");
 define("PLAN_GOALS_MODIFY", "MODIFY");
 
 define("PLAN_CALENDAR_TITLE", "Calendar");
-define("PLAN_CALENDAR_INSTRUCTIONS", "Drag an event to schedule it for the future or to report what you have already done.");
+define("PLAN_CALENDAR_INSTRUCTIONS", "Click on the calendar to start scheduling an activity.");
 define("PLAN_CALENDAR_EVENT_EXERCISE", "Exercise");
 define("PLAN_CALENDAR_EVENT_WALK", "Walk");
 define("PLAN_CALENDAR_EVENT_MEET", "Meet");
