@@ -117,8 +117,8 @@ define("HEALTH_WEIGHTPLOT_DATE_HINT", "Dato");
 
 //PLAN PAGE
 define("PLAN_SETGOALS_TITLE", "Lag ditt ukentlige mål");
-define("PLAN_SETGOALS_EXERCISE", "Trening (minutter)");
-define("PLAN_SETGOALS_WALK", "Gå tur (minutter)");
+define("PLAN_SETGOALS_EXERCISE", "Trening (timer)");
+define("PLAN_SETGOALS_WALK", "Gå tur (timer)");
 define("PLAN_SETGOALS_MEET", "Sosialt (møte personer)");
 define("PLAN_SETGOALS_ATLEAST", "minst");
 define("PLAN_SETGOALS_MORETHAN", "mer enn");
@@ -193,7 +193,7 @@ define("DECLINE_INVITATION_BUTTON", "AVSLÅ");
 
 //NEW SET GOALS CARD
 define("PLAN_GOALS_SOCIAL_ACTIVITY", "Sosiale Aktiviteter");
-define("PLAN_SETGOALS_SOCIAL_ACTIVITY", "Sosiale Aktiviteter");
+define("PLAN_SETGOALS_SOCIAL_ACTIVITY", "Sosiale Aktiviteter (antall hendelser)");
 define("PLAN_GOALS_ACTIVITY","aktiviteter");
 
 //set a start and end time for an activity in the plan

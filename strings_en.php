@@ -196,7 +196,7 @@ define("ACCEPT_INVITATION_BUTTON", "ACCEPT");
 define("DECLINE_INVITATION_BUTTON", "DECLINE");
 //NEW SET GOALS CARD
 define("PLAN_GOALS_SOCIAL_ACTIVITY", "Social Activities");
-define("PLAN_SETGOALS_SOCIAL_ACTIVITY", "Social Activities");
+define("PLAN_SETGOALS_SOCIAL_ACTIVITY", "Social Activities (number of events)");
 define("PLAN_GOALS_ACTIVITY", "activities");
 
 //set a start and end time for an activity in the plan

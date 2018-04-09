@@ -226,7 +226,7 @@ define("ACCEPT_INVITATION_BUTTON", "ACCEPT");
 define("DECLINE_INVITATION_BUTTON", "DECLINE");
 //NEW SET GOALS CARD 
 define("PLAN_GOALS_SOCIAL_ACTIVITY", "Soziale Aktivitäten");
-define("PLAN_SETGOALS_SOCIAL_ACTIVITY", "Soziale Aktivitäten");
+define("PLAN_SETGOALS_SOCIAL_ACTIVITY", "Soziale Aktivitäten (Anzahl der Ereignisse)");
 define("PLAN_GOALS_ACTIVITY", "aktivitäten");
 
 //NEW CALENDAR
