@@ -13,24 +13,74 @@ var hueUsername = "";
 var appName  = "personAAL";
 var rooms = new Array();
 
+window.onload = function() {
+       //internationalization
+    
+    var userLang = getUserLanguage(); 
+    console.log("User Language: " + userLang);
+
+    switch(userLang)
+    {
+        case 'en':
+            noBridgeMsg = 'No bridges found. :(';
+            bridgeFoundMsg = 'Bridge found at IP address';
+            errorBridgeMsg = 'Error finding bridges';
+            userMsg = 'Hue username';
+            errorUserMsg = 'Error while getting user name';
+            lightMsg = 'Hue lights'; 
+            errorLightMsg = 'Error while setting lights';
+        break;
+                
+        case 'de':
+            noBridgeMsg = 'No bridges found. :(';
+            bridgeFoundMsg = 'Bridge found at IP address';
+            errorBridgeMsg = 'Error finding bridges';
+            userMsg = 'Hue username';
+            errorUserMsg = 'Error while getting user name';
+            lightMsg = 'Hue lights'; 
+            errorLightMsg = 'Error while setting lights';
+        break;
+       
+        case 'no':
+            noBridgeMsg = 'No bridges found. :(';
+            bridgeFoundMsg = 'Bridge found at IP address';
+            errorBridgeMsg = 'Error finding bridges';
+            userMsg = 'Hue username';
+            errorUserMsg = 'Error while getting user name';
+            lightMsg = 'Hue lights'; 
+            errorLightMsg = 'Error while setting lights';
+        break;
+                
+        default:
+            noBridgeMsg = 'No bridges found. :(';
+            bridgeFoundMsg = 'Bridge found at IP address';
+            errorBridgeMsg = 'Error finding bridges';
+            userMsg = 'Hue username';
+            errorUserMsg = 'Error while getting user name';
+            lightMsg = 'Hue lights'; 
+            errorLightMsg = 'Error while setting lights';
+        break;
+    }
+ }  
+
 
 function discoverBridge()
 {
     hue.discover().then(bridges => {
             if(bridges.length === 0) {
-                console.log('No bridges found. :(');
-                ipHueBridge="No bridges found. :(";
+                console.log(noBridgeMsg);
+                ipHueBridge = noBridgeMsg;
             }
             else {
                 bridges.forEach(b => {
-                    console.log('Bridge found at IP address %s.', b.internalipaddress);
-                    ipHueBridge=b.internalipaddress.toString();
+                    console.log(bridgeFoundMsg+ '%s.', b.internalipaddress);
+                    ipHueBridge = b.internalipaddress.toString();
                     
                 });
             }
             console.log('ipHue %s ', ipHueBridge);
             document.getElementById("ipHue").innerHTML = ipHueBridge;
-    }).catch(e => console.log('Error finding bridges', e));
+    }).catch(e => console.log(errorBridgeMsg, e));
 }
 
 function getHueUsername(){
@@ -40,12 +90,12 @@ function getHueUsername(){
         if (data[0].success !== undefined)
             {
                 hueUsername = data[0].success.username;
-                console.log('Hue username: %s', hueUsername);
+                console.log(userMsg + ' %s', hueUsername);
                 document.getElementById("unHue").innerHTML = hueUsername;
             }
             else if(data[0].error !== undefined)
             {
-                console.log('Error while getting user name', data[0].error.description);
+                console.log(errorUserMsg , data[0].error.description);
                 document.getElementById("unHue").innerHTML = data[0].error.description;
             }
     });
@@ -73,19 +123,19 @@ function getUsername() {
                                 if (objresult.success != undefined)
                                 {
                                     hueUsername = objresult.success.username;
-                                    console.log('Hue username: %s', hueUsername);
+                                    console.log(userMsg + '%s', hueUsername);
                                     document.getElementById("unHue").innerHTML = hueUsername;
                                 }
                                 else if(objresult.error != undefined)
                                 {
-                                    console.log('Error while getting user name', objresult.error.description);
+                                    console.log(errorUserMsg, objresult.error.description);
                                     document.getElementById("unHue").innerHTML = objresult.error.description;
                                 }
                                     
 			},
 			error: function ()
 			{
-                            alert("Error while getting user name");
+                            alert(errorUserMsg);
 			}
 		});
 }
@@ -130,12 +180,12 @@ function turnOnAndChangeColor(numLight, saturation, brighness, hex) {
 			url: "http://"+ipHueBridge+"/api/"+hueUsername+"/lights/"+numLight+"/state",
 			data : JSON.stringify(jsonString),		
 			success: function (response) {            
-				console.log("Hue Bridge response", response);
+				console.log(lightMsg, response);
 //				$("#res").html(JSON.stringify(response));
 			},
 			error: function ()
 			{
-				alert("Error while sending data to hue bridge");
+				alert(errorLightMsg);
 			}
 		});
 		
@@ -185,12 +235,12 @@ function turnOnOffLight(num, state) {
                         url: "http://"+ipHueBridge+"/api/"+hueUsername+"/lights/"+num+"/state",
 			data : JSON.stringify(jsonString),		
 			success: function (response) {            
-				console.log("Context response", JSON.stringify(response));
+				console.log(lightMsg, JSON.stringify(response));
 				getLightState();
 			},
 			error: function ()
 			{
-				alert("Error while sending data to context");
+				alert(errorLightMsg);
 			}
 		});
 }
@@ -263,69 +313,8 @@ function getLightState() {
 			},
 			error: function ()
 			{
-				alert("Error while sending data to hue bridge");
+				alert(errorLightMsg);
 			}
 		});
 }
 
-
-//function getLightState() {
-//	$.ajax({
-//			type: "GET",
-//			headers: {
-//				'Accept': 'application/json',
-//				'Content-Type': 'application/json'
-//			},
-//			//url: "http://146.48.85.37/api/MvRgdGPhMJzPQtdyK3sOaOfrDnT8NxZNNihddg6A/",
-//                        url: "http://"+ipHueBridge+"/api/"+hueUsername+"/",
-//			success: function (response) { 
-//                                $("#res").html("Light1" + JSON.stringify(response.lights["1"].state) + " Light2" + JSON.stringify(response.lights["2"].state) + " Light3" + JSON.stringify(response.lights["3"].state));
-//				if(response.lights["1"] !== undefined && response.lights["1"].state.reachable) {
-//					$("#light1-state").css("color", "green");
-//                                        if(response.lights["1"].state.on) {						
-//						$("#status1 > label.btn-on").addClass("active");
-//						$("#status1 > label.btn-off").removeClass("active");
-//					} else {						
-//						$("#status1 > label.btn-on").removeClass("active");
-//						$("#status1 > label.btn-off").addClass("active");
-//					}			
-//				} else {
-//					$("#light1-state").css("color", "red");
-//					$("#status1 > label.btn-on").removeClass("active");
-//					$("#status1 > label.btn-off").addClass("active");
-//				}
-//				if(response.lights["2"] !== undefined && response.lights["2"].state.reachable) {
-//					$("#light2-state").css("color", "green");
-//					if(response.lights["2"].state.on) {						
-//						$("#status2 > label.btn-on").addClass("active");
-//						$("#status2 > label.btn-off").removeClass("active");
-//					} else {						
-//						$("#status2 > label.btn-on").removeClass("active");
-//						$("#status2 > label.btn-off").addClass("active");
-//					}
-//				} else {
-//					$("#light2-state").css("color", "red");
-//					$("#status2 > label.btn-on").removeClass("active");
-//					$("#status2 > label.btn-off").addClass("active");
-//				}
-//				if(response.lights["3"] !== undefined && response.lights["3"].state.reachable) {
-//					$("#light3-state").css("color", "green");
-//					if(response.lights["3"].state.on) {						
-//						$("#status3 > label.btn-on").addClass("active");
-//						$("#status3 > label.btn-off").removeClass("active");
-//					} else {						
-//						$("#status3 > label.btn-on").removeClass("active");
-//						$("#status3 > label.btn-off").addClass("active");
-//					}				
-//				} else {
-//					$("#light3-state").css("color", "red");
-//					$("#status3 > label.btn-on").removeClass("active");
-//					$("#status3 > label.btn-off").addClass("active");
-//				}
-//			},
-//			error: function ()
-//			{
-//				alert("Error while sending data to hue bridge");
-//			}
-//		});
-//}

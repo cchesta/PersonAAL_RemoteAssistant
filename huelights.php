@@ -171,70 +171,70 @@ include 'DButils.php';
             <main class="mdl-layout__content">
                 <div class="page-content">
                     <br>
-                    <button class="mdl-button mdl-js-button mdl-button--raised" style="margin-left: 2em" onclick="discoverBridge()">Discover Bridge</button> <br>
+                    <button class="mdl-button mdl-js-button mdl-button--raised" style="margin-left: 2em" onclick="discoverBridge()"><?php echo(DISCOVER_BRIDGE);?></button> <br>
                     <div id="ipHue"></div><br>
                     <br>
 <!--                    <button onclick="getUsername()">Set Username</button> <br>-->
-                    <button class="mdl-button mdl-js-button mdl-button--raised" style="margin-left: 2em" onclick="getHueUsername()">Set Username</button> <br>
+                    <button class="mdl-button mdl-js-button mdl-button--raised" style="margin-left: 2em" onclick="getHueUsername()"><?php echo(SET_USERNAME);?></button> <br>
                     <div id="unHue"></div><br>
                     <br>
-                    <button class="mdl-button mdl-js-button mdl-button--raised" style="margin-left: 2em" onclick="getLightState();">Get Light State</button><br>
+                    <button class="mdl-button mdl-js-button mdl-button--raised" style="margin-left: 2em" onclick="getLightState();"><?php echo(GET_LIGHT_STATE);?></button><br>
                     <br>
 <!--                    Response: <div id="res"></div>
                     <br>-->
                     <div id="color" style="width:auto; height:auto; border:2px solid blue; padding:10px; margin:10px; visibility:hidden">
-                        <label id="colorset" style="font-family: Arial; font-size: 20; font-weight: 5px; color: blue"> Set Color </label>
+                        <label id="colorset" style="font-family: Arial; font-size: 20; font-weight: 5px; color: blue"><?php echo(SET_COLOR);?></label>
                         <br>
-                        <label for="sat">Saturation</label>
+                        <label for="sat"><?php echo(SATURATION);?></label>
                         <input type="number" id="sat"  value="255"></input>
-                        <label for="bri">Bri</label>
+                        <label for="bri"><?php echo(BRIGHTNESS);?></label>
                         <input type="number" id="bri"  value="255"></input>
                         <input type="color" id="colorPicker"/>
                     </div>
                     <br>
                     <div id="status1" style="width:auto; height:auto; border:2px solid blue; padding:10px; margin:10px; visibility:hidden">
-                        <label id="label1" style="font-family: Arial; font-size: 20; font-weight: 5px; color: blue"> Light 1 </label>
+                        <label id="label1" style="font-family: Arial; font-size: 20; font-weight: 5px; color: blue"><?php echo(LIGHT);?> 1 </label>
                         <br>
-                        <button id="btn1chg" onclick="onClickTurnOnAndChangeColor(1);">Turn on and change color</button><br>
+                        <button id="btn1chg" onclick="onClickTurnOnAndChangeColor(1);"><?php echo(TURN_ON_AND_CHANGE_COLOR);?></button><br>
                         <br>
-                        <button id="btn1on" onclick="turnOnOffLight(1, true);">Turn on</button> <br>
+                        <button id="btn1on" onclick="turnOnOffLight(1, true);"><?php echo(TURN_ON);?></button> <br>
                         <br>
-                        <button id="btn1off" onclick="turnOnOffLight(1, false);">Turn off</button> <br>
+                        <button id="btn1off" onclick="turnOnOffLight(1, false);"><?php echo(TURN_OFF);?></button> <br>
                         <br>
                         <select id="room1">
-                            <option value="LivingRoom">Living Room</option>
-                            <option value="Kitchen">Kitchen</option>
-                            <option value="Entrance">Entrance</option>
+                            <option value="LivingRoom"><?php echo(LIVING_ROOM);?></option>
+                            <option value="Kitchen"><?php echo(KITCHEN);?></option>
+                            <option value="Entrance"><?php echo(ENTRANCE);?></option>
                         </select>
                     </div>
                     <div id="status2" style="width:auto; height:auto; border:2px solid blue; padding:10px; margin:10px; visibility:hidden">
-                        <label id="label1" style="font-family: Arial; font-size: 20; font-weight: 5px; color: blue"> Light 2 </label>
+                        <label id="label1" style="font-family: Arial; font-size: 20; font-weight: 5px; color: blue"><?php echo(LIGHT);?> 2 </label>
                         <br>
-                        <button id="btn2chg" onclick="onClickTurnOnAndChangeColor(2);">Turn on and change color</button><br>
+                        <button id="btn2chg" onclick="onClickTurnOnAndChangeColor(2);"><?php echo(TURN_ON_AND_CHANGE_COLOR);?></button><br>
                         <br>
-                        <button id="btn2on" onclick="turnOnOffLight(2, true);">Turn on</button> <br>
+                        <button id="btn2on" onclick="turnOnOffLight(2, true);"><?php echo(TURN_ON);?></button> <br>
                         <br>
-                        <button id="btn2off" onclick="turnOnOffLight(2, false);">Turn off</button> <br>
+                        <button id="btn2off" onclick="turnOnOffLight(2, false);"><?php echo(TURN_OFF);?></button> <br>
                         <br>
                         <select id="room2">
-                            <option value="LivingRoom">Living Room</option>
-                            <option value="Kitchen">Kitchen</option>
-                            <option value="Entrance">Entrance</option>
+                            <option value="LivingRoom"><?php echo(LIVING_ROOM);?></option>
+                            <option value="Kitchen"><?php echo(KITCHEN);?></option>
+                            <option value="Entrance"><?php echo(ENTRANCE);?></option>
                         </select>
                     </div>
                     <div id="status3" style="width:auto; height:auto; border:2px solid blue; padding:10px; margin:10px; visibility:hidden">
-                        <label id="label3" style="font-family: Arial; font-size: 20; font-weight: 5px; color: blue"> Light 3 </label>
+                        <label id="label3" style="font-family: Arial; font-size: 20; font-weight: 5px; color: blue"><?php echo(LIGHT);?> 3 </label>
                         <br>
-                        <button id="btn3chg" onclick="onClickTurnOnAndChangeColor(3);">Turn on and change color</button><br>
+                        <button id="btn3chg" onclick="onClickTurnOnAndChangeColor(3);"><?php echo(TURN_ON_AND_CHANGE_COLOR);?></button><br>
                         <br>
-                        <button id="btn3on" onclick="turnOnOffLight(3, true);">Turn on</button> <br>
+                        <button id="btn3on" onclick="turnOnOffLight(3, true);"><?php echo(TURN_ON);?></button> <br>
                         <br>
-                        <button id="btn3off" onclick="turnOnOffLight(3, false);">Turn off</button> <br>
+                        <button id="btn3off" onclick="turnOnOffLight(3, false);"><?php echo(TURN_OFF);?></button> <br>
                         <br>
                         <select id="room3">
-                            <option value="LivingRoom">Living Room</option>
-                            <option value="Kitchen">Kitchen</option>
-                            <option value="Entrance">Entrance</option>
+                            <option value="LivingRoom"><?php echo(LIVING_ROOM);?></option>
+                            <option value="Kitchen"><?php echo(KITCHEN);?></option>
+                            <option value="Entrance"><?php echo(ENTRANCE);?></option>
                         </select>
                     </div>
                 </div>

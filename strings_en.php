@@ -43,9 +43,6 @@ define("MENU_TITLE", "Menu");
 define("ENTRY_HOME", "Home");
 define("ENTRY_HEALTH", "Health");
 define("ENTRY_PLAN", "Plan");
-//define("ENTRY_FITNESS", "Fitness");
-//define("ENTRY_DIET", "Diet");
-//define("ENTRY_SERVICES", "Services");
 define("ENTRY_PROFILE", "Profile");
 define("ENTRY_CONTACTS", "Contacts");
 define("ENTRY_HUELIGHTS", "Hue Lights");
@@ -69,21 +66,6 @@ define("INDEX_SURVEY_MOTIVATION1", "Because I enjoy it and it makes me feel good
 define("INDEX_SURVEY_MOTIVATION2", "To maintain good health and prevent illness");
 define("INDEX_SURVEY_MOTIVATION3", "To lose weight and improve my appearance");
 define("INDEX_SURVEY_MOTIVATION4", "Because I enjoy competing and spend time with friends");
-//define("INDEX_SURVEY_QUESTION5", "Have you any difficulties at walking 400 meters?");
-//define("ANSWER_5a", "No or some difficulties");
-//define("ANSWER_5b", "A lot of difficulties or unable");
-//define("INDEX_SURVEY_QUESTION6", "Have you any difficulties at climbing up a flight of stairs?");
-//define("ANSWER_6a", "No or some difficulties");
-//define("ANSWER_6b", "A lot of difficulties or unable");
-//define("INDEX_SURVEY_QUESTION7", "During the last year, have you involuntarily lost more than 4.5 kg");
-//define("ANSWER_7a", "No");
-//define("ANSWER_7b", "Yes");
-//define("INDEX_SURVEY_QUESTION8", "How often in the last week did you feel than everything you did was an effort or that you could not get going?");
-//define("ANSWER_8a", "Rarely or sometimes (2 times or less/week)");
-//define("ANSWER_8b", "Often or almost always (3 or more times per week)");
-//define("INDEX_SURVEY_QUESTION9", "Which is your level of physical activity?");
-//define("ANSWER_9a", "Regular physical activity (at least 2-4 hours per week)");
-//define("ANSWER_9b", "None or mainly sedentary");
 
 define("CANCEL_BUTTON", "Cancel");
 
@@ -313,5 +295,18 @@ define("CONTACTS_FROM_RELATIONSHIP_OTHER_FAMILY", "Other Family");
 define("CONTACTS_FROM_RELATIONSHIP_FRIEND", "Friend");
 define("CONTACTS_FROM_RELATIONSHIP_NEIGHBOUR", "Neighbour");
 
-
+//HUE LIGHTS PAGE
+define("DISCOVER_BRIDGE","Discover Bridge");
+define("SET_USERNAME", "Set Username");
+define("GET_LIGHT_STATE", "Get Light State");
+define("TURN_ON_AND_CHANGE_COLOR","Turn on and change color");
+define("TURN_ON","Turn on");
+define("TURN_OFF","Turn off");
+define("SET_COLOR","Set color");
+define("SATURATION","Saturation");
+define("BRIGHTNESS","Brightness");
+define("LIGHT","Light");
+define("LIVING_ROOM","Living Room");
+define("KITCHEN","Kitchen");
+define("ENTRANCE","Entrance");
 ?>

@@ -1,11 +1,5 @@
 <?php
 
-//DB for public vm
-//define("DB_SERVER_NAME", "localhost");
-//define("DB_USERNAME", "root");
-//define("DB_PASSWORD", "Vsw1e3t56.");
-//define("DB_NAME","personaal");
-
 //DB for local (FCID)
 //define("DB_SERVER_NAME", "accessible-serv.lasige.di.fc.ul.pt");
 //define("DB_USERNAME", "personaal");

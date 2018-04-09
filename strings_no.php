@@ -41,9 +41,6 @@ define("MENU_TITLE", "Meny");
 define("ENTRY_HOME", "Startside");
 define("ENTRY_HEALTH", "Helse");
 define("ENTRY_PLAN", "Kalender");
-//define("ENTRY_FITNESS", "Fitness");
-//define("ENTRY_DIET", "Ernæring");
-//define("ENTRY_SERVICES", "Services");
 define("ENTRY_PROFILE", "Profil");
 define("ENTRY_CONTACTS", "Kontakter");
 define("ENTRY_HUELIGHTS", "Hue Lights");
@@ -67,21 +64,6 @@ define("INDEX_SURVEY_MOTIVATION1", "Jeg liker å trene. Det gjør at jeg føler 
 define("INDEX_SURVEY_MOTIVATION2", "For å opprettholde en god helse og forebygge sykdom"); 
 define("INDEX_SURVEY_MOTIVATION3", "For vektreduksjon og forbedring av utseende"); 
 define("INDEX_SURVEY_MOTIVATION4", "Fordi jeg liker å konkurrere og bruke tid med venner"); 
-//define("INDEX_SURVEY_QUESTION5", "Har du noe vansker med å gå 400 meter?"); 
-//define("ANSWER_5a", "Ingen eller lite vansker"); 
-//define("ANSWER_5b", "Store vansker eller umulig"); 
-//define("INDEX_SURVEY_QUESTION6", "Har du noe vansker med å gå en trapp?"); 
-//define("ANSWER_6a", "Ingen eller lite vansker"); 
-//define("ANSWER_6b", "Store vansker eller umulig"); 
-//define("INDEX_SURVEY_QUESTION7", "Har du i løpet av det siste året ufrivillig gått ned mer enn 4,5 kg?"); 
-//define("ANSWER_7a", "Nei"); 
-//define("ANSWER_7b", "Ja"); 
-//define("INDEX_SURVEY_QUESTION8", "Hvor ofte har du den siste uken kjent at alt du gjorde var anstrengende eller at du ikke kom i gang med det du skulle gjøre?"); 
-//define("ANSWER_8a", "Sjeldent eller noen ganger (2 ganger eller sjeldnere per uke"); 
-//define("ANSWER_8b", "Ofte eller nesten alltid (3 eller flere ganger per uke"); 
-//define("INDEX_SURVEY_QUESTION9", "Hva er ditt nivå av fysisk aktivitet?"); 
-//define("ANSWER_9a", "Regelmessig fysisk aktivitet (minimum 2-4 timer per uke)"); 
-//define("ANSWER_9b", "Ingen eller mest stillesittende"); 
 
 define("CANCEL_BUTTON", "Avbryt");
 define("INDEX_STEPSCARD_STEPS", "Skritt");
@@ -219,20 +201,20 @@ define("START_TIME", "Start");
 define("END_TIME", "Slutt");
 //NEW CALENDAR
 
-define("PLAN_ACTIVITY_ADD", "Add event"); "Legg til en begivenhet"
-define("PLAN_ACTIVITY_TITLE", "Title"); "Titel"  
-define("PLAN_ACTIVITY_TYPE", "Type of activity"); "Type aktivitet"
-define("PLAN_ACTIVITY_TYPE_RECEIVE_GEST", "Receive guest"); "Motta gjest(er)"
-define("PLAN_ACTIVITY_TYPE_CALL_SOMEONE", "Call someone"); "Ringe noen"
-define("PLAN_ACTIVITY_TYPE_VISIT_SOMEONE", "Visit Someone"); "Besøke noen"    
-define("PLAN_ACTIVITY_TYPE_CINEMA", "Go to the cinema"); "Gå på kino"
-define("PLAN_ACTIVITY_TYPE_THEATRE", "Go to the theatre"); "Gå på teater"
-define("PLAN_ACTIVITY_TYPE_RESTAURANT", "Go to a restaurant"); "Gå på en restaurant"
-define("PLAN_ACTIVITY_TYPE_PUB", "Go to a pub"); "Gå på pub/ bar"      
-define("PLAN_ACTIVITY_TYPE_RELIGIOUS_ACTIVITY", "Religious activity"); "Aktivitet knyttet til religion eller livssyn"
-define("PLAN_ACTIVITY_OTHER", "Other", "Other activity"); "Annen aktivitet"
-define("PLAN_ACTIVITY_START_TIME", "Start Time"); "Tidspunkt for start" 
-define("PLAN_ACTIVITY_END_TIME", "End time"); "Tidspunkt for slutt"
+define("PLAN_ACTIVITY_ADD", "Legg til en begivenhet");
+define("PLAN_ACTIVITY_TITLE", "Titel");  
+define("PLAN_ACTIVITY_TYPE", "Type aktivitet");
+define("PLAN_ACTIVITY_TYPE_RECEIVE_GEST", "Motta gjest(er)");
+define("PLAN_ACTIVITY_TYPE_CALL_SOMEONE", "Ringe noen");
+define("PLAN_ACTIVITY_TYPE_VISIT_SOMEONE", "Besøke noen");    
+define("PLAN_ACTIVITY_TYPE_CINEMA", "Gå på kino");
+define("PLAN_ACTIVITY_TYPE_THEATRE", "Gå på teater");
+define("PLAN_ACTIVITY_TYPE_RESTAURANT", "Gå på en restaurant");
+define("PLAN_ACTIVITY_TYPE_PUB", "Gå på pub/ bar");      
+define("PLAN_ACTIVITY_TYPE_RELIGIOUS_ACTIVITY", "Aktivitet knyttet til religion eller livssyn");
+define("PLAN_ACTIVITY_OTHER", "Annen aktivitet");
+define("PLAN_ACTIVITY_START_TIME", "Tidspunkt for start"); 
+define("PLAN_ACTIVITY_END_TIME", "Tidspunkt for slutt");
 
 define("CALENDAR_NEXT_BUTTON", "NESTE");
 define("CALENDAR_PREVIOUS_BUTTON", "TIDLIGERE");
@@ -309,79 +291,20 @@ define("CONTACTS_FROM_RELATIONSHIP_OTHER_FAMILY", "Annet Familiemedlem");
 define("CONTACTS_FROM_RELATIONSHIP_FRIEND", "Venn");
 define("CONTACTS_FROM_RELATIONSHIP_NEIGHBOUR", "Nabo");
 
-//FITNESS PAGE
-//define("FITNESS_ALERT_TITLE", "Be careful and stop working out when you experience some pain!");
-//define("CLOSE_BUTTON", "CLOSE");
-//
-//define("SEARCH_TITLE", "Search filters");
-//define("FITNESS_SEARCH_BODYPARTS", "Training body part");
-//define("FITNESS_SEARCH_BODYPARTS_UPPER", "Upper");
-//define("FITNESS_SEARCH_BODYPARTS_LOWER", "Lower");
-//define("FITNESS_SEARCH_BODYPARTS_ABDOMINAL", "Abdominal");
-//define("FITNESS_SEARCH_DIFFICULTY", "Difficulty");
-//define("FITNESS_SEARCH_DIFFICULTY_EASY", "easy");
-//define("FITNESS_SEARCH_DIFFICULTY_MEDIUM", "medium");
-//define("FITNESS_SEARCH_DIFFICULTY_HARD", "hard");
-//define("SEARCH_BUTTON", "SEARCH");
-//
-//define("FITNESS_SHOWEXERCISE_BUTTON", "SHOW EXERCISE");
-//define("FITNESS_SHOWEXERCISE_TRAINEDPARTS", "Trained body parts");
-//
-//define("SEARCHRESULT_NORESULTS", "No results");
-//define("SEARCHRESULT_TITLE", "Results for");
-//define("FITNESS_SEARCHRESULT_DIFFICULTY", "Difficulty");
-//define("FITNESS_SEARCHRESULT_BODYPARTS", "Body parts");
+//HUE LIGHTS PAGE
+define("DISCOVER_BRIDGE","Discover Bridge");
+define("SET_USERNAME", "Set Username");
+define("GET_LIGHT_STATE", "Get Light State");
+define("TURN_ON_AND_CHANGE_COLOR","Turn on and change color");
+define("TURN_ON","Turn on");
+define("TURN_OFF","Turn off");
+define("SET_COLOR","Set color");
+define("SATURATION","Saturation");
+define("BRIGHTNESS","Brightness");
+define("LIGHT","Light");
+define("LIVING_ROOM","Living Room");
+define("KITCHEN","Kitchen");
+define("ENTRANCE","Entrance");
 
-
-//DIET PAGE
-//define("DIET_SEARCH_FOODTYPE", "Food type");
-//define("DIET_SEARCH_FOODTYPE_PASTA", "pasta");
-//define("DIET_SEARCH_FOODTYPE_MEAT", "meat");
-//define("DIET_SEARCH_FOODTYPE_VEGAN", "vegan");
-//define("DIET_SEARCH_FOODTYPE_DESSERT", "dessert");
-//define("NUMBER_INPUT_ERROR", "Input is not a number!");
-//define("DIET_SEARCH_ALLERGIES", "Allergies/intolerances");
-//define("DIET_SEARCH_ALLERGIES_LACTOSE", "lactose");
-//define("DIET_SEARCH_ALLERGIES_GLUTEN", "gluten");
-//
-//define("DIET_SNACKBAR", '"Max kcal" must be greater than "Min kcal"!');
-//
-//define("DIET_SEARCHRESULT_FOODCATEGORY", "Food category");
-//define("DIET_SEARCHRESULT_ALLERGENES", "Allergenes");
-//
-//define("SHOW_RECIPE_BUTTON", "SHOW RECIPE");
-
-//SHOPPING PAGE
-//define("SERVICES_SHOPPING_TITLE", "Shopping");
-//define("SERVICES_SHOPPING_DRINKS", "Drinks");
-//define("SERVICES_SHOPPING_DRINKS_1", "Water");
-//define("SERVICES_SHOPPING_DRINKS_2", "Tea");
-//define("SERVICES_SHOPPING_DRINKS_3", "Milk");
-//define("SERVICES_SHOPPING_FROZENFOODS", "Frozen Foods");
-//define("SERVICES_SHOPPING_FROZENFOODS_1", "Pizza");
-//define("SERVICES_SHOPPING_FROZENFOODS_2", "Potatoes");
-//define("SERVICES_SHOPPING_FROZENFOODS_3", "Spinach");
-//define("SERVICES_SHOPPING_FROZENFOODS_4", "Ice cream");
-//define("SERVICES_SHOPPING_PASTA", "Pasta");
-//define("SERVICES_SHOPPING_MEAT", "Meat");
-//define("SERVICES_SHOPPING_MEAT_1", "Beef");
-//define("SERVICES_SHOPPING_MEAT_2", "Pig");
-//define("SERVICES_SHOPPING_MEAT_3", "Chicken");
-//define("DESELECT_BUTTON", "DESELECT ALL");
-//define("BUY_BUTTON", "BUY");
-//define("SERVICES_SHOPPING_CONFIRMED_TITLE", "Order confirmed");
-//
-//define("SERVICES_SERVICES_TITLE", "Services");
-//define("SERVICES_SERVICES_ASSISTANCE", "Assistance");
-//define("SERVICES_SERVICES_ELECTRIC", "Electrical problem");
-//define("SERVICES_SERVICES_COMMUNICATION", "Communication problem");
-//define("SERVICES_SERVICES_REPAIRS", "General repairs");
-//define("SERVICES_SERVICES_CLEANING", "Cleaning service");
-//define("SERVICES_SERVICES_FORM_HINT_TITLE", "Title");
-//define("SERVICES_SERVICES_FORM_HINT_MESSAGE", "Message");
-//define("SEND_BUTTON", "SEND");
-//
-//define("SERVICES_SNACKBAR_MESSAGE", "Message");
-//define("SERVICES_SNACKBAR_SENT", "sent!");
     
 ?>

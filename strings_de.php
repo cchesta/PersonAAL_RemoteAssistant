@@ -41,9 +41,6 @@ define("MENU_TITLE", "Menü");
 define("ENTRY_HOME", "Startseite");
 define("ENTRY_HEALTH", "Gesundheit");
 define("ENTRY_PLAN", "Kalender");
-//define("ENTRY_FITNESS", "Fitness");
-//define("ENTRY_DIET", "Gesunde Ernährung");
-//define("ENTRY_SERVICES", "Dienstleistungen");
 define("ENTRY_PROFILE", "Profil");
 define("ENTRY_CONTACTS", "Kontakt");
 define("ENTRY_HUELIGHTS", "Hue Lights");
@@ -65,21 +62,6 @@ define("INDEX_SURVEY_MOTIVATION1", "Es macht mir Spass und ich fühle mich gut d
 define("INDEX_SURVEY_MOTIVATION2", "Es hilft gesund zu bleiben und Krankheiten vorzubeugen"); 
 define("INDEX_SURVEY_MOTIVATION3", "Gewichtsverlust und ein besseres Erscheinungsbild"); 
 define("INDEX_SURVEY_MOTIVATION4", "Ich messe mich gerne mit anderen und verbringe Zeit mit Freunden"); 
-//define("INDEX_SURVEY_QUESTION5", "Haben Sie Schwierigkeiten damit 400m zu laufen?"); 
-//define("ANSWER_5a", "Keine oder wenig Schwierigkeiten"); 
-//define("ANSWER_5b", "Grosse Schwierigkeiten oder unmöglich"); 
-//define("INDEX_SURVEY_QUESTION6", "Haben Sie Schwierigkeiten beim Treppensteigen?"); 
-//define("ANSWER_6a", "Keine oder wenig Schwierigkeiten"); 
-//define("ANSWER_6b", "Grosse Schwierigkeiten oder unmöglich"); 
-//define("INDEX_SURVEY_QUESTION7", "Haben Sie im letzen Jahr unfreiwillig mehr als 4.5 kg Gewicht verloren?"); 
-//define("ANSWER_7a", "Nein"); 
-//define("ANSWER_7b", "Ja"); 
-//define("INDEX_SURVEY_QUESTION8", "Wie oft hatten Sie in der letzten Woche das Gefühl, dass alles, was Sie getan haben, eine Anstrenung ist oder dass Sie etwas nicht weiterführen können?"); 
-//define("ANSWER_8a", "Selten oder manchmal (2 Mal oder weniger/Woche)"); 
-//define("ANSWER_8b", "Oft oder fast immer (3 Mal oder mehr/Woche)"); 
-//define("INDEX_SURVEY_QUESTION9", "Wie oft sind Sie körperlich aktiv?"); 
-//define("ANSWER_9a", "Regelmässige körperliche Aktivität (mindestens 2-4 Stunden pro Woche)"); 
-//define("ANSWER_9b", "Keine körperliche Aktivität oder meist sitzend"); 
 
 define("CANCEL_BUTTON", "abbrechen");
 define("INDEX_STEPSCARD_STEPS", "Schritte");
@@ -199,72 +181,6 @@ define("COMPLETED_YES", "JA");
 define("COMPLETED_NO", "NEIN");
 
 
-//FITNESS PAGE
-//define("FITNESS_ALERT_TITLE", "Bitte führen Sie die Übungen vorsichtig durch und stoppen Sie sofort, sollten Schmerzen auftreten!");
-//define("CLOSE_BUTTON", "Schliessen");
-//define("SEARCH_TITLE", "Suchfilter");
-//define("FITNESS_SEARCH_BODYPARTS", "trainierter Körperbereich");
-//define("FITNESS_SEARCH_BODYPARTS_UPPER", "Oberkörper");
-//define("FITNESS_SEARCH_BODYPARTS_LOWER", "Beine");
-//define("FITNESS_SEARCH_BODYPARTS_ABDOMINAL", "Bauchbereich");
-//define("FITNESS_SEARCH_DIFFICULTY", "Schwierigkeit");
-//define("FITNESS_SEARCH_DIFFICULTY_EASY", "einfach");
-//define("FITNESS_SEARCH_DIFFICULTY_MEDIUM", "mittel");
-//define("FITNESS_SEARCH_DIFFICULTY_HARD", "schwer");
-//define("SEARCH_BUTTON", "suchen");
-//define("FITNESS_SHOWEXERCISE_BUTTON", "Übung anzeigen");
-//define("FITNESS_SHOWEXERCISE_TRAINEDPARTS", "trainierte Körperbereiche");
-//define("SEARCHRESULT_NORESULTS", "Keine Ergebnisse");
-//define("SEARCHRESULT_TITLE", "Ergebnisse für");
-//define("FITNESS_SEARCHRESULT_DIFFICULTY", "Schwierigkeit");
-//define("FITNESS_SEARCHRESULT_BODYPARTS", "Köperregionen");
-
-//DIET PAGE
-//define("DIET_SEARCH_FOODTYPE", "Speise");
-//define("DIET_SEARCH_FOODTYPE_PASTA", "Nudelgerichte");
-//define("DIET_SEARCH_FOODTYPE_MEAT", "Fleisch");
-//define("DIET_SEARCH_FOODTYPE_VEGAN", "Vegane Gerichte");
-//define("DIET_SEARCH_FOODTYPE_DESSERT", "Nachspeise");
-//define("NUMBER_INPUT_ERROR", "Eingabe entspricht keiner Telefonnumer!");
-//define("DIET_SEARCH_ALLERGIES", "Allergien/Intoleranzen");
-//define("DIET_SEARCH_ALLERGIES_LACTOSE", "Laktose");
-//define("DIET_SEARCH_ALLERGIES_GLUTEN", "Gluten");
-//define("DIET_SNACKBAR", '"Max kcal" muss höher liegen als "Min kcal"!');
-//define("DIET_SEARCHRESULT_FOODCATEGORY", "Speisen");
-//define("DIET_SEARCHRESULT_ALLERGENES", "Allergene");
-//define("SHOW_RECIPE_BUTTON", "zeige Rezepte an");
-
-//SHOPPING PAGE
-//define("SERVICES_SHOPPING_TITLE", "Einkaufen");
-//define("SERVICES_SHOPPING_DRINKS", "Getränke");
-//define("SERVICES_SHOPPING_DRINKS_1", "Mineralwasser");
-//define("SERVICES_SHOPPING_DRINKS_2", "Tee");
-//define("SERVICES_SHOPPING_DRINKS_3", "Milch");
-//define("SERVICES_SHOPPING_FROZENFOODS", "Tiefkühlkost");
-//define("SERVICES_SHOPPING_FROZENFOODS_1", "Pizza");
-//define("SERVICES_SHOPPING_FROZENFOODS_2", "Kartoffeln");
-//define("SERVICES_SHOPPING_FROZENFOODS_3", "Spinat");
-//define("SERVICES_SHOPPING_FROZENFOODS_4", "Speiseeis");
-//define("SERVICES_SHOPPING_PASTA", "Nudelgerichte");
-//define("SERVICES_SHOPPING_MEAT", "Fleisch");
-//define("SERVICES_SHOPPING_MEAT_1", "Rindfleisch");
-//define("SERVICES_SHOPPING_MEAT_2", "Schweinefleisch");
-//define("SERVICES_SHOPPING_MEAT_3", "Poulet (Geflügel)");
-//define("DESELECT_BUTTON", "gesamte Auswahl löschen");
-//define("BUY_BUTTON", "kaufen");
-//define("SERVICES_SHOPPING_CONFIRMED_TITLE", "Bestellung bestätigt");
-//define("SERVICES_SERVICES_TITLE", "Services");
-//define("SERVICES_SERVICES_ASSISTANCE", "Assistenz");
-//define("SERVICES_SERVICES_ELECTRIC", "Elektrik");
-//define("SERVICES_SERVICES_COMMUNICATION", "Kommunikation");
-//define("SERVICES_SERVICES_REPAIRS", "Reparaturen");
-//define("SERVICES_SERVICES_CLEANING", "Reinigung");
-//define("SERVICES_SERVICES_FORM_HINT_TITLE", "Titel");
-//define("SERVICES_SERVICES_FORM_HINT_MESSAGE", "Nachricht");
-//define("SEND_BUTTON", "senden");
-//define("SERVICES_SNACKBAR_MESSAGE", "Nachricht");
-//define("SERVICES_SNACKBAR_SENT", "gesendet!");
-    
 //PROFILE PAGE
 define("PROFILE_PROFILECARD_TITLE", "Persönliche Angaben");
 define("PROFILE_PROFILECARD_NAME", "Vorname");
@@ -367,5 +283,20 @@ define("CONTACTS_FROM_RELATIONSHIP_CLOSE_FAMILY", "Enger Familienkreis");
 define("CONTACTS_FROM_RELATIONSHIP_OTHER_FAMILY", "Andere Familie");
 define("CONTACTS_FROM_RELATIONSHIP_FRIEND", "Freund");
 define("CONTACTS_FROM_RELATIONSHIP_NEIGHBOUR", "Nachbar");
+
+//HUE LIGHTS PAGE
+define("DISCOVER_BRIDGE","Discover Bridge");
+define("SET_USERNAME", "Set Username");
+define("GET_LIGHT_STATE", "Get Light State");
+define("TURN_ON_AND_CHANGE_COLOR","Turn on and change color");
+define("TURN_ON","Turn on");
+define("TURN_OFF","Turn off");
+define("SET_COLOR","Set color");
+define("SATURATION","Saturation");
+define("BRIGHTNESS","Brightness");
+define("LIGHT","Light");
+define("LIVING_ROOM","Living Room");
+define("KITCHEN","Kitchen");
+define("ENTRANCE","Entrance");
     
 ?>
