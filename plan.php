@@ -326,6 +326,38 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                     ],
                     visibleView: "WeekView",
 
+                    businessHoursSource: [
+                        {
+                            day: 0,
+                            times: [{startTime: "00:00", endTime: "24:00"}]
+                        },
+                        {
+                            day: 1,
+                            times: [{startTime: "00:00", endTime: "24:00"}]
+                        },
+                        {
+                            day: 2,
+                            times: [{startTime: "00:00", endTime: "24:00"}]
+                        },
+                        {
+                            day: 3,
+                            times: [{startTime: "00:00", endTime: "24:00"}]
+                        },
+                        {
+                            day: 4,
+                            times: [{startTime: "00:00", endTime: "24:00"}]
+                        },
+                        {
+                            day: 5,
+                            times: [{startTime: "00:00", endTime: "24:00"}]
+                        },
+                        {
+                            day: 6,
+                            times: [{startTime: "00:00", endTime: "24:00"}]
+                        }
+
+                    ],
+
                     initialize: function() {
                         calendar = this;
                         getActivity(addActivitiesToCalendar);
