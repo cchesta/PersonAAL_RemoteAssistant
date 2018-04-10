@@ -32,23 +32,23 @@ window.onload = function() {
         break;
                 
         case 'de':
-            noBridgeMsg = 'No bridges found. :(';
-            bridgeFoundMsg = 'Bridge found at IP address';
-            errorBridgeMsg = 'Error finding bridges';
-            userMsg = 'Hue username';
-            errorUserMsg = 'Error while getting user name';
-            lightMsg = 'Hue lights'; 
-            errorLightMsg = 'Error while setting lights';
+            noBridgeMsg = 'Bridge nicht gefunden. :(';
+            bridgeFoundMsg = 'Bridge unter IP Adresse gefunden';
+            errorBridgeMsg = 'Fehler beim Suchen der Bridge';
+            userMsg = 'HUE Benutzername';
+            errorUserMsg = 'Fehler bei Eingabe des Benutzernamens';
+            lightMsg = 'HUE Leuchten'; 
+            errorLightMsg = 'Fehler bei Lichteinstellung';
         break;
        
         case 'no':
-            noBridgeMsg = 'No bridges found. :(';
-            bridgeFoundMsg = 'Bridge found at IP address';
-            errorBridgeMsg = 'Error finding bridges';
-            userMsg = 'Hue username';
-            errorUserMsg = 'Error while getting user name';
-            lightMsg = 'Hue lights'; 
-            errorLightMsg = 'Error while setting lights';
+            noBridgeMsg = 'Det er ikke funnet noen bro (bridge)';
+            bridgeFoundMsg = 'Bro (bridge) er funnet på følgende IP adresse';
+            errorBridgeMsg = 'Feilmelding. Finner ikke bro (bridges)';
+            userMsg = 'Hue brukernavn';
+            errorUserMsg = 'Det har oppstått en feil med å finne brukernavn'; 
+            lightMsg = 'Hue lys';
+            errorLightMsg = 'Det har oppstått en feil ved innstilling av lyset';
         break;
                 
         default:

@@ -33,7 +33,7 @@ define("REGISTRATION_FORM_POSTALCODE", "Postleitzahl");
 define("REGISTRATION_FORM_CITY", "Stadt");
 define("REGISTRATION_FORM_ADDRESS", "Strasse und Hausnummer");
 define("REGISTRATION_FORM_INSTRUCTIONS", "* verpflichtende Angabe");
-define("REGISTRATION_FORM_REGEX_INSTRUCTIONS", "Benutzername und Passwort Mit mindestens 2 Buchstaben und/oder Nummern und/oder '_'");
+define("REGISTRATION_FORM_REGEX_INSTRUCTIONS", "Benutzername und Passwort mit mindestens 2 Buchstaben und/oder Nummern und/oder '_'");
 define("CONFIRM_BUTTON", "bestätigen");
 
 //LEFT MENU AND PAGE TITLES
@@ -43,14 +43,14 @@ define("ENTRY_HEALTH", "Gesundheit");
 define("ENTRY_PLAN", "Kalender");
 define("ENTRY_PROFILE", "Profil");
 define("ENTRY_CONTACTS", "Kontakt");
-define("ENTRY_HUELIGHTS", "Hue Lights");
+define("ENTRY_HUELIGHTS", "Hue Leuchtmittel");
 define("ENTRY_LOGOUT", "Abmelden");
 
 //INDEX PAGE
 define("INDEX_SURVEYCARD_TITLE", "Wie geht es Ihnen heute?");
 define("INDEX_SURVEYCARD_TEXT", "Mit wenigen Fragen zu einer gesünderen Lebensweise.");
 define("INDEX_SURVEYCARD_BUTTON", "zur Umfrage");
-define("INDEX_SURVEY_TITLE", "Für eine gesünderen Lebensweise!");
+define("INDEX_SURVEY_TITLE", "Für eine gesündere Lebensweise!");
 define("INDEX_SURVEY_QUESTION1", "Wie viel wiegen Sie heute?");
 define("INDEX_SURVEY_HINT1", "Gewicht (kg)");
 define("INDEX_SURVEY_QUESTION2", "Bitte geben Sie Ihre Grösse an"); 
@@ -67,7 +67,7 @@ define("CANCEL_BUTTON", "abbrechen");
 define("INDEX_STEPSCARD_STEPS", "Schritte");
 define("INDEX_STEPSCARD_STEPS_GOAL", "geplante Schritte");
 define("INDEX_STEPSCARD_EXERCISE", "min");
-define("INDEX_STEPSCARD_EXERCISEGOAL", "geplante ÜBUNG");
+define("INDEX_STEPSCARD_EXERCISEGOAL", "geplante Übung");
 
 define("INDEX_NEWS1_TITLE", "Schlagzeilen");
 define("INDEX_NEWS2_TITLE", "Sport");
@@ -80,7 +80,7 @@ define("HEART_CARD_TITLE", "Herzfrequenz");
 define("BREATH_CARD_TITLE", "Atemfrequenz"); 
 define("BMI_CARD_TITLE", "BMI");
 define("HOMETEMPERATURE_CARD_TITLE", "Haustemperatur");
-define("HOMEHUMIDITY_CARD_TITLE", "Wohnfeuchtigkeit");
+define("HOMEHUMIDITY_CARD_TITLE", "Luftfeuchtigkeit in der Wohnung");
 define("MOTION_CARD_TITLE", "Bewegung");
 define("TEMPERATURE_CARD_TITLE", "Körpertemperatur");
 define("WEATHER_CARD_TITLE", "Wettervorhersage"); 
@@ -125,7 +125,7 @@ define("PLAN_GOALS_EXERCISE", "Fitnessübungen");
 define("PLAN_GOALS_WALK", "Bewegung");
 define("PLAN_GOALS_MEET", "Verabredungen");
 define("PLAN_GOALS_MIN", "min");
-define("PLAN_GOALS_HOURS", "stunden");
+define("PLAN_GOALS_HOURS", "Stunden");
 define("PLAN_GOALS_STEPS", "Schritte");
 define("PLAN_GOALS_PERSONS", "Personen");
 define("PLAN_GOALS_COOK", "Kochen");
@@ -156,13 +156,13 @@ define("STEPPER_STEP2_ACTIVITYWALK", "Gehen");
 define("STEPPER_STEP2_ACTIVITYEXERCISE", "Übung");
 define("STEPPER_STEP2_ACTIVITYSOCIAL", "Soziale Aktivität");
 define("STEPPER_STEP3", "Geben Sie Aktivitätsdetails ein");
-define("STEPPER_STEP3_EXERCISEINTENSITY", "Intensität der Übung : ");
+define("STEPPER_STEP3_EXERCISEINTENSITY", "Intensität der Übung:");
 define("STEPPER_STEP3_EXERCISEINTENSITYHIGH", "Hoch");
 define("STEPPER_STEP3_EXERCISEINTENSITYMODERATE", "Mäßig");
 define("STEPPER_STEP3_EXERCISEINTENSITYLOW", "Niedrig");
-define("STEPPER_STEP3_WALKSTEPS", "Anzahl der Schritte : ");
-define("STEPPER_STEP3_SOCIALTYPE", "Art der sozialen Aktivität : ");
-define("STEPPER_STEP3_SOCIALTYPERECEIVE", "Erhalten Sie Gast");
+define("STEPPER_STEP3_WALKSTEPS", "Anzahl der Schritte:");
+define("STEPPER_STEP3_SOCIALTYPE", "Art der sozialen Aktivität:");
+define("STEPPER_STEP3_SOCIALTYPERECEIVE", "Erhalten Sie Besuch?");
 define("STEPPER_STEP3_SOCIALTYPECALL", "Jemanden anrufen");
 define("STEPPER_STEP3_SOCIALTYPEVISIT", "Besuche jemanden");
 define("STEPPER_STEP3_SOCIALTYPECINEMA", "Kino");
@@ -220,30 +220,30 @@ define("PROFILE_INTERESTS_CLOSE", "SCHLIESSEN");
 
 
 //NEW
-//invite a friend to join activity
-define("INVITE_FRIEND_BUTTON", "INVITE FRIEND");
-define("ACCEPT_INVITATION_BUTTON", "ACCEPT");
-define("DECLINE_INVITATION_BUTTON", "DECLINE");
+//invite a friend to join activity, "einen Freund zu gemeinsamen Aktivitäten einladen"
+define("INVITE_FRIEND_BUTTON", "Freund einladen");
+define("ACCEPT_INVITATION_BUTTON", "Annehmen");
+define("DECLINE_INVITATION_BUTTON", "Ablehnen");
 //NEW SET GOALS CARD 
 define("PLAN_GOALS_SOCIAL_ACTIVITY", "Soziale Aktivitäten");
-define("PLAN_SETGOALS_SOCIAL_ACTIVITY", "Soziale Aktivitäten (Anzahl der Ereignisse)");
-define("PLAN_GOALS_ACTIVITY", "aktivitäten");
+define("PLAN_SETGOALS_SOCIAL_ACTIVITY", "Soziale Aktivitäten");
+define("PLAN_GOALS_ACTIVITY", "Aktivitäten");
 
 //NEW CALENDAR
-define("PLAN_ACTIVITY_ADD", "Add event");
-define("PLAN_ACTIVITY_TITLE", "Title");
-define("PLAN_ACTIVITY_TYPE", "Type of activity");
-define("PLAN_ACTIVITY_TYPE_RECEIVE_GEST", "Receive guest");
-define("PLAN_ACTIVITY_TYPE_CALL_SOMEONE", "Call someone");
-define("PLAN_ACTIVITY_TYPE_VISIT_SOMEONE", "Visit Someone");    
-define("PLAN_ACTIVITY_TYPE_CINEMA", "Go to the cinema");
-define("PLAN_ACTIVITY_TYPE_THEATRE", "Go to the theatre");
-define("PLAN_ACTIVITY_TYPE_RESTAURANT", "Go to a restaurant");
-define("PLAN_ACTIVITY_TYPE_PUB", "Go to a pub");      
-define("PLAN_ACTIVITY_TYPE_RELIGIOUS_ACTIVITY", "Religious activity");
-define("PLAN_ACTIVITY_OTHER", "Other", "Other activity");
-define("PLAN_ACTIVITY_START_TIME", "Start Time");
-define("PLAN_ACTIVITY_END_TIME", "End time");
+define("PLAN_ACTIVITY_ADD", "Vorhaben hinzufügen");
+define("PLAN_ACTIVITY_TITLE", "Bezeichnung");
+define("PLAN_ACTIVITY_TYPE", "Art des Vorhabens");
+define("PLAN_ACTIVITY_TYPE_RECEIVE_GEST", "Gast einladen");
+define("PLAN_ACTIVITY_TYPE_CALL_SOMEONE", "Jemanden anrufen");
+define("PLAN_ACTIVITY_TYPE_VISIT_SOMEONE", "Jemanden besuchen");    
+define("PLAN_ACTIVITY_TYPE_CINEMA", "Ins Kino gehen");
+define("PLAN_ACTIVITY_TYPE_THEATRE", "Ins Theater gehen");
+define("PLAN_ACTIVITY_TYPE_RESTAURANT", "Essen gehen");
+define("PLAN_ACTIVITY_TYPE_PUB", "In eine Beiz gehen");      
+define("PLAN_ACTIVITY_TYPE_RELIGIOUS_ACTIVITY", "Gemeindearbeit");
+define("PLAN_ACTIVITY_OTHER", "Anderes Vorhaben");
+define("PLAN_ACTIVITY_START_TIME", "Beginn");
+define("PLAN_ACTIVITY_END_TIME", "Schluss");
 
 define("CALENDAR_NEXT_BUTTON", "NÄCHSTER");
 define("CALENDAR_PREVIOUS_BUTTON", "BISHERIGE");
@@ -285,18 +285,18 @@ define("CONTACTS_FROM_RELATIONSHIP_FRIEND", "Freund");
 define("CONTACTS_FROM_RELATIONSHIP_NEIGHBOUR", "Nachbar");
 
 //HUE LIGHTS PAGE
-define("DISCOVER_BRIDGE","Discover Bridge");
-define("SET_USERNAME", "Set Username");
-define("GET_LIGHT_STATE", "Get Light State");
-define("TURN_ON_AND_CHANGE_COLOR","Turn on and change color");
-define("TURN_ON","Turn on");
-define("TURN_OFF","Turn off");
-define("SET_COLOR","Set color");
-define("SATURATION","Saturation");
-define("BRIGHTNESS","Brightness");
-define("LIGHT","Light");
-define("LIVING_ROOM","Living Room");
-define("KITCHEN","Kitchen");
-define("ENTRANCE","Entrance");
-    
+define("DISCOVER_BRIDGE", "Bridge finden");
+define("SET_USERNAME", "Benutzername angeben");
+define("GET_LIGHT_STATE", "Zustand Beleuchtung");
+define("TURN_ON_AND_CHANGE_COLOR", "Einschalten und Farbe wechseln");
+define("TURN_ON", "Einschalten");
+define("TURN_OFF", "Ausschalten");
+define("SET_COLOR", "Farbspektrum");
+define("SATURATION", "Farbsättigung");
+define("BRIGHTNESS", "Helligkeit");
+define("LIGHT", "Licht");
+define("LIVING_ROOM", "Wohnzimmer");
+define("KITCHEN", "Küche");
+define("ENTRANCE", "Eingang");
+
 ?>
