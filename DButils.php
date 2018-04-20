@@ -898,6 +898,42 @@ class Activity {
         }
     }
 
+    public function updateActivity($userID, $title, $start_date, $end_date, $all_day, $done, $type, $intensity, $activityID){
+        // Create connection
+        $conn = new mysqli(DB_SERVER_NAME, DB_USERNAME, DB_PASSWORD, DB_NAME);
+        // Check connection
+        if ($conn->connect_error)
+        {
+            //     echo("Connection failed: " . $conn->connect_error);
+            $conn->close();
+            return false;
+        }
+        //convert start_date and end_date to mysql datetime format
+        $mysqldateStart = date( 'Y-m-d H:i:s', strtotime($start_date) );
+        $mysqldateEnd = date( 'Y-m-d H:i:s', strtotime($end_date) );
+
+        $sql = "UPDATE activity SET "
+            . "title = '" . $title . "', "
+            . "start_date = '" . $mysqldateStart . "', "
+            . "end_date = '" . $mysqldateEnd . "', "
+            . "all_day = " . $all_day . ", "
+            . "done = " . $done . ", "
+            . "type = '" .$type . "', "
+            . "intensity = '" . $intensity . "' "
+            . "WHERE userid='" . $userID . "' AND activityId=" . $activityID;
+
+        $result= $conn->query($sql);
+        $conn->close();
+        if(!$result)
+        {
+            echo('There was an error running the query [' . $conn->error . ']');
+            return false;
+        }
+        else{
+            return $activityID;
+        }
+    }
+
     public function deleteActivity($userID, $activityID) {
         // Create connection
         $conn = new mysqli(DB_SERVER_NAME, DB_USERNAME, DB_PASSWORD, DB_NAME);

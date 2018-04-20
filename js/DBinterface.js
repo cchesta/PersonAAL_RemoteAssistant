@@ -202,6 +202,31 @@ function addActivity(title, start_date, end_date, all_day,done, type, intensity,
         });
 }
 
+function updateActivity(title, start_date, end_date, all_day,done, type, intensity, activityId){
+    jQuery.ajax({
+        type: "POST",
+        url: 'ajax_request.php',
+        dataType: 'json',
+        data: {functionname: 'updateActivity', arguments: [title, start_date, end_date, all_day,done, type, intensity, activityId]},
+
+        success: function (obj, textstatus) {
+            if( !('error' in obj) ) {
+                console.log("updateActivity success");
+                console.log(obj.result);
+            }
+            else {
+                console.log("error");
+                console.log(obj.error);
+            }
+        },
+        error: function (ob, textstatus) {
+            console.log("error " + textstatus);
+            console.log(ob);
+        }
+    });
+}
+
+
 function deleteActivity(activityId){
     jQuery.ajax({
         type: "POST",

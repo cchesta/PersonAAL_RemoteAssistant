@@ -234,6 +234,8 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
 
             var calendar, sInputTZOffset = "-00:00";
 
+            var activityEdit = null;
+
 
 
             $(document).ready(function() {
@@ -441,8 +443,12 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                 activityEditDeleteCard.showModal();
 
                 activityEditDeleteCard.querySelector('#dialogEdit').onclick = function(){
-                    console.log("EDIT ACTIVITY");
+                    console.log("EDIT ACTIVITY: ", selector);
                     activityEditDeleteCard.close();
+                    activityEdit = event;
+                    dialog = document.querySelector('dialog');
+                    initEditDialog();
+                    dialog.showModal();
                 };
 
                 activityEditDeleteCard.querySelector('#dialogDelete').onclick = function(){
@@ -568,10 +574,93 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                 };
 
             }
+
+            function initEditDialog() {
+                if (activityEdit) {
+                    var dEndDateTime, sStartDateTime, sEndDateTime;
+                    if (activityEdit.isAllDay) {
+                        allDay = true;
+                        document.getElementById('ipAllDay-group').MaterialCheckbox.check();
+                        sStartDateTime = calendar.getDateInFormat({"date": activityEdit.start}, "dd-MM-yyyy", false, false);
+                        sEndDateTime = calendar.getDateInFormat({"date": activityEdit.end}, "dd-MM-yyyy", false, false);
+                    } else {
+                        allDay = false;
+                        document.getElementById('ipAllDay-group').MaterialCheckbox.uncheck();
+                        sStartDateTime = calendar.getDateInFormat({"date": activityEdit.start}, "dd-MM-yyyy HH:mm", calendar.setting.is24Hour, false);
+                        sEndDateTime = calendar.getDateInFormat({"date": activityEdit.end}, "dd-MM-yyyy HH:mm", calendar.setting.is24Hour, false);
+                    }
+                    document.getElementById('aStart').value = sStartDateTime;
+                    document.getElementById('aStart').parentElement.classList.add('is-dirty');
+                    document.getElementById('aEnd').value = sEndDateTime;
+                    document.getElementById('aEnd').parentElement.classList.add('is-dirty');
+                    document.getElementById('aName').value = activityEdit.title;
+                    document.getElementById('aName').parentElement.classList.add('is-dirty');
+                    startDate = sStartDateTime;
+                    endDate = sEndDateTime;
+                    switch (activityEdit.tag) {
+                        case 'Walk':
+                            document.getElementById('aWalk').parentNode.MaterialRadio.check();
+                            document.getElementById('slide_as').value = activityEdit.description;
+                            document.getElementById('inp_text_as').value = activityEdit.description;
+                            document.getElementById('inp_text_as').parentElement.classList.add('is-dirty');
+                            break;
+                        case 'Exercise':
+                            document.getElementById('aExercise').parentNode.MaterialRadio.check();
+                            switch (activityEdit.description) {
+                                case 'High':
+                                    document.getElementById('radioe1').parentNode.MaterialRadio.check();
+                                    break;
+                                case 'Moderate':
+                                    document.getElementById('radioe2').parentNode.MaterialRadio.check();
+                                    break;
+                                case 'Low':
+                                    document.getElementById('radioe3').parentNode.MaterialRadio.check();
+                                    break;
+                            }
+                            break;
+                        case 'Social':
+                            document.getElementById('aSocial').parentNode.MaterialRadio.check();
+                            switch (activityEdit.description) {
+                                case 'Receive Guests':
+                                    document.getElementById('radio1').parentNode.MaterialRadio.check();
+                                    break;
+                                case 'Call Someone':
+                                    document.getElementById('radio2').parentNode.MaterialRadio.check();
+                                    break;
+                                case 'Visit Someone':
+                                    document.getElementById('radio3').parentNode.MaterialRadio.check();
+                                    break;
+                                case 'Cinema':
+                                    document.getElementById('radio4').parentNode.MaterialRadio.check();
+                                    break;
+                                case 'Theatre':
+                                    document.getElementById('radio5').parentNode.MaterialRadio.check();
+                                    break;
+                                case 'Restaurant':
+                                    document.getElementById('radio6').parentNode.MaterialRadio.check();
+                                    break;
+                                case 'Pub':
+                                    document.getElementById('radio7').parentNode.MaterialRadio.check();
+                                    break;
+                                case 'Religious':
+                                    document.getElementById('radio8').parentNode.MaterialRadio.check();
+                                    break;
+                                default:
+                                    document.getElementById('radio9').parentNode.MaterialRadio.check();
+                                    document.getElementById('other_social_activity').value = activityEdit.description;
+                                    document.getElementById('other_social_activity').parentElement.classList.add('is-dirty');
+                                    document.getElementById('other_social_activity_group').style.display = 'block';
+                                    break;
+                            }
+                            break;
+                    };
+                }
+            }
             
             // Dialog scripts
             $(function() {
                 dialog = document.querySelector('dialog');
+
 
                 $('#dialogSubmit').on('click', function() {
                     var activityType = $("[name=aType]").filter(':checked').val();
@@ -597,13 +686,35 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                     dialog.close();
 
                     console.log("Start_time: ", startDate)
-                    // Call the DB insert function here and receive the id of the inserted activity, which is used in the activity string sent to the calendar
-                    addActivity(activityTitle,startDate,endDate,(allDay ? 1: 0),0,activityType,activityIntensity,addActivityToCalendar);
 
+                    // Call the DB insert function here and receive the id of the inserted activity, which is used in the activity string sent to the calendar
+                    if (activityEdit) {
+                        updateActivity(activityTitle, startDate, endDate, (allDay ? 1 : 0), 0, activityType, activityIntensity, activityEdit.id);
+                        var oEvent = {
+                            "isAllDay": allDay, // Optional
+                            "start": (allDay? startDate +  ' 00:00': startDate),
+                            "end": (allDay? endDate + ' 00:00': endDate),
+                            "tag": activityType,
+                            "title": activityTitle,
+                            "description": activityIntensity
+                        };
+                        var oEventToReplace = {
+                            replaceId : activityEdit.calEventId,
+                            event : [oEvent]
+                        }
+                        calendar.replaceEvents([oEventToReplace]);
+                        calendar.refreshView();
+                    }
+                    else {
+                        addActivity(activityTitle, startDate, endDate, (allDay ? 1 : 0), 0, activityType, activityIntensity, addActivityToCalendar);
+                    }
+
+                    activityEdit = null;
                 });
 
                 $('#dialogCancel').on('click', function() {
                     dialog.close();
+                    activityEdit = null;
                 });
             });
 

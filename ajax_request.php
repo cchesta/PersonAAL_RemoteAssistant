@@ -95,6 +95,7 @@ define("SAVE_EVENT_LIST", "saveEventList");
 /*************  ACTIVITY ***************/
 define("ADD_ACTIVITY", 'addActivity');
 define("DELETE_ACTIVITY", 'deleteActivity');
+define("UPDATE_ACTIVITY", 'updateActivity');
 define('SET_ACTIVITY_DONE', 'setActivityDone');
 define ('GET_ACTIVITY', 'getActivity');
 define('GET_ACTIVITY_LAST_ACCESSS','getActivitiesFromLastAccess' );
@@ -323,6 +324,19 @@ define("GET_USER_DATA", "getUserData");
                     $aResult['result']= Activity::addActivity($_SESSION['personAAL_user'], $_POST['arguments'][0],$_POST['arguments'][1],$_POST['arguments'][2],$_POST['arguments'][3],$_POST['arguments'][4],$_POST['arguments'][5],$_POST['arguments'][6]);
 
                                         
+                }
+                break;
+
+            //  function that updates activities in db
+            case UPDATE_ACTIVITY:
+                if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 8) )
+                    $aResult['error'] = 'Error in arguments!';
+                else
+                {
+
+                    $aResult['result']= Activity::updateActivity($_SESSION['personAAL_user'], $_POST['arguments'][0],$_POST['arguments'][1],$_POST['arguments'][2],$_POST['arguments'][3],$_POST['arguments'][4],$_POST['arguments'][5],$_POST['arguments'][6],$_POST['arguments'][7]);
+
+
                 }
                 break;
 
