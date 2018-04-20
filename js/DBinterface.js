@@ -212,7 +212,6 @@ function deleteActivity(activityId){
         success: function (obj, textstatus) {
             if( !('error' in obj) ) {
                 console.log("deleteActivity success");
-                callback(activity);
             }
             else {
                 console.log("error");

@@ -910,7 +910,6 @@ class Activity {
         }
 
         $sql = "DELETE FROM activity WHERE userid='" . $userID . "' AND activityId=" . $activityID;
-        echo($sql);
         $result = $conn->query($sql);
         $conn->close();
         if(!$result)

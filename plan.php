@@ -448,8 +448,11 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                 activityEditDeleteCard.querySelector('#dialogDelete').onclick = function(){
                     console.log("DELETE ACTIVITY: ", selector);
                     deleteActivity(event.id);
-                    sArrRemoveIds = new Array();
-                    sArrRemoveIds.push(event);
+                    var sArrRemoveIds = new Array();
+                    var oRemove = {
+                        removeIds : event.calEventId
+                    };
+                    sArrRemoveIds.push(oRemove);
                     calendar.removeEvents(sArrRemoveIds);
                     calendar.refreshView();
                     activityEditDeleteCard.close();
