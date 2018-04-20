@@ -409,11 +409,58 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                         dialog = document.querySelector('dialog');
                         initDialog();
                         dialog.showModal();
+                    },
+
+                    eventClicked: function (visibleView, sElemSelector, oEvent) {
+                        var thisObj = this;
+                        console.log(oEvent);
+                        showEditDeleteDialog(sElemSelector, oEvent);
                     }
 
                 });
 
             });
+
+            function showEditDeleteDialog(selector, event) {
+                activityEditDeleteCard = document.querySelector('#activityEditDeleteDialog');
+                $('#ed_title').html(event.title);
+                $('#ed_type').html(event.description);
+                $('#ed_start_date').html(event.start.toString());
+                $('#ed_end_date').html(event.end.toString());
+                switch(event.tag){
+                    case "Exercise":
+                        $('#activityEditDeleteDialog').css({'background':ExerciseColor});
+                        break;
+                    case "Walk":
+                        $('#activityEditDeleteDialog').css({'background':WalkColor});
+                        break;
+                    case "Social":
+                        $('#activityEditDeleteDialog').css({'background':SocialColor});
+                        break;
+                }
+                activityEditDeleteCard.showModal();
+
+                activityEditDeleteCard.querySelector('#dialogEdit').onclick = function(){
+                    console.log("EDIT ACTIVITY");
+                    activityEditDeleteCard.close();
+                };
+
+                activityEditDeleteCard.querySelector('#dialogDelete').onclick = function(){
+                    console.log("DELETE ACTIVITY: ", selector);
+                    deleteActivity(event.id);
+                    sArrRemoveIds = new Array();
+                    sArrRemoveIds.push(event);
+                    calendar.removeEvents(sArrRemoveIds);
+                    calendar.refreshView();
+                    activityEditDeleteCard.close();
+                };
+
+                activityEditDeleteCard.querySelector('#dialogCancel').onclick = function(){
+                    activityEditDeleteCard.close();
+                };
+
+            }
+
 
             function addActivitiesToCalendar(activitiesArray){
                 var icon;
@@ -1447,13 +1494,13 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
             <div class="mdl-dialog__content">
 
 
-                <span style="font-weight:bold; color: white">Name: </span>
+                <span style="font-weight:bold; color: white"><?php echo(ACTIVIY_NAME);?>: </span>
                 <span id="ac_title" style="color: white"></span>
                 <div></div>
-                <span style="font-weight:bold; color: white">Type: </span>
+                <span style="font-weight:bold; color: white"><?php echo(ACTIVIY_TYPE);?>: </span>
                 <span id="ac_type" style="color: white"></span>
                 <div></div>
-                <span style="font-weight:bold; color: white">Start Date: </span>
+                <span style="font-weight:bold; color: white"><?php echo(ACTIVIY_START);?>: </span>
                 <span id="ac_start_date" style="color: white"></span>
 
 
@@ -1461,6 +1508,30 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
             <div class="mdl-dialog__actions">
                 <button id="dialogYes" type="button" class="mdl-button" style="color: white"><?php echo(COMPLETED_YES);?></button>
                 <button id="dialogNo" type="button" class="mdl-button" style="color: white"><?php echo(COMPLETED_NO);?></button>
+            </div>
+
+        </dialog>
+
+
+        <!--DIALOG FOR ACTIVITY EDIT OR DELETE -->
+        <dialog id="activityEditDeleteDialog" class="mdl-dialog " style="z-index:9; width:fit-content; top: 60px">
+            <div class="mdl-dialog__content">
+                <span style="font-weight:bold; color: white"><?php echo(ACTIVIY_NAME);?>: </span>
+                <span id="ed_title" style="color: white"></span>
+                <div></div>
+                <span style="font-weight:bold; color: white"><?php echo(ACTIVIY_TYPE);?>: </span>
+                <span id="ed_type" style="color: white"></span>
+                <div></div>
+                <span style="font-weight:bold; color: white"><?php echo(ACTIVIY_START);?>: </span>
+                <span id="ed_start_date" style="color: white"></span>
+                <div></div>
+                <span style="font-weight:bold; color: white"><?php echo(ACTIVIY_END);?>: </span>
+                <span id="ed_end_date" style="color: white"></span>
+            </div>
+            <div class="mdl-dialog__actions">
+                <button id="dialogEdit" type="button" class="mdl-button" style="color: green"><?php echo(ACTIVIY_EDIT);?></button>
+                <button id="dialogDelete" type="button" class="mdl-button" style="color: red"><?php echo(ACTIVIY_DELETE);?></button>
+                <button id="dialogCancel" type="button" class="mdl-button" style="color: white"><?php echo(CANCEL_BUTTON);?></button>
             </div>
 
         </dialog>

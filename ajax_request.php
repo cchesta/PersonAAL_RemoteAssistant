@@ -94,6 +94,7 @@ define("SAVE_EVENT_LIST", "saveEventList");
 
 /*************  ACTIVITY ***************/
 define("ADD_ACTIVITY", 'addActivity');
+define("DELETE_ACTIVITY", 'deleteActivity');
 define('SET_ACTIVITY_DONE', 'setActivityDone');
 define ('GET_ACTIVITY', 'getActivity');
 define('GET_ACTIVITY_LAST_ACCESSS','getActivitiesFromLastAccess' );
@@ -324,8 +325,21 @@ define("GET_USER_DATA", "getUserData");
                                         
                 }
                 break;
-                
-                //function that updates if activity was completed 
+
+            //  function that deletes activity from db
+            case DELETE_ACTIVITY:
+                if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) )
+                    $aResult['error'] = 'Error in arguments!';
+                else
+                {
+
+                    $aResult['result']= Activity::deleteActivity($_SESSION['personAAL_user'], $_POST['arguments'][0]);
+
+
+                }
+                break;
+
+            //function that updates if activity was completed
             case SET_ACTIVITY_DONE:
                 if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) )
                    $aResult['error'] = 'Error in arguments!';

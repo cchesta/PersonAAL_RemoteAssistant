@@ -181,6 +181,13 @@ define("COMPLETED_TITLE", "Hast du diese Aktivität abgeschlossen?");
 define("COMPLETED_YES", "JA");
 define("COMPLETED_NO", "NEIN");
 
+define("ACTIVIY_NAME", "Name");
+define("ACTIVIY_TYPE", "Description");
+define("ACTIVIY_START", "Start");
+define("ACTIVIY_END", "End");
+define("ACTIVIY_DELETE", "Delete");
+define("ACTIVIY_EDIT", "Edit");
+
 
 //PROFILE PAGE
 define("PROFILE_PROFILECARD_TITLE", "Persönliche Angaben");

@@ -186,6 +186,13 @@ define("COMPLETED_TITLE", "Har du fullført denne aktiviteten?");
 define("COMPLETED_YES", "JA");
 define("COMPLETED_NO", "NEI");
 
+define("ACTIVIY_NAME", "Name");
+define("ACTIVIY_TYPE", "Description");
+define("ACTIVIY_START", "Start");
+define("ACTIVIY_END", "End");
+define("ACTIVIY_DELETE", "Delete");
+define("ACTIVIY_EDIT", "Edit");
+
 //NEW
 //invite a friend to join activity ("inviter en venn til å bli med på aktivitet")
 define("INVITE_FRIEND_BUTTON", "INVITER EN VENN");

@@ -196,12 +196,35 @@ function addActivity(title, start_date, end_date, all_day,done, type, intensity,
                           }
                     },
             error: function (ob, textstatus) {
-                console.log("error" + textstatus);
+                console.log("error " + textstatus);
                 console.log(ob);
             }
         });
 }
 
+function deleteActivity(activityId){
+    jQuery.ajax({
+        type: "POST",
+        url: 'ajax_request.php',
+        dataType: 'json',
+        data: {functionname: 'deleteActivity', arguments: [activityId]},
+
+        success: function (obj, textstatus) {
+            if( !('error' in obj) ) {
+                console.log("deleteActivity success");
+                callback(activity);
+            }
+            else {
+                console.log("error");
+                console.log(obj.error);
+            }
+        },
+        error: function (ob, textstatus) {
+            console.log("error " + textstatus);
+            console.log(ob);
+        }
+    });
+}
 
 
 function getActivity( callback){

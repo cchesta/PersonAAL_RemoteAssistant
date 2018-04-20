@@ -897,6 +897,30 @@ class Activity {
             return $last_id;
         }
     }
+
+    public function deleteActivity($userID, $activityID) {
+        // Create connection
+        $conn = new mysqli(DB_SERVER_NAME, DB_USERNAME, DB_PASSWORD, DB_NAME);
+        // Check connection
+        if ($conn->connect_error)
+        {
+            //     echo("Connection failed: " . $conn->connect_error);
+            $conn->close();
+            return false;
+        }
+
+        $sql = "DELETE FROM activity WHERE userid='" . $userID . "' AND activityId=" . $activityID;
+        echo($sql);
+        $result = $conn->query($sql);
+        $conn->close();
+        if(!$result)
+        {
+            echo('There was an error running the query [' . $conn->error . ']');
+            return false;
+        }
+        return $activityID;
+    }
+
     public function getActivity($user){
         // Create connection
         $conn = new mysqli(DB_SERVER_NAME, DB_USERNAME, DB_PASSWORD, DB_NAME);
