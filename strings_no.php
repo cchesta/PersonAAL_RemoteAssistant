@@ -176,6 +176,7 @@ define("STEPPER_STEP3_SOCIALTYPERESTAURANT", "Restaurantbesøk");
 define("STEPPER_STEP3_SOCIALTYPEPUB", "Pub");
 define("STEPPER_STEP3_SOCIALTYPERELIGIOUS", "Religiøs aktivitet");
 define("STEPPER_STEP3_SOCIALTYPEOTHER", "Annen");
+define("STEPPER_STEP3_SOCIALTYPEOTHERNAME", "Skriv inn aktivitetsnavnet");
 define("STEPPER_CONTINUE", "Fortsett");
 define("STEPPER_BACK", "TILBAKE");
 define("STEPPER_SUBMIT", "Send inn");

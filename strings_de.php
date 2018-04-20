@@ -171,6 +171,7 @@ define("STEPPER_STEP3_SOCIALTYPERESTAURANT", "Restaurant");
 define("STEPPER_STEP3_SOCIALTYPEPUB", "Kneipe");
 define("STEPPER_STEP3_SOCIALTYPERELIGIOUS", "Religiös");
 define("STEPPER_STEP3_SOCIALTYPEOTHER", "Andere");
+define("STEPPER_STEP3_SOCIALTYPEOTHERNAME", "Geben Sie den Namen der Aktivität ein");
 define("STEPPER_CONTINUE", "FORTSETZEN");
 define("STEPPER_BACK", "ZURÜCK");
 define("STEPPER_SUBMIT", "Einreichen");

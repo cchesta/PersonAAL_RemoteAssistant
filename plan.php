@@ -536,7 +536,9 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                             break;
                         case "Social":
                             activityIntensity = $("[name = socialIntensity]").filter(':checked').val();
-
+                            if (activityIntensity == "Other") {
+                                activityIntensity = document.getElementById('other_social_activity').value;
+                            }
                             break;
                     }
 
@@ -991,7 +993,14 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
 
             }
 
-
+            function showOtherTypeSocialInput() {
+                if (document.getElementById('radio9').checked) {
+                    document.getElementById('other_social_activity_group').style.display = 'block';
+                }
+                else {
+                    document.getElementById('other_social_activity_group').style.display = 'none';
+                }
+            }
 
 
 
@@ -1342,60 +1351,65 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                                             <label class="mdl-layout-title"><?php echo(STEPPER_STEP3_SOCIALTYPE);?></label>
                                             <div class="radio">
                                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                                    <input id="radio1" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Receive Guests">
+                                                    <input id="radio1" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Receive Guests" onclick="showOtherTypeSocialInput()">
                                                     <span class="mdl-radio__label"><?php echo(STEPPER_STEP3_SOCIALTYPERECEIVE);?></span>
                                                 </label>
                                             </div>
                                             <div class="radio">
                                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                                    <input id="radio1" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Call Someone">
+                                                    <input id="radio2" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Call Someone" onclick="showOtherTypeSocialInput()">
                                                     <span class="mdl-radio__label"><?php echo(STEPPER_STEP3_SOCIALTYPECALL);?></span>
                                                 </label>
                                             </div>
                                             <div class="radio">
                                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                                    <input id="radio1" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Visit Someone">
+                                                    <input id="radio3" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Visit Someone" onclick="showOtherTypeSocialInput()">
                                                     <span class="mdl-radio__label"><?php echo(STEPPER_STEP3_SOCIALTYPEVISIT);?></span>
                                                 </label>
                                             </div>
 
                                             <div class="radio">
                                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                                    <input id="radio1" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Cinema">
+                                                    <input id="radio4" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Cinema" onclick="showOtherTypeSocialInput()">
                                                     <span class="mdl-radio__label"><?php echo(STEPPER_STEP3_SOCIALTYPECINEMA);?></span>
                                                 </label>
                                             </div>
                                             <div class="radio">
                                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                                    <input id="radio1" name="socialIntensity" type="radio" class = "mdl-radio__button">
+                                                    <input id="radio5" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Theatre" onclick="showOtherTypeSocialInput()">
                                                     <span class="mdl-radio__label"><?php echo(STEPPER_STEP3_SOCIALTYPETHEATRE);?></span>
                                                 </label>
                                             </div>
                                             <div class="radio">
                                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                                    <input id="radio1" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Restaurant">
+                                                    <input id="radio6" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Restaurant" onclick="showOtherTypeSocialInput()">
                                                     <span class="mdl-radio__label"><?php echo(STEPPER_STEP3_SOCIALTYPERESTAURANT);?></span>
                                                 </label>
                                             </div>
                                             <div class="radio">
                                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                                    <input id="radio1" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Pub">
+                                                    <input id="radio7" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Pub" onclick="showOtherTypeSocialInput()">
                                                     <span class="mdl-radio__label"><?php echo(STEPPER_STEP3_SOCIALTYPEPUB);?></span>
                                                 </label>
                                             </div>
 
                                             <div class="radio">
                                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                                    <input id="radio1" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Religious">
+                                                    <input id="radio8" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Religious" onclick="showOtherTypeSocialInput()">
                                                     <span class="mdl-radio__label"><?php echo(STEPPER_STEP3_SOCIALTYPERELIGIOUS);?></span>
                                                 </label>
                                             </div>
 
                                             <div class="radio">
                                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                                    <input id="radio1" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Other">
+                                                    <input id="radio9" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Other" onclick="showOtherTypeSocialInput()">
                                                     <span class="mdl-radio__label"><?php echo(STEPPER_STEP3_SOCIALTYPEOTHER);?></span>
                                                 </label>
+                                            </div>
+
+                                            <div class="mdl-textfield mdl-js-textfield" id="other_social_activity_group" style="display: none;">
+                                                <input class="mdl-textfield__input" type="text" id="other_social_activity">
+                                                <label class="mdl-textfield__label" for="other_social_activity"><?php echo(STEPPER_STEP3_SOCIALTYPEOTHERNAME); ?></label>
                                             </div>
 
                                         </div>
