@@ -460,7 +460,8 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                     };
                     sArrRemoveIds.push(oRemove);
                     calendar.removeEvents(sArrRemoveIds);
-                    calendar.refreshView();
+                    getActivity(addActivitiesToCalendar);
+                    // calendar.refreshView();
                     activityEditDeleteCard.close();
                 };
 
@@ -600,7 +601,12 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                     switch (activityEdit.tag) {
                         case 'Walk':
                             document.getElementById('aWalk').parentNode.MaterialRadio.check();
-                            document.getElementById('slide_as').value = activityEdit.description;
+                            var dStartDateTime = parseDateInFormat(allDay, $("#aStart").val());
+                            dEndDateTime = parseDateInFormat(allDay, $("#aEnd").val());
+                            var dif = dEndDateTime.getTime() - dStartDateTime.getTime();
+                            var result = Math.round(dif/60000);
+                            document.getElementById('slide_as').max = 100 * (result);
+                            document.getElementById('slide_as').MaterialSlider.change(Number(activityEdit.description));
                             document.getElementById('inp_text_as').value = activityEdit.description;
                             document.getElementById('inp_text_as').parentElement.classList.add('is-dirty');
                             break;
@@ -696,20 +702,14 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                     // Call the DB insert function here and receive the id of the inserted activity, which is used in the activity string sent to the calendar
                     if (activityEdit) {
                         updateActivity(activityTitle, startDate, endDate, (allDay ? 1 : 0), 0, activityType, activityIntensity, activityEdit.id);
-                        var oEvent = {
-                            "isAllDay": allDay, // Optional
-                            "start": (allDay? startDate +  ' 00:00': startDate),
-                            "end": (allDay? endDate + ' 00:00': endDate),
-                            "tag": activityType,
-                            "title": activityTitle,
-                            "description": activityIntensity
+                        var sArrRemoveIds = new Array();
+                        var oRemove = {
+                            removeIds : activityEdit.calEventId
                         };
-                        var oEventToReplace = {
-                            replaceId : activityEdit.calEventId,
-                            event : [oEvent]
-                        }
-                        calendar.replaceEvents([oEventToReplace]);
-                        calendar.refreshView();
+                        sArrRemoveIds.push(oRemove);
+                        calendar.removeEvents(sArrRemoveIds);
+                        getActivity(addActivitiesToCalendar);
+                        ClearDialogFields();
                     }
                     else {
                         addActivity(activityTitle, startDate, endDate, (allDay ? 1 : 0), 0, activityType, activityIntensity, addActivityToCalendar);
@@ -827,7 +827,10 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                             var result = Math.round(dif/60000);
                             
                             document.getElementById('slide_as').max = 100 * (result);
-                            document.getElementById('slide_as').MaterialSlider.change(0);
+                            if (!activityEdit)
+                                document.getElementById('slide_as').MaterialSlider.change(0);
+                            else
+                                document.getElementById('slide_as').MaterialSlider.change(Number(activityEdit.description));
                             //$("#slide_as").max= 100* (difMins);
                             $('#advancedexercise').hide();
                             $('#advancedsteps').show();
@@ -957,13 +960,24 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                 .on('submit', (val) => {
                     var sDateTest = parseDateInFormat(bIsAllDay, val.format("DD-MM-YYYY HH:mm"));
                     var eDateTest = parseDateInFormat(bIsAllDay, $("#aEnd").val());
-                    if(calendar.compareDateTimes(sDateTest, eDateTest)  <= 0){
-                    input1.value = val.format("DD-MM-YYYY HH:mm");
-                    startDate = val.format("DD-MM-YYYY HH:mm");
+                    if (calendar.compareDateTimes(sDateTest, eDateTest)  <= 0) {
+                        input1.value = val.format("DD-MM-YYYY HH:mm");
+                        startDate = val.format("DD-MM-YYYY HH:mm");
                         document.getElementById('aStart').parentElement.classList.remove('is-invalid');
-                    }
-                    else{
-                        document.getElementById('aStart').parentElement.className+=' is-invalid';
+                    } else {
+                        if (activityEdit) {
+                            input1.value = val.format("DD-MM-YYYY HH:mm");
+                            startDate = val.format("DD-MM-YYYY HH:mm");
+                            var duration = activityEdit.end - activityEdit.start;
+                            var eTemp = parseDateInFormat(bIsAllDay, val.format("DD-MM-YYYY HH:mm"));
+                            var tempDate = new Date(eTemp);
+                            tempDate.setTime(tempDate.getTime() + duration);
+                            endDate = calendar.getDateInFormat({"date": tempDate}, "dd-MM-yyyy HH:mm", calendar.setting.is24Hour, false);
+                            var input2 = document.querySelector('#aEnd');
+                            input2.value = endDate;
+                        } else {
+                            document.getElementById('aStart').parentElement.className += ' is-invalid';
+                        }
                     }
                 })
                 .on('close', () => dialog.showModal());
@@ -990,9 +1004,9 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                 .on('submit', (val) => {
                     var sDateTest = parseDateInFormat(bIsAllDay, $("#aStart").val());
                     var eDateTest = parseDateInFormat(bIsAllDay, val.format("DD-MM-YYYY HH:mm"));
-                    if(calendar.compareDateTimes(sDateTest, eDateTest)  <= 0){
-                    input2.value = val.format("DD-MM-YYYY HH:mm");
-                    endDate = val.format("DD-MM-YYYY HH:mm");
+                    if (calendar.compareDateTimes(sDateTest, eDateTest)  <= 0) {
+                        input2.value = val.format("DD-MM-YYYY HH:mm");
+                        endDate = val.format("DD-MM-YYYY HH:mm");
                         document.getElementById('aStart').parentElement.classList.remove('is-invalid');
                     }
                     else{
@@ -1520,7 +1534,7 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                                             <div class="card-choice-group">
 
                                                 <input class="mdl-slider mdl-js-slider" type="range"
-                                                       min="0" max="300" tabindex="0" id = "slide_as" step="100">
+                                                       min="0" max="3000" tabindex="0" id = "slide_as" step="100">
                                                 <form action="">
                                                     <div class="mdl-textfield mdl-js-textfield" id="text_as">
                                                         <input class="mdl-textfield__input" type="text" id="inp_text_as" >
@@ -1632,13 +1646,13 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
             <div class="mdl-dialog__content">
 
 
-                <span style="font-weight:bold; color: white"><?php echo(ACTIVIY_NAME);?>: </span>
+                <span style="font-weight:bold; color: white"><?php echo(ACTIVITY_NAME);?>: </span>
                 <span id="ac_title" style="color: white"></span>
                 <div></div>
-                <span style="font-weight:bold; color: white"><?php echo(ACTIVIY_TYPE);?>: </span>
+                <span style="font-weight:bold; color: white"><?php echo(ACTIVITY_TYPE);?>: </span>
                 <span id="ac_type" style="color: white"></span>
                 <div></div>
-                <span style="font-weight:bold; color: white"><?php echo(ACTIVIY_START);?>: </span>
+                <span style="font-weight:bold; color: white"><?php echo(ACTIVITY_START);?>: </span>
                 <span id="ac_start_date" style="color: white"></span>
 
 
