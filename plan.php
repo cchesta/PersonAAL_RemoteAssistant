@@ -1474,7 +1474,13 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                                             <div class="radio">
                                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
                                                     <input id="radioe1" name="exerciseintensity" type="radio" class = "mdl-radio__button" value="High">
-                                                    <span class="mdl-radio__label"><?php echo(STEPPER_STEP3_EXERCISEINTENSITYHIGH);?></span>
+                                                    <span class="mdl-radio__label">
+                                                        <?php echo(STEPPER_STEP3_EXERCISEINTENSITYHIGH);?>
+                                                        <div id="exercise_high" class="icon material-icons">feedback</div>
+                                                        <div class="mdl-tooltip" for="exercise_high" style="font-size: small">
+                                                            <?php echo(STEPPER_STEP3_EXERCISEINTENSITYHIGH_INFO);?>
+                                                        </div>
+                                                    </span>
                                                 </label>
                                             </div>
 
@@ -1482,14 +1488,26 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                                             <div class="radio">
                                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
                                                     <input id="radioe2" name="exerciseintensity" type="radio" class = "mdl-radio__button" value="Moderate">
-                                                    <span class="mdl-radio__label"><?php echo(STEPPER_STEP3_EXERCISEINTENSITYMODERATE);?></span>
+                                                    <span class="mdl-radio__label">
+                                                        <?php echo(STEPPER_STEP3_EXERCISEINTENSITYMODERATE);?>
+                                                        <div id="exercise_moderate" class="icon material-icons">feedback</div>
+                                                        <div class="mdl-tooltip" for="exercise_moderate" style="font-size: small">
+                                                            <?php echo(STEPPER_STEP3_EXERCISEINTENSITYMODERATE_INFO);?>
+                                                        </div>
+                                                    </span>
                                                 </label>
                                             </div>
 
                                             <div class="radio">
                                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
                                                     <input id="radioe3" name="exerciseintensity" type="radio" class = "mdl-radio__button" value="Low">
-                                                    <span class="mdl-radio__label"><?php echo(STEPPER_STEP3_EXERCISEINTENSITYLOW);?></span>
+                                                    <span class="mdl-radio__label">
+                                                        <?php echo(STEPPER_STEP3_EXERCISEINTENSITYLOW);?>
+                                                        <div id="exercise_low" class="icon material-icons">feedback</div>
+                                                        <div class="mdl-tooltip" for="exercise_low" style="font-size: small">
+                                                            <?php echo(STEPPER_STEP3_EXERCISEINTENSITYLOW_INFO);?>
+                                                        </div>
+                                                    </span>
                                                 </label>
                                             </div>
 
