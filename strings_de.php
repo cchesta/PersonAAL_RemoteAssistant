@@ -181,12 +181,12 @@ define("COMPLETED_TITLE", "Hast du diese Aktivität abgeschlossen?");
 define("COMPLETED_YES", "JA");
 define("COMPLETED_NO", "NEIN");
 
-define("ACTIVIY_NAME", "Name");
-define("ACTIVIY_TYPE", "Beschreibung");
-define("ACTIVIY_START", "Anfang");
-define("ACTIVIY_END", "Ende");
-define("ACTIVIY_DELETE", "Löschen");
-define("ACTIVIY_EDIT", "Bearbeiten");
+define("ACTIVITY_NAME", "Name");
+define("ACTIVITY_TYPE", "Beschreibung");
+define("ACTIVITY_START", "Anfang");
+define("ACTIVITY_END", "Ende");
+define("ACTIVITY_DELETE", "Löschen");
+define("ACTIVITY_EDIT", "Bearbeiten");
 
 
 //PROFILE PAGE

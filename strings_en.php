@@ -190,12 +190,12 @@ define("COMPLETED_TITLE", "Did you complete this activity?");
 define("COMPLETED_YES", "YES");
 define("COMPLETED_NO", "NO");
 
-define("ACTIVIY_NAME", "Name");
-define("ACTIVIY_TYPE", "Description");
-define("ACTIVIY_START", "Start");
-define("ACTIVIY_END", "End");
-define("ACTIVIY_DELETE", "Delete");
-define("ACTIVIY_EDIT", "Edit");
+define("ACTIVITY_NAME", "Name");
+define("ACTIVITY_TYPE", "Description");
+define("ACTIVITY_START", "Start");
+define("ACTIVITY_END", "End");
+define("ACTIVITY_DELETE", "Delete");
+define("ACTIVITY_EDIT", "Edit");
 
 //NEW
 //invite a friend to join activity

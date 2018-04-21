@@ -654,6 +654,12 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                             }
                             break;
                     };
+                    $('#step2Button').removeAttr('disabled');
+                    $('#dialogSubmit').removeAttr('disabled');
+                    var element = document.querySelector('.mdl-stepper');
+                    if (!element) return false;
+                    var stepper = element.MaterialStepper;
+                    stepper.goto(1);
                 }
             }
             
@@ -1630,21 +1636,21 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
         <!--DIALOG FOR ACTIVITY EDIT OR DELETE -->
         <dialog id="activityEditDeleteDialog" class="mdl-dialog " style="z-index:9; width:fit-content; top: 60px">
             <div class="mdl-dialog__content">
-                <span style="font-weight:bold; color: white"><?php echo(ACTIVIY_NAME);?>: </span>
+                <span style="font-weight:bold; color: white"><?php echo(ACTIVITY_NAME);?>: </span>
                 <span id="ed_title" style="color: white"></span>
                 <div></div>
-                <span style="font-weight:bold; color: white"><?php echo(ACTIVIY_TYPE);?>: </span>
+                <span style="font-weight:bold; color: white"><?php echo(ACTIVITY_TYPE);?>: </span>
                 <span id="ed_type" style="color: white"></span>
                 <div></div>
-                <span style="font-weight:bold; color: white"><?php echo(ACTIVIY_START);?>: </span>
+                <span style="font-weight:bold; color: white"><?php echo(ACTIVITY_START);?>: </span>
                 <span id="ed_start_date" style="color: white"></span>
                 <div></div>
-                <span style="font-weight:bold; color: white"><?php echo(ACTIVIY_END);?>: </span>
+                <span style="font-weight:bold; color: white"><?php echo(ACTIVITY_END);?>: </span>
                 <span id="ed_end_date" style="color: white"></span>
             </div>
             <div class="mdl-dialog__actions">
-                <button id="dialogEdit" type="button" class="mdl-button" style="color: green"><?php echo(ACTIVIY_EDIT);?></button>
-                <button id="dialogDelete" type="button" class="mdl-button" style="color: red"><?php echo(ACTIVIY_DELETE);?></button>
+                <button id="dialogEdit" type="button" class="mdl-button" style="color: white; background-color: green"><?php echo(ACTIVITY_EDIT);?></button>
+                <button id="dialogDelete" type="button" class="mdl-button" style="color: white; background-color: red"><?php echo(ACTIVITY_DELETE);?></button>
                 <button id="dialogCancel" type="button" class="mdl-button" style="color: white"><?php echo(CANCEL_BUTTON);?></button>
             </div>
 
