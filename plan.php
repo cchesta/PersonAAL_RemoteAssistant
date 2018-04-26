@@ -1247,7 +1247,7 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                                                min="0" max="28" tabindex="0" id = "slide_01">
                                         <form action="">
                                             <div class="mdl-textfield mdl-js-textfield" id="text_01">
-                                                <input class="mdl-textfield__input" type="text" id="inp_text_01" >
+                                                <input class="mdl-textfield__input" type="number" id="inp_text_01" >
                                             </div>
                                         </form>
                                     </div>
@@ -1258,7 +1258,7 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                                                min="0" max="28" tabindex="0" id = "slide_02">
                                         <form action="">
                                             <div class="mdl-textfield mdl-js-textfield" id="text_02">
-                                                <input class="mdl-textfield__input" type="text" id="inp_text_02" >
+                                                <input class="mdl-textfield__input" type="number" id="inp_text_02" >
                                             </div>
                                         </form>
                                     </div>
@@ -1271,7 +1271,7 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                                                min="0" max="42" tabindex="0" id = "slide_03">
                                         <form action="">
                                             <div class="mdl-textfield mdl-js-textfield" id="text_03">
-                                                <input class="mdl-textfield__input" type="text" id="inp_text_03" >
+                                                <input class="mdl-textfield__input" type="number" id="inp_text_03" >
                                             </div>
                                         </form>
 
