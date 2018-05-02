@@ -238,6 +238,16 @@ include 'DButils.php';
 		foregroundColor: '#FFFFFF'
 	    });
 
+            getMedicationPlanned();
+            getHomeTemperature();
+            getHomeHumidity();
+            getMotion();
+
+            setInterval(getMedicationPlanned, 60000);
+            setInterval(getHomeTemperature, 60000);
+            setInterval(getHomeHumidity, 60000);
+            setInterval(getMotion, 60000);
+
             } );
         
         
