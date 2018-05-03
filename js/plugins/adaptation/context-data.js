@@ -37,16 +37,13 @@ window.onload = function() {
         break;
     }
 
-    
-
 //    setInterval(getDailySteps, 60000);
-    setInterval(getMedicationPlanned, 60000);
+//    setInterval(getMedicationPlanned, 60000);
 //   setInterval(getMedicationOccurred, 5000);
-    setInterval(getTime, 60000);
-    setInterval(getHomeTemperature, 60000);
-    setInterval(getHomeHumidity, 60000);
-    setInterval(getMotion, 60000);
-       
+//    setInterval(getTime, 60000);
+//    setInterval(getHomeTemperature, 60000);
+//    setInterval(getHomeHumidity, 60000);
+//    setInterval(getMotion, 60000);      
 };
 
 function getHomeTemperature()
@@ -84,7 +81,7 @@ function getHomeHumidity()
 
         success: function (response) {
             console.log("Home humidity: ", response);
-            $("#homehumidityvalue").html(response.value + '%');
+            $("#homehumidityvalue").html(response.value);
         },
         error: function ()
         {
