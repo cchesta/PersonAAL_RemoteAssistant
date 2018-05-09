@@ -466,25 +466,51 @@ function getHeightData(callback) {
     });
 }
 
-//function getRespirationRate() {	
-//    console.log("getRespirationRate");
+
+//function getRespirationRate() {
+//
 //    $.ajax({
 //        type: "GET",
 //        headers: {
 //            'Accept': 'application/json',
 //            'Content-Type': 'application/json'
 //        },
+//
 //        url: encodeURI ( contextUrl + "cm/rest/user/" + token + "/respirationRate/"),
 //        dataType: 'json',
-//        
-//        success: function (response) {            
+//
+//        success: function (response) {
 //            console.log("Context response Respiration Rate", response);
-//            $("#respiration_rate").html(response.value + " rpm");
-//            $respirationRate=response.value;
+//            respirationRate = response.value;
+//            document.getElementById("respiration_rate_box").innerHTML = respirationRate + breathMsg;
+//            if (capture)
+//                drawRRChart();
 //        },
-//        error: function ()
-//        {
+//        error: function () {
 //            console.log("Error while getting respiration rate data");
+//        }
+//    });
+//}
+//
+//function getHeartRate() {
+//    $.ajax({
+//        type: "GET",
+//        headers: {
+//            'Accept': 'application/json',
+//            'Content-Type': 'application/json'
+//        },
+//        url: encodeURI ( contextUrl + "cm/rest/user/" + token + "/heartRate/"),
+//        dataType: 'json',
+//
+//        success: function (response) {
+//            console.log("Context response Heart Rate", response);
+//            heartRate = response.value;
+//            document.getElementById("ecg_hr_box").innerHTML = heartRate + " bpm";
+//            if (capture)
+//                drawHRChart();
+//        },
+//        error: function () {
+//            console.log("Error while getting heart rate data");
 //        }
 //    });
 //}
@@ -498,12 +524,12 @@ function getRespirationRate() {
             'Content-Type': 'application/json'
         },
 
-        url: encodeURI ( contextUrl + "cm/rest/user/" + token + "/respirationRate/"),
+        url: encodeURI ( contextUrl + "cm/rest/user/" + token + "/physiological/"),
         dataType: 'json',
 
         success: function (response) {
             console.log("Context response Respiration Rate", response);
-            respirationRate = response.value;
+            respirationRate = response.respirationRate;
             document.getElementById("respiration_rate_box").innerHTML = respirationRate + breathMsg;
             if (capture)
                 drawRRChart();
@@ -521,12 +547,12 @@ function getHeartRate() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: encodeURI ( contextUrl + "cm/rest/user/" + token + "/heartRate/"),
+        url: encodeURI ( contextUrl + "cm/rest/user/" + token + "/physiological/"),
         dataType: 'json',
 
         success: function (response) {
             console.log("Context response Heart Rate", response);
-            heartRate = response.value;
+            heartRate = response.heartRate;
             document.getElementById("ecg_hr_box").innerHTML = heartRate + " bpm";
             if (capture)
                 drawHRChart();
