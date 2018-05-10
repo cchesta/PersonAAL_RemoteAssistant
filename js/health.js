@@ -515,6 +515,28 @@ function getHeightData(callback) {
 //    });
 //}
 
+//function getBodyTemperature() {
+//    $.ajax({
+//        type: "GET",
+//        headers: {
+//            'Accept': 'application/json',
+//            'Content-Type': 'application/json'
+//        },
+//        url: encodeURI ( contextUrl + "cm/rest/user/" + token + "/bodyTemperature/"),
+//        dataType: 'json',
+//
+//        success: function (response) {
+//            console.log("Context response Body Temperature", response);
+//            bodyTemperature = response.value;
+//            document.getElementById("body_temperature_box").innerHTML = bodyTemperature + " ºC";
+//        },
+//        error: function () {
+//
+//        console.log("Error while getting body temperature data");
+//        }
+//    });
+//}
+
 function getRespirationRate() {
 
     $.ajax({
@@ -570,12 +592,12 @@ function getBodyTemperature() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: encodeURI ( contextUrl + "cm/rest/user/" + token + "/bodyTemperature/"),
+        url: encodeURI ( contextUrl + "cm/rest/user/" + token + "/physiological/"),
         dataType: 'json',
 
         success: function (response) {
             console.log("Context response Body Temperature", response);
-            bodyTemperature = response.value;
+            bodyTemperature = response.temperature;
             document.getElementById("body_temperature_box").innerHTML = bodyTemperature + " ºC";
         },
         error: function () {
