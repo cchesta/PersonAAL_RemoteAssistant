@@ -1,0 +1,22 @@
+# Turn rewrite engine on
+Options +FollowSymlinks
+RewriteEngine on
+
+# map neat URL to internal URL
+RewriteRule ^mobile/list/$   http://localhost/rest/RestController.php?view=all [nc,qsa]
+RewriteRule ^mobile/list/([0-9]+)/$  http://localhost/rest/RestController.php?view=single&id=$1 [nc,qsa]
+
+
+
+RewriteRule ^user/([a-z,A-Z,0-9,\\|]+)/PlannedActivity/$ http://localhost/rest/RestController.php?view=all&user=$1
+                                
+RewriteRule ^user/([a-z,A-Z,0-9,\\|]+)/PlannedActivity/history/getNNextValues/([0-9]+)$ http://localhost/rest/RestController.php?view=nNextValues&user=$1&n=$2
+
+RewriteRule ^user/([a-z,A-Z,0-9,\\|]+)/PlannedActivity/history/getNLastValues/([0-9]+)$ http://localhost/rest/RestController.php?view=nLastValues&user=$1&n=$2
+
+RewriteRule ^user/([a-z,A-Z,0-9,\\|]+)/PlannedActivity/history/getValuesOnDate/((\d{4})-(\d{2})-(\d{2}))$ http://localhost/rest/RestController.php?view=valuesOnDate&user=$1&date=$2
+
+RewriteRule ^user/([a-z,A-Z,0-9,\\|]+)/PlannedActivity/history/getValuesFromDateToNow/((\d{4})-(\d{2})-(\d{2}))$ http://localhost/rest/RestController.php?view=valuesFromDateToNow&user=$1&date=$2
+
+RewriteRule ^user/([a-z,A-Z,0-9,\\|]+)/PlannedActivity/history/getValuesBetweenDates/date1/((\d{4})-(\d{2})-(\d{2}))/date2/((\d{4})-(\d{2})-(\d{2}))$ http://localhost/rest/RestController.php?view=valuesBetweenDates&user=$1&date1=$2&date2=$6
+
