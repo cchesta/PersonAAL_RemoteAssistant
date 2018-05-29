@@ -229,6 +229,27 @@ function sendStepGoalToContext(val) {
     });
 }
 
+function getWeight() {
+
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+      
+        url: encodeURI(contextUrl + "cm/rest/user/" + userId + "/weight/"),
+        dataType: 'json',
+
+        success: function (response) {
+            $("#weight").html(response.value);
+        },
+        error: function () {
+            console.log("Error while getting weight data");
+
+        }
+    });
+}
 
 
 //NEW

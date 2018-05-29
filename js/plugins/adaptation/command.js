@@ -61,7 +61,7 @@ window.onload = function() {
             errorLightMsg = 'Error while setting lights';
         break;
     }
- }  
+ };  
 
 
 function discoverBridge()
@@ -255,7 +255,7 @@ function getLightState() {
 			//url: "http://146.48.85.37/api/MvRgdGPhMJzPQtdyK3sOaOfrDnT8NxZNNihddg6A/",
                         url: "http://"+ipHueBridge+"/api/"+hueUsername+"/",
 			success: function (response) { 
-//                                $("#res").html("Light1" + JSON.stringify(response.lights["1"].state) + " Light2" + JSON.stringify(response.lights["2"].state) + " Light3" + JSON.stringify(response.lights["3"].state));
+                                $("#res").html("Light1" + JSON.stringify(response.lights["1"].state) + " Light2" + JSON.stringify(response.lights["2"].state) + " Light3" + JSON.stringify(response.lights["3"].state));
 				if(response.lights["1"] !== undefined && response.lights["1"].state.reachable) {
                                     document.getElementById("status1").style="width:auto; height:auto; border:2px solid blue; padding:10px; margin:10px; visibility:visible";
                                     document.getElementById("color").style="width:auto; height:auto; border:2px solid blue; padding:10px; margin:10px; visibility:visible";

@@ -53,9 +53,8 @@ var contextUrl = "https://giove.isti.cnr.it:8443/";
 var appName = "personAAL";
 
 var capture;
-window.onload = init;
 
-function init() {
+window.onload = function(){
 
     //internationalization
     var userLang = getUserLanguage();
@@ -86,9 +85,11 @@ function init() {
     snackbar = document.getElementById("snackbar-log");
 
     getWeightData(drawWeightChart);
-    getRespirationRate();
-    getHeartRate();
-    getBodyTemperature();
+    
+    setInterval(getRespirationRate,5000);
+    setInterval(getHeartRate,5000);
+    setInterval(getBodyTemperature,5000);
+    
     
 /*
     //velocity animation

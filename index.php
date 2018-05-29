@@ -242,11 +242,14 @@ include 'DButils.php';
             getHomeTemperature();
             getHomeHumidity();
             getMotion();
+            getWeight();
 
-            setInterval(getMedicationPlanned, 60000);
-            setInterval(getHomeTemperature, 60000);
-            setInterval(getHomeHumidity, 60000);
-            setInterval(getMotion, 60000);
+            setInterval(getMedicationPlanned, 5000);
+            setInterval(getHomeTemperature, 5000);
+            setInterval(getHomeHumidity, 5000);
+            setInterval(getMotion, 5000);
+            setInterval(getWeight, 5000);
+            setInterval(getTime, 5000);
 
             } );
         
@@ -432,7 +435,7 @@ include 'DButils.php';
                                     <h2 class="mdl-card__title-text"><?php echo(WEIGHT_CARD_TITLE);?></h2>
                                 </div>
                                 <div class="mdl-card__actions mdl-card--border">
-                                    <?php echo($surveyinfo->getWeight()). ' kg ';?>
+                                    <span id="weight"></span>
                                 </div>
                             </div>
                             <div  class="bmi-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
