@@ -202,6 +202,13 @@ and open the template in the editor.
                             <div id="body_temperature_box" class="mdl-card__actions mdl-card--border"></div>
                         </div>
                         
+                        <div id="p_value_box" class="position-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue" style="height:228px;">
+                            <div class="mdl-card__title">
+                                <h2 class="mdl-card__title-text"><?php echo(POSITION_CARD_TITLE);?></h2>
+                            </div>
+                            <div id="position_box" class="mdl-card__actions mdl-card--border"></div>
+                        </div>
+                        
                         <div id="hr_plot_chart" class="plot-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet grey no-stretch" style="display:none">
                             <div class="mdl-card__supporting-text mdl-card--expand">
                                 <div id="plot-HR" class="center" style="width:100%;height:350px;"></div>

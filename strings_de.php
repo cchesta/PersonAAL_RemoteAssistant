@@ -83,6 +83,7 @@ define("HOMETEMPERATURE_CARD_TITLE", "Haustemperatur");
 define("HOMEHUMIDITY_CARD_TITLE", "Luftfeuchtigkeit in der Wohnung");
 define("MOTION_CARD_TITLE", "Bewegung");
 define("TEMPERATURE_CARD_TITLE", "Körpertemperatur");
+define("POSITION_CARD_TITLE", "Position");
 define("WEATHER_CARD_TITLE", "Wettervorhersage"); 
 define("MESSAGE_CARD_TITLE", "Nachricht");
 define("MEDICATION_CARD_TITLE", "Medikationstagebuch"); 

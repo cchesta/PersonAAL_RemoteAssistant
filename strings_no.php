@@ -88,6 +88,7 @@ define("HOMETEMPERATURE_CARD_TITLE", "Hjemmetemperatur");
 define("HOMEHUMIDITY_CARD_TITLE", "Luftfuktighet hjemme");
 define("MOTION_CARD_TITLE", "Bevegelse");
 define("TEMPERATURE_CARD_TITLE", "Kroppstemperatur");
+define("POSITION_CARD_TITLE", "Posisjon");
 define("WEATHER_CARD_TITLE", "Værmelding"); 
 define("MESSAGE_CARD_TITLE", "Meldinger til deg");
 define("MEDICATION_CARD_TITLE", "Medisinoversikt"); 

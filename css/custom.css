@@ -511,6 +511,30 @@ and open the template in the editor.
     background: rgba(0, 0, 0, 0.4);
  } 
  
+  /*position info card*/
+
+.position-info-card .mdl-card__supporting-text {
+    color: rgba(0,0,0, 0.7);
+    font-size: 17px;
+}
+  
+.position-info-card > .mdl-card__title {
+    height: 176px;
+    color: #fff;
+    background: url('../img/map.jpg') center / cover;
+}
+
+.position-info-card .mdl-card__actions {
+    
+    min-height: 52px;
+    padding: 16px;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    color: #fff;
+    box-sizing: border-box;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.4);
+ } 
+ 
  /*medication info card*/
 
 .medication-info-card .mdl-card__supporting-text {

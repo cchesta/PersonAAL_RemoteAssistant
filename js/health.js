@@ -89,6 +89,7 @@ window.onload = function(){
     setInterval(getRespirationRate,5000);
     setInterval(getHeartRate,5000);
     setInterval(getBodyTemperature,5000);
+    setInterval(getPosition,5000);
     
     
 /*
@@ -112,6 +113,7 @@ function manageCapture() {
         document.getElementById("hr_value_box").style.display = 'none';
         document.getElementById("rr_value_box").style.display = 'none';
         document.getElementById("bt_value_box").style.display = 'none';
+        document.getElementById("p_value_box").style.display = 'none';
         rrTimer = setInterval(getRespirationRate, 5000);
         hrTimer = setInterval(getHeartRate, 5000);
         //setInterval(getTime, 60000);    
@@ -125,6 +127,7 @@ function manageCapture() {
         document.getElementById("hr_value_box").style.display = 'block';
         document.getElementById("rr_value_box").style.display = 'block';
         document.getElementById("bt_value_box").style.display = 'block';
+        document.getElementById("p_value_box").style.display = 'block';
         clearInterval(rrTimer);
         clearInterval(hrTimer);
         document.getElementById("captureControl").innerHTML = "play_arrow";
@@ -604,6 +607,55 @@ function getBodyTemperature() {
         error: function () {
 
         console.log("Error while getting body temperature data");
+        }
+    });
+}
+
+function getPosition() {
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        url: encodeURI ( contextUrl + "cm/rest/user/" + token + "/physiological/"),
+        dataType: 'json',
+
+        success: function (response) {
+            console.log("Context response Position", response);
+            positionArray = response.positionArray;
+            positionNumber = positionArray.position;
+            switch(positionNumber)
+            {
+                case '0':
+                position= 'standing';
+                break;
+                
+                case '1':
+                position= 'supine';
+                break;
+                
+                case '2':
+                position= 'prone';
+                break;
+                
+                case '3':
+                position= 'right';
+                break;
+                
+                case '4':
+                position= 'left';
+                break;
+                
+                default:
+                position= 'standing';
+                break;
+            }
+            document.getElementById("position_box").innerHTML = position;
+        },
+        error: function () {
+
+        console.log("Error while getting position data");
         }
     });
 }
