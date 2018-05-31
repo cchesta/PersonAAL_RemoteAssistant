@@ -39,7 +39,7 @@ class PlannedActivityRestHandler extends SimpleRest {
 		$rawData = $plannedActivity->getPlannedActivities($user);
 
 		if(empty($rawData)) {
-			$statusCode = 404;
+			$statusCode = 200;
 			$rawData = array('msg' => 'No planned activities for the specified date or user', 'status' => 'OK');	
 		} else {
 			$statusCode = 200;
@@ -47,13 +47,7 @@ class PlannedActivityRestHandler extends SimpleRest {
 
 		}
 
-		$requestContentType = $_SERVER['HTTP_ACCEPT'];
-		$this ->setHttpHeaders($requestContentType, $statusCode);
-				
-		
-			
-            $response = json_encode($rawData);
-			echo $response;
+		 $this->encode($statusCode,$rawData);
 		
 	}
     
@@ -64,19 +58,20 @@ class PlannedActivityRestHandler extends SimpleRest {
 		$rawData = $plannedActivity->getPANLastValues($user, $n);
 
 		if(empty($rawData)) {
-			$statusCode = 404;
+			$statusCode = 200;
 			$rawData = array('msg' => 'No planned activities for the specified date or user', 'status' => 'OK');		
 		} else {
 			$statusCode = 200;
             $rawData = array('listPlannedActivity' => $rawData,'msg' => 'History retrieved', 'status' => 'OK') ;
 		}
 
-		$requestContentType = $_SERVER['HTTP_ACCEPT'];
-		$this ->setHttpHeaders($requestContentType, $statusCode);
+        $this->encode($statusCode,$rawData);
+		//$requestContentType = $_SERVER['HTTP_ACCEPT'];
+		//$this ->setHttpHeaders($requestContentType, $statusCode);
 				
-		      $response = json_encode($rawData);
+		  //    $response = json_encode($rawData);
 			
-			echo $response;
+			//echo $response;
 		
 	}
     
@@ -86,19 +81,14 @@ class PlannedActivityRestHandler extends SimpleRest {
 		$rawData = $plannedActivity->getPANNextValues($user, $n);
 
 		if(empty($rawData)) {
-			$statusCode = 404;
+			$statusCode = 200;
 			$rawData = array('msg' => 'No planned activities for the specified date or user', 'status' => 'OK');		
 		} else {
 			$statusCode = 200;
             $rawData = array('listPlannedActivity' => $rawData,'msg' => 'History retrieved', 'status' => 'OK') ;
 		}
 
-		$requestContentType = $_SERVER['HTTP_ACCEPT'];
-		$this ->setHttpHeaders($requestContentType, $statusCode);
-				
-		  $response = json_encode($rawData);
-		
-			echo $response;
+		 $this->encode($statusCode,$rawData);
 		
 	}
     
@@ -107,19 +97,13 @@ class PlannedActivityRestHandler extends SimpleRest {
 		$plannedActivity = new PlannedActivity();
 		$rawData = $plannedActivity->getPAFromDateToNow($user, $date);
 		if(empty($rawData)) {
-			$statusCode = 404;
+			$statusCode = 200;
 			$rawData = array('msg' => 'No planned activities for the specified date or user', 'status' => 'OK');		
 		} else {
 			$statusCode = 200;
             $rawData = array('listPlannedActivity' => $rawData,'msg' => 'History retrieved', 'status' => 'OK') ;
 		}
-
-		$requestContentType = $_SERVER['HTTP_ACCEPT'];
-		$this ->setHttpHeaders($requestContentType, $statusCode);
-				
-		$response = json_encode($rawData);
-		
-			echo $response;
+            $this->encode($statusCode,$rawData);
 		
 	}
     
@@ -129,20 +113,14 @@ class PlannedActivityRestHandler extends SimpleRest {
 		$rawData = $plannedActivity->getPABetweenDates($user, $date1, $date2);
 
 		if(empty($rawData)) {
-			$statusCode = 404;
+			$statusCode = 200;
 			$rawData = array('msg' => 'No planned activities for the specified date or user', 'status' => 'OK');		
 		} else {
 			$statusCode = 200;
             $rawData = array('listPlannedActivity' => $rawData,'msg' => 'History retrieved', 'status' => 'OK') ;
 		}
 
-		$requestContentType = $_SERVER['HTTP_ACCEPT'];
-		$this ->setHttpHeaders($requestContentType, $statusCode);
-				
-		
-			$response = $this->encodeJson($rawData);
-			echo $response;
-		
+		 $this->encode($statusCode,$rawData);
 	}
     
     
@@ -153,24 +131,25 @@ class PlannedActivityRestHandler extends SimpleRest {
 		$rawData = $plannedActivity->getPAOnDate($user, $date);
 
 		if(empty($rawData)) {
-			$statusCode = 404;
+			$statusCode = 200;
 			$rawData = array('msg' => 'No planned activities for the specified date or user', 'status' => 'OK');		
 		} else {
 			$statusCode = 200;
             $rawData = array('listPlannedActivity' => $rawData,'msg' => 'History retrieved', 'status' => 'OK') ;
 		}
 
-		$requestContentType = $_SERVER['HTTP_ACCEPT'];
-		$this ->setHttpHeaders($requestContentType, $statusCode);
-				
-		
-			$response = $this->encodeJson($rawData);
-        
-			echo $response;
+		 $this->encode($statusCode,$rawData);
 		
 	}
     
-    
+    public function encode ($statusCode, $rawData){
+        
+        $requestContentType = $_SERVER['HTTP_ACCEPT'];
+		$this ->setHttpHeaders($requestContentType, $statusCode);
+				
+        $response = $this->encodeJson($rawData);
+        echo $response;
+    }
     
     
     

@@ -5,12 +5,17 @@ A domain Class to demonstrate RESTful web services
 
 
 //DB for local 
-define("DB_SERVER_NAME", "accessible-serv.lasige.di.fc.ul.pt");
+/*define("DB_SERVER_NAME", "accessible-serv.lasige.di.fc.ul.pt");
 define("DB_USERNAME", "personaal");
 define("DB_PASSWORD", "personaalfcul");
 define("DB_NAME","remote_assistant");
+*/
 
-
+//DB for local (REPLY)
+define("DB_SERVER_NAME", "localhost");
+define("DB_USERNAME", "root");
+define("DB_PASSWORD", null);
+define("DB_NAME","personaal");
 
 Class PlannedActivity{
     public $userID;
@@ -128,11 +133,12 @@ Class PlannedActivity{
             $conn->close();
             return;
         } 
-        
-        
+       // $format = 'Y-m-d';
+        //if (validateDate($date, $format)){
         //$sql = "SELECT * FROM activity WHERE userid='". $user ."' AND start_date ='". $date ."' || end_date = '". $date ."'";
         $sql = "SELECT * FROM activity WHERE userid= '". $user ."' AND date(start_date) = '". $date ."' || date(end_date) = '". $date ."'";
-            
+       //echo($sql);    
+        
         $result = $conn->query($sql);
         $conn->close();
 
@@ -174,6 +180,10 @@ Class PlannedActivity{
             return false;
             echo "no results";
         }
+       // }
+        //else return ("msg:Wrong date format: yyyy-MM-dd,status:ERROR");
+            
+            
     }
         
         
@@ -189,7 +199,8 @@ Class PlannedActivity{
             return;
         } 
  
-        $sql = "SELECT * FROM activity WHERE userid='". $user ."' AND ((start_date >= '". $date1 ."' AND end_date <= '". $date2 ."' ) OR (start_date <= '". $date1 ."' AND end_date >= '". $date2 ."') OR (start_date <= '". $date2 ."' AND end_date >= '". $date1 ."')) ";
+        $sql = "SELECT * FROM activity WHERE userid='". $user ."' AND ((date(start_date) >= '". $date1 ."' AND date(end_date) <= '". $date2 ."' ) OR (date(start_date) <= '". $date1 ."' AND date(end_date) >= '". $date2 ."') OR (date(start_date) <= '". $date2 ."' AND date(end_date) >= '". $date1 ."')) ";
+        
         
         $result = $conn->query($sql);
         $conn->close();
@@ -248,7 +259,8 @@ Class PlannedActivity{
         
         $currentDate = date('Y-m-d H:i:s');
         
-        $sql = "SELECT * FROM activity WHERE userid='". $user ."' AND date(start_date) <='". $currentDate ."' AND date(end_date) <= '". $currentDate ."' LIMIT ". $n ."";
+        $sql = "SELECT * FROM activity WHERE userid='". $user ."' AND start_date <='". $currentDate ."' AND end_date <= '". $currentDate ."' LIMIT ". $n ."";
+        
         
         $result = $conn->query($sql);
         $conn->close();
@@ -309,7 +321,9 @@ Class PlannedActivity{
         
         $currentDate = date('Y-m-d H:i:s');
         
-         $sql = "SELECT * FROM activity WHERE userid='". $user ."' AND date(start_date) >='". $currentDate ."' AND date(end_date) >= '". $currentDate ."' LIMIT ". $n ."";
+         $sql = "SELECT * FROM activity WHERE userid='". $user ."' AND start_date >='". $currentDate ."' AND end_date >= '". $currentDate ."' LIMIT ". $n ."";
+        
+        
         $result = $conn->query($sql);
         $conn->close();
 
@@ -422,6 +436,8 @@ Class PlannedActivity{
             echo "no results";
         }
     }
+    
+
     
     }
     
