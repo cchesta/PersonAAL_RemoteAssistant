@@ -7,16 +7,22 @@ RewriteEngine on
 
 RewriteRule ^user/([a-z,A-Z,0-9,\\|]+)/PlannedActivity/$ http://localhost/rest/RestController.php?view=all&user=$1
                                 
+RewriteRule ^user/([a-z,A-Z,0-9,\\|]+)/PlannedActivity/history/getNNextValues/([a-z,A-Z,0-9,\\-]+)/$ http://localhost/rest/RestController.php?view=nNextValues&user=$1&n=$2
+
 RewriteRule ^user/([a-z,A-Z,0-9,\\|]+)/PlannedActivity/history/getNNextValues/([a-z,A-Z,0-9,\\-]+)$ http://localhost/rest/RestController.php?view=nNextValues&user=$1&n=$2
 
 RewriteRule ^user/([a-z,A-Z,0-9,\\|]+)/PlannedActivity/history/getNLastValues/([a-z,A-Z,0-9,\\-]+)$ http://localhost/rest/RestController.php?view=nLastValues&user=$1&n=$2
 
+RewriteRule ^user/([a-z,A-Z,0-9,\\|]+)/PlannedActivity/history/getNLastValues/([a-z,A-Z,0-9,\\-]+)/$ http://localhost/rest/RestController.php?view=nLastValues&user=$1&n=$2
 
+RewriteRule ^user/([a-z,A-Z,0-9,\\|]+)/PlannedActivity/history/getValuesOnDate/([a-z,A-Z,0-9,\\-]+)/$ http://localhost/rest/RestController.php?view=valuesOnDate&user=$1&date=$2
 
 RewriteRule ^user/([a-z,A-Z,0-9,\\|]+)/PlannedActivity/history/getValuesOnDate/([a-z,A-Z,0-9,\\-]+)$ http://localhost/rest/RestController.php?view=valuesOnDate&user=$1&date=$2
 
+RewriteRule ^user/([a-z,A-Z,0-9,\\|]+)/PlannedActivity/history/getValuesFromDateToNow/([a-z,A-Z,0-9,\\-]+)/$ http://localhost/rest/RestController.php?view=valuesFromDateToNow&user=$1&date=$2
 
 RewriteRule ^user/([a-z,A-Z,0-9,\\|]+)/PlannedActivity/history/getValuesFromDateToNow/([a-z,A-Z,0-9,\\-]+)$ http://localhost/rest/RestController.php?view=valuesFromDateToNow&user=$1&date=$2
 
-RewriteRule ^user/([a-z,A-Z,0-9,\\|]+)/PlannedActivity/history/getValuesBetweenDates/date1/([a-z,A-Z,0-9,\\-]+)/date2/([a-z,A-Z,0-9,\\-]+)$ http://localhost/rest/RestController.php?view=valuesBetweenDates&user=$1&date1=$2&date2=$3
+RewriteRule ^user/([a-z,A-Z,0-9,\\|]+)/PlannedActivity/history/getValuesBetweenDates/date1/([a-z,A-Z,0-9,\\-]+)/date2/([a-z,A-Z,0-9,\\-]+)/$ http://localhost/rest/RestController.php?view=valuesBetweenDates&user=$1&date1=$2&date2=$3
 
+RewriteRule ^user/([a-z,A-Z,0-9,\\|]+)/PlannedActivity/history/getValuesBetweenDates/date1/([a-z,A-Z,0-9,\\-]+)/date2/([a-z,A-Z,0-9,\\-]+)$ http://localhost/rest/RestController.php?view=valuesBetweenDates&user=$1&date1=$2&date2=$3
