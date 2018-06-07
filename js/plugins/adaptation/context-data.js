@@ -54,7 +54,7 @@ function getHomeTemperature()
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: encodeURI ( contextUrl + "cm/rest/environment/"+ userId + "Environment/temperature"),
+        url: encodeURI ( contextUrl + "cm/rest/environment/"+ userId + "Env/temperature"),
         dataType: 'json',
 
         success: function (response) {
@@ -76,7 +76,7 @@ function getHomeHumidity()
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: encodeURI ( contextUrl + "cm/rest/environment/"+ userId + "Environment/humidity"),
+        url: encodeURI ( contextUrl + "cm/rest/environment/"+ userId + "Env/humidity"),
         dataType: 'json',
 
         success: function (response) {
@@ -98,7 +98,7 @@ function getMotion()
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: encodeURI ( contextUrl + "cm/rest/environment/"+ userId + "Environment/motion"),
+        url: encodeURI ( contextUrl + "cm/rest/environment/"+ userId + "Env/motion"),
         dataType: 'json',
 
         success: function (response) {
