@@ -91,6 +91,10 @@ switch($view){
             $plannedActivityRestHandler -> encode($statusCode,$rawData);
         }
         break;
+        
+    case "lastAccessToPlan":
+        $plannedActivityRestHandler = new PlannedActivityRestHandler();
+        $plannedActivityRestHandler->lastAccess($_GET["user"]);
 
 	case "" :
 		//404 - not found;
