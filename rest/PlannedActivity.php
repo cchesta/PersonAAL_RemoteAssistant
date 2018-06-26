@@ -5,17 +5,18 @@ A domain Class to demonstrate RESTful web services
 
 
 //DB for local 
-/*define("DB_SERVER_NAME", "accessible-serv.lasige.di.fc.ul.pt");
+define("DB_SERVER_NAME", "accessible-serv.lasige.di.fc.ul.pt");
 define("DB_USERNAME", "personaal");
 define("DB_PASSWORD", "personaalfcul");
 define("DB_NAME","remote_assistant");
-*/
+
 
 //DB for local (REPLY)
-define("DB_SERVER_NAME", "localhost");
+/*define("DB_SERVER_NAME", "localhost");
 define("DB_USERNAME", "root");
 define("DB_PASSWORD", null);
 define("DB_NAME","personaal");
+*/
 
 Class PlannedActivity{
     public $userID;
@@ -136,7 +137,7 @@ Class PlannedActivity{
        // $format = 'Y-m-d';
         //if (validateDate($date, $format)){
         //$sql = "SELECT * FROM activity WHERE userid='". $user ."' AND start_date ='". $date ."' || end_date = '". $date ."'";
-        $sql = "SELECT * FROM activity WHERE userid= '". $user ."' AND date(start_date) = '". $date ."' || date(end_date) = '". $date ."'";
+        $sql = "SELECT * FROM activity WHERE userid= '". $user ."' AND (date(start_date) = '". $date ."' || date(end_date) = '". $date ."')";
        //echo($sql);    
         
         $result = $conn->query($sql);
@@ -259,8 +260,8 @@ Class PlannedActivity{
         
         $currentDate = date('Y-m-d H:i:s');
         
-        $sql = "SELECT * FROM activity WHERE userid='". $user ."' AND start_date <='". $currentDate ."' AND end_date <= '". $currentDate ."' LIMIT ". $n ."";
-        
+        $sql = "SELECT * FROM activity WHERE userid='". $user ."' AND (date(start_date) <='". $currentDate ."' AND date(end_date) <= '". $currentDate ."') LIMIT ". $n ."";
+       
         
         $result = $conn->query($sql);
         $conn->close();
@@ -321,7 +322,7 @@ Class PlannedActivity{
         
         $currentDate = date('Y-m-d H:i:s');
         
-         $sql = "SELECT * FROM activity WHERE userid='". $user ."' AND start_date >='". $currentDate ."' AND end_date >= '". $currentDate ."' LIMIT ". $n ."";
+         $sql = "SELECT * FROM activity WHERE userid='". $user ."' AND (start_date >='". $currentDate ."' AND end_date >= '". $currentDate ."') LIMIT ". $n ."";
         
         
         $result = $conn->query($sql);
@@ -382,7 +383,7 @@ Class PlannedActivity{
         $currentDate = date('Y-m-d');
         
         if($date >= date($currentDate)){
-            $sql = "SELECT * FROM activity WHERE userid='". $user ."' AND date(start_date) >= '". $currentDate ."' (AND date(start_date) <='". $date ."' || date(end_date) <= '". $date ."')";
+            $sql = "SELECT * FROM activity WHERE userid='". $user ."' (AND date(start_date) >= '". $currentDate ."' (AND date(start_date) <='". $date ."' || date(end_date) <= '". $date ."'))";
             $result = $conn->query($sql);
             $conn->close();
             
@@ -438,6 +439,49 @@ Class PlannedActivity{
     }
     
 
+    public function getLastAccessToPlan($user){
+          // Create connection
+        $conn = new mysqli(DB_SERVER_NAME, DB_USERNAME, DB_PASSWORD, DB_NAME);
+        // Check connection
+        if ($conn->connect_error)
+        {
+            echo("Connection failed: " . $conn->connect_error);
+            $conn->close();
+            return;
+        } 
+        
+        $sql = "SELECT last_access_plan FROM users WHERE usersid='". $user ."'";
+        
+        $result = $conn->query($sql);
+        $conn->close();
+        if(!$result)
+        {
+            echo('There was an error running the query [' . $conn->error . ']');
+            $conn->close();
+            return;
+        }
+        
+        if ($result->num_rows > 0)
+        {
+            
+            while($row = $result->fetch_assoc())
+            {
+                $result1 = $row['last_access_plan'];
+                
+            //array_push()    
+                
+            }
+            return $result1;
+        }
+        
+        else 
+        {
+            //return false;
+            echo "no results";
+        }
+        
+    }
+    
     
     }
     
