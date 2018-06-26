@@ -256,8 +256,9 @@ include 'DButils.php';
         
         function confirmSurveyModal()
         {
-            //only integer values
-            var reg = new RegExp('^[0-9]+$');
+            //only numeric values
+            //var reg = new RegExp('^[0-9]+$');
+            var reg = new RegExp('^[0-9]*(\.[0-9]+)$');
             
             var weight= $('#input_weight').val();
             console.log('regexp weight: ' + reg.test(weight));
@@ -543,11 +544,12 @@ include 'DButils.php';
                                     <?php echo(INDEX_SURVEY_QUESTION1);?>
                                 </div>
                                 <div class="mdl-textfield mdl-js-textfield survey-textfield">
-                                    <input class="mdl-textfield__input" type="text" id="input_weight" pattern="-?[0-9]+?">
+<!--                                    <input class="mdl-textfield__input" type="text" id="input_weight" pattern="-?[0-9]+?">-->
+                                    <input class="mdl-textfield__input" type="text" id="input_weight" pattern="-?[0-9]*(\.[0-9]+)?">
                                     <label class="mdl-textfield__label" for="input_weight">
                                         <?php echo(INDEX_SURVEY_HINT1);?>
                                     </label>
-                                    <span class="mdl-textfield__error">Only integer numbers *</span>
+                                    <span class="mdl-textfield__error">Only float numbers with . as separator *</span>
                                 </div>
                             </div>
                             <div class="survey-question-container">
