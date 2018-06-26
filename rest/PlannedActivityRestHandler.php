@@ -142,9 +142,24 @@ class PlannedActivityRestHandler extends SimpleRest {
 		
 	}
     
+    public function lastAccess($user){
+        $plannedActivity = new PlannedActivity();
+        $rawData = $plannedActivity->getLastAccessToPlan($user);
+        if(empty($rawData)){
+            $statusCode = 404;
+        }
+        else{
+            $statusCode = 200;
+            $rawData = array('msg'=>"", 'status'=> 'OK', 'value'=> $rawData );
+        }
+
+        $this->encode($statusCode, $rawData);
+    }
+    
     public function encode ($statusCode, $rawData){
         
-        $requestContentType = $_SERVER['HTTP_ACCEPT'];
+        //$requestContentType = $_SERVER['HTTP_ACCEPT'];
+        $requestContentType = "application/json";
 		$this ->setHttpHeaders($requestContentType, $statusCode);
 				
         $response = $this->encodeJson($rawData);
