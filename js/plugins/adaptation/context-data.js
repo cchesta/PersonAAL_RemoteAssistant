@@ -103,13 +103,21 @@ function getMotion()
 
         success: function (response) {
             console.log("Motion: ", response);
-            $("#motionvalue").html(response.value);
+            $("#motionvalue").html(motionDetected(response.value));
         },
         error: function ()
         {
             console.log("Error getting motion");
         }
     });
+}
+
+function motionDetected(val)
+{
+    if (val === 'true')
+        return ("Motion detected");
+    else
+        return ("No motion detected");
 }
 
 function getDailySteps() {	
