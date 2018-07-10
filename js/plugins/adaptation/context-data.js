@@ -81,7 +81,7 @@ function getHomeHumidity()
 
         success: function (response) {
             console.log("Home humidity: ", response);
-            $("#homehumidityvalue").html(response.value);
+            $("#homehumidityvalue").html(humidityDetected(response.value));
         },
         error: function ()
         {
@@ -118,6 +118,14 @@ function motionDetected(val)
         return ("Motion detected");
     else
         return ("No motion detected");
+}
+
+function humidityDetected(val)
+{
+    if (val === 'true')
+        return ("Humidity detected");
+    else
+        return ("No humidity detected");
 }
 
 function getDailySteps() {	
@@ -304,7 +312,7 @@ function sendTimeToContextManager(timeValue) {
              'Accept': 'application/json',
              'Content-Type': 'application/json'
          },
-         url: encodeURI ( contextUrl + "cm/rest/user/" + token + "/time/" + timeValue),
+         url: encodeURI ( contextUrl + "cm/rest/user/" + userId + "/time/" + timeValue),
          dataType: 'json',
          success: function (response) {
              console.log("Context response", response);
