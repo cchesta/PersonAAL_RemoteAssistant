@@ -44,8 +44,6 @@ function init() {
             break;
     }
 
-    getProfileFromContextManager();
-    getInterestListFromContextManager();
 }
 
 function writelog(message) {
@@ -320,6 +318,7 @@ function getInterestListFromContextManager() {
                 updateInterestList();
             }
             console.log(interestsList);
+            getProfileFromContextManager();
         },
         error: function () {
             console.log("Error while getting interest list data");
