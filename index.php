@@ -2,10 +2,38 @@
 
 include 'miscLib.php';
 include 'DButils.php';
+//include 'ajax_request.php';
+
+
+
+
+
+function sendUserLanguageToCM(){
+    
+    $url = "https://giove.isti.cnr.it:8443/cm/rest/user/".urlencode($_SESSION['personAAL_user'])."/language/".$_SESSION['languages'];
+
+
+ 
+$options = array(
+    'http' => array(
+        'header'  => "Content-type: application/json",
+        'method'  => 'GET',
+
+    ),
+);
+ 
+$context = stream_context_create( $options );
+ 
+$result = file_get_contents( $url, false, $context );
+    
+
+}
+
+
 
 // Require composer autoloader
- require __DIR__ . '\login\vendor\autoload.php';
- require __DIR__ . '\login\dotenv-loader.php';
+ require __DIR__ . DIRECTORY_SEPARATOR . 'login' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+ require __DIR__ . DIRECTORY_SEPARATOR . 'login' . DIRECTORY_SEPARATOR . 'dotenv-loader.php';
 
  use Auth0\SDK\Auth0;
 
@@ -26,20 +54,23 @@ include 'DButils.php';
  ]);
 
  $userInfo = $auth0->getUser();
+ $idtoken = $auth0->getIdToken();
 
  if(!$userInfo)
  {
-    echo("<script>console.log('index: No user info');</script>");
+    //echo("<script>console.log('index: No user info');</script>");
     myRedirect("login.php", TRUE);
  }
  else
  {
-    echo("<script>console.log('index user_id: ".$userInfo['sub']."');</script>");
-    echo("<script>console.log('index nickname: ".$userInfo['nickname']."');</script>");
-    $user = $userInfo['nickname'];
+    //echo("<script>console.log('index user_id: ".$userInfo['sub']."');</script>");
+    //echo("<script>console.log('index nickname: ".$userInfo['nickname']."');</script>");
+    $user = $userInfo['sub'];
      
     $result= retrieveUser($user);
 
+     
+     
 //  User not registered to DB
     if($result === FALSE) 
     {
@@ -65,53 +96,15 @@ include 'DButils.php';
 //            echo("<script> console.log('key: ".$key."');</script>");
 //            echo("<script> console.log('user info: ".$value."');</script>");
 //        }
+     
+     //sendUserLanguageToCM($_SESSION['languages']);
+         sendUserLanguageToCM();
+    // echo $_SESSION['languages'];
+    //echo urlencode($_SESSION['personAAL_user']);
  }
-   
 
 
-//REDIRECT SU HTTPS
-//if(!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == "")
-//    HTTPtoHTTPS();
 
-//if(!isCookieEnabled())
-//{
-//    //TODO handle disabled cookie error
-//    //myRedirect("error.php?err=DISABLED_COOKIE", TRUE);
-//}
-
-
-//SESSIONE
-//session_start();
-//setLanguage();
-
-//verifico se è stato effettuato il login
-//if (isset($_SESSION['personAAL_user']) && $_SESSION['personAAL_user'] != "")
-//{
-//    $t=time();
-//    $diff=0;
-//    $new=FALSE;
-//    
-//    //VERIFICO SE LA SESSIONE E' SCADUTA
-//    if (isset($_SESSION['personAAL_time']))
-//    {
-//	$t0=$_SESSION['personAAL_time'];
-//	$diff=($t-$t0); // inactivity period
-//    }
-//    else
-//	$new=TRUE;
-//        
-//    if ($new || ($diff > SESSION_TIMEOUT))
-//    { 
-//	//DISTRUGGO LA SESSIONE
-//	mySessionDestroy();
-//	myRedirect("login.php?notify=".SESSION_EXPIRED, TRUE);
-//    }
-//    else
-//	$_SESSION['personAAL_time']=time();  //update time 
-    
-//}
-//else
-//    myRedirect("login.php", TRUE);
 
 ?>
 
@@ -158,6 +151,9 @@ include 'DButils.php';
         <!-- ADAPTATION SCRIPTS -->
         <script type="text/javascript">
             var userName = "<?php echo $_SESSION['personAAL_user']?>";
+            var token = "<?php echo $idtoken ?>";
+            console.log("TOKEN USER", token);
+            var userId = "<?php echo $userInfo['sub']?>";
         </script>
         <script src="./js/plugins/adaptation/sockjs-1.1.1.js"></script>
         <script src="./js/plugins/adaptation/stomp.js"></script>
@@ -167,7 +163,6 @@ include 'DButils.php';
         <script src="./js/plugins/adaptation/context-data.js"></script>
         <script src="./js/plugins/adaptation/jshue.js"></script>
         <script src="./js/plugins/adaptation/command.js"></script>
-        <script src="./js/index.js"></script>
         
                <!--  AUTH0-->
         
@@ -177,8 +172,12 @@ include 'DButils.php';
           var AUTH0_DOMAIN = '<?php echo getenv("AUTH0_DOMAIN") ?>';
           var AUTH0_CALLBACK_URL = '<?php echo getenv("AUTH0_CALLBACK_URL") ?>';
         </script>
-        <script src="login/public/app.js"> </script>
-        <link href="login/public/app.css" rel="stylesheet">
+        <!--<script src="login/public/app.js"> </script>
+        <link href="login/public/app.css" rel="stylesheet">-->
+        
+        <style>
+            .goal-info {text-align: center}
+        </style>
         
 	<?php
 	    $plan= new Plan($_SESSION['personAAL_user']);
@@ -215,6 +214,14 @@ include 'DButils.php';
         <script>
             $(document).ready(function() {
                 
+            //TO DELETE
+               // var lang = getUserLanguage;
+                     //console.log("HERE!!!!!!!!!!!!!");
+              
+                    getToken();
+                    // console.log("HERE AFTER");
+              
+                
             //phone device fix for velocity animations (animation order)
             console.log($(window).width());
             if($(window).width() <= 479)
@@ -243,8 +250,8 @@ include 'DButils.php';
             }
             else    // desktop/tablet mode
                 $('.survey-card, .help-card, .goal-card, .news-card, .sport-card').velocity('transition.slideUpBigIn', {stagger: 250, display: 'flex'});
-            
-        
+
+
             //CIRCLIFUL
             $("#goal-circle-1").circliful({
                 animation: 1,
@@ -276,9 +283,18 @@ include 'DButils.php';
 		fontColor: '#FFFFFF',
 		foregroundColor: '#FFFFFF'
 	    });
-            
-            
-        } );
+
+            getMedicationPlanned();
+            getHomeTemperature();
+            getHomeHumidity();
+            getMotion();
+
+            setInterval(getMedicationPlanned, 60000);
+            setInterval(getHomeTemperature, 60000);
+            setInterval(getHomeHumidity, 60000);
+            setInterval(getMotion, 60000);
+
+            } );
         
         
         function confirmSurveyModal()
@@ -309,6 +325,8 @@ include 'DButils.php';
 
             //add weight data to db
             addWeightData(Date.now(), weight);
+            sendWeightToContext(weight);
+            sendHeightToContext(height);
             
             
             //add survey data to db
@@ -358,11 +376,11 @@ include 'DButils.php';
             <div class="mdl-layout__drawer">
                 <span class="mdl-layout-title"><?php echo(MENU_TITLE);?></span>
                 <nav class="mdl-navigation">
-		    <a class="mdl-navigation__link mdl-navigation__link-selected" href="index.php"><i class="material-icons">home</i><?php echo(ENTRY_HOME);?></a>
+                    <a class="mdl-navigation__link mdl-navigation__link-selected" href="index.php"><i class="material-icons">home</i><?php echo(ENTRY_HOME);?></a>
                     <a class="mdl-navigation__link" href="health.php"><i class="material-icons">local_hospital</i><?php echo(ENTRY_HEALTH);?></a>
                     <a class="mdl-navigation__link" href="plan.php"><i class="material-icons">date_range</i><?php echo(ENTRY_PLAN);?></a>
-		    <a class="mdl-navigation__link" href="profile.php"><i class="material-icons">info</i><?php echo(ENTRY_PROFILE);?></a>
-		    <a class="mdl-navigation__link" href="contacts.php"><i class="material-icons">group</i><?php echo(ENTRY_CONTACTS);?></a>
+                    <a class="mdl-navigation__link" href="profile.php"><i class="material-icons">info</i><?php echo(ENTRY_PROFILE);?></a>
+                    <a class="mdl-navigation__link" href="contacts.php"><i class="material-icons">group</i><?php echo(ENTRY_CONTACTS);?></a>
                     <a class="mdl-navigation__link" href="huelights.php"><i class="material-icons">flare</i><?php echo(ENTRY_HUELIGHTS);?></a>
                     <a class="mdl-navigation__link" href="logout.php"><i class="material-icons">power_settings_new</i><?php echo(ENTRY_LOGOUT);?></a>
                 </nav>
@@ -402,6 +420,14 @@ include 'DButils.php';
                                     </button>
                                 </div>
                             </div>
+
+                            <div  class="message-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--8-col-desktop mdl-cell--2-col-phone mdl-cell--4-col-tablet b-blue">
+                                <div class="mdl-card__title">
+                                    <h2 class="mdl-card__title-text"><?php echo(MESSAGE_CARD_TITLE);?></h2>
+                                </div>
+                                <div class="mdl-card__actions mdl-card--border" id="persuasive-message"></div>
+                            </div>
+
                         </div>
 
                         <div id="order-6-phone" class="mdl-js-button help-card mdl-card mdl-shadow--4dp mdl-js-ripple-effect mdl-cell mdl-cell--2-col-phone mdl-cell--hide-desktop mdl-cell--hide-tablet mdl-cell--order-5-phone"
@@ -411,100 +437,42 @@ include 'DButils.php';
                                 <?php echo(INDEX_INFOCARD_TITLE);?>
                             </div>
                         </div>
-                            
 
 
 
 <!--                   <div id="goals" class="mdl-grid mdl-cell mdl-cell--4-col-desktop mdl-cell--4-col-phone mdl-cell--4-col-tablet no-stretch mdl-cell--order-1-desktop mdl-cell--order-3-phone mdl-cell--order-1-tablet">              -->
-                       <div id="goals" class="mdl-grid mdl-cell mdl-cell--4-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-cell--order-3-phone">    
-                            <div id="order-3-phone" class="goal-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue"
-                                onclick="window.location='#';">
+                       <div id="goals" class="mdl-grid mdl-cell mdl-cell--4-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-cell--order-3-phone">
 
-                                <div class="mdl-card__title mdl-card--expand mdl-grid goal-grid">
-                                    <div class="mdl-cell mdl-cell--8-col-desktop mdl-cell--5-col-tablet no-margin">
-                                        <div id="goal-circle-1"></div>
-                                    </div>
+                           <div  class="hometemp-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue" style="height:228px;">
+                               <div class="mdl-card__title">
+                                   <h2 class="mdl-card__title-text"><?php echo(HOMETEMPERATURE_CARD_TITLE);?></h2>
+                               </div>
+                               <div class="mdl-card__actions mdl-card--border">
+                                   <span id="hometemperaturevalue"></span>
+                               </div>
+                           </div>
 
-                                    <div class="mdl-cell mdl-cell--4-col-desktop mdl-cell--3-col-tablet goal-info-container no-margin mdl-cell--hide-phone">
-                                        <div class="goal-info">
-                                                <?php
-                                                    //get walk goal info
-                                                    echo($plan->getActualWalk() . ' / ' . $plan->getWalkGoal());
-                                                ?>
+                           <div  class="humidity-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue" style="height:228px;">
+                               <div class="mdl-card__title">
+                                   <h2 class="mdl-card__title-text"><?php echo(HOMEHUMIDITY_CARD_TITLE);?></h2>
+                               </div>
+                               <div class="mdl-card__actions mdl-card--border">
+                                   <span id="homehumidityvalue"></span>
+                               </div>
+                           </div>
 
-                                                <div class="goal-info-text">
-                                                    <?php echo(INDEX_STEPSCARD_STEPS);?>
-                                                </div>
+                           <div  class="motion-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue" style="height:228px;">
+                               <div class="mdl-card__title">
+                                   <h2 class="mdl-card__title-text"><?php echo(MOTION_CARD_TITLE);?></h2>
+                               </div>
+                               <div class="mdl-card__actions mdl-card--border">
+                                   <span id="motionvalue"></span>
+                               </div>
+                           </div>
 
-                                                <figure class="goal-info-media">
-                                                    <img src="img/walk.jpg">
-                                                </figure>
-                                        </div>                                       
-                                    </div>
-                                </div>
-                                <div class="mdl-card__actions mdl-card--border">
-                                    <div class="hide-phone">
-                                        <?php echo(INDEX_STEPSCARD_STEPS_GOAL);?>
-                                    </div> 
-
-                                    <div class="hide-desktop_tablet">
-                                        <?php
-                                            //get walk goal info (mobile)
-                                            echo($plan->getActualWalk() . ' / '. $plan->getWalkGoal() .' '. INDEX_STEPSCARD_STEPS);
-                                        ?>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div id="order-4-phone" class="goal-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue"
-                                onclick="window.location='#';">
-
-                                <div class="mdl-card__title mdl-card--expand mdl-grid goal-grid">
-                                    <div class="mdl-cell mdl-cell--8-col-desktop mdl-cell--5-col-tablet no-margin">
-                                        <div id="goal-circle-2"></div>
-                                    </div>
-
-                                    <div class="mdl-cell mdl-cell--4-col-desktop mdl-cell--3-col-tablet goal-info-container no-margin mdl-cell--hide-phone">
-                                        <div class="goal-info">
-                                            <?php
-                                                //get exercise goal info
-                                                echo($plan->getActualExercise() . ' / ' . $plan->getExerciseGoal());
-                                            ?>
-                                            <div class="goal-info-text">
-                                                <?php echo(INDEX_STEPSCARD_EXERCISE);?>
-                                            </div>
-
-                                            <figure class="goal-info-media">
-                                                <img src="img/fit.jpg">
-                                            </figure>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mdl-card__actions mdl-card--border">
-                                    <div class="hide-phone">
-                                        <?php echo(INDEX_STEPSCARD_EXERCISEGOAL);?>
-                                    </div>
-                                    <div class="hide-desktop_tablet">
-                                        <?php
-                                            //get exercise goal info (mobile)
-                                            echo($plan->getActualExercise() . ' / '. $plan->getExerciseGoal() .' '. INDEX_STEPSCARD_EXERCISE);
-                                        ?>
-                                    </div>
-                                </div>
-                            </div> 
-
-<!--                    </div>-->
-
-                           <div  class="message-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
-                                <div class="mdl-card__title">
-                                    <h2 class="mdl-card__title-text"><?php echo(MESSAGE_CARD_TITLE);?></h2>
-                                </div>
-                               <div class="mdl-card__actions mdl-card--border" id="persuasive-message"></div>
-                            </div>
                         </div>
                         
                         <div id="fitness" class="mdl-grid mdl-cell mdl-cell--4-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-cell--order-3-phone"> 
-
                             <div  class="weight-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
                                 <div class="mdl-card__title">
                                     <h2 class="mdl-card__title-text"><?php echo(WEIGHT_CARD_TITLE);?></h2>
@@ -521,16 +489,6 @@ include 'DButils.php';
                                     <?php echo($bmi);?>
                                 </div>
                             </div>
-                          
-<!--                            <div   class="weather-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
-                                <div class="mdl-card__title">
-                                    <h2 class="mdl-card__title-text"><?php echo(WEATHER_CARD_TITLE);?></h2>
-                                </div>
-                                <div class="mdl-card__actions mdl-card--border">
-                                    <iframe width="300" height="80" scrolling="no" frameborder="no" noresize="noresize" src="http://www.ilmeteo.it/box/previsioni.php?citta=8129&type=real1&width=250&ico=1&lang=eng&days=6&font=Arial&fontsize=12&bg=FFFFFF&fg=000000&bgtitle=0099FF&fgtitle=FFFFFF&bgtab=F0F0F0&fglink=1773C2"></iframe>
-                                </div>
-                            </div>-->
-                        </div>
 
                             <div   class="medication-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
                                 <div class="mdl-card__title">
@@ -554,46 +512,14 @@ include 'DButils.php';
                                 </table>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
         </main>
     </div>   
 
-        
-        
-        <!-- NEW -->
-        <!-- INVITATION MODAL 
-        <div id="info-modal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-
-                <!-- Modal content
-                <div class="modal-content">
-                    
-                    <div class="info-modal-card mdl-card">
-                        <div class="mdl-card__supporting-text mdl-card--expand">
-                            <i class="material-icons">info</i>
-                            <div id="modal-alert-text">
-                            </div>
-			</div>
-			<div class="mdl-card__actions mdl-card--border">
-                            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-dismiss="modal">
-				<?php //echo(ACCEPT_INVITATION_BUTTON);?>      
-			    </a>
-                            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-dismiss="modal">
-				<?php //echo(DECLINE_INVITATION_BUTTON);?>
-                                
-			    </a>
-                
-			</div>
-		    </div>
-                    
-                </div>
-
-            </div>
-        </div> -->
-
-        
+               
         <!-- ALERT MODAL -->
         <div id="alert-modal" class="modal fade" role="dialog">
             <div class="modal-dialog">
@@ -654,7 +580,7 @@ include 'DButils.php';
                         <div class="mdl-card__title mdl-card--border">
                             <?php echo(INDEX_SURVEY_TITLE);?>
                         </div>
-                        <div class="mdl-card__supporting-text mdl-card--expand">
+                        <div class="mdl-card__supporting-text mdl-card--expand" style="height: auto">
                             <div class="survey-question-container">
                                 <div class="survey-question">
                                     <?php echo(INDEX_SURVEY_QUESTION1);?>
