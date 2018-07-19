@@ -2,6 +2,34 @@
 
 include 'miscLib.php';
 include 'DButils.php';
+//include 'ajax_request.php';
+
+
+
+
+
+function sendUserLanguageToCM(){
+    
+    $url = "https://giove.isti.cnr.it:8443/cm/rest/user/".urlencode($_SESSION['personAAL_user'])."/language/".$_SESSION['languages'];
+
+
+ 
+$options = array(
+    'http' => array(
+        'header'  => "Content-type: application/json",
+        'method'  => 'GET',
+
+    ),
+);
+ 
+$context = stream_context_create( $options );
+ 
+$result = file_get_contents( $url, false, $context );
+    
+
+}
+
+
 
 // Require composer autoloader
  require __DIR__ . DIRECTORY_SEPARATOR . 'login' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
@@ -41,6 +69,8 @@ include 'DButils.php';
      
     $result= retrieveUser($user);
 
+     
+     
 //  User not registered to DB
     if($result === FALSE) 
     {
@@ -66,8 +96,12 @@ include 'DButils.php';
 //            echo("<script> console.log('key: ".$key."');</script>");
 //            echo("<script> console.log('user info: ".$value."');</script>");
 //        }
+     
+     //sendUserLanguageToCM($_SESSION['languages']);
+         sendUserLanguageToCM();
+    // echo $_SESSION['languages'];
+    //echo urlencode($_SESSION['personAAL_user']);
  }
-   
 
 ?>
 
@@ -175,6 +209,14 @@ include 'DButils.php';
 	
         <script>
             $(document).ready(function() {
+                
+            //TO DELETE
+               // var lang = getUserLanguage;
+                     //console.log("HERE!!!!!!!!!!!!!");
+              
+                    getToken();
+                    // console.log("HERE AFTER");
+              
                 
             //phone device fix for velocity animations (animation order)
             console.log($(window).width());
