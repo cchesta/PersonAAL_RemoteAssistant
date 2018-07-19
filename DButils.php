@@ -1,19 +1,16 @@
 <?php
 
+//DB for local (FCID)
+//define("DB_SERVER_NAME", "accessible-serv.lasige.di.fc.ul.pt");
+//define("DB_USERNAME", "personaal");
+//define("DB_PASSWORD", "personaalfcul");
+//define("DB_NAME","remote_assistant");
 
-//DB for public vm
-//define("DB_SERVER_NAME", "localhost");
-//define("DB_USERNAME", "root");
-//define("DB_PASSWORD", "Vsw1e3t56.");
-//define("DB_NAME","personaal");
-
-//DB for local 
-define("DB_SERVER_NAME", "accessible-serv.lasige.di.fc.ul.pt");
-define("DB_USERNAME", "personaal");
-define("DB_PASSWORD", "personaalfcul");
-define("DB_NAME","remote_assistant");
-
-
+//DB for local (REPLY)
+define("DB_SERVER_NAME", "localhost");
+define("DB_USERNAME", "root");
+define("DB_PASSWORD", null);
+define("DB_NAME","personaal");
 
 
 /*ritorna:
@@ -21,61 +18,61 @@ define("DB_NAME","remote_assistant");
  * FALSE: credenziali non valide
  * TRUE: login effettuato con successo
  */
-function login($user, $pw, $returnUser = FALSE)
-{
-    /*$json= file_get_contents("http://localhost:8888/BancomatWs/json/saldo/1");
-	echo $json;*/
-
-
-    // Create connection
-    $conn = new mysqli(DB_SERVER_NAME, DB_USERNAME, DB_PASSWORD, DB_NAME);
-    // Check connection
-    if ($conn->connect_error)
-    {
-//        echo("Connection failed: " . $conn->connect_error);
-        echo("<script>console.log('DButils - login: Connection failed:".$conn->connect_error."');</script>");
-        $conn->close();
-        return -1;
-    } 
-
-    $pw= sha1($pw);
-
-    $sql = "SELECT * FROM users WHERE usersid='".$user."' AND password='".$pw."'";
-    $result = $conn->query($sql);
-
-    if(!$result){
-        //        echo('There was an error running the query [' . $conn->error . ']');
-        $conn->close();
-        return -1;
-    }
-
-
-    if ($result->num_rows > 0)
-    {
-        // right username and password
-        $row = $result->fetch_assoc();
-        //        echo("id: ".$row['usersid']." pass: ".$row['password']);
-    }
-    else
-    {
-        //TODO wrong username or password
-        //        echo "Wrong username or password";
-        $conn->close();
-        return FALSE;
-    }
-
-    $conn->close();
-
-    //return the logged user information, used for PersonAAL plugin
-    if($returnUser === TRUE)
-    {
-        return new UserData($user);
-    }
-
-    return TRUE;
-
-
-}
+//function login($user, $pw, $returnUser = FALSE)
+//{
+//    /*$json= file_get_contents("http://localhost:8888/BancomatWs/json/saldo/1");
+//	echo $json;*/
+//
+//
+//    // Create connection
+//    $conn = new mysqli(DB_SERVER_NAME, DB_USERNAME, DB_PASSWORD, DB_NAME);
+//    // Check connection
+//    if ($conn->connect_error)
+//    {
+////        echo("Connection failed: " . $conn->connect_error);
+//        echo("<script>console.log('DButils - login: Connection failed:".$conn->connect_error."');</script>");
+//        $conn->close();
+//        return -1;
+//    } 
+//
+//    $pw= sha1($pw);
+//
+//    $sql = "SELECT * FROM users WHERE usersid='".$user."' AND password='".$pw."'";
+//    $result = $conn->query($sql);
+//
+//    if(!$result){
+//        //        echo('There was an error running the query [' . $conn->error . ']');
+//        $conn->close();
+//        return -1;
+//    }
+//
+//
+//    if ($result->num_rows > 0)
+//    {
+//        // right username and password
+//        $row = $result->fetch_assoc();
+//        //        echo("id: ".$row['usersid']." pass: ".$row['password']);
+//    }
+//    else
+//    {
+//        //TODO wrong username or password
+//        //        echo "Wrong username or password";
+//        $conn->close();
+//        return FALSE;
+//    }
+//
+//    $conn->close();
+//
+//    //return the logged user information, used for PersonAAL plugin
+//    if($returnUser === TRUE)
+//    {
+//        return new UserData($user);
+//    }
+//
+//    return TRUE;
+//
+//
+//}
 
 function retrieveUser($user)
 { 
@@ -173,63 +170,63 @@ function resetWeeklyGoals()
 
 
 
-function register($username, $password, $name, $surname, $birthDate, $gender, $state, $city, $cap, $address)
-{
-    // Create connection
-    $conn = new mysqli(DB_SERVER_NAME, DB_USERNAME, DB_PASSWORD, DB_NAME);
-    // Check connection
-    if ($conn->connect_error)
-    {
-        echo("Connection failed: " . $conn->connect_error);
-        $conn->close();
-        return FALSE;
-    } 
-
-    //check if user already exists
-
-    $checkUserSql = "SELECT * FROM users WHERE usersid='".$username."'";
-    $checkUserResult = $conn->query($checkUserSql);
-
-    if ($checkUserResult->num_rows > 0)
-    {
-        //username already used
-        $conn->close();
-        return -1;
-    }
-
-    $password= sha1($password);
-
-    //create user row
-    $createUserSql = "INSERT INTO users (usersid, password, userType, name, surname, gender, birthDate, state, city, cap, address)"
-        . " VALUES "
-        . "("
-        . " '". $username ."',"
-        . " '". $password ."',"
-        . " 'patient',"
-        . " '". $name ."',"
-        . " '". $surname  ."',"
-        . " '". $gender ."',"
-        . " '". $birthDate ."',"
-        . " '". $state ."',"
-        . " '". $city ."',"
-        . " '". $cap ."',"
-        . " '". $address ."'"
-        . ")";
-
-
-
-    $result = $conn->query($createUserSql);
-
-
-    if(!$result){
-        echo('There was an error running the query [' . $conn->error . ']');
-        $conn->close();
-        return FALSE;
-    }
-
-    $conn->close();
-    return TRUE;
-}
+//function register($username, $password, $name, $surname, $birthDate, $gender, $state, $city, $cap, $address)
+//{
+//    // Create connection
+//    $conn = new mysqli(DB_SERVER_NAME, DB_USERNAME, DB_PASSWORD, DB_NAME);
+//    // Check connection
+//    if ($conn->connect_error)
+//    {
+//        echo("Connection failed: " . $conn->connect_error);
+//        $conn->close();
+//        return FALSE;
+//    } 
+//
+//    //check if user already exists
+//
+//    $checkUserSql = "SELECT * FROM users WHERE usersid='".$username."'";
+//    $checkUserResult = $conn->query($checkUserSql);
+//
+//    if ($checkUserResult->num_rows > 0)
+//    {
+//        //username already used
+//        $conn->close();
+//        return -1;
+//    }
+//
+//    $password= sha1($password);
+//
+//    //create user row
+//    $createUserSql = "INSERT INTO users (usersid, password, userType, name, surname, gender, birthDate, state, city, cap, address)"
+//        . " VALUES "
+//        . "("
+//        . " '". $username ."',"
+//        . " '". $password ."',"
+//        . " 'patient',"
+//        . " '". $name ."',"
+//        . " '". $surname  ."',"
+//        . " '". $gender ."',"
+//        . " '". $birthDate ."',"
+//        . " '". $state ."',"
+//        . " '". $city ."',"
+//        . " '". $cap ."',"
+//        . " '". $address ."'"
+//        . ")";
+//
+//
+//
+//    $result = $conn->query($createUserSql);
+//
+//
+//    if(!$result){
+//        echo('There was an error running the query [' . $conn->error . ']');
+//        $conn->close();
+//        return FALSE;
+//    }
+//
+//    $conn->close();
+//    return TRUE;
+//}
 
 
 function alterTableUser($user){
@@ -848,20 +845,6 @@ class Activity {
     public $all_day;
     public $done;
     public $activityId;
-    /*
-    public function Activity($userID,$title,$type,$intensity,$start_date,$end_date,$all_day,$done,$activityId){
-        $this->userID = $userID;
-        $this->title = $title;
-        $this->type  = $type;
-        $this->intensity = $intensity;
-        $this->start_date = $start_date;
-        $this->end_date = $end_date;
-        $this->all_day = $all_day;
-        $this->done = $done;
-        $this-> activityId = $activityId;
-
-    }
-   */ 
 
     public function Activity($userID,$title,$start_date,$end_date,$all_day,$done,$type,$intensity,$activityId){
         $this->userID = $userID;
@@ -875,52 +858,6 @@ class Activity {
         $this-> activityId = $activityId;
     }
 
-
-    /*
-    public function getActivity($user){
-        // Create connection
-        $conn = new mysqli(DB_SERVER_NAME, DB_USERNAME, DB_PASSWORD, DB_NAME);
-        // Check connection
-        if ($conn->connect_error)
-        {
-            echo("Connection failed: " . $conn->connect_error);
-            $conn->close();
-            return;
-        } 
-
-        $sql = "SELECT * FROM activity WHERE usersid='".$user."'";
-        $result = $conn->query($sql);
-        $conn->close();
-        if(!$result)
-        {
-            echo('There was an error running the query [' . $conn->error . ']');
-            $conn->close();
-            return;
-        }
-        if ($result->num_rows > 0)
-        {
-
-            $activitiesArray=[];
-            while($row = $result->fetch_assoc())
-            {
-                //save variables
-                $this->userID= $user;
-                $this->title= $row['title'];
-                $this->type= $row['type'];
-                $this->intensity= $row['intensity'];
-                $this->start_date= $row['start_date'];
-                $this->end_date= $row['end_date'];
-                $this->all_day= $row['all_day'];
-                $this->done= $row['done'];
-            }
-
-            return $activitiesArray;
-
-        }   
-        else
-        {
-
-
     public function addActivity($userID, $title, $start_date, $end_date, $all_day, $done, $type, $intensity){
         // Create connection
         $conn = new mysqli(DB_SERVER_NAME, DB_USERNAME, DB_PASSWORD, DB_NAME);
@@ -930,15 +867,10 @@ class Activity {
             //     echo("Connection failed: " . $conn->connect_error);
             $conn->close();
             return false;
-        } 
-
+        }
         //convert start_date and end_date to mysql datetime format
         $mysqldateStart = date( 'Y-m-d H:i:s', strtotime($start_date) );
         $mysqldateEnd = date( 'Y-m-d H:i:s', strtotime($end_date) );
-        //$mysqldateStart = date( 'Y-m-d H:i:s', $start_date );
-        //$mysqldateEnd = date( 'Y-m-d H:i:s', $end_date );
-        // echo('start date: '.$start_date);
-        //echo($all_day);
 
         $sql = "INSERT INTO activity (userID, title, start_date, end_date, all_day,done,type, intensity)"
             . " VALUES "
@@ -952,14 +884,9 @@ class Activity {
             . " '". $intensity ."'"
             . ")";
 
-        //echo($sql);
         $result= $conn->query($sql);
-        //echo($result);
         $last_id = $conn->insert_id;
-        //echo ("New record created successfully. Last inserted ID is: " . $last_id);
-
         $conn->close();
-
         if(!$result)
         {
             //echo('There was an error running the query [' . $conn->error . ']');
@@ -968,11 +895,66 @@ class Activity {
         }
         else{
             return $last_id;
-        }   
+        }
     }
 
+    public function updateActivity($userID, $title, $start_date, $end_date, $all_day, $done, $type, $intensity, $activityID){
+        // Create connection
+        $conn = new mysqli(DB_SERVER_NAME, DB_USERNAME, DB_PASSWORD, DB_NAME);
+        // Check connection
+        if ($conn->connect_error)
+        {
+            //     echo("Connection failed: " . $conn->connect_error);
+            $conn->close();
+            return false;
+        }
+        //convert start_date and end_date to mysql datetime format
+        $mysqldateStart = date( 'Y-m-d H:i:s', strtotime($start_date) );
+        $mysqldateEnd = date( 'Y-m-d H:i:s', strtotime($end_date) );
 
+        $sql = "UPDATE activity SET "
+            . "title = '" . $title . "', "
+            . "start_date = '" . $mysqldateStart . "', "
+            . "end_date = '" . $mysqldateEnd . "', "
+            . "all_day = " . $all_day . ", "
+            . "done = " . $done . ", "
+            . "type = '" .$type . "', "
+            . "intensity = '" . $intensity . "' "
+            . "WHERE userid='" . $userID . "' AND activityId=" . $activityID;
 
+        $result= $conn->query($sql);
+        $conn->close();
+        if(!$result)
+        {
+            echo('There was an error running the query [' . $conn->error . ']');
+            return false;
+        }
+        else{
+            return $activityID;
+        }
+    }
+
+    public function deleteActivity($userID, $activityID) {
+        // Create connection
+        $conn = new mysqli(DB_SERVER_NAME, DB_USERNAME, DB_PASSWORD, DB_NAME);
+        // Check connection
+        if ($conn->connect_error)
+        {
+            //     echo("Connection failed: " . $conn->connect_error);
+            $conn->close();
+            return false;
+        }
+
+        $sql = "DELETE FROM activity WHERE userid='" . $userID . "' AND activityId=" . $activityID;
+        $result = $conn->query($sql);
+        $conn->close();
+        if(!$result)
+        {
+            echo('There was an error running the query [' . $conn->error . ']');
+            return false;
+        }
+        return $activityID;
+    }
 
     public function getActivity($user){
         // Create connection
@@ -983,26 +965,21 @@ class Activity {
             echo("Connection failed: " . $conn->connect_error);
             $conn->close();
             return;
-        } 
-
+        }
         $sql = "SELECT * FROM activity WHERE userid='". $user ."'";
         $result = $conn->query($sql);
         $conn->close();
-
         if(!$result)
         {
             echo('There was an error running the query [' . $conn->error . ']');
-
             return false;
         }
         if ($result->num_rows > 0)
         {
-
             $activitiesArray=[];
             while($row = $result->fetch_assoc())
             {
                 //echo("ROW ". $row);
-
                 $activity = new Activity(
                     $row['userid'],
                     $row['title'],
@@ -1013,28 +990,20 @@ class Activity {
                     $row['type'],
                     $row['intensity'],
                     $row['activityId']
-
                 );
                 //echo($activity);
                 array_push($activitiesArray, $activity);
             }
             //echo($activitiesArray);
             return $activitiesArray;
-
-        }   
+        }
         else
         {
             return false;
             echo "no results";
         }
-
-
-
-
-
     }
-
-    public function getActivitiesFromLastAccess($userId){
+    public function getActivitiesFromLastAccess($user){
         // Create connection
         $conn = new mysqli(DB_SERVER_NAME, DB_USERNAME, DB_PASSWORD, DB_NAME);
         // Check connection
@@ -1043,12 +1012,11 @@ class Activity {
             echo("Connection failed: " . $conn->connect_error);
             $conn->close();
             return;
-        } 
+        }
 
-        $currentDate = date();
+        $currentDate = date('Y-m-d H:i:s');
 
-
-        $sql = "SELECT activityId FROM activity, users WHERE usersid='".$user."' AND activity.startDate > users.last_access_plan AND event.startDate<'".$currentDate."  AND activity.done = '0' ";
+        $sql = "SELECT title, start_date, end_date, type, intensity, activityId FROM activity a, users u WHERE u.usersid='". $user ."' AND   a.userid='". $user ."' AND a.start_date > u.last_access_plan AND a.start_date <'".$currentDate."'  AND a.done = 0 ";
 
         $result = $conn->query($sql);
         $conn->close();
@@ -1060,38 +1028,23 @@ class Activity {
         }
         if ($result->num_rows > 0)
         {
-
             $activitiesToDoArray=[];
             while($row = $result->fetch_assoc())
             {
-                $activity = new Activity(
-                    $row['title'],
-                    $row['type'],
-                    $row['intensity'],
-                    $row['start_date'],
-                    $row['end_date'],
-                    $row['all_day'],
-                    $row['done']
+                $activityInfo = [ $row['title'],$row['type'],$row['start_date'],$row['end_date'], $row['intensity'], $row['activityId']];
 
-                );
-
-                array_push($activitiesToDoArray, $activity);
+                array_push($activitiesToDoArray,$activityInfo );
             }
-
             return $activitiesToDoArray;
-
-        }   
+        }
         else
         {
             //return false;
             echo "no results";
         }
-
     }
 
-
-
-    public function setActivityDone($activityId){
+    public function updateLastAccess($user){
         // Create connection
         $conn = new mysqli(DB_SERVER_NAME, DB_USERNAME, DB_PASSWORD, DB_NAME);
         // Check connection
@@ -1100,13 +1053,15 @@ class Activity {
             //            echo("Connection failed: " . $conn->connect_error);
             $conn->close();
             return false;
-        } 
+        }
 
+        $currentDate = date('Y-m-d H:i:s');
 
-        $sql = "UPDATE activity SET done='1' WHERE usersid='".$this->userID."' AND activityId ='".$this->activityId."'";
+        $sql = "UPDATE users SET last_access_plan= '".$currentDate."' WHERE usersid='". $user ."'";
 
         $result = $conn->query($sql);
         $conn->close();
+
         if(!$result)
         {
             echo('There was an error running the query [' . $conn->error . ']');
@@ -1119,8 +1074,29 @@ class Activity {
 
 
     }
-
-
+    public function setActivityDone($activityId){
+        // Create connection
+        $conn = new mysqli(DB_SERVER_NAME, DB_USERNAME, DB_PASSWORD, DB_NAME);
+        // Check connection
+        if ($conn->connect_error)
+        {
+            //            echo("Connection failed: " . $conn->connect_error);
+            $conn->close();
+            return false;
+        }
+        $sql = "UPDATE activity SET done=1 WHERE activityId ='".$activityId."'";
+        $result = $conn->query($sql);
+        $conn->close();
+        if(!$result)
+        {
+            echo('There was an error running the query [' . $conn->error . ']');
+            $conn->close();
+            return;
+        }
+        else{
+            return $result;
+        }
+    }
 }
 
 
@@ -1204,7 +1180,7 @@ class Plan{
         else
         {
             //TODO wrong username or password
-            echo "no results";
+            //echo "no results";
         }
 
     }

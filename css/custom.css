@@ -314,9 +314,82 @@ and open the template in the editor.
     box-sizing: border-box;
     text-align: center;
     background: rgba(0, 0, 0, 0.4);
- } 
- 
- /*Weather info card*/
+ }
+
+/*hometemp info card*/
+
+.hometemp-info-card .mdl-card__supporting-text {
+    color: rgba(0,0,0, 0.7);
+    font-size: 17px;
+}
+
+.hometemp-info-card > .mdl-card__title {
+    height: 176px;
+    color: #000;
+    background: url('../img/hometemp.jpg') center / cover;
+}
+
+.hometemp-info-card .mdl-card__actions {
+
+    min-height: 52px;
+    padding: 16px;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    color: #fff;
+    box-sizing: border-box;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+/*humidity info card*/
+
+.humidity-info-card .mdl-card__supporting-text {
+    color: rgba(0,0,0, 0.7);
+    font-size: 17px;
+}
+
+.humidity-info-card > .mdl-card__title {
+    height: 176px;
+    color: #000;
+    background: url('../img/humidity.jpg') center / cover;
+}
+
+.humidity-info-card .mdl-card__actions {
+
+    min-height: 52px;
+    padding: 16px;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    color: #fff;
+    box-sizing: border-box;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+/*motion info card*/
+
+.motion-info-card .mdl-card__supporting-text {
+    color: rgba(0,0,0, 0.7);
+    font-size: 17px;
+}
+
+.motion-info-card > .mdl-card__title {
+    height: 176px;
+    color: #000;
+    background: url('../img/motion.png') center / cover;
+}
+
+.motion-info-card .mdl-card__actions {
+
+    min-height: 52px;
+    padding: 16px;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    color: #fff;
+    box-sizing: border-box;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+
+/*Weather info card*/
 
 .weather-info-card .mdl-card__supporting-text {
     color: rgba(0,0,0, 0.7);
@@ -428,6 +501,30 @@ and open the template in the editor.
 }
 
 .temperature-info-card .mdl-card__actions {
+    
+    min-height: 52px;
+    padding: 16px;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    color: #fff;
+    box-sizing: border-box;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.4);
+ } 
+ 
+  /*position info card*/
+
+.position-info-card .mdl-card__supporting-text {
+    color: rgba(0,0,0, 0.7);
+    font-size: 17px;
+}
+  
+.position-info-card > .mdl-card__title {
+    height: 176px;
+    color: #fff;
+    background: url('../img/map.jpg') center / cover;
+}
+
+.position-info-card .mdl-card__actions {
     
     min-height: 52px;
     padding: 16px;

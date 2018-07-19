@@ -94,9 +94,12 @@ define("SAVE_EVENT_LIST", "saveEventList");
 
 /*************  ACTIVITY ***************/
 define("ADD_ACTIVITY", 'addActivity');
+define("DELETE_ACTIVITY", 'deleteActivity');
+define("UPDATE_ACTIVITY", 'updateActivity');
 define('SET_ACTIVITY_DONE', 'setActivityDone');
 define ('GET_ACTIVITY', 'getActivity');
-define('GET_ACTIVITY_LAST_ACCESSS','getActivityFromLastAccess' );
+define('GET_ACTIVITY_LAST_ACCESSS','getActivitiesFromLastAccess' );
+define('UPDATE_LAST_ACCESS', 'updateLastAccess');
 
 
 /*************  FITNESS  **************/
@@ -227,8 +230,12 @@ define("GET_USER_DATA", "getUserData");
                 
             case GET_ACTIVITY:
                 break;
-            
-                
+
+            case GET_ACTIVITY_LAST_ACCESSS:
+                break;
+
+            case UPDATE_LAST_ACCESS:
+                break;
             
             default:
                 $aResult['error'] = 'No function arguments!';
@@ -319,8 +326,34 @@ define("GET_USER_DATA", "getUserData");
                                         
                 }
                 break;
-                
-                //function that updates if activity was completed 
+
+            //  function that updates activities in db
+            case UPDATE_ACTIVITY:
+                if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 8) )
+                    $aResult['error'] = 'Error in arguments!';
+                else
+                {
+
+                    $aResult['result']= Activity::updateActivity($_SESSION['personAAL_user'], $_POST['arguments'][0],$_POST['arguments'][1],$_POST['arguments'][2],$_POST['arguments'][3],$_POST['arguments'][4],$_POST['arguments'][5],$_POST['arguments'][6],$_POST['arguments'][7]);
+
+
+                }
+                break;
+
+            //  function that deletes activity from db
+            case DELETE_ACTIVITY:
+                if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) )
+                    $aResult['error'] = 'Error in arguments!';
+                else
+                {
+
+                    $aResult['result']= Activity::deleteActivity($_SESSION['personAAL_user'], $_POST['arguments'][0]);
+
+
+                }
+                break;
+
+            //function that updates if activity was completed
             case SET_ACTIVITY_DONE:
                 if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) )
                    $aResult['error'] = 'Error in arguments!';
@@ -335,13 +368,16 @@ define("GET_USER_DATA", "getUserData");
                   $aResult['result'] = Activity::getActivity($_SESSION['personAAL_user']);
                 
                 break;
-                
+
             case GET_ACTIVITY_LAST_ACCESSS:
-                if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) )
-                   $aResult['error'] = 'Error in arguments!';
-                else
-                {  $aResult['result'] = Activity::getActivityFromLastAccess([$_SESSION['personAAL_user']]);
-                }
+
+                $aResult['result'] = Activity::getActivitiesFromLastAccess($_SESSION['personAAL_user']);
+
+                break;
+
+            case UPDATE_LAST_ACCESS:
+                $aResult['result'] = Activity::updateLastAccess($_SESSION['personAAL_user']);
+
                 break;
                 
                 /*

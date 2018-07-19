@@ -103,9 +103,6 @@ $result = file_get_contents( $url, false, $context );
     //echo urlencode($_SESSION['personAAL_user']);
  }
 
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -152,7 +149,6 @@ $result = file_get_contents( $url, false, $context );
         <script type="text/javascript">
             var userName = "<?php echo $_SESSION['personAAL_user']?>";
             var token = "<?php echo $idtoken ?>";
-            console.log("TOKEN USER", token);
             var userId = "<?php echo $userInfo['sub']?>";
         </script>
         <script src="./js/plugins/adaptation/sockjs-1.1.1.js"></script>
@@ -288,19 +284,23 @@ $result = file_get_contents( $url, false, $context );
             getHomeTemperature();
             getHomeHumidity();
             getMotion();
+            getWeight();
 
-            setInterval(getMedicationPlanned, 60000);
-            setInterval(getHomeTemperature, 60000);
-            setInterval(getHomeHumidity, 60000);
-            setInterval(getMotion, 60000);
+            setInterval(getMedicationPlanned, 5000);
+            setInterval(getHomeTemperature, 5000);
+            setInterval(getHomeHumidity, 5000);
+            setInterval(getMotion, 5000);
+            setInterval(getWeight, 5000);
+            setInterval(getTime, 5000);
 
             } );
         
         
         function confirmSurveyModal()
         {
-            //only integer values
-            var reg = new RegExp('^[0-9]+$');
+            //only numeric values
+            //var reg = new RegExp('^[0-9]+$');
+            var reg = new RegExp('^[0-9]*(\.[0-9]+)$');
             
             var weight= $('#input_weight').val();
             console.log('regexp weight: ' + reg.test(weight));
@@ -478,7 +478,7 @@ $result = file_get_contents( $url, false, $context );
                                     <h2 class="mdl-card__title-text"><?php echo(WEIGHT_CARD_TITLE);?></h2>
                                 </div>
                                 <div class="mdl-card__actions mdl-card--border">
-                                    <?php echo($surveyinfo->getWeight()). ' kg ';?>
+                                    <span id="weight"></span>
                                 </div>
                             </div>
                             <div  class="bmi-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
@@ -586,11 +586,12 @@ $result = file_get_contents( $url, false, $context );
                                     <?php echo(INDEX_SURVEY_QUESTION1);?>
                                 </div>
                                 <div class="mdl-textfield mdl-js-textfield survey-textfield">
-                                    <input class="mdl-textfield__input" type="text" id="input_weight" pattern="-?[0-9]+?">
+<!--                                    <input class="mdl-textfield__input" type="text" id="input_weight" pattern="-?[0-9]+?">-->
+                                    <input class="mdl-textfield__input" type="text" id="input_weight" pattern="-?[0-9]*(\.[0-9]+)?">
                                     <label class="mdl-textfield__label" for="input_weight">
                                         <?php echo(INDEX_SURVEY_HINT1);?>
                                     </label>
-                                    <span class="mdl-textfield__error">Only integer numbers *</span>
+                                    <span class="mdl-textfield__error">Only float numbers with . as separator *</span>
                                 </div>
                             </div>
                             <div class="survey-question-container">

@@ -196,16 +196,62 @@ function addActivity(title, start_date, end_date, all_day,done, type, intensity,
                           }
                     },
             error: function (ob, textstatus) {
-                console.log("error" + textstatus);
+                console.log("error " + textstatus);
                 console.log(ob);
             }
         });
 }
 
+function updateActivity(title, start_date, end_date, all_day,done, type, intensity, activityId){
+    jQuery.ajax({
+        type: "POST",
+        url: 'ajax_request.php',
+        dataType: 'json',
+        data: {functionname: 'updateActivity', arguments: [title, start_date, end_date, all_day,done, type, intensity, activityId]},
+
+        success: function (obj, textstatus) {
+            if( !('error' in obj) ) {
+                console.log("updateActivity success");
+                console.log(obj.result);
+            }
+            else {
+                console.log("error");
+                console.log(obj.error);
+            }
+        },
+        error: function (ob, textstatus) {
+            console.log("error " + textstatus);
+            console.log(ob);
+        }
+    });
+}
+
+
+function deleteActivity(activityId){
+    jQuery.ajax({
+        type: "POST",
+        url: 'ajax_request.php',
+        dataType: 'json',
+        data: {functionname: 'deleteActivity', arguments: [activityId]},
+
+        success: function (obj, textstatus) {
+            if( !('error' in obj) ) {
+                console.log("deleteActivity success");
+            }
+            else {
+                console.log("error");
+                console.log(obj.error);
+            }
+        },
+        error: function (ob, textstatus) {
+            console.log("error " + textstatus);
+            console.log(ob);
+        }
+    });
+}
 
 
 function getActivity( callback){
-    console.log("HEREEE");
     jQuery.ajax({
             type: "POST",
             url: 'ajax_request.php',
@@ -224,60 +270,85 @@ function getActivity( callback){
                           }
                     },
             error: function (ob, textstatus) {
-                console.log("error2" + textstatus);
+                console.log("error2 " + textstatus);
                 console.log(ob);
             }
         });
 }
 
-function getActivityFromLastAccess(userId){
-     jQuery.ajax({
-            type: "POST",
-            url: 'ajax_request.php',
-            dataType: 'json',
-            data: {functionname: 'getActivitiesFromLastAccess', arguments: [userId]},
+function getActivitiesFromLastAccess(callback){
+    console.log("HERE: Last_access");
+    jQuery.ajax({
+        type: "POST",
+        url: 'ajax_request.php',
+        dataType: 'json',
+        data: {functionname: 'getActivitiesFromLastAccess', arguments: []},
 
-            success: function (obj, textstatus) {
-                          if( !('error' in obj) ) {
-                              console.log("getActivitiesFromLastAccess success");
-                              console.log(obj.result);
-                          }
-                          else {
-                              console.log("error");
-                              console.log(obj.error);
-                          }
-                    },
-            error: function (ob, textstatus) {
-                console.log("error" + textstatus);
-                console.log(ob);
+        success: function (obj, textstatus) {
+            if( !('error' in obj) ) {
+                console.log("getActivitiesFromLastAccess success");
+                console.log(obj.result);
+                callback(obj.result);
             }
-        });
-    
-}
+            else {
+                console.log("error");
+                console.log(obj.error);
+            }
+        },
+        error: function (ob, textstatus) {
+            console.log("error" + textstatus);
+            console.log(ob);
+        }
+    });
 
+}
 
 function setActivityDone(activityId){
     jQuery.ajax({
-            type: "POST",
-            url: 'ajax_request.php',
-            dataType: 'json',
-            data: {functionname: 'addActivity', arguments: [activityId]},
+        type: "POST",
+        url: 'ajax_request.php',
+        dataType: 'json',
+        data: {functionname: 'setActivityDone', arguments: [activityId]},
 
-            success: function (obj, textstatus) {
-                          if( !('error' in obj) ) {
-                              console.log("setActivityDone success");
-                              console.log(obj.result);
-                          }
-                          else {
-                              console.log("error");
-                              console.log(obj.error);
-                          }
-                    },
-            error: function (ob, textstatus) {
-                console.log("error" + textstatus);
-                console.log(ob);
+        success: function (obj, textstatus) {
+            if( !('error' in obj) ) {
+                console.log("setActivityDone success");
+                console.log(obj.result);
             }
-        });
+            else {
+                console.log("error");
+                console.log(obj.error);
+            }
+        },
+        error: function (ob, textstatus) {
+            console.log("error" + textstatus);
+            console.log(ob);
+        }
+    });
+}
+
+function updateLastAccess(){
+    jQuery.ajax({
+        type: "POST",
+        url: 'ajax_request.php',
+        dataType: 'json',
+        data: {functionname: 'updateLastAccess', arguments: []},
+
+        success: function (obj, textstatus) {
+            if( !('error' in obj) ) {
+                console.log("updateLastAccess success");
+                console.log(obj.result);
+            }
+            else {
+                console.log("error");
+                console.log(obj.error);
+            }
+        },
+        error: function (ob, textstatus) {
+            console.log("error" + textstatus);
+            console.log(ob);
+        }
+    });
 }
  
 

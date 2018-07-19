@@ -1,4 +1,4 @@
-/* 
+﻿/* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -9,15 +9,8 @@ var appName  = "personAAL";
 var contextUrl = "https://giove.isti.cnr.it:8443/";
 
 window.onload = function() {
-//   setInterval(getECG_HR, 5000); 
-//   setInterval(getRespirationRate, 5000); 
-//   setInterval(getBodyTemperature, 5000); 
-   setInterval(getDailySteps, 5000); 
-   setInterval(getMedicationPlanned, 5000);
-   //setInterval(getMedicationOccurred, 5000);
-   setInterval(getTime, 60000);
-   
-   //internationalization
+       //internationalization
+    
     var userLang = getUserLanguage(); 
     console.log("User Language: " + userLang);
 
@@ -42,78 +35,98 @@ window.onload = function() {
             youdidMsg= 'You did ';
             stepsMsg= ' steps today!';
         break;
-        }    
+    }
+
+//    setInterval(getDailySteps, 60000);
+//    setInterval(getMedicationPlanned, 60000);
+//   setInterval(getMedicationOccurred, 5000);
+//    setInterval(getTime, 60000);
+//    setInterval(getHomeTemperature, 60000);
+//    setInterval(getHomeHumidity, 60000);
+//    setInterval(getMotion, 60000);      
 };
 
-//var heartRate = "";
-//var respirationRate = "";
-//var bodyTemperature = "";
-//
-//function getECG_HR() {	
-//    $.ajax({
-//        type: "GET",
-//        headers: {
-//            'Accept': 'application/json',
-//            'Content-Type': 'application/json'
-//        },
-//        url: contextUrl + "cm/rest/user/" + userName + "/heartRate/", 
-//        dataType: 'json',
-//        
-//        success: function (response) {            
-//            console.log("Context response Hearth Rate", response);
-//            $("#ecg_hr").html(response.value + " bpm");
-//            $heartRate=response.value;
-//        },
-//        error: function ()
-//        {
-//            console.log("Error while getting heart rate data");
-//        }
-//    });
-//}
-//
-//function getRespirationRate() {	
-//    $.ajax({
-//        type: "GET",
-//        headers: {
-//            'Accept': 'application/json',
-//            'Content-Type': 'application/json'
-//        },
-//        url: contextUrl + "cm/rest/user/" +userName + "/respirationRate/", 
-//        dataType: 'json',
-//        
-//        success: function (response) {            
-//            console.log("Context response Respiration Rate", response);
-//            $("#respiration_rate").html(response.value + breathMsg);
-//            $respirationRate=response.value;
-//        },
-//        error: function ()
-//        {
-//            console.log("Error while getting respiration rate data");
-//        }
-//    });
-//}
-//
-//function getBodyTemperature() {	
-//    $.ajax({
-//        type: "GET",
-//        headers: {
-//            'Accept': 'application/json',
-//            'Content-Type': 'application/json'
-//        },
-//        url: contextUrl + "cm/rest/user/"+ userName + "/bodyTemperature/", 
-//        dataType: 'json',
-//        
-//        success: function (response) {            
-//            console.log("Context response Body Temperature", response);
-//            $("#body_temperature").html(response.value + " °C");
-//            $bodyTemperature=response.value;
-//        },
-//        error: function ()
-//        {
-//            console.log("Error while getting body temperature data");
-//        }
-//    });
-//}
+function getHomeTemperature()
+{
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        url: encodeURI ( contextUrl + "cm/rest/environment/"+ userId + "Env/temperature"),
+        dataType: 'json',
+
+        success: function (response) {
+            console.log("Home temperature: ", response);
+            $("#hometemperaturevalue").html(response.value + ' ºC');
+        },
+        error: function ()
+        {
+            console.log("Error getting home temperature");
+        }
+    });
+}
+
+function getHomeHumidity()
+{
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        url: encodeURI ( contextUrl + "cm/rest/environment/"+ userId + "Env/humidity"),
+        dataType: 'json',
+
+        success: function (response) {
+            console.log("Home humidity: ", response);
+            $("#homehumidityvalue").html(humidityDetected(response.value));
+        },
+        error: function ()
+        {
+            console.log("Error getting home humidity");
+        }
+    });
+}
+
+function getMotion()
+{
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        url: encodeURI ( contextUrl + "cm/rest/environment/"+ userId + "Env/motion"),
+        dataType: 'json',
+
+        success: function (response) {
+            console.log("Motion: ", response);
+            $("#motionvalue").html(motionDetected(response.value));
+        },
+        error: function ()
+        {
+            console.log("Error getting motion");
+        }
+    });
+}
+
+function motionDetected(val)
+{
+    if (val === 'true')
+        return ("Motion detected");
+    else
+        return ("No motion detected");
+}
+
+function humidityDetected(val)
+{
+    if (val === 'true')
+        return ("Humidity detected");
+    else
+        return ("No humidity detected");
+}
 
 function getDailySteps() {	
     $.ajax({
@@ -122,7 +135,7 @@ function getDailySteps() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/"+ userName + "/steps/", 
+        url: encodeURI ( contextUrl + "cm/rest/user/"+ token + "/steps/"), 
         dataType: 'json',
         
         success: function (response) {            
@@ -136,6 +149,7 @@ function getDailySteps() {
     });
 }
 
+
 function sendMotivationDataToContext(val) {
     $.ajax({
         type: "GET",
@@ -143,7 +157,7 @@ function sendMotivationDataToContext(val) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userName + "/motivation/" + val,
+        url: encodeURI ( contextUrl + "cm/rest/user/" + userId + "/motivation/" + val),
         dataType: 'json',
         success: function (response) {            
             console.log("Context response Motivation", response);
@@ -162,7 +176,7 @@ function sendAgeToContext(val) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userName + "/personalData/age/" + val,
+        url: encodeURI ( contextUrl + "cm/rest/user/" + userId + "/personalData/age/" + val),
         dataType: 'json',
         success: function (response) {            
             console.log("Context response Age", response);
@@ -174,6 +188,44 @@ function sendAgeToContext(val) {
     });
 }
 
+function sendWeightToContext(val) {
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        url: encodeURI ( contextUrl + "cm/rest/user/" + userId + "/weight/" + val),
+        dataType: 'json',
+        success: function (response) {            
+            console.log("Context response Weight", response);
+        },
+        error: function ()
+        {
+            console.log("Error while sending weight to context");
+        }
+    });
+}
+
+function sendHeightToContext(val) {
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        url: encodeURI ( contextUrl + "cm/rest/user/" + userId + "/height/" + val),
+        dataType: 'json',
+        success: function (response) {
+            console.log("Context response Weight", response);
+        },
+        error: function ()
+        {
+            console.log("Error while sending weight to context");
+        }
+    });
+}
+
 function sendStepGoalToContext(val) {
     $.ajax({
         type: "GET",
@@ -181,7 +233,7 @@ function sendStepGoalToContext(val) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userName + "/stepsGoal/" + val,
+        url: encodeURI ( contextUrl + "cm/rest/user/" + token + "/stepsGoal/" + val),
         dataType: 'json',
         success: function (response) {            
             console.log("Context response Steps Goal", response);
@@ -193,6 +245,27 @@ function sendStepGoalToContext(val) {
     });
 }
 
+function getWeight() {
+
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+      
+        url: encodeURI(contextUrl + "cm/rest/user/" + userId + "/weight/"),
+        dataType: 'json',
+
+        success: function (response) {
+            $("#weight").html(response.value);
+        },
+        error: function () {
+            console.log("Error while getting weight data");
+
+        }
+    });
+}
 
 
 //NEW
@@ -203,7 +276,7 @@ function sendMeetGoalToContext(val){
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userName + "/environment/meetGoal/" + val,
+        url: encodeURI ( contextUrl + "cm/rest/user/" + userId + "/environment/meetGoal/" + val),
         success: function (response) {            
         console.log("Context response Meet Goal", response);
         },
@@ -213,11 +286,6 @@ function sendMeetGoalToContext(val){
         }
     });
 }
-
-
-
-
-
 
 
 
@@ -244,7 +312,7 @@ function sendTimeToContextManager(timeValue) {
              'Accept': 'application/json',
              'Content-Type': 'application/json'
          },
-         url: contextUrl + "cm/rest/user/" + userName + "/time/" + timeValue,
+         url: encodeURI ( contextUrl + "cm/rest/user/" + userId + "/time/" + timeValue),
          dataType: 'json',
          success: function (response) {
              console.log("Context response", response);
@@ -264,8 +332,8 @@ function getMedicationPlanned()
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/"+ userName + "/medication_planned/", 
-//        url: contextUrl + "cm/rest/user/roytest/medication_planned/",
+        url: encodeURI ( contextUrl + "cm/rest/user/"+ token + "/medication_planned/"), 
+//        url: encodeURI ( contextUrl + "cm/rest/user/roytest/medication_planned/"),
         dataType: 'json',
         
         success: function (response) {            
@@ -289,7 +357,7 @@ function getMedicationOccurred()
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/"+ userName + "/medication_occurred/", 
+        url: encodeURI ( contextUrl + "cm/rest/user/"+ token + "/medication_occurred/"), 
         dataType: 'json',
         
         success: function (response) {            
@@ -319,7 +387,7 @@ function getMedicationOccurred()
 //				'Accept': 'application/json',
 //				'Content-Type': 'application/json'
 //			},
-//			url: "https://giove.isti.cnr.it:8443/cm/rest/user/john/medication_planned",
+//			url: encodeURI ( "https://giove.isti.cnr.it:8443/cm/rest/user/john/medication_planned"),
 //			dataType: 'json',
 //			data: JSON.stringify(medicationObj),
 //			success: function (response) {     

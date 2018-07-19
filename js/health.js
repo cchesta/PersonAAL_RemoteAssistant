@@ -53,9 +53,8 @@ var contextUrl = "https://giove.isti.cnr.it:8443/";
 var appName = "personAAL";
 
 var capture;
-window.onload = init;
 
-function init() {
+window.onload = function(){
 
     //internationalization
     var userLang = getUserLanguage();
@@ -68,7 +67,7 @@ function init() {
             break;
 
         case 'de':
-            breathMsg = ' breaths/minute'
+            breathMsg = ' atemzüge/minute'
             break;
 
         case 'no':
@@ -86,9 +85,12 @@ function init() {
     snackbar = document.getElementById("snackbar-log");
 
     getWeightData(drawWeightChart);
-    getRespirationRate();
-    getHeartRate();
-    getBodyTemperature();
+    
+    setInterval(getRespirationRate,5000);
+    setInterval(getHeartRate,5000);
+    setInterval(getBodyTemperature,5000);
+    setInterval(getPosition,5000);
+    
     
 /*
     //velocity animation
@@ -111,6 +113,7 @@ function manageCapture() {
         document.getElementById("hr_value_box").style.display = 'none';
         document.getElementById("rr_value_box").style.display = 'none';
         document.getElementById("bt_value_box").style.display = 'none';
+        document.getElementById("p_value_box").style.display = 'none';
         rrTimer = setInterval(getRespirationRate, 5000);
         hrTimer = setInterval(getHeartRate, 5000);
         //setInterval(getTime, 60000);    
@@ -124,6 +127,7 @@ function manageCapture() {
         document.getElementById("hr_value_box").style.display = 'block';
         document.getElementById("rr_value_box").style.display = 'block';
         document.getElementById("bt_value_box").style.display = 'block';
+        document.getElementById("p_value_box").style.display = 'block';
         clearInterval(rrTimer);
         clearInterval(hrTimer);
         document.getElementById("captureControl").innerHTML = "play_arrow";
@@ -133,6 +137,10 @@ function manageCapture() {
 
 function drawWeightChart() {
 
+    if (weightArray.length == 0)
+        return;
+    if (weightArray.constructor !== Array)
+        weightArray = new Array(weightArray);
     data = [];
     for (var i=0, l=weightArray.length; i<l; i++) {
         data.push(new Array(new Date(weightArray[i].timestamp).getTime(), parseFloat(weightArray[i].weight)));
@@ -205,7 +213,7 @@ function drawBMIChart() {
 
     data = [];
     for (var i=0, l=weightArray.length; i<l; i++) {
-        data.push(new Array(new Date(weightArray[i].timestamp).getTime(), parseFloat(weightArray[i].weight)/(height*height)));
+        data.push(new Array(new Date(weightArray[i].timestamp).getTime(), parseFloat(weightArray[i].weight)*10000/(height*height)));
     }
 
     var maxDate = data[0][0];
@@ -350,6 +358,7 @@ function drawHRChart() {
             min: minDate,
             max: maxDate,
             timeformat: "%H:%M:%S",
+            ticks: 5,
             tickLength: 0 // hide gridlines
         },
         axisLabels: {
@@ -419,11 +428,15 @@ function getWeightData(callback) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userName + "/weight/history/getNlastValues/10",
+        url: encodeURI (contextUrl + "cm/rest/user/" + userId + "/weight/history/getNlastValues/10"),
         dataType: 'json',
 
         success: function (response) {
-            weightArray = response.historyUserWeight;
+            if (response.historyUserWeight === undefined)
+                weightArray = [];
+            else
+                weightArray = response.historyUserWeight;
+            console.log("Weight data: ", weightArray);
             callback();
         },
         error: function () {
@@ -442,7 +455,7 @@ function getHeightData(callback) {
             'Content-Type': 'application/json'
         },
       
-        url: contextUrl + "cm/rest/user/" + userName + "/height/",
+        url: encodeURI(contextUrl + "cm/rest/user/" + userId + "/height/"),
         dataType: 'json',
 
         success: function (response) {
@@ -457,28 +470,76 @@ function getHeightData(callback) {
     });
 }
 
-function getRespirationRate() {	
-    console.log("getRespirationRate");
-    $.ajax({
-        type: "GET",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        url: contextUrl + "cm/rest/user/" +userName + "/respirationRate/", 
-        dataType: 'json',
-        
-        success: function (response) {            
-            console.log("Context response Respiration Rate", response);
-            $("#respiration_rate").html(response.value + " rpm");
-            $respirationRate=response.value;
-        },
-        error: function ()
-        {
-            console.log("Error while getting respiration rate data");
-        }
-    });
-}
+
+//function getRespirationRate() {
+//
+//    $.ajax({
+//        type: "GET",
+//        headers: {
+//            'Accept': 'application/json',
+//            'Content-Type': 'application/json'
+//        },
+//
+//        url: encodeURI ( contextUrl + "cm/rest/user/" + token + "/respirationRate/"),
+//        dataType: 'json',
+//
+//        success: function (response) {
+//            console.log("Context response Respiration Rate", response);
+//            respirationRate = response.value;
+//            document.getElementById("respiration_rate_box").innerHTML = respirationRate + breathMsg;
+//            if (capture)
+//                drawRRChart();
+//        },
+//        error: function () {
+//            console.log("Error while getting respiration rate data");
+//        }
+//    });
+//}
+//
+//function getHeartRate() {
+//    $.ajax({
+//        type: "GET",
+//        headers: {
+//            'Accept': 'application/json',
+//            'Content-Type': 'application/json'
+//        },
+//        url: encodeURI ( contextUrl + "cm/rest/user/" + token + "/heartRate/"),
+//        dataType: 'json',
+//
+//        success: function (response) {
+//            console.log("Context response Heart Rate", response);
+//            heartRate = response.value;
+//            document.getElementById("ecg_hr_box").innerHTML = heartRate + " bpm";
+//            if (capture)
+//                drawHRChart();
+//        },
+//        error: function () {
+//            console.log("Error while getting heart rate data");
+//        }
+//    });
+//}
+
+//function getBodyTemperature() {
+//    $.ajax({
+//        type: "GET",
+//        headers: {
+//            'Accept': 'application/json',
+//            'Content-Type': 'application/json'
+//        },
+//        url: encodeURI ( contextUrl + "cm/rest/user/" + token + "/bodyTemperature/"),
+//        dataType: 'json',
+//
+//        success: function (response) {
+//            console.log("Context response Body Temperature", response);
+//            bodyTemperature = response.value;
+//            document.getElementById("body_temperature_box").innerHTML = bodyTemperature + " ºC";
+//        },
+//        error: function () {
+//
+//        console.log("Error while getting body temperature data");
+//        }
+//    });
+//}
 
 function getRespirationRate() {
 
@@ -489,12 +550,12 @@ function getRespirationRate() {
             'Content-Type': 'application/json'
         },
 
-        url: contextUrl + "cm/rest/user/" + userName + "/respirationRate/",
+        url: encodeURI ( contextUrl + "cm/rest/user/" + token + "/physiological/"),
         dataType: 'json',
 
         success: function (response) {
             console.log("Context response Respiration Rate", response);
-            respirationRate = response.value;
+            respirationRate = response.respirationRate;
             document.getElementById("respiration_rate_box").innerHTML = respirationRate + breathMsg;
             if (capture)
                 drawRRChart();
@@ -512,12 +573,12 @@ function getHeartRate() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userName + "/heartRate/",
+        url: encodeURI ( contextUrl + "cm/rest/user/" + token + "/physiological/"),
         dataType: 'json',
 
         success: function (response) {
             console.log("Context response Heart Rate", response);
-            heartRate = response.value;
+            heartRate = response.heartRate;
             document.getElementById("ecg_hr_box").innerHTML = heartRate + " bpm";
             if (capture)
                 drawHRChart();
@@ -535,17 +596,66 @@ function getBodyTemperature() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userName + "/bodyTemperature/",
+        url: encodeURI ( contextUrl + "cm/rest/user/" + token + "/physiological/"),
         dataType: 'json',
 
         success: function (response) {
             console.log("Context response Body Temperature", response);
-            bodyTemperature = response.value;
+            bodyTemperature = response.temperature;
             document.getElementById("body_temperature_box").innerHTML = bodyTemperature + " ºC";
         },
         error: function () {
 
         console.log("Error while getting body temperature data");
+        }
+    });
+}
+
+function getPosition() {
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        url: encodeURI ( contextUrl + "cm/rest/user/" + token + "/physiological/"),
+        dataType: 'json',
+
+        success: function (response) {
+            console.log("Context response Position", response);
+            positionArray = response.positionArray;
+            positionNumber = positionArray.position;
+            switch(positionNumber)
+            {
+                case '0':
+                position= 'standing';
+                break;
+                
+                case '1':
+                position= 'supine';
+                break;
+                
+                case '2':
+                position= 'prone';
+                break;
+                
+                case '3':
+                position= 'right';
+                break;
+                
+                case '4':
+                position= 'left';
+                break;
+                
+                default:
+                position= 'standing';
+                break;
+            }
+            document.getElementById("position_box").innerHTML = position;
+        },
+        error: function () {
+
+        console.log("Error while getting position data");
         }
     });
 }

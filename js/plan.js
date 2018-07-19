@@ -7,7 +7,7 @@ var socket;
 
 var contextUrl = "https://giove.isti.cnr.it:8443/";
 //var userName = "cchesta";
-var userName = "john";
+//var userName = "john";
 var appName  = "personAAL";
 
 
@@ -94,7 +94,7 @@ function sendExerciseGoalsToContext(val){
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin' : '*'
         },
-        url: contextUrl + "cm/rest/user/" + userName + "/environment/exerciseGoal/" + val,
+        url: encodeURI ( contextUrl + "cm/rest/user/" + userId + "/environment/exerciseGoal/" + val),
         success: function (response) {            
             console.log("Context response Exercise Goal", response);
             $("#exercise_goal_text").html(Number(response.value));
@@ -115,7 +115,7 @@ function sendStepGoalToContext(val) {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin' : '*'
         },
-        url: contextUrl + "cm/rest/user/" + userName + "/stepsGoal/" + val,
+        url: encodeURI ( contextUrl + "cm/rest/user/" + userId + "/stepsGoal/" + val),
         dataType: 'json',
         success: function (response) {            
             console.log("Context response Steps Goal", response);
@@ -135,7 +135,7 @@ function sendWalkGoalToContext(val){
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin' : '*'
         },
-        url: contextUrl + "cm/rest/user/" + userName + "/environment/walkGoal/" + val,
+        url: encodeURI ( contextUrl + "cm/rest/user/" + userId + "/environment/walkGoal/" + val),
         dataType: 'json',
         success: function (response) {            
             console.log("Context response Walk Goal", response);
@@ -156,7 +156,7 @@ function sendMeetGoalToContext(val){
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin' : '*'
         },
-        url: contextUrl + "cm/rest/user/" + userName + "/environment/meetGoal/" + val,
+        url: encodeURI ( contextUrl + "cm/rest/user/" + userId + "/environment/meetGoal/" + val),
         success: function (response) {            
             console.log("Context response Meet Goal", response);
             $("#meet_goal_text").html(Number(response.value));
@@ -176,7 +176,7 @@ function getExerciseGoalFromContext(callback3){
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin' : '*'
         },
-        url: contextUrl + "cm/rest/user/"+ userName + "/environment/exerciseGoal/", 
+        url: encodeURI ( contextUrl + "cm/rest/user/"+ userId + "/environment/exerciseGoal/"),
         dataType: 'json',
 
         success: function (response) {            
@@ -205,7 +205,7 @@ function getWalkGoalFromContext(callback2,callback3){
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin' : '*'
         },
-        url: contextUrl + "cm/rest/user/"+ userName + "/environment/walkGoal/", 
+        url: encodeURI ( contextUrl + "cm/rest/user/"+ userId + "/environment/walkGoal/"),
         dataType: 'json',
 
         success: function (response) {            
@@ -236,7 +236,7 @@ function getMeetGoalFromContext(callback1,callback2,callback3){
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin' : '*'
         },
-        url: contextUrl + "cm/rest/user/" + userName + "/environment/meetGoal/", 
+        url: encodeURI ( contextUrl + "cm/rest/user/" + userId + "/environment/meetGoal/"),
         dataType: 'json',
 
         success: function (response) {            
@@ -244,7 +244,7 @@ function getMeetGoalFromContext(callback1,callback2,callback3){
             meetGoal = Number(response.value);
             $("#meet_goal_text").html(Number(response.value));
             smMeet = false;
-            document.getElementById("slide_03").MaterialSlider.change(response.value);
+            document.getElementById("slide_03").value = response.value;
             $("#inp_text_03").val(response.value);
             callback1(callback2,callback3);
         },
@@ -292,42 +292,54 @@ function getCompletedActivityFromContext(callback){
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin' : '*'
         },
-        url: contextUrl + "cm/rest/user/"+ userName + "/activity/CompletedActivity/history/getValuesFromDateToNow/" + yyyymmdd, 
+        url: encodeURI ( contextUrl + "cm/rest/user/"+ userId + "/activity/CompletedActivity/history/getValuesFromDateToNow/" + yyyymmdd),
         dataType: 'json',
 
-        success: function (response) {            
+        success: function (response) {
             console.log("Context response completed activity", response);
-            console.log("1st Position: ", ((response.historyCompletedActivity)[0]));
             actualMeet = 0;
             actualWalk = 0;
             actualExercise = 0; 
+                        
+            if(!response.historyCompletedActivity){
+                //actualMeet = 0;
+                //actualWalk = 0;
+                //actualExercise = 0; 
+            }
+            else if(response.historyCompletedActivity.constructor!==Array){
+                switch(response.historyCompletedActivity.activity_type){
+                    case 'Exercise':
+                        actualExercise += Number(response.historyCompletedActivity.completed_duration);
+                        break;
+                    case 'Walk':
+                        actualWalk += Number(response.historyCompletedActivity.completed_duration);
+                        break;
+                    case 'Social':
+                        actualMeet +=1;
+                        break;
+                }
+            }
+            else{
             for(var i = 0; i<(response.historyCompletedActivity).length; i++){
                 switch((response.historyCompletedActivity)[i].activity_type){
-                    case activityTypeExercise:
+                    case 'Exercise':
                         actualExercise += Number((response.historyCompletedActivity)[i].completed_duration);
-                        
-                        console.log("ACTUAL EXERCISE", actualExercise);
                         break;
-
-                    case activityTypeWalk:
+                    case 'Walk':
                         actualWalk += Number((response.historyCompletedActivity)[i].completed_duration);
-                      
-                        console.log("ACTUAL WALK", actualWalk);
                         break;
-
-                    case activityTypeSocial:
-                        actualMeet +=1;
-                        
-                        console.log("ACTUAL MEET", actualMeet);
+                    case 'Social':
+                        actualMeet += Number(1);
                         break;
                 }
             };
+            }
             $("#actual_exercise_text").html(getHour(Number(actualExercise)));
             $("#actual_walk_text").html(getHour(Number(actualWalk)));
             $("#actual_meet_text").html(Number(actualMeet));
             callback();
-
         },
+
         error: function ()
         {
           $("#actual_exercise_text").html(0);
@@ -355,7 +367,7 @@ function sendCompletedActivityToContext(activity_intensity, activity_name,activi
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin' : '*'
         },
-        url: contextUrl + "cm/rest/user/" + userName + "/activity/CompletedActivity/",			  
+        url: encodeURI ( contextUrl + "cm/rest/user/" + token + "/activity/CompletedActivity/"),			  
         dataType: 'json',
         data: JSON.stringify(CompletedActivityObj),
         success: function (response) {     
@@ -376,7 +388,7 @@ function getDailySteps() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/"+ userName + "/steps/", 
+        url: encodeURI ( contextUrl + "cm/rest/user/"+ userId + "/steps/"),
         dataType: 'json',
 
         success: function (response) {            

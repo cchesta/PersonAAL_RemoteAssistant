@@ -3,8 +3,8 @@
     include 'DButils.php';
  
     // Require composer autoloader
-    require __DIR__ . '\login\vendor\autoload.php';
-    require __DIR__ . '\login\dotenv-loader.php';
+    require __DIR__ . DIRECTORY_SEPARATOR . 'login' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+    require __DIR__ . DIRECTORY_SEPARATOR . 'login' . DIRECTORY_SEPARATOR . 'dotenv-loader.php';
 
     use Auth0\SDK\Auth0;
 
@@ -35,8 +35,7 @@
     }
     else
     {
-//        $user = $userInfo['sub'];
-        $user = $userInfo['nickname'];
+        $user = $userInfo['sub'];
         
 
         $_SESSION['personAAL_user']= $user;	 
@@ -45,63 +44,7 @@
 
     }
     
-   
-      
-    //REDIRECT SU HTTPS
-//    if(!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == "")
-//	HTTPtoHTTPS();
-    
-//    if(!isCookieEnabled())
-//    {
-//	myRedirect("login.php?notify=".DISABLED_COOKIE, TRUE);
-//    }
-    
-     
-    //utente loggato
-//    if (isset($_SESSION['personAAL_user']) && $_SESSION['personAAL_user'] != "")
-//    {
-//	$_SESSION['personAAL_time']=time();
-//	myRedirect("index.php",TRUE);
-//    }
-    
-    
-    //PROCEDURA PER IL LOGIN
-//    if(isset($_REQUEST['submit']) && $_REQUEST['submit'] !== "")
-//    {
-//	$_REQUEST['submit']= "";
-//	unset($_REQUEST['submit']);
-//	
-//	if(!isset($_REQUEST['username']) || !isset($_REQUEST['password']) || $_REQUEST['username'] == "" || $_REQUEST['password'] == "")
-//	    sendGETData("notify", EMPTY_CREDENTIAL, TRUE);
-//	else
-//	{
-//            
-//	    $user= strip_tags($_REQUEST['username']);
-//	    $pw= strip_tags($_REQUEST['password']);
-//
-//	    if(isValidCredential($user, FALSE) && isValidCredential($pw, TRUE))
-//	    {
-//		//credenziali sintatticamente valide
-//		$result= login($user, $pw);
-//
-//		//Wrong credentials
-//		if($result === FALSE)
-//		   sendGETData("notify", WRONG_USERNAME_OR_PASSWORD , TRUE);
-////		else if($result === -1)
-////		    sendGETData("notify", DB_CONNECTION_ERROR , TRUE);
-//		 
-//		 //username e password esatti
-//		 $_SESSION['personAAL_user']= $user;
-//		 
-//		 sendGETData("notify", LOGIN_SUCCESS, TRUE);
-//		 
-//	    }
-//	    else
-//		sendGETData("notify", INVALID_CREDENTIAL, TRUE);
-//	}
-//	
-//    }
-    
+       
  
 $selected='en';
 
@@ -146,7 +89,6 @@ setLanguage();
         
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         
-      
         
         
         <!--  UI CSS & JS-->
@@ -182,21 +124,25 @@ setLanguage();
                     <span class="mdl-layout-title">PersonAAL</span>
                     
                     <div class="mdl-layout-spacer"></div>
-                    
-                    <table border="1" width="2" cellspacing="1" cellpadding="1">
+
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+                        <table>
                             <tr>
                                 <td>
-                                <form action=""<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-                                <select name="languages" onchange="this.form.submit();">
-                                    <?php echo get_options($selected); ?>
-                                </select>
-                                </form>  
+                                    <form action=""<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                                        <div>
+                                            <select name="languages" onchange="this.form.submit();">
+                                                <?php echo get_options($selected); ?>
+                                            </select>
+                                        </div>
+                                    </form>
                                 </td>
-                                <td>
+                                <td style="padding-left: 1rem; padding-right: 1rem; vertical-align: top">
                                     <img src="img/<?php echo $selected; ?>.jpg" width="30" height="20" alt="en"/>
                                 </td>
                             </tr>
-                    </table>
+                        </table>
+                    </div>
                 </div>
             </header>
             

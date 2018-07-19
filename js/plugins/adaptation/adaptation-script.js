@@ -2,7 +2,7 @@
 
 var appName  = "personAAL";
 
-var contextManagerUrl = "https://giove.isti.cnr.it:8443/cm/";
+//var contextManagerUrl = "https://giove.isti.cnr.it:8443/cm/";
 	
 function subscribeToAdaptationEngine() {
     var subscriptionRequest = '{' +
@@ -428,26 +428,12 @@ function applyUpdate(update) {
 }
 
 function manageApplianceState(xPath, value) {
-    //light1 = LivingRoom
-    //light2 = Bathroom
-    //light3 = Bedhroom
-    
-    //presa1 = ventilatore (fan)
-    //presa2 = radio
-    //presa3 = webcam
     
     var xPathArray = xPath.split("/");
     var roomName = xPathArray[1];
     var applianceName = xPathArray[2];
     var attrToChange = xPathArray[3].substring(1);
-    //applianceState/roomName/lightColor/@state
-    //applianceState/roomName/lightColor/@color        
-    //setBulbValuesXY(bulbIndex, newSatState, newBriState, rgb);
-    //
-    //applianceState/Kitchen/radio/@state
-    //applianceState/LivingRoom/radio/@state
-    //applianceState/Bedroom/fan/@state
-    //relaySwitch('0', 'on') -- relaySwitch('0', 'off')
+
     
     switch (applianceName) {
         case "lightColor" :
@@ -462,44 +448,7 @@ function manageApplianceState(xPath, value) {
     }
 }
 
-//function updateLightColor(room, attrToChange, value) {
-//switch (room) {
-//            case "LivingRoom"://1
-//                if (attrToChange === 'color') {					
-//                    sendValuesToHueHex(1, 254, 254, value);
-//		} 
-//                else if (attrToChange === 'state') {
-//                    if(value === 'blink')
-//                        blinkBulb(1);
-//                    else if (value === 'on')
-//                        turnOnOffLight(1, true);
-//                    else
-//                        turnOnOffLight(1, false);
-//                }
-//                break;
-//            case "Bathroom"://2
-//                if (attrToChange === 'color') 
-//                    sendValuesToHueHex(2, 254, 254, value);
-//                else if (attrToChange === 'state'){
-//                    console.log("value: " + value);
-//                    if (value === 'on')
-//                        turnOnOffLight(2, true);
-//                    else
-//                        turnOnOffLight(2, false);
-//                }
-//                break;
-//            case "Bedroom"://3
-//                if (attrToChange === 'color') 
-//                    sendValuesToHueHex(3, 254, 254, value);
-//                else if (attrToChange === 'state'){
-//                    if (value === 'on')
-//                        turnOnOffLight(3, true);
-//                    else
-//                        turnOnOffLight(3, false);
-//                }
-//                break; 
-//            }
-//}
+
 
 function updateLightColor(room, attrToChange, value) {
     for (var lightnum=1; lightnum<=3; lightnum++){

@@ -4,8 +4,8 @@ include 'miscLib.php';
 include 'DButils.php';
 
 // Require composer autoloader
- require __DIR__ . '\login\vendor\autoload.php';
- require __DIR__ . '\login\dotenv-loader.php';
+ require __DIR__ . DIRECTORY_SEPARATOR . 'login' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+ require __DIR__ . DIRECTORY_SEPARATOR . 'login' . DIRECTORY_SEPARATOR . 'dotenv-loader.php';
 
  use Auth0\SDK\Auth0;
 
@@ -26,6 +26,7 @@ include 'DButils.php';
  ]);
 
  $userInfo = $auth0->getUser();
+ $idtoken = $auth0->getIdToken();
 
  if(!$userInfo)
  {
@@ -36,7 +37,7 @@ include 'DButils.php';
  {
      echo("<script>console.log('index user_id: ".$userInfo['sub']."');</script>");
      echo("<script>console.log('index nickname: ".$userInfo['nickname']."');</script>");
-     $user = $userInfo['nickname'];
+     $user = $userInfo['sub'];
 
      //SESSIONE
 //     session_start();
@@ -44,50 +45,6 @@ include 'DButils.php';
      setLanguage();
  }
  
-
-//REDIRECT SU HTTPS
-//if(!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == "")
-//    HTTPtoHTTPS();
-
-//if(!isCookieEnabled())
-//{
-//    //TODO handle disabled cookie error
-//    //myRedirect("error.php?err=DISABLED_COOKIE", TRUE);
-//}
-//
-//
-////SESSIONE
-//session_start();
-//setLanguage();
-//
-////verifico se è stato effettuato il login
-//if (isset($_SESSION['personAAL_user']) && $_SESSION['personAAL_user'] != "")
-//{
-//    $t=time();
-//    $diff=0;
-//    $new=FALSE;
-//    
-//    //VERIFICO SE LA SESSIONE E' SCADUTA
-//    if (isset($_SESSION['personAAL_time']))
-//    {
-//	$t0=$_SESSION['personAAL_time'];
-//	$diff=($t-$t0); // inactivity period
-//    }
-//    else
-//	$new=TRUE;
-//        
-//    if ($new || ($diff > SESSION_TIMEOUT))
-//    { 
-//	//DISTRUGGO LA SESSIONE
-//	mySessionDestroy();
-//	myRedirect("login.php?notify=".SESSION_EXPIRED, TRUE);
-//    }
-//    else
-//	$_SESSION['personAAL_time']=time();  //update time 
-//    
-//}
-//else
-//    myRedirect("login.php", TRUE);
 
 ?>
 
@@ -142,16 +99,20 @@ and open the template in the editor.
     <script src="js/plugins/bootstrap/bootstrap_modals.js"></script>
 
     <!-- ADAPTATION SCRIPTS -->
+    <script type="text/javascript">
+            var userName = "<?php echo $_SESSION['personAAL_user']?>";
+            var token = "<?php echo $idtoken ?>";
+            var userId = "<?php echo $userInfo['sub']?>";
+    </script>
     <script src="./js/plugins/adaptation/sockjs-1.1.1.js"></script>
     <script src="./js/plugins/adaptation/stomp.js"></script>
     <script src="./js/plugins/adaptation/websocket-connection.js"></script>
     <script src="./js/plugins/adaptation/adaptation-script.js"></script>
     <script src="./js/plugins/adaptation/delegate.js"></script>
     <script src="./js/plugins/adaptation/jshue.js"></script>
-  <script src="./js/plugins/adaptation/command.js"></script>
+    <script src="./js/plugins/adaptation/command.js"></script>
 
     <script src="js/health.js"></script>
-
 
 </head>
 
@@ -177,7 +138,8 @@ and open the template in the editor.
                 <a class="mdl-navigation__link" href="plan.php"><i class="material-icons">date_range</i><?php echo(ENTRY_PLAN);?></a>
                 <a class="mdl-navigation__link" href="profile.php"><i class="material-icons">info</i><?php echo(ENTRY_PROFILE);?></a>
                 <a class="mdl-navigation__link" href="contacts.php"><i class="material-icons">group</i><?php echo(ENTRY_CONTACTS);?></a>
-                <a class="mdl-navigation__link" href="login.php?notify=LOGOUT"><i class="material-icons">power_settings_new</i><?php echo(ENTRY_LOGOUT);?></a>
+                <a class="mdl-navigation__link" href="huelights.php"><i class="material-icons">flare</i><?php echo(ENTRY_HUELIGHTS);?></a>
+                <a class="mdl-navigation__link" href="logout.php"><i class="material-icons">power_settings_new</i><?php echo(ENTRY_LOGOUT);?></a>
             </nav>
         </div>
         <main class="mdl-layout__content">
@@ -240,6 +202,13 @@ and open the template in the editor.
                             <div id="body_temperature_box" class="mdl-card__actions mdl-card--border"></div>
                         </div>
                         
+                        <div id="p_value_box" class="position-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue" style="height:228px;">
+                            <div class="mdl-card__title">
+                                <h2 class="mdl-card__title-text"><?php echo(POSITION_CARD_TITLE);?></h2>
+                            </div>
+                            <div id="position_box" class="mdl-card__actions mdl-card--border"></div>
+                        </div>
+                        
                         <div id="hr_plot_chart" class="plot-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet grey no-stretch" style="display:none">
                             <div class="mdl-card__supporting-text mdl-card--expand">
                                 <div id="plot-HR" class="center" style="width:100%;height:350px;"></div>
@@ -271,28 +240,6 @@ and open the template in the editor.
 
                     </div>
                         
-                
-                    <div id="health" class="mdl-grid mdl-cell mdl-cell--4-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone"> 
-
-                        <div  class="heart-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
-                            <div class="mdl-card__title">
-                                <h2 class="mdl-card__title-text"><?php echo(HEART_CARD_TITLE);?></h2>
-                            </div>
-                            <div id="ecg_hr" class="mdl-card__actions mdl-card--border"></div>
-                        </div>
-                        <div   class="breath-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
-                            <div class="mdl-card__title">
-                                <h2 class="mdl-card__title-text"><?php echo(BREATH_CARD_TITLE);?></h2>
-                            </div>
-                            <div id="respiration_rate" class="mdl-card__actions mdl-card--border"></div>
-                        </div>
-                        <div   class="temperature-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
-                            <div class="mdl-card__title">
-                                <h2 class="mdl-card__title-text"><?php echo(TEMPERATURE_CARD_TITLE);?></h2>
-                            </div>
-                            <div id="body_temperature" class="mdl-card__actions mdl-card--border"></div>
-                        </div>
-                    </div>
               </div>
         </main>
         </div>

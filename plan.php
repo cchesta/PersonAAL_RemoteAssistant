@@ -4,8 +4,8 @@ include 'miscLib.php';
 include 'DButils.php';
 
 // Require composer autoloader
- require __DIR__ . '\login\vendor\autoload.php';
- require __DIR__ . '\login\dotenv-loader.php';
+ require __DIR__ . DIRECTORY_SEPARATOR . 'login' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+ require __DIR__ . DIRECTORY_SEPARATOR . 'login' . DIRECTORY_SEPARATOR . 'dotenv-loader.php';
 
  use Auth0\SDK\Auth0;
 
@@ -26,6 +26,7 @@ include 'DButils.php';
  ]);
 
  $userInfo = $auth0->getUser();
+ $idtoken = $auth0->getIdToken();
 
  if(!$userInfo)
  {
@@ -36,7 +37,7 @@ include 'DButils.php';
  {
      echo("<script>console.log('index user_id: ".$userInfo['sub']."');</script>");
      echo("<script>console.log('index nickname: ".$userInfo['nickname']."');</script>");
-     $user = $userInfo['nickname'];
+     $user = $userInfo['sub'];
 
      //SESSIONE
 //     session_start();
@@ -101,6 +102,8 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
         <!-- ADAPTATION SCRIPTS -->
         <script type="text/javascript">
             var userName = "<?php echo $_SESSION['personAAL_user']?>";
+            var token = "<?php echo $idtoken ?>";
+            var userId = "<?php echo $userInfo['sub']?>";
         </script>
         <script src="./js/plugins/adaptation/sockjs-1.1.1.js"></script>
         <script src="./js/plugins/adaptation/stomp.js"></script>
@@ -124,6 +127,7 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
         <link rel="stylesheet" type="text/css" href="CalenStyle-master/src/calenstyle-jquery-ui-override.css" />
         <link rel="stylesheet" type="text/css" href="CalenStyle-master/src/calenstyle-iconfont.css" />
         <script type="text/javascript" src="CalenStyle-master/src/calenstyle.js"></script>
+        <script type="text/javascript" src="CalenStyle-master/i18n/calenstyle-i18n.js"></script>
         <script type="text/javascript" src="CalenStyle-master/demo/js/CalJsonGenerator.js"></script>
         <link rel="stylesheet" href="ripjar-material-datetime-picker/dist/material-datetime-picker.css">
 
@@ -161,7 +165,10 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
             .mdl-step {
                 height: auto;
             }
-
+            
+            .mdl-step__content {
+                height: auto;
+            }
 
             .calendarContOuter
             {			
@@ -204,10 +211,12 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
             var allDay;
 
             var dialog;
+            var activityCard;
+            var lastAccessActivitiesArray;
             
-            var SocialColor = 'A04220'; 
-            var WalkColor = '105924';
-            var ExerciseColor = '3568BA' ;
+            var SocialColor = '#A04220';
+            var WalkColor = '#105924';
+            var ExerciseColor = '#3568BA' ;
 
             var SocialIcon = 'cs-icon-Meeting';
             var WalkIcon = 'cs-icon-Running';
@@ -225,33 +234,26 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
 
             var calendar, sInputTZOffset = "-00:00";
 
+            var activityEdit = null;
+
 
 
             $(document).ready(function() {
 
                 //goals
                 <?php
-
-                $p = new Plan($_SESSION['personAAL_user']);
-
-                echo("walkActualAmount= ". $p->getActualWalk() .";");
-                echo("exerciseActualAmount= ". $p->getActualExercise() .";");
-                echo("meetActualAmount= ". $p->getActualMeet() .";");
-                echo("walkGoal= ". $p->getWalkGoal() .";");
-                echo("exerciseGoal= ". $p->getExerciseGoal() .";");
-                echo("meetGoal= ". $p->getMeetGoal() .";");
-
+//
+//                $p = new Plan($_SESSION['personAAL_user']);
+//
+//                echo("walkActualAmount= ". $p->getActualWalk() .";");
+//                echo("exerciseActualAmount= ". $p->getActualExercise() .";");
+//                echo("meetActualAmount= ". $p->getActualMeet() .";");
+//                echo("walkGoal= ". $p->getWalkGoal() .";");
+//                echo("exerciseGoal= ". $p->getExerciseGoal() .";");
+//                echo("meetGoal= ". $p->getMeetGoal() .";");
+//
                 ?>
-
-                if(walkGoal !== 0 && exerciseGoal !== 0 && meetGoal !== 0)
-                {
-                    setupGoalSettingsCard();
-                    $('#goal-settings-card').hide();
-                }
-                else
-                    $('#goal-view-card').hide();
-
-
+                        
                 //for mobile animation fix
                 fixGridHeight= document.getElementById("fix-grid").style.height;
 
@@ -299,17 +301,68 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
 
                 getMeetGoalFromContext(getWalkGoalFromContext,getExerciseGoalFromContext,updateGoalFields);
 
+                var sLang = "<?php echo($_SESSION['languages']);?>";
+                var i18n = $.CalenStyle.i18n[sLang];
+                var oViewDisplayNames = i18n["viewDisplayNames"];
 
                 $(".calendarContOuter").CalenStyle({
+
+                    language: sLang,
 
                     inputTZOffset: '',
                     outputTZOffset: '',
 
+                    viewsToDisplay : [
+                        {
+                            "viewName": "DetailedMonthView",
+                            viewDisplayName: oViewDisplayNames["DetailedMonthView"]
+                        },
+                        {
+                            "viewName": "WeekView",
+                            viewDisplayName: oViewDisplayNames["WeekView"]
+                        },
+                        {
+                            "viewName": "DayView",
+                            viewDisplayName: oViewDisplayNames["DayView"]
+                        }
+                    ],
+                    visibleView: "WeekView",
+
+                    businessHoursSource: [
+                        {
+                            day: 0,
+                            times: [{startTime: "00:00", endTime: "24:00"}]
+                        },
+                        {
+                            day: 1,
+                            times: [{startTime: "00:00", endTime: "24:00"}]
+                        },
+                        {
+                            day: 2,
+                            times: [{startTime: "00:00", endTime: "24:00"}]
+                        },
+                        {
+                            day: 3,
+                            times: [{startTime: "00:00", endTime: "24:00"}]
+                        },
+                        {
+                            day: 4,
+                            times: [{startTime: "00:00", endTime: "24:00"}]
+                        },
+                        {
+                            day: 5,
+                            times: [{startTime: "00:00", endTime: "24:00"}]
+                        },
+                        {
+                            day: 6,
+                            times: [{startTime: "00:00", endTime: "24:00"}]
+                        }
+
+                    ],
+
                     initialize: function() {
                         calendar = this;
                         getActivity(addActivitiesToCalendar);
-
-
                     },
 
                     calDataSource: [{
@@ -320,7 +373,6 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                             
                         }
                     }],
-
 
                     cellClicked: function(sView, dSelectedDateTime, bIsAllDay, pClickedAt) {
 
@@ -359,11 +411,66 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                         dialog = document.querySelector('dialog');
                         initDialog();
                         dialog.showModal();
+                    },
+
+                    eventClicked: function (visibleView, sElemSelector, oEvent) {
+                        var thisObj = this;
+                        console.log(oEvent);
+                        showEditDeleteDialog(sElemSelector, oEvent);
                     }
 
                 });
 
             });
+
+            function showEditDeleteDialog(selector, event) {
+                activityEditDeleteCard = document.querySelector('#activityEditDeleteDialog');
+                $('#ed_title').html(event.title);
+                $('#ed_type').html(event.description);
+                $('#ed_start_date').html(event.start.toString());
+                $('#ed_end_date').html(event.end.toString());
+                switch(event.tag){
+                    case "Exercise":
+                        $('#activityEditDeleteDialog').css({'background':ExerciseColor});
+                        break;
+                    case "Walk":
+                        $('#activityEditDeleteDialog').css({'background':WalkColor});
+                        break;
+                    case "Social":
+                        $('#activityEditDeleteDialog').css({'background':SocialColor});
+                        break;
+                }
+                activityEditDeleteCard.showModal();
+
+                activityEditDeleteCard.querySelector('#dialogEdit').onclick = function(){
+                    console.log("EDIT ACTIVITY: ", selector);
+                    activityEditDeleteCard.close();
+                    activityEdit = event;
+                    dialog = document.querySelector('dialog');
+                    initEditDialog();
+                    dialog.showModal();
+                };
+
+                activityEditDeleteCard.querySelector('#dialogDelete').onclick = function(){
+                    console.log("DELETE ACTIVITY: ", selector);
+                    deleteActivity(event.id);
+                    var sArrRemoveIds = new Array();
+                    var oRemove = {
+                        removeIds : event.calEventId
+                    };
+                    sArrRemoveIds.push(oRemove);
+                    calendar.removeEvents(sArrRemoveIds);
+                    getActivity(addActivitiesToCalendar);
+                    // calendar.refreshView();
+                    activityEditDeleteCard.close();
+                };
+
+                activityEditDeleteCard.querySelector('#dialogCancel').onclick = function(){
+                    activityEditDeleteCard.close();
+                };
+
+            }
+
 
             function addActivitiesToCalendar(activitiesArray){
                 var icon;
@@ -403,21 +510,169 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                 calendar.refreshView();
                 }
 
-                
+                getActivitiesFromLastAccess(fillActivityCard);
+            }
 
+            function fillActivityCard(lastAccessActivities){
+                lastAccessActivitiesArray =  lastAccessActivities;
+                activityCard = document.querySelector('#activityDialog');
+                //console.log("activity card: ", activityCard);
 
+                ShowActivityLAstAccess(0);
+            }
 
+            function ShowActivityLAstAccess(i){
+                let aux = i;
+                if(i>=lastAccessActivitiesArray.length){
+                    console.log("END: ", i);
+                    updateGoalFields();
+                    updateLastAccess();
+                    return;
+                }
+                $('#ac_title').html(lastAccessActivitiesArray[i][0]);
+                $('#ac_type').html(lastAccessActivitiesArray[i][1]);
+                $('#ac_start_date').html(lastAccessActivitiesArray[i][2]);
+                switch(lastAccessActivitiesArray[i][1]){
+                    case "Exercise":
+                        $('#activityDialog').css({'background':ExerciseColor});
+                        break;
+                    case "Walk":
+                        $('#activityDialog').css({'background':WalkColor});
+                        break;
+                    case "Social":
+                        $('#activityDialog').css({'background':SocialColor});
+                        break;
+                }
+                activityCard.showModal();
+                console.log("OUTSITE EVENT LISTENER ", i);
+                console.log("ARRAY: ",lastAccessActivitiesArray[i] );
 
+                activityCard.querySelector('#dialogNo').onclick = function(){
+                    console.log("SAID NO INSIDE ", i);
+                    activityCard.close();
+                    ShowActivityLAstAccess(i+1);
 
-                //getActivityFromLastAccess()
+                };
 
-            }  
+                activityCard.querySelector('#dialogYes').onclick = function(){
+                    var activity_intensity = lastAccessActivitiesArray[i][4];
+                    var activity_name = lastAccessActivitiesArray[i][0] ;
+                    var activity_type = lastAccessActivitiesArray[i][1];
+                    //activity duration
+                    var start = new Date(lastAccessActivitiesArray[i][2]);
+                    var end = new Date (lastAccessActivitiesArray[i][3]);
+                    var difference = end.getTime() - start.getTime();
+                    var completed_duration = Math.round(difference/60000);
+                    var completed_time = start.getHours() + '.' + ('0'+start.getMinutes()).slice(-2);
+                    var completed_timestamp = moment(start).format() ;
+                    console.log("SAID YES INSIDE", i);
+                    //SEND TO CM
+                    sendCompletedActivityToContext(activity_intensity, activity_name,activity_type,completed_duration,completed_time,completed_timestamp);
+                    setActivityDone(lastAccessActivitiesArray[i][5]);
+                    console.log("ACTIVITY ID YES: ", lastAccessActivitiesArray[i][5]);
+                    activityCard.close();
+                    ShowActivityLAstAccess(i+1);
+                };
 
-            
+            }
+
+            function initEditDialog() {
+                if (activityEdit) {
+                    var dEndDateTime, sStartDateTime, sEndDateTime;
+                    if (activityEdit.isAllDay) {
+                        allDay = true;
+                        document.getElementById('ipAllDay-group').MaterialCheckbox.check();
+                        sStartDateTime = calendar.getDateInFormat({"date": activityEdit.start}, "dd-MM-yyyy", false, false);
+                        sEndDateTime = calendar.getDateInFormat({"date": activityEdit.end}, "dd-MM-yyyy", false, false);
+                    } else {
+                        allDay = false;
+                        document.getElementById('ipAllDay-group').MaterialCheckbox.uncheck();
+                        sStartDateTime = calendar.getDateInFormat({"date": activityEdit.start}, "dd-MM-yyyy HH:mm", calendar.setting.is24Hour, false);
+                        sEndDateTime = calendar.getDateInFormat({"date": activityEdit.end}, "dd-MM-yyyy HH:mm", calendar.setting.is24Hour, false);
+                    }
+                    document.getElementById('aStart').value = sStartDateTime;
+                    document.getElementById('aStart').parentElement.classList.add('is-dirty');
+                    document.getElementById('aEnd').value = sEndDateTime;
+                    document.getElementById('aEnd').parentElement.classList.add('is-dirty');
+                    document.getElementById('aName').value = activityEdit.title;
+                    document.getElementById('aName').parentElement.classList.add('is-dirty');
+                    startDate = sStartDateTime;
+                    endDate = sEndDateTime;
+                    switch (activityEdit.tag) {
+                        case 'Walk':
+                            document.getElementById('aWalk').parentNode.MaterialRadio.check();
+                            var dStartDateTime = parseDateInFormat(allDay, $("#aStart").val());
+                            dEndDateTime = parseDateInFormat(allDay, $("#aEnd").val());
+                            var dif = dEndDateTime.getTime() - dStartDateTime.getTime();
+                            var result = Math.round(dif/60000);
+                            document.getElementById('slide_as').max = 100 * (result);
+                            document.getElementById('slide_as').MaterialSlider.change(Number(activityEdit.description));
+                            document.getElementById('inp_text_as').value = activityEdit.description;
+                            document.getElementById('inp_text_as').parentElement.classList.add('is-dirty');
+                            break;
+                        case 'Exercise':
+                            document.getElementById('aExercise').parentNode.MaterialRadio.check();
+                            switch (activityEdit.description) {
+                                case 'High':
+                                    document.getElementById('radioe1').parentNode.MaterialRadio.check();
+                                    break;
+                                case 'Moderate':
+                                    document.getElementById('radioe2').parentNode.MaterialRadio.check();
+                                    break;
+                                case 'Low':
+                                    document.getElementById('radioe3').parentNode.MaterialRadio.check();
+                                    break;
+                            }
+                            break;
+                        case 'Social':
+                            document.getElementById('aSocial').parentNode.MaterialRadio.check();
+                            switch (activityEdit.description) {
+                                case 'Receive Guests':
+                                    document.getElementById('radio1').parentNode.MaterialRadio.check();
+                                    break;
+                                case 'Call Someone':
+                                    document.getElementById('radio2').parentNode.MaterialRadio.check();
+                                    break;
+                                case 'Visit Someone':
+                                    document.getElementById('radio3').parentNode.MaterialRadio.check();
+                                    break;
+                                case 'Cinema':
+                                    document.getElementById('radio4').parentNode.MaterialRadio.check();
+                                    break;
+                                case 'Theatre':
+                                    document.getElementById('radio5').parentNode.MaterialRadio.check();
+                                    break;
+                                case 'Restaurant':
+                                    document.getElementById('radio6').parentNode.MaterialRadio.check();
+                                    break;
+                                case 'Pub':
+                                    document.getElementById('radio7').parentNode.MaterialRadio.check();
+                                    break;
+                                case 'Religious':
+                                    document.getElementById('radio8').parentNode.MaterialRadio.check();
+                                    break;
+                                default:
+                                    document.getElementById('radio9').parentNode.MaterialRadio.check();
+                                    document.getElementById('other_social_activity').value = activityEdit.description;
+                                    document.getElementById('other_social_activity').parentElement.classList.add('is-dirty');
+                                    document.getElementById('other_social_activity_group').style.display = 'block';
+                                    break;
+                            }
+                            break;
+                    };
+                    $('#step2Button').removeAttr('disabled');
+                    $('#dialogSubmit').removeAttr('disabled');
+                    var element = document.querySelector('.mdl-stepper');
+                    if (!element) return false;
+                    var stepper = element.MaterialStepper;
+                    stepper.goto(1);
+                }
+            }
             
             // Dialog scripts
             $(function() {
                 dialog = document.querySelector('dialog');
+
 
                 $('#dialogSubmit').on('click', function() {
                     var activityType = $("[name=aType]").filter(':checked').val();
@@ -432,7 +687,9 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                             break;
                         case "Social":
                             activityIntensity = $("[name = socialIntensity]").filter(':checked').val();
-
+                            if (activityIntensity == "Other") {
+                                activityIntensity = document.getElementById('other_social_activity').value;
+                            }
                             break;
                     }
 
@@ -441,13 +698,29 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                     dialog.close();
 
                     console.log("Start_time: ", startDate)
-                    // Call the DB insert function here and receive the id of the inserted activity, which is used in the activity string sent to the calendar
-                    addActivity(activityTitle,startDate,endDate,(allDay ? 1: 0),0,activityType,activityIntensity,addActivityToCalendar);
 
+                    // Call the DB insert function here and receive the id of the inserted activity, which is used in the activity string sent to the calendar
+                    if (activityEdit) {
+                        updateActivity(activityTitle, startDate, endDate, (allDay ? 1 : 0), 0, activityType, activityIntensity, activityEdit.id);
+                        var sArrRemoveIds = new Array();
+                        var oRemove = {
+                            removeIds : activityEdit.calEventId
+                        };
+                        sArrRemoveIds.push(oRemove);
+                        calendar.removeEvents(sArrRemoveIds);
+                        getActivity(addActivitiesToCalendar);
+                        ClearDialogFields();
+                    }
+                    else {
+                        addActivity(activityTitle, startDate, endDate, (allDay ? 1 : 0), 0, activityType, activityIntensity, addActivityToCalendar);
+                    }
+
+                    activityEdit = null;
                 });
 
                 $('#dialogCancel').on('click', function() {
                     dialog.close();
+                    activityEdit = null;
                 });
             });
 
@@ -554,7 +827,10 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                             var result = Math.round(dif/60000);
                             
                             document.getElementById('slide_as').max = 100 * (result);
-                            document.getElementById('slide_as').MaterialSlider.change(0);
+                            if (!activityEdit)
+                                document.getElementById('slide_as').MaterialSlider.change(0);
+                            else
+                                document.getElementById('slide_as').MaterialSlider.change(Number(activityEdit.description));
                             //$("#slide_as").max= 100* (difMins);
                             $('#advancedexercise').hide();
                             $('#advancedsteps').show();
@@ -580,10 +856,23 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
             };
 
             function enableNextStep() {
-                if ($('#aName').val().length > 0) {
-                    $('#step2Button').removeAttr('disabled');
-                    $('#dialogSubmit').removeAttr('disabled');
-                }
+                if ($('#aName').val().length == 0) {
+                    var activityTypeOptions = $("[name=aType]");
+                    var activityType = activityTypeOptions.filter(':checked').val();
+                    switch (activityType) {
+                        case "Exercise":
+                            $('#aName')[0].parentElement.MaterialTextfield.change("Exercise");
+                            break;
+                        case "Walk":
+                            $('#aName')[0].parentElement.MaterialTextfield.change("Walk");
+                            break;
+                        case "Social":
+                            $('#aName')[0].parentElement.MaterialTextfield.change("Social");
+                            break;
+                    };
+                };
+                $('#step2Button').removeAttr('disabled');
+                $('#dialogSubmit').removeAttr('disabled');
             };
 
 
@@ -671,13 +960,24 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                 .on('submit', (val) => {
                     var sDateTest = parseDateInFormat(bIsAllDay, val.format("DD-MM-YYYY HH:mm"));
                     var eDateTest = parseDateInFormat(bIsAllDay, $("#aEnd").val());
-                    if(calendar.compareDateTimes(sDateTest, eDateTest)  <= 0){
-                    input1.value = val.format("DD-MM-YYYY HH:mm");
-                    startDate = val.format("DD-MM-YYYY HH:mm");
+                    if (calendar.compareDateTimes(sDateTest, eDateTest)  <= 0) {
+                        input1.value = val.format("DD-MM-YYYY HH:mm");
+                        startDate = val.format("DD-MM-YYYY HH:mm");
                         document.getElementById('aStart').parentElement.classList.remove('is-invalid');
-                    }
-                    else{
-                        document.getElementById('aStart').parentElement.className+=' is-invalid';
+                    } else {
+                        if (activityEdit) {
+                            input1.value = val.format("DD-MM-YYYY HH:mm");
+                            startDate = val.format("DD-MM-YYYY HH:mm");
+                            var duration = activityEdit.end - activityEdit.start;
+                            var eTemp = parseDateInFormat(bIsAllDay, val.format("DD-MM-YYYY HH:mm"));
+                            var tempDate = new Date(eTemp);
+                            tempDate.setTime(tempDate.getTime() + duration);
+                            endDate = calendar.getDateInFormat({"date": tempDate}, "dd-MM-yyyy HH:mm", calendar.setting.is24Hour, false);
+                            var input2 = document.querySelector('#aEnd');
+                            input2.value = endDate;
+                        } else {
+                            document.getElementById('aStart').parentElement.className += ' is-invalid';
+                        }
                     }
                 })
                 .on('close', () => dialog.showModal());
@@ -704,9 +1004,9 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                 .on('submit', (val) => {
                     var sDateTest = parseDateInFormat(bIsAllDay, $("#aStart").val());
                     var eDateTest = parseDateInFormat(bIsAllDay, val.format("DD-MM-YYYY HH:mm"));
-                    if(calendar.compareDateTimes(sDateTest, eDateTest)  <= 0){
-                    input2.value = val.format("DD-MM-YYYY HH:mm");
-                    endDate = val.format("DD-MM-YYYY HH:mm");
+                    if (calendar.compareDateTimes(sDateTest, eDateTest)  <= 0) {
+                        input2.value = val.format("DD-MM-YYYY HH:mm");
+                        endDate = val.format("DD-MM-YYYY HH:mm");
                         document.getElementById('aStart').parentElement.classList.remove('is-invalid');
                     }
                     else{
@@ -858,7 +1158,12 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                 else
                     document.getElementById("meet-result-icon").textContent= "hourglass_empty";
 
-
+                if(walkGoal !== 0 && exerciseGoal !== 0 && meetGoal !== 0)
+                {
+                    $('#goal-settings-card').hide();
+                }
+                else
+                    $('#goal-view-card').hide();
             }
 
             /*update actual and goal values,*/
@@ -869,7 +1174,14 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
 
             }
 
-
+            function showOtherTypeSocialInput() {
+                if (document.getElementById('radio9').checked) {
+                    document.getElementById('other_social_activity_group').style.display = 'block';
+                }
+                else {
+                    document.getElementById('other_social_activity_group').style.display = 'none';
+                }
+            }
 
 
 
@@ -935,7 +1247,7 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                                                min="0" max="28" tabindex="0" id = "slide_01">
                                         <form action="">
                                             <div class="mdl-textfield mdl-js-textfield" id="text_01">
-                                                <input class="mdl-textfield__input" type="text" id="inp_text_01" >
+                                                <input class="mdl-textfield__input" type="number" id="inp_text_01" >
                                             </div>
                                         </form>
                                     </div>
@@ -946,7 +1258,7 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                                                min="0" max="28" tabindex="0" id = "slide_02">
                                         <form action="">
                                             <div class="mdl-textfield mdl-js-textfield" id="text_02">
-                                                <input class="mdl-textfield__input" type="text" id="inp_text_02" >
+                                                <input class="mdl-textfield__input" type="number" id="inp_text_02" >
                                             </div>
                                         </form>
                                     </div>
@@ -959,7 +1271,7 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                                                min="0" max="42" tabindex="0" id = "slide_03">
                                         <form action="">
                                             <div class="mdl-textfield mdl-js-textfield" id="text_03">
-                                                <input class="mdl-textfield__input" type="text" id="inp_text_03" >
+                                                <input class="mdl-textfield__input" type="number" id="inp_text_03" >
                                             </div>
                                         </form>
 
@@ -992,7 +1304,7 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                                                     <span id="actual_exercise_text"></span>
                                                     <span>/</span>
                                                     <span id="exercise_goal_text"></span>
-                                                    <span> <?php echo(PLAN_GOALS_HOURS);?></span>    
+                                                    <span> <?php echo(PLAN_GOALS_HOURS);?></span>
                                                 </p>
                                             </span>
 
@@ -1061,8 +1373,8 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
 
                         <div id="calendar-card" class="calendar-card mdl-cell mdl-cell--8-col-desktop mdl-cell--4-col-phone mdl-cell--8-col-tablet no-stretch mdl-card mdl-shadow--4dp">
                             <div class="mdl-card__title">
-                                <h2 class="mdl-card__title-text">Planner&nbsp;</h2>
-                                <span class="mdl-card__subtitle-text"> - Click on the calendar to start scheduling an activity</span>
+                                <h2 class="mdl-card__title-text"><?php echo(PLAN_CALENDAR_TITLE);?>&nbsp;</h2>
+                                <span class="mdl-card__subtitle-text"> - <?php echo(PLAN_CALENDAR_INSTRUCTIONS);?></span>
                             </div>
 
                             <div class="mdl-card__media">
@@ -1084,24 +1396,24 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                                 <li id="step1" class="mdl-step mdl-step--editable">
                                     <span class="mdl-step__label">
                                         <span class="mdl-step__title">
-                                            <span class="mdl-step__title-text">Confirm date and time</span>
+                                            <span class="mdl-step__title-text"><?php echo(STEPPER_STEP1);?></span>
                                         </span>
                                     </span>
                                     <div class="mdl-step__content">
 
                                         <label id="ipAllDay-group" class="mdl-checkbox mdl-js-checkbox">
-                                            <input id="ipAllDay" type="checkbox" class = "mdl-checkbox__input" onclick="validateAllDayChecked()"> All Day
+                                            <input id="ipAllDay" type="checkbox" class = "mdl-checkbox__input" onclick="validateAllDayChecked()"> <?php echo(STEPPER_STEP1_ALLDAY);?>
                                         </label>
                                         <div id="ipAlertStartEnd" class="alert alert-danger" role="alert">
-                                            Start DateTime should be earlier than End DateTime
+                                            <?php echo(STEPPER_STEP1_ERROR);?>
                                         </div>
 
 
 
                                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                             <input class="mdl-textfield__input" type="text" id="aStart" onclick="showTimePickerStart()">
-                                            <label class="mdl-textfield__label" for="aStart">Start time</label>
-                                            <span class="mdl-textfield__error">Start DateTime should be earlier than End DateTime </span>
+                                            <label class="mdl-textfield__label" for="aStart"><?php echo(STEPPER_STEP1_START);?></label>
+                                            <span class="mdl-textfield__error"><?php echo(STEPPER_STEP1_ERROR);?></span>
 
                                         </div>
 
@@ -1109,8 +1421,8 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 
                                             <input class="mdl-textfield__input" type="text" id="aEnd" onclick="showTimePickerEnd()">
-                                            <label class="mdl-textfield__label" for="aEnd">End time</label>
-                                            <span class="mdl-textfield__error">Start DateTime should be earlier than End DateTime </span>
+                                            <label class="mdl-textfield__label" for="aEnd"><?php echo(STEPPER_STEP1_END);?></label>
+                                            <span class="mdl-textfield__error"><?php echo(STEPPER_STEP1_ERROR);?></span>
 
                                         </div>
 
@@ -1122,60 +1434,67 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
 
 
                                     <div class="mdl-step__actions">
-                                        <button class="mdl-button mdl-js-button" onclick="moveToNext()" data-stepper-continue>Continue</button>
+                                        <button class="mdl-button mdl-js-button" onclick="moveToNext()" data-stepper-continue><?php echo(STEPPER_CONTINUE);?></button>
                                     </div>
                                 </li>
                                 <li id="step2" class="mdl-step mdl-step--editable">
                                     <span class="mdl-step__label">
                                         <span class="mdl-step__title">
-                                            <span class="mdl-step__title-text">Chose type of activity</span>
+                                            <span class="mdl-step__title-text"><?php echo(STEPPER_STEP2);?></span>
                                         </span>
                                     </span>
                                     <div class="mdl-step__content">
                                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                             <input class="mdl-textfield__input" type="text" id="aName">
-                                            <label class="mdl-textfield__label" for="aName">Activity name</label>
+                                            <label class="mdl-textfield__label" for="aName"><?php echo(STEPPER_STEP2_ACTIVITYNAME);?></label>
                                         </div>
                                         <div>
+                                            <p><?php echo(STEPPER_STEP2_ACTIVITYTYPE);?></p>
                                             <div>
                                                 <label for="aWalk" class="mdl-radio mdl-js-radio">
                                                     <input type="radio" id="aWalk" name="aType" value="Walk" class="mdl-radio__button" onclick="enableNextStep()">
-                                                    <span class="mdl-radio__label">Walking</span>
+                                                    <span class="mdl-radio__label"><?php echo(STEPPER_STEP2_ACTIVITYWALK);?></span>
                                                 </label>
                                             </div>
                                             <div>
                                                 <label for="aExercise" class="mdl-radio mdl-js-radio">
                                                     <input type="radio" id="aExercise" name="aType" value="Exercise" class="mdl-radio__button" onclick="enableNextStep()">
-                                                    <span class="mdl-radio__label">Exercise</span>
+                                                    <span class="mdl-radio__label"><?php echo(STEPPER_STEP2_ACTIVITYEXERCISE);?></span>
                                                 </label>
                                             </div>
                                             <div>
                                                 <label for="aSocial" class="mdl-radio mdl-js-radio">
                                                     <input type="radio" id="aSocial" name="aType" value="Social" class="mdl-radio__button" onclick="enableNextStep()">
-                                                    <span class="mdl-radio__label">Social activity</span>
+                                                    <span class="mdl-radio__label"><?php echo(STEPPER_STEP2_ACTIVITYSOCIAL);?></span>
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="mdl-step__actions">
-                                        <button id="step2Button" class="mdl-button mdl-js-button" onclick="moveToNext()" data-stepper-continue disabled>Continue</button>
-                                        <button class="mdl-button mdl-js-button" onclick="moveToPrevious()" data-stepper-back>Back</button>
+                                        <button id="step2Button" class="mdl-button mdl-js-button" onclick="moveToNext()" data-stepper-continue disabled><?php echo(STEPPER_CONTINUE);?></button>
+                                        <button class="mdl-button mdl-js-button" onclick="moveToPrevious()" data-stepper-back><?php echo(STEPPER_BACK);?></button>
                                     </div>
                                 </li>
                                 <li id="step3" class="mdl-step mdl-step--editable mdl-step--optional">
                                     <span class="mdl-step__label">
                                         <span class="mdl-step__title">
-                                            <span class="mdl-step__title-text">Enter activity details</span>
+                                            <span class="mdl-step__title-text"><?php echo(STEPPER_STEP3);?></span>
                                         </span>
                                     </span>
                                     <div class="mdl-step__content">
                                         <div id="advancedexercise" class="mdl-card__supporting-text mdl-card--expand">
-                                            <label class="mdl-layout-title">Intensity Of Exercise : </label>
+                                            <label class="mdl-layout-title"><?php echo(STEPPER_STEP3_EXERCISEINTENSITY);?></label>
 
                                             <div class="radio">
                                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
                                                     <input id="radioe1" name="exerciseintensity" type="radio" class = "mdl-radio__button" value="High">
-                                                    <span class="mdl-radio__label">High</span>
+                                                    <span class="mdl-radio__label">
+                                                        <?php echo(STEPPER_STEP3_EXERCISEINTENSITYHIGH);?>
+                                                        <div id="exercise_high" class="icon material-icons">feedback</div>
+                                                        <div class="mdl-tooltip" for="exercise_high" style="font-size: small">
+                                                            <?php echo(STEPPER_STEP3_EXERCISEINTENSITYHIGH_INFO);?>
+                                                        </div>
+                                                    </span>
                                                 </label>
                                             </div>
 
@@ -1183,14 +1502,26 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                                             <div class="radio">
                                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
                                                     <input id="radioe2" name="exerciseintensity" type="radio" class = "mdl-radio__button" value="Moderate">
-                                                    <span class="mdl-radio__label">Moderate</span>
+                                                    <span class="mdl-radio__label">
+                                                        <?php echo(STEPPER_STEP3_EXERCISEINTENSITYMODERATE);?>
+                                                        <div id="exercise_moderate" class="icon material-icons">feedback</div>
+                                                        <div class="mdl-tooltip" for="exercise_moderate" style="font-size: small">
+                                                            <?php echo(STEPPER_STEP3_EXERCISEINTENSITYMODERATE_INFO);?>
+                                                        </div>
+                                                    </span>
                                                 </label>
                                             </div>
 
                                             <div class="radio">
                                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
                                                     <input id="radioe3" name="exerciseintensity" type="radio" class = "mdl-radio__button" value="Low">
-                                                    <span class="mdl-radio__label">Low</span>
+                                                    <span class="mdl-radio__label">
+                                                        <?php echo(STEPPER_STEP3_EXERCISEINTENSITYLOW);?>
+                                                        <div id="exercise_low" class="icon material-icons">feedback</div>
+                                                        <div class="mdl-tooltip" for="exercise_low" style="font-size: small">
+                                                            <?php echo(STEPPER_STEP3_EXERCISEINTENSITYLOW_INFO);?>
+                                                        </div>
+                                                    </span>
                                                 </label>
                                             </div>
 
@@ -1198,12 +1529,12 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                                         </div>
 
                                         <div id="advancedsteps" class="mdl-card__supporting-text mdl-card--expand">
-                                            <label class="mdl-layout-title">Number of Steps : </label>
+                                            <label class="mdl-layout-title"><?php echo(STEPPER_STEP3_WALKSTEPS);?></label>
 
                                             <div class="card-choice-group">
 
                                                 <input class="mdl-slider mdl-js-slider" type="range"
-                                                       min="0" max="300" tabindex="0" id = "slide_as" step="100">
+                                                       min="0" max="3000" tabindex="0" id = "slide_as" step="100">
                                                 <form action="">
                                                     <div class="mdl-textfield mdl-js-textfield" id="text_as">
                                                         <input class="mdl-textfield__input" type="text" id="inp_text_as" >
@@ -1216,76 +1547,81 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
 
 
                                         <div id="advancedsocial" class="mdl-card__supporting-text mdl-card--expand">
-                                            <label class="mdl-layout-title">Type of Social Activity : </label>
+                                            <label class="mdl-layout-title"><?php echo(STEPPER_STEP3_SOCIALTYPE);?></label>
                                             <div class="radio">
                                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                                    <input id="radio1" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Receive Guests">
-                                                    <span class="mdl-radio__label">Receive guest</span>
+                                                    <input id="radio1" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Receive Guests" onclick="showOtherTypeSocialInput()">
+                                                    <span class="mdl-radio__label"><?php echo(STEPPER_STEP3_SOCIALTYPERECEIVE);?></span>
                                                 </label>
                                             </div>
                                             <div class="radio">
                                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                                    <input id="radio1" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Call Someone">
-                                                    <span class="mdl-radio__label">Call someone</span>
+                                                    <input id="radio2" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Call Someone" onclick="showOtherTypeSocialInput()">
+                                                    <span class="mdl-radio__label"><?php echo(STEPPER_STEP3_SOCIALTYPECALL);?></span>
                                                 </label>
                                             </div>
                                             <div class="radio">
                                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                                    <input id="radio1" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Visit Someone">
-                                                    <span class="mdl-radio__label">Visit someone</span>
-                                                </label>
-                                            </div>
-
-                                            <div class="radio">
-                                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                                    <input id="radio1" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Cinema">
-                                                    <span class="mdl-radio__label">Cinema</span>
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                                    <input id="radio1" name="socialIntensity" type="radio" class = "mdl-radio__button">
-                                                    <span class="mdl-radio__label">Theatre</span>
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                                    <input id="radio1" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Restaurant">
-                                                    <span class="mdl-radio__label">Restaurant</span>
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                                    <input id="radio1" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Pub">
-                                                    <span class="mdl-radio__label">Pub</span>
+                                                    <input id="radio3" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Visit Someone" onclick="showOtherTypeSocialInput()">
+                                                    <span class="mdl-radio__label"><?php echo(STEPPER_STEP3_SOCIALTYPEVISIT);?></span>
                                                 </label>
                                             </div>
 
                                             <div class="radio">
                                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                                    <input id="radio1" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Religious">
-                                                    <span class="mdl-radio__label">Religious</span>
+                                                    <input id="radio4" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Cinema" onclick="showOtherTypeSocialInput()">
+                                                    <span class="mdl-radio__label"><?php echo(STEPPER_STEP3_SOCIALTYPECINEMA);?></span>
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
+                                                    <input id="radio5" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Theatre" onclick="showOtherTypeSocialInput()">
+                                                    <span class="mdl-radio__label"><?php echo(STEPPER_STEP3_SOCIALTYPETHEATRE);?></span>
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
+                                                    <input id="radio6" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Restaurant" onclick="showOtherTypeSocialInput()">
+                                                    <span class="mdl-radio__label"><?php echo(STEPPER_STEP3_SOCIALTYPERESTAURANT);?></span>
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
+                                                    <input id="radio7" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Pub" onclick="showOtherTypeSocialInput()">
+                                                    <span class="mdl-radio__label"><?php echo(STEPPER_STEP3_SOCIALTYPEPUB);?></span>
                                                 </label>
                                             </div>
 
                                             <div class="radio">
                                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                                    <input id="radio1" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Other">
-                                                    <span class="mdl-radio__label">Other</span>
+                                                    <input id="radio8" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Religious" onclick="showOtherTypeSocialInput()">
+                                                    <span class="mdl-radio__label"><?php echo(STEPPER_STEP3_SOCIALTYPERELIGIOUS);?></span>
                                                 </label>
+                                            </div>
+
+                                            <div class="radio">
+                                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
+                                                    <input id="radio9" name="socialIntensity" type="radio" class = "mdl-radio__button" value="Other" onclick="showOtherTypeSocialInput()">
+                                                    <span class="mdl-radio__label"><?php echo(STEPPER_STEP3_SOCIALTYPEOTHER);?></span>
+                                                </label>
+                                            </div>
+
+                                            <div class="mdl-textfield mdl-js-textfield" id="other_social_activity_group" style="display: none;">
+                                                <input class="mdl-textfield__input" type="text" id="other_social_activity">
+                                                <label class="mdl-textfield__label" for="other_social_activity"><?php echo(STEPPER_STEP3_SOCIALTYPEOTHERNAME); ?></label>
                                             </div>
 
                                         </div>
                                     </div>
                                     <div class="mdl-step__actions">
-                                        <button class="mdl-button mdl-js-button" onclick="moveToPrevious()" data-stepper-back>Back</button>
+                                        <button class="mdl-button mdl-js-button" onclick="moveToPrevious()" data-stepper-back><?php echo(STEPPER_BACK);?></button>
                                     </div>
                                 </li>
                             </ul>
                         </div>
                         <div class="mdl-dialog__actions">
-                            <button type="button" class="mdl-button" id="dialogSubmit" disabled>Submit</button>
-                            <button type="button" class="mdl-button close" id="dialogCancel">Cancel</button>
+                            <button type="button" class="mdl-button" id="dialogSubmit" disabled><?php echo(STEPPER_SUBMIT);?></button>
+                            <button type="button" class="mdl-button close" id="dialogCancel"><?php echo(STEPPER_CANCEL);?></button>
                         </div>
                     </dialog>
 
@@ -1297,14 +1633,60 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
 
 
                     </main>
-                </div>  
+                </div>
 
 
 
 
 
 
+        <!--DIALOG WITH PLANNED ACTIVITIES  -->
+        <dialog id="activityDialog" class="mdl-dialog " style="z-index:9; width:fit-content; top: 60px">
+            <h5 class="mdl-dialog__title" style="color: white"><?php echo(COMPLETED_TITLE);?></h5>
+            <div class="mdl-dialog__content">
 
+
+                <span style="font-weight:bold; color: white"><?php echo(ACTIVITY_NAME);?>: </span>
+                <span id="ac_title" style="color: white"></span>
+                <div></div>
+                <span style="font-weight:bold; color: white"><?php echo(ACTIVITY_TYPE);?>: </span>
+                <span id="ac_type" style="color: white"></span>
+                <div></div>
+                <span style="font-weight:bold; color: white"><?php echo(ACTIVITY_START);?>: </span>
+                <span id="ac_start_date" style="color: white"></span>
+
+
+            </div>
+            <div class="mdl-dialog__actions">
+                <button id="dialogYes" type="button" class="mdl-button" style="color: white"><?php echo(COMPLETED_YES);?></button>
+                <button id="dialogNo" type="button" class="mdl-button" style="color: white"><?php echo(COMPLETED_NO);?></button>
+            </div>
+
+        </dialog>
+
+
+        <!--DIALOG FOR ACTIVITY EDIT OR DELETE -->
+        <dialog id="activityEditDeleteDialog" class="mdl-dialog " style="z-index:9; width:fit-content; top: 60px">
+            <div class="mdl-dialog__content">
+                <span style="font-weight:bold; color: white"><?php echo(ACTIVITY_NAME);?>: </span>
+                <span id="ed_title" style="color: white"></span>
+                <div></div>
+                <span style="font-weight:bold; color: white"><?php echo(ACTIVITY_TYPE);?>: </span>
+                <span id="ed_type" style="color: white"></span>
+                <div></div>
+                <span style="font-weight:bold; color: white"><?php echo(ACTIVITY_START);?>: </span>
+                <span id="ed_start_date" style="color: white"></span>
+                <div></div>
+                <span style="font-weight:bold; color: white"><?php echo(ACTIVITY_END);?>: </span>
+                <span id="ed_end_date" style="color: white"></span>
+            </div>
+            <div class="mdl-dialog__actions">
+                <button id="dialogEdit" type="button" class="mdl-button" style="color: white; background-color: green"><?php echo(ACTIVITY_EDIT);?></button>
+                <button id="dialogDelete" type="button" class="mdl-button" style="color: white; background-color: red"><?php echo(ACTIVITY_DELETE);?></button>
+                <button id="dialogCancel" type="button" class="mdl-button" style="color: white"><?php echo(CANCEL_BUTTON);?></button>
+            </div>
+
+        </dialog>
 
 
 

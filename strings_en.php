@@ -43,9 +43,6 @@ define("MENU_TITLE", "Menu");
 define("ENTRY_HOME", "Home");
 define("ENTRY_HEALTH", "Health");
 define("ENTRY_PLAN", "Plan");
-//define("ENTRY_FITNESS", "Fitness");
-//define("ENTRY_DIET", "Diet");
-//define("ENTRY_SERVICES", "Services");
 define("ENTRY_PROFILE", "Profile");
 define("ENTRY_CONTACTS", "Contacts");
 define("ENTRY_HUELIGHTS", "Hue Lights");
@@ -69,21 +66,6 @@ define("INDEX_SURVEY_MOTIVATION1", "Because I enjoy it and it makes me feel good
 define("INDEX_SURVEY_MOTIVATION2", "To maintain good health and prevent illness");
 define("INDEX_SURVEY_MOTIVATION3", "To lose weight and improve my appearance");
 define("INDEX_SURVEY_MOTIVATION4", "Because I enjoy competing and spend time with friends");
-//define("INDEX_SURVEY_QUESTION5", "Have you any difficulties at walking 400 meters?");
-//define("ANSWER_5a", "No or some difficulties");
-//define("ANSWER_5b", "A lot of difficulties or unable");
-//define("INDEX_SURVEY_QUESTION6", "Have you any difficulties at climbing up a flight of stairs?");
-//define("ANSWER_6a", "No or some difficulties");
-//define("ANSWER_6b", "A lot of difficulties or unable");
-//define("INDEX_SURVEY_QUESTION7", "During the last year, have you involuntarily lost more than 4.5 kg");
-//define("ANSWER_7a", "No");
-//define("ANSWER_7b", "Yes");
-//define("INDEX_SURVEY_QUESTION8", "How often in the last week did you feel than everything you did was an effort or that you could not get going?");
-//define("ANSWER_8a", "Rarely or sometimes (2 times or less/week)");
-//define("ANSWER_8b", "Often or almost always (3 or more times per week)");
-//define("INDEX_SURVEY_QUESTION9", "Which is your level of physical activity?");
-//define("ANSWER_9a", "Regular physical activity (at least 2-4 hours per week)");
-//define("ANSWER_9b", "None or mainly sedentary");
 
 define("CANCEL_BUTTON", "Cancel");
 
@@ -104,7 +86,11 @@ define("WEIGHT_CARD_TITLE", "Weight");
 define("HEART_CARD_TITLE", "Heart Rate");
 define("BREATH_CARD_TITLE", "Respiration Rate");
 define("BMI_CARD_TITLE", "BMI");
+define("HOMETEMPERATURE_CARD_TITLE", "Home Temperature");
+define("HOMEHUMIDITY_CARD_TITLE", "Home Humidity");
+define("MOTION_CARD_TITLE", "Motion");
 define("TEMPERATURE_CARD_TITLE", "Internal Temperature");
+define("POSITION_CARD_TITLE", "Position");
 define("WEATHER_CARD_TITLE", "Weather Forecast");
 define("MESSAGE_CARD_TITLE", "Messages");
 define("MEDICATION_CARD_TITLE", "Medication Diary");
@@ -155,7 +141,7 @@ define("PLAN_GOALS_COOK", "cook");
 define("PLAN_GOALS_MODIFY", "MODIFY");
 
 define("PLAN_CALENDAR_TITLE", "Calendar");
-define("PLAN_CALENDAR_INSTRUCTIONS", "Drag an event to schedule it for the future or to report what you have already done.");
+define("PLAN_CALENDAR_INSTRUCTIONS", "Click on the calendar to start scheduling an activity.");
 define("PLAN_CALENDAR_EVENT_EXERCISE", "Exercise");
 define("PLAN_CALENDAR_EVENT_WALK", "Walk");
 define("PLAN_CALENDAR_EVENT_MEET", "Meet");
@@ -168,6 +154,53 @@ define("REMOVE_EVENT_BUTTON", "REMOVE EVENT");
 define("DONE_BUTTON", "DONE");
 define("UNDONE_BUTTON", "UNDONE");
 
+define("STEPPER_STEP1", "Confirm date and time");
+define("STEPPER_STEP1_ALLDAY", "All day");
+define("STEPPER_STEP1_START", "Start time");
+define("STEPPER_STEP1_END", "End time");
+define("STEPPER_STEP1_ERROR", "Start date and time should be earlier than End date and time");
+define("STEPPER_STEP2", "Enter activity name and chose type of activity");
+define("STEPPER_STEP2_ACTIVITYNAME", "Activity name");
+define("STEPPER_STEP2_ACTIVITYTYPE", "Activity type");
+define("STEPPER_STEP2_ACTIVITYWALK", "Walking");
+define("STEPPER_STEP2_ACTIVITYEXERCISE", "Exercise");
+define("STEPPER_STEP2_ACTIVITYSOCIAL", "Social activity");
+define("STEPPER_STEP3", "Enter activity details");
+define("STEPPER_STEP3_EXERCISEINTENSITY", "Intensity Of Exercise : ");
+define("STEPPER_STEP3_EXERCISEINTENSITYHIGH", "High");
+define("STEPPER_STEP3_EXERCISEINTENSITYHIGH_INFO", "Vigorous (intense) physical activities refer to activities that take hard physical effort and make you breathe much harder than normal. Schedule only physical activities that are done for at least 10 minutes at a time.<br>Example of vigorous physical activities is heavy lifting, digging, aerobics, or fast bicycling. (Or you could use the persons pulse: Vigorous activity: pulse at 75% or more of the persons maximal pulse.)");
+define("STEPPER_STEP3_EXERCISEINTENSITYMODERATE", "Moderate");
+define("STEPPER_STEP3_EXERCISEINTENSITYMODERATE_INFO", "Moderate activities refer to activities that take moderate physical effort and make you breathe somewhat harder than normal. Schedule only those physical activities that are done for at least 10 minutes at a time.<br>Examples of moderate physical activities is carrying light loads, bicycling at a regular pace, or doubles tennis. Do not include walking. (Moderate activity: 70-75% of maximal pulse.)");
+define("STEPPER_STEP3_EXERCISEINTENSITYLOW", "Low");
+define("STEPPER_STEP3_EXERCISEINTENSITYLOW_INFO", "Low physical activities refer to activities that take low physical effort and make you breath normal. Schedule only those physical activities that are done for at least 10 minutes at a time.<br>Example of low physical activities is bicycling at slow pace. Do not include walking.");
+define("STEPPER_STEP3_WALKSTEPS", "Number of Steps : ");
+define("STEPPER_STEP3_SOCIALTYPE", "Type of Social Activity : ");
+define("STEPPER_STEP3_SOCIALTYPERECEIVE", "Receive guest");
+define("STEPPER_STEP3_SOCIALTYPECALL", "Call someone");
+define("STEPPER_STEP3_SOCIALTYPEVISIT", "Visit someone");
+define("STEPPER_STEP3_SOCIALTYPECINEMA", "Cinema");
+define("STEPPER_STEP3_SOCIALTYPETHEATRE", "Theatre");
+define("STEPPER_STEP3_SOCIALTYPERESTAURANT", "Restaurant");
+define("STEPPER_STEP3_SOCIALTYPEPUB", "Pub");
+define("STEPPER_STEP3_SOCIALTYPERELIGIOUS", "Religious");
+define("STEPPER_STEP3_SOCIALTYPEOTHER", "Other");
+define("STEPPER_STEP3_SOCIALTYPEOTHERNAME", "Enter the activity name");
+define("STEPPER_CONTINUE", "CONTINUE");
+define("STEPPER_BACK", "BACK");
+define("STEPPER_SUBMIT", "Submit");
+define("STEPPER_CANCEL", "Cancel");
+
+define("COMPLETED_TITLE", "Did you complete this activity?");
+define("COMPLETED_YES", "YES");
+define("COMPLETED_NO", "NO");
+
+define("ACTIVITY_NAME", "Name");
+define("ACTIVITY_TYPE", "Description");
+define("ACTIVITY_START", "Start");
+define("ACTIVITY_END", "End");
+define("ACTIVITY_DELETE", "Delete");
+define("ACTIVITY_EDIT", "Edit");
+
 //NEW
 //invite a friend to join activity
 define("INVITE_FRIEND_BUTTON", "INVITE FRIEND");
@@ -175,7 +208,7 @@ define("ACCEPT_INVITATION_BUTTON", "ACCEPT");
 define("DECLINE_INVITATION_BUTTON", "DECLINE");
 //NEW SET GOALS CARD
 define("PLAN_GOALS_SOCIAL_ACTIVITY", "Social Activities");
-define("PLAN_SETGOALS_SOCIAL_ACTIVITY", "Social Activities");
+define("PLAN_SETGOALS_SOCIAL_ACTIVITY", "Social Activities (number of events)");
 define("PLAN_GOALS_ACTIVITY", "activities");
 
 //set a start and end time for an activity in the plan
@@ -222,6 +255,9 @@ define("PROFILE_PROFILECARD_POSTALCODE", "Postal code");
 define("PROFILE_PROFILECARD_CITY", "City");
 define("PROFILE_PROFILECARD_ADDRESS", "Address");
 
+define("PROFILE_EDIT", "EDIT PROFILE");
+define("PROFILE_SAVE", "SAVE CHANGES");
+
 define("PROFILE_INTERESTS_TITLE", "Interests");
 define("PROFILE_ADDINTERESTS_TITLE", "Add interest");
 define("PROFILE_ADDINTERESTS_SPORTS", "Sports");
@@ -241,6 +277,7 @@ define("PROFILE_ADDINTERESTS_OTHERS_2", "Cooking");
 define("PROFILE_ADDINTERESTS_OTHERS_3", "Monuments");
 define("PROFILE_ADDINTERESTS_OTHERS_4", "Museums");
 define("PROFILE_ADDINTERESTS_OTHERS_5", "Theater");
+define("PROFILE_INTERESTS_CLOSE", "CLOSE");
 
 
 //CONTACTS PAGE
@@ -251,6 +288,7 @@ define("CONTACTS_CONTACTSCARD_HEADER_EMAIL", "Email");
 define("CONTACTS_CONTACTSCARD_HEADER_PHONE", "Phone");
 define("CONTACTS_CONTACTSCARD_HEADER_ACTIONS", "Actions");
 define("REMOVE_BUTTON", "REMOVE");
+define("PROFILE_REMOVE_DONE", "DONE");
 
 define("CONTACTS_CONTACTSCARD_STATUS_ONLINE", "Online");
 define("CONTACTS_CONTACTSCARD_STATUS_OFFLINE", "Offline");
@@ -260,7 +298,7 @@ define("CONTACTS_FORM_TITLE", "Add contact");
 define("CONTACTS_FORM_NAME", "Name");
 define("CONTACTS_FORM_EMAIL", "Email");
 define("CONTACTS_FORM_PHONE", "Phone Number");
-define("CONTACTS_FROM_RELATIONSHIP", "Relationship");
+define("CONTACTS_FORM_RELATIONSHIP", "Relationship");
 define("ADD_BUTTON", "ADD");
 
 //types of relationships
@@ -269,5 +307,18 @@ define("CONTACTS_FROM_RELATIONSHIP_OTHER_FAMILY", "Other Family");
 define("CONTACTS_FROM_RELATIONSHIP_FRIEND", "Friend");
 define("CONTACTS_FROM_RELATIONSHIP_NEIGHBOUR", "Neighbour");
 
-
+//HUE LIGHTS PAGE
+define("DISCOVER_BRIDGE","Discover Bridge");
+define("SET_USERNAME", "Set Username");
+define("GET_LIGHT_STATE", "Get Light State");
+define("TURN_ON_AND_CHANGE_COLOR","Turn on and change color");
+define("TURN_ON","Turn on");
+define("TURN_OFF","Turn off");
+define("SET_COLOR","Set color");
+define("SATURATION","Saturation");
+define("BRIGHTNESS","Brightness");
+define("LIGHT","Light");
+define("LIVING_ROOM","Living Room");
+define("KITCHEN","Kitchen");
+define("ENTRANCE","Entrance");
 ?>

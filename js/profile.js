@@ -10,8 +10,8 @@ var socket;
 
 
 var contextUrl = "https://giove.isti.cnr.it:8443/";
-//var userName = "cchesta";
-var userName = "john";
+//var token = "cchesta";
+//var userName = "john";
 var appName = "personAAL";
 
 window.onload = init;
@@ -44,8 +44,6 @@ function init() {
             break;
     }
 
-    getProfileFromContextManager();
-    getInterestListFromContextManager();
 }
 
 function writelog(message) {
@@ -152,7 +150,7 @@ function hideInterestList() {
 
 function editProfile() {
     if (document.getElementById("profileName").disabled) {
-        document.getElementById("edit_button").innerHTML = "SAVE CHANGES";
+        document.getElementById("edit_button").innerHTML = saveButtonLabel;
         document.getElementById("cancel_changes").style.display = "block";
         document.getElementById("profileName").removeAttribute("disabled");
         document.getElementById("profileSurname").removeAttribute("disabled");
@@ -172,7 +170,7 @@ function editProfile() {
             document.getElementById("profileCity").value,
             document.getElementById("profilePostalCode").value,
             document.getElementById("profileAddress").value);
-        document.getElementById("edit_button").innerHTML = "EDIT PROFILE";
+        document.getElementById("edit_button").innerHTML = editButtonLabel;
         document.getElementById("cancel_changes").style.display = "none";
         document.getElementById("profileName").setAttribute("disabled", true);
         document.getElementById("profileSurname").setAttribute("disabled", true);
@@ -187,7 +185,7 @@ function editProfile() {
 
 function discardChanges() {
     getProfileFromContextManager();
-    document.getElementById("edit_button").innerHTML = "EDIT PROFILE";
+    document.getElementById("edit_button").innerHTML = editButtonLabel;
     document.getElementById("cancel_changes").style.display = "none";
     document.getElementById("profileName").setAttribute("disabled", true);
     document.getElementById("profileSurname").setAttribute("disabled", true);
@@ -216,7 +214,7 @@ function sendProfileToContextManager(name, surname, birth_date, gender, state, c
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userName + "/profile/",
+        url: encodeURI ( contextUrl + "cm/rest/user/" + userId + "/profile/"),
         dataType: 'json',
         data: JSON.stringify(profileObj),
         success: function (response) {
@@ -236,7 +234,7 @@ function getProfileFromContextManager() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userName + "/profile/",
+        url: encodeURI ( contextUrl + "cm/rest/user/" + userId + "/profile/"),
         dataType: 'json',
 
         success: function (response) {
@@ -254,7 +252,7 @@ function getProfileFromContextManager() {
             document.querySelector('#profileAddress').parentNode.MaterialTextfield.change(response.address);
         },
         error: function () {
-            console.log("Error while getting body temperature data");
+            console.log("Error getting profile from context manager");
         }
     });
 }
@@ -282,14 +280,16 @@ function sendInterestListToContextManager(interestListObj) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userName + "/interest_list/",
+        url: encodeURI ( contextUrl + "cm/rest/user/" + userId + "/interest_list/"),
         dataType: 'json',
         data: JSON.stringify(interestListObj),
         success: function (response) {
-            $("#response").html(JSON.stringify(response));
+            console.log("Interests successfully sent", response);
+            //$("#response").html(JSON.stringify(response));
         },
         error: function (err) {
-            $("#response").html(JSON.stringify(err));
+            console.log("Error sending interests", err);
+            //$("#response").html(JSON.stringify(err));
         }
     });
 
@@ -302,7 +302,7 @@ function getInterestListFromContextManager() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userName + "/interest_list/",
+        url: encodeURI ( contextUrl + "cm/rest/user/" + userId + "/interest_list/"),
         dataType: 'json',
 
         success: function (response) {
@@ -313,10 +313,12 @@ function getInterestListFromContextManager() {
                 updateAddInterestListItems();
                 updateInterestList();
             } else {
-                interestsList = [];
+                //interestsList = [];
                 updateAddInterestListItems();
+                updateInterestList();
             }
             console.log(interestsList);
+            getProfileFromContextManager();
         },
         error: function () {
             console.log("Error while getting interest list data");
@@ -366,7 +368,12 @@ function enterListItem(name) {
 
 function updateInterestList() {
     for (var i=0; i < interestsList.length; i++) {
-        enterListItem(interestsList[i].interest_name);
+        if (interestsList[i].interest_name != "")
+            enterListItem(interestsList[i].interest_name);
+        else {
+            interestsList.splice(i, 1);
+            i--;
+        }
     }
 }
 

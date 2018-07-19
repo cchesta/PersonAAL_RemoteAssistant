@@ -4,8 +4,8 @@ include 'miscLib.php';
 include 'DButils.php';
 
 // Require composer autoloader
- require __DIR__ . '\login\vendor\autoload.php';
- require __DIR__ . '\login\dotenv-loader.php';
+ require __DIR__ . DIRECTORY_SEPARATOR . 'login' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+ require __DIR__ . DIRECTORY_SEPARATOR . 'login' . DIRECTORY_SEPARATOR . 'dotenv-loader.php';
 
  use Auth0\SDK\Auth0;
 
@@ -26,6 +26,7 @@ include 'DButils.php';
  ]);
 
  $userInfo = $auth0->getUser();
+ $idtoken = $auth0->getIdToken();
 
  if(!$userInfo)
  {
@@ -36,10 +37,9 @@ include 'DButils.php';
  {
      echo("<script>console.log('index user_id: ".$userInfo['sub']."');</script>");
      echo("<script>console.log('index nickname: ".$userInfo['nickname']."');</script>");
-     $user = $userInfo['nickname'];
+     $user = $userInfo['sub'];
 
      //SET Language
-//     session_start();
      $_SESSION['personAAL_user'] = $user;
      setLanguage();
  }
@@ -63,7 +63,6 @@ and open the template in the editor.
         <meta http-equiv="Expires" content="0" />
 
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
 
         <!--  UI CSS & JS-->
 
@@ -98,15 +97,17 @@ and open the template in the editor.
         <!-- ADAPTATION SCRIPTS -->
         <script type="text/javascript">
             var userName = "<?php echo $_SESSION['personAAL_user']?>";
+            var token = "<?php echo $idtoken ?>";
+            var userId = "<?php echo $userInfo['sub']?>";
         </script>
         <script src="./js/plugins/adaptation/sockjs-1.1.1.js"></script>
         <script src="./js/plugins/adaptation/stomp.js"></script>
         <script src="./js/plugins/adaptation/websocket-connection.js"></script>
         <script src="./js/plugins/adaptation/adaptation-script.js"></script>
         <script src="./js/plugins/adaptation/delegate.js"></script>
-        <script src="./js/profile.js"></script>
         <script src="./js/plugins/adaptation/jshue.js"></script>
         <script src="./js/plugins/adaptation/command.js"></script>
+        <script src="./js/profile.js"></script>
 
 
         <script>
@@ -117,6 +118,9 @@ and open the template in the editor.
 
             $(document).ready(function() {
                 shoppingMenuReduced = false;
+
+                editButtonLabel = "<?php echo(PROFILE_EDIT);?>";
+                saveButtonLabel = "<?php echo(PROFILE_SAVE);?>";
 
                 //delete all phone elements if in desktop/tablet mode
                 if ($(window).width() <= 479) {
@@ -136,6 +140,10 @@ and open the template in the editor.
                 });
 
                 // userInfo= new UserData($_SESSION['personAAL_user']);
+
+                getInterestListFromContextManager();
+                //getProfileFromContextManager();
+
             });
 
 
@@ -264,8 +272,8 @@ and open the template in the editor.
                                 </div>
 
                                 <div class="mdl-card__actions mdl-card--border">
-                                    <button id="edit_button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" onclick="editProfile()">EDIT PROFILE</button>
-                                    <button id="cancel_changes" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" onclick="discardChanges()" style="display:none">CANCEL CHANGES</button>
+                                    <button id="edit_button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" onclick="editProfile()"><?php echo(PROFILE_EDIT);?></button>
+                                    <button id="cancel_changes" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" onclick="discardChanges()" style="display:none"><?php echo(CANCEL_BUTTON);?></button>
                                 </div>
 
                             </div>
@@ -282,7 +290,7 @@ and open the template in the editor.
                                     </div>
                                 </div>
                                 <div class="mdl-card__actions mdl-card--border">
-                                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" data-toggle="modal" data-target="#add-interest-modal">ADD INTEREST</button>
+                                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" data-toggle="modal" data-target="#add-interest-modal"><?php echo(PROFILE_ADDINTERESTS_TITLE);?></button>
                                 </div>
                             </div>
                         </div>
@@ -467,7 +475,7 @@ and open the template in the editor.
                         <div class="mdl-card__actions mdl-card--border">
                             <div class="mdl-layout-spacer"></div>
                             <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect right-button" data-dismiss="modal">
-                                Close
+                                <?php echo(PROFILE_INTERESTS_CLOSE);?>
                             </a>
                         </div>
                     </div>

@@ -35,7 +35,7 @@ var realTimePlot;
 
 var contextUrl = "https://giove.isti.cnr.it:8443/";
 //var userName = "cchesta";
-var userName = "john";
+//var userName = "john";
 var appName  = "personAAL";
 
 
@@ -117,8 +117,8 @@ function getMedicationPlanned()
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/"+ userName + "/medication_planned/", 
-//        url: contextUrl + "cm/rest/user/roytest/medication_planned/",
+        url: encodeURI ( contextUrl + "cm/rest/user/"+ token + "/medication_planned/"),
+//        url: encodeURI ( contextUrl + "cm/rest/user/roytest/medication_planned/"),
         dataType: 'json',
         
         success: function (response) {            
@@ -142,7 +142,7 @@ function getMedicationOccurred()
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/"+ userName + "/medication_occurred/", 
+        url: encodeURI ( contextUrl + "cm/rest/user/"+ token + "/medication_occurred/"), 
         dataType: 'json',
         
         success: function (response) {            
@@ -170,7 +170,7 @@ function getBodyTemperature() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/"+ userName + "/bodyTemperature/", 
+        url: encodeURI ( contextUrl + "cm/rest/user/"+ token + "/bodyTemperature/"), 
         dataType: 'json',
         
         success: function (response) {            
@@ -192,7 +192,7 @@ function getRespirationRate() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" +userName + "/respirationRate/", 
+        url: encodeURI ( contextUrl + "cm/rest/user/" + token + "/respirationRate/"),
         dataType: 'json',
         
         success: function (response) {            
@@ -214,7 +214,7 @@ function getECG_HR() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: contextUrl + "cm/rest/user/" + userName + "/heartRate/", 
+        url: encodeURI ( contextUrl + "cm/rest/user/" + token + "/heartRate/"), 
         dataType: 'json',
         
         success: function (response) {            

@@ -5,7 +5,7 @@
  */
 
 var contextUrl = "https://giove.isti.cnr.it:8443/";
-var userName = "john";
+//var token = "john";
 var appName  = "personAAL";
 
 var socket;
@@ -18,7 +18,7 @@ function init() {
 
     //internationalization
     var userLang = getUserLanguage();
-    console.log(userLang);
+    //console.log(userLang);
 
 
 }
@@ -32,14 +32,16 @@ function sendContactsToContextManager(contactsObj) {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*'
         },
-        url: contextUrl + "cm/rest/user/" + userName + "/contact_list/",
+        url: encodeURI ( contextUrl + "cm/rest/user/" + userId + "/contact_list/"),
         dataType: 'json',
         data: JSON.stringify(contactsObj),
         success: function (response) {
-            $("#response").html(JSON.stringify(response));
+            console.log("Contacts sent successfully.", response)
+            //$("#response").html(JSON.stringify(response));
         },
         error: function (err) {
-            $("#response").html(JSON.stringify(err));
+            //$("#response").html(JSON.stringify(err));
+            console.log("Error sending contacts: ", err);
         }
     });
 }
@@ -53,7 +55,7 @@ function getContactsFromContextManager(callback) {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*'
         },
-        url: contextUrl + "cm/rest/user/" + userName + "/contact_list/",
+        url: encodeURI ( contextUrl + "cm/rest/user/" + userId + "/contact_list/"),
         dataType: 'json',
         success: function (response) {            
             contactList = Object.values(response);
@@ -65,7 +67,7 @@ function getContactsFromContextManager(callback) {
         },
         error: function ()
         {
-            console.log("Error while getting contact list");
+            console.log("Error getting contact list");
             contactList = [];
         }
     });
