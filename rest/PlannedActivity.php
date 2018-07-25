@@ -381,16 +381,18 @@ Class PlannedActivity{
         } 
         
         $currentDate = date('Y-m-d');
+
         
         if($date >= date($currentDate)){
-            $sql = "SELECT * FROM activity WHERE userid='". $user ."' (AND date(start_date) >= '". $currentDate ."' (AND date(start_date) <='". $date ."' || date(end_date) <= '". $date ."'))";
+            $sql = "SELECT * FROM activity WHERE userid='". $user ."' AND (date(start_date) >= '". $currentDate ."' AND (date(start_date) <='". $date ."' || date(end_date) <= '". $date ."'))";
             $result = $conn->query($sql);
             $conn->close();
             
     
         }
             else{
-        $sql = "SELECT * FROM activity WHERE userid='". $user ."' AND (date(start_date) >='". $date ."' || date(end_date) >= '". $date ."')";
+        $sql = "SELECT * FROM activity WHERE userid='". $user ."' AND (date(start_date) < '". $currentDate ."' AND
+        (date(start_date) >='". $date ."' || date(end_date) >= '". $date ."'))";
         $result = $conn->query($sql);
         $conn->close();
             
