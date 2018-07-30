@@ -5,18 +5,18 @@ A domain Class to demonstrate RESTful web services
 
 
 //DB for local 
-define("DB_SERVER_NAME", "accessible-serv.lasige.di.fc.ul.pt");
+/*define("DB_SERVER_NAME", "accessible-serv.lasige.di.fc.ul.pt");
 define("DB_USERNAME", "personaal");
 define("DB_PASSWORD", "personaalfcul");
 define("DB_NAME","remote_assistant");
-
+*/
 
 //DB for local (REPLY)
-/*define("DB_SERVER_NAME", "localhost");
+define("DB_SERVER_NAME", "localhost");
 define("DB_USERNAME", "root");
 define("DB_PASSWORD", null);
 define("DB_NAME","personaal");
-*/
+
 
 Class PlannedActivity{
     public $userID;
