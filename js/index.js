@@ -124,7 +124,7 @@ function getMedicationPlanned()
         success: function (response) {            
             console.log("Medication Planned", response);
             $("#medication_planned").html(response.medication); 
-            $("#medication_planned_dosage").html(response.dosage);
+            //$("#medication_planned_dosage").html(response.dosage);
             $("#medication_planned_time").html(response.notification_time);
         },
         error: function ()

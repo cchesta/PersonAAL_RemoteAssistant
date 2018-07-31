@@ -27,6 +27,7 @@ var smWalk = true;
 var smExercise = true;
 var smMeet = true;
 
+var tokenAC;
 
 
 
@@ -274,7 +275,7 @@ function getHour(value) {
     if (value == null) { return ""; }
     if (value < 0) { return ""; }
     var hours = Math.floor(value / 60);
-    var minutes = value % 60;
+    var minutes = Math.round(((value % 60)*100)/100);
     var hour = (hours > 1) ? hours + hoursMsg : hours + hourMsg;
     var min = (minutes > 0) ? minutes + minutesMsg : "";
     return hour + min;
@@ -298,9 +299,9 @@ function getCompletedActivityFromContext(callback){
         success: function (response) {
             console.log("Context response completed activity", response);
             actualMeet = 0;
-            actualWalk = 0;
+            //actualWalk = 0;
             actualExercise = 0; 
-                        
+                         
             if(!response.historyCompletedActivity){
                 //actualMeet = 0;
                 //actualWalk = 0;
@@ -312,7 +313,7 @@ function getCompletedActivityFromContext(callback){
                         actualExercise += Number(response.historyCompletedActivity.completed_duration);
                         break;
                     case 'Walk':
-                        actualWalk += Number(response.historyCompletedActivity.completed_duration);
+                        //actualWalk += Number(response.historyCompletedActivity.completed_duration);
                         break;
                     case 'Social':
                         actualMeet +=1;
@@ -326,7 +327,7 @@ function getCompletedActivityFromContext(callback){
                         actualExercise += Number((response.historyCompletedActivity)[i].completed_duration);
                         break;
                     case 'Walk':
-                        actualWalk += Number((response.historyCompletedActivity)[i].completed_duration);
+                        //actualWalk += Number((response.historyCompletedActivity)[i].completed_duration);
                         break;
                     case 'Social':
                         actualMeet += Number(1);
@@ -335,9 +336,11 @@ function getCompletedActivityFromContext(callback){
             };
             }
             $("#actual_exercise_text").html(getHour(Number(actualExercise)));
-            $("#actual_walk_text").html(getHour(Number(actualWalk)));
+            //$("#actual_walk_text").html(getHour(Number(actualWalk)));
             $("#actual_meet_text").html(Number(actualMeet));
-            callback();
+            
+            getFitbitActivityHistoryFromContext(callback);
+        
         },
 
         error: function ()
@@ -381,6 +384,8 @@ function sendCompletedActivityToContext(activity_intensity, activity_name,activi
 }
 
 
+
+
 function getDailySteps() {	
     $.ajax({
         type: "GET",
@@ -419,6 +424,121 @@ function requestData(n)
 
 }
 
+
+function getToken(callbackT,callbackUC) {
+	var body = {
+        "grant_type": "client_credentials",
+        "client_id": "WRnJaN3lnvtLsOCFCUFXE9Xmq5Zg77Yj",
+        "client_secret": "S4BKU_E39ZyQDoNm_2AJspYDjw6SpyQw6m3Mu0xL9AY4X_9oVsfd_sR6nH4uMAsi",
+        "audience": "https://activity-backend-personaal.eu-de.mybluemix.net"
+	};
+    
+	console.log("INSIDE FUNCTION GET TOKEN");
+	$.ajax({
+			type: "POST",
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+                //'Access-Control-Allow-Origin' : '*',
+                //'Access-Control-Allow-Headers' : 'Origin, X-Requested-With, Content-Type, Accept',
+                //'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
+			},
+			url: encodeURI ( "https://personaal.eu.auth0.com/oauth/token"),
+			dataType: 'json',
+			data: JSON.stringify(body),
+            beforeSend: function(xhr){
+                xhr.setRequestHeader( 'Authorization', 'BEARER ');
+
+            },
+			success: function (response) {     
+                
+				console.log("Activity token: ", response);
+                console.log("TOKEN ", response.access_token);
+                tokenAC = response.access_token;
+                //return response.access_token;
+                callbackT(callbackUC);
+			},
+			error : function(err) {
+				$("#response").html(JSON.stringify(err));
+                //return;
+			}
+        
+	});
+}
+
+
+function getActivityFromActivityTracker(callbackUC){
+    console.log("INSIDE GAFT FUNTION - TOKENAC: ", tokenAC);
+    $.ajax({
+			type: "GET",
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+                //'Access-Control-Allow-Origin' : '*',
+                //'Access-Control-Allow-Headers' : 'Origin, X-Requested-With, Content-Type, Accept',
+                //'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
+                'Authorization': 'BEARER '+ tokenAC
+			},
+			url: encodeURI ( "https://activity-backend-personaal.eu-de.mybluemix.net/api/system/activities/"+ userId),
+			dataType: 'json',
+            beforeSend: function(xhr){
+                xhr.setRequestHeader( 'Authorization', 'BEARER '+ tokenAC);
+                console.log("REQUEST HEADER: ",xhr );
+            },
+			success: function (response) {     
+				console.log("Activity from tracker: ", response);
+                
+                callbackUC(response);
+			},
+			error : function(err) {
+				$("#response").html(JSON.stringify(err));
+               
+			}
+        
+	});
+        
+    }
+    
+    
+    function getFitbitActivityHistoryFromContext(callback){
+        var d = new Date();
+        var monday = getMondayOfCurrentWeek(d);
+        var yyyymmdd = yymmdd(monday);
+        //filtrar dados e usar os ultimos valores do dia
+        
+        $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        url: encodeURI ( contextUrl + "cm/rest/user/"+ userId + "/activity/FitbitDailySummary/history/getValuesFromDateToNow/" + yyyymmdd),
+        dataType: 'json',
+
+        success: function (response) {            
+            console.log("Context response FitbitHistory", response);
+            actualWalk = 0;
+            var steps = 0;
+            if(!response.historyFitbitSummary){
+                
+            }
+            else if(response.historyFitbitSummary.constructor!==Array){
+                steps = Number(response.historyFitbitSummary.steps);
+                actualWalk = (steps/6000)*60;
+            }
+            else {
+                steps += Number((response.historyFitbitSummary)[historyFitbitSummary.length-1].steps);
+                actualWalk = (steps/6000)*60;
+            }
+            $("#actual_walk_text").html(getHour(Number(actualWalk)));
+            callback();
+        },
+        error: function ()
+        {
+            console.log("Error while getting fitbithistory");
+        }
+    });
+    }
 
 
 

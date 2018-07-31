@@ -64,6 +64,7 @@ and open the template in the editor.
 
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
+
         <!--  UI CSS & JS-->
 
         <link rel="stylesheet" href="css/material.css">
@@ -105,9 +106,9 @@ and open the template in the editor.
         <script src="./js/plugins/adaptation/websocket-connection.js"></script>
         <script src="./js/plugins/adaptation/adaptation-script.js"></script>
         <script src="./js/plugins/adaptation/delegate.js"></script>
+        <script src="./js/profile.js"></script>
         <script src="./js/plugins/adaptation/jshue.js"></script>
         <script src="./js/plugins/adaptation/command.js"></script>
-        <script src="./js/profile.js"></script>
 
 
         <script>
@@ -140,10 +141,6 @@ and open the template in the editor.
                 });
 
                 // userInfo= new UserData($_SESSION['personAAL_user']);
-
-                getInterestListFromContextManager();
-                //getProfileFromContextManager();
-
             });
 
 
@@ -504,8 +501,7 @@ and open the template in the editor.
                         </div>
                         <div class="mdl-card__actions mdl-card--border">
                             <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-dismiss="modal">
-
-                                <?php echo(SEND_MESSAGE_BUTTON);?>
+                                <?php echo(CLOSE_BUTTON);?>
                             </a>
                         </div>
                     </div>

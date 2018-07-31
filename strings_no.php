@@ -88,7 +88,6 @@ define("HOMETEMPERATURE_CARD_TITLE", "Hjemmetemperatur");
 define("HOMEHUMIDITY_CARD_TITLE", "Luftfuktighet hjemme");
 define("MOTION_CARD_TITLE", "Bevegelse");
 define("TEMPERATURE_CARD_TITLE", "Kroppstemperatur");
-define("POSITION_CARD_TITLE", "Posisjon");
 define("WEATHER_CARD_TITLE", "Værmelding"); 
 define("MESSAGE_CARD_TITLE", "Meldinger til deg");
 define("MEDICATION_CARD_TITLE", "Medisinoversikt"); 
@@ -164,9 +163,9 @@ define("STEPPER_STEP2_ACTIVITYSOCIAL", "Sosial aktivitet");
 define("STEPPER_STEP3", "Skriv inn aktivitetsdetaljer");
 define("STEPPER_STEP3_EXERCISEINTENSITY", "Hvor intensiv skal treningen være?");
 define("STEPPER_STEP3_EXERCISEINTENSITYHIGH", "Høy");
-define("STEPPER_STEP3_EXERCISEINTENSITYHIGH_INFO", "Kraftige (intense) fysiske aktiviteter refererer til aktiviteter som tar hard fysisk innsats og gjør at du puster mye vanskeligere enn normalt. Planlegg bare fysiske aktiviteter som er gjort i minst 10 minutter av gangen. <br> Eksempel på kraftige fysiske aktiviteter er tung løfting, graving, aerobic eller rask sykling. (Eller du kan bruke personens puls: Kraftig aktivitet: puls ved 75% eller mer av personens maksimale puls.)");
+define("STEPPER_STEP3_EXERCISEINTENSITYHIGH_INFO", "Svært intens fysisk aktivitet refererer til aktiviteter som krever mye fysisk anstrengelse og som medfører at du puster mye tyngre enn vanlig. Planlegg kun aktiviteter som varer minimum i 10 minutter sammenhengende. Eksempler på hard fysisk aktivitet er å løfte tungt, gravearbeid, aerobic trening og rask sykling");
 define("STEPPER_STEP3_EXERCISEINTENSITYMODERATE", "Moderat");
-define("STEPPER_STEP3_EXERCISEINTENSITYMODERATE_INFO", "Moderate aktiviteter refererer til aktiviteter som tar moderat fysisk arbeid og får deg til å puste litt vanskeligere enn normalt. Planlegge bare de fysiske aktivitetene som er gjort i minst 10 minutter av gangen. <br> Eksempler på moderate fysiske aktiviteter bærer lyskaster, sykler i vanlig tempo, eller dobler tennis. Ikke inkludert å gå. (Moderat aktivitet: 70-75% av maksimal puls.)");
+define("STEPPER_STEP3_EXERCISEINTENSITYMODERATE_INFO", "Moderate intense aktiviteter refererer til aktiviteter som krever moderat fysisk anstrengelse og som medfører at du puster noe tyngre enn vanlig. Planlegg kun aktiviteter som varer i minimum 10 minutter sammenhengende. Eksempler på moderate intense aktiviteter er å bære lette gjenstander, sykle i vanlig tempo eller spille dobbel-tennis. Ikke inkluder å gå tur.");
 define("STEPPER_STEP3_EXERCISEINTENSITYLOW", "Lav");
 define("STEPPER_STEP3_EXERCISEINTENSITYLOW_INFO", "Lav fysisk aktivitet refererer til aktiviteter som har lav fysisk innsats og gjør at du puster normalt. Planlegg bare de fysiske aktivitetene som er gjort i minst 10 minutter av gangen. <br> Eksempel på lave fysiske aktiviteter sykler i sakte tempo. Ikke inkludert å gå.");
 define("STEPPER_STEP3_WALKSTEPS", "Antall skritt : ");
@@ -211,6 +210,9 @@ define("PLAN_GOALS_ACTIVITY","aktiviteter");
 //set a start and end time for an activity in the plan
 define("START_TIME", "Start");
 define("END_TIME", "Slutt");
+
+define("CLOSE_BUTTON", "Lukk");
+
 //NEW CALENDAR
 
 define("PLAN_ACTIVITY_ADD", "Legg til en begivenhet");

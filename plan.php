@@ -106,6 +106,7 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
             var userId = "<?php echo $userInfo['sub']?>";
         </script>
         <script src="./js/plugins/adaptation/sockjs-1.1.1.js"></script>
+        <script src="./js/plugins/adaptation/sockjs-1.1.1.js"></script>
         <script src="./js/plugins/adaptation/stomp.js"></script>
         <script src="./js/plugins/adaptation/websocket-connection.js"></script>		
         <script src="./js/plugins/adaptation/adaptation-script.js"></script>		
@@ -253,7 +254,11 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
 //                echo("meetGoal= ". $p->getMeetGoal() .";");
 //
                 ?>
-                        
+                   
+                
+                
+                
+                
                 //for mobile animation fix
                 fixGridHeight= document.getElementById("fix-grid").style.height;
 
@@ -304,6 +309,7 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                 var sLang = "<?php echo($_SESSION['languages']);?>";
                 var i18n = $.CalenStyle.i18n[sLang];
                 var oViewDisplayNames = i18n["viewDisplayNames"];
+        
 
                 $(".calendarContOuter").CalenStyle({
 
@@ -363,6 +369,9 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                     initialize: function() {
                         calendar = this;
                         getActivity(addActivitiesToCalendar);
+                        //var token = getToken();
+                        //getActivitiesFromActivityTracker(addActivitiesToCalendarAC);
+                        addActivitiesToCalendarAC();
                     },
 
                     calDataSource: [{
@@ -425,20 +434,40 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
 
             function showEditDeleteDialog(selector, event) {
                 activityEditDeleteCard = document.querySelector('#activityEditDeleteDialog');
+                
+                
+                
                 $('#ed_title').html(event.title);
                 $('#ed_type').html(event.description);
-                $('#ed_start_date').html(event.start.toString());
-                $('#ed_end_date').html(event.end.toString());
+                $('#ed_start_date').html(moment(event.start, 'ddd MMM DD YYYY HH:mm:ss ZZ').format('HH:mm'));
+                $('#ed_end_date').html(moment(event.end, 'ddd MMM DD YYYY HH:mm:ss ZZ').format('HH:mm'));
                 switch(event.tag){
                     case "Exercise":
                         $('#activityEditDeleteDialog').css({'background':ExerciseColor});
+                        $('#dialogEdit').show();
+                        $('#dialogDelete').show();
+                        $('#dialogLink').hide();
                         break;
                     case "Walk":
                         $('#activityEditDeleteDialog').css({'background':WalkColor});
+                        $('#dialogEdit').show();
+                        $('#dialogDelete').show();
+                        $('#dialogLink').hide();
                         break;
                     case "Social":
                         $('#activityEditDeleteDialog').css({'background':SocialColor});
+                        $('#dialogEdit').show();
+                        $('#dialogDelete').show();
+                        $('#dialogLink').hide();
                         break;
+                    default:
+                        $('#activityEditDeleteDialog').css({'background':'#9932CC'});
+                        $('#dialogEdit').hide();
+                        $('#dialogDelete').hide();
+                        $('#dialogLink').show();
+                        
+                        break;
+                        
                 }
                 activityEditDeleteCard.showModal();
 
@@ -470,7 +499,173 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                 };
 
             }
+            
+            
+            function addActivitiesToCalendarAC(){
+                //var token = getToken();
+                //getActivityFromActivityTracker(getToken);
+                getToken(getActivityFromActivityTracker,addActivitiesToCalendarAC2);
+            }
+            
 
+            function addActivitiesToCalendarAC2(activityTrackerArray){
+                //check if empty
+                console.log("INSIDE ADD ACTIVITIES FROM TRACKER");
+                
+                 if(activityTrackerArray.length == 0){
+                     calendar.refreshView();
+                     
+                 }
+                    else{
+                
+                for(var i = 0; i<activityTrackerArray.length; i++){
+                    console.log("ACTIVITYADDED", activityTrackerArray[i]);
+                    var startDate = new Date(activityTrackerArray[i].start_date);
+                    
+                    var dateTime =new Date(activityTrackerArray[i].start_date + " " + activityTrackerArray[i].notification_time);
+                    console.log('START DATE: ', new Date(dateTime));
+                   
+                    //var newDate = new Date(dateTime.setDate(dateTime.getDate() + 1));
+                    //console.log('NEW DATE: ',  newDate);
+                    var duration = activityTrackerArray[i].duration;
+                    var dSplit = duration.split(':');
+                    var hours = dSplit[0];
+                    var minutes = dSplit[1];
+                    console.log('HOURS: ', hours);
+                    console.log('MINUTES: ', minutes);
+                    
+                    var mom = moment(dateTime,'ddd MMM MM YYYY HH:mm:ss GMT Z');
+                    mom.add(1,'d');
+   
+                    var endDate = moment(mom);
+                    endDate.add(hours,'h');
+                    endDate.add(minutes,'m');
+                    
+                   var weekDays = getNextDay(activityTrackerArray[i].start_date,activityTrackerArray[i].end_date, activityTrackerArray[i].days_name);
+                    
+                    for(var n = 0; n<weekDays.length;n++){
+                    
+                        var s = new Date(weekDays[n] + " " + activityTrackerArray[i].notification_time);
+                        
+                        var sd = moment(s, 'ddd MMM MM YYYY HH:mm:ss GMT Z');
+                        var ed = moment(sd);
+                        ed.add(hours,'h');
+                        ed.add(minutes,'m');
+                        
+                    var activityAddedd = [{
+                    //"id": activityTrackerArray[i].activityId,
+                    //"isAllDay": activityTrackerArray[i].all_day == 0? false: true ,
+                        
+                    "start": new Date(sd.format('ddd MMM DD YYYY HH:mm:ss ZZ')),
+                    "end": new Date(ed.format('ddd MMM DD YYYY HH:mm:ss ZZ')),
+                    //"tag": activityTrackerArray[i].type,
+                    "title": activityTrackerArray[i].activity_name,
+                    "description": activityTrackerArray[i].activity_description,
+                    "singleColor": '#9932CC',
+                    //"icon": icon,
+                    }];
+                    
+                    
+                    calendar.addEventsForSource(activityAddedd, "cal1");
+                    calendar.refreshView();
+                    }
+                }
+            }
+        }
+            
+            
+            function getNextDay(startD, endD, days){
+                console.log('INSIDE GETNEXTDAY');
+                console.log('DAYS', days);
+                var start = moment(startD, 'YYYY-MM-DD'); 
+                
+                var end   = moment(endD, 'YYYY-MM-DD'); 
+               
+                var day   = 0;                    // Sunday
+
+                console.log( start);
+                console.log(end);
+                console.log(days);
+                
+                var result = [];
+                var current = start.clone();
+                console.log('CURRENT: ', current);
+                
+            
+
+                for(var i = 0; i<days.length; i++){
+                    switch(days[i]){
+                        case 'Monday':
+                            var cMonday = start.clone();
+                            console.log(cMonday.day(1).toString());
+                            while(cMonday.day(1).isSameOrBefore(end)){
+                                if(cMonday.day(1).isBetween(start,end,null,'(]')){
+                                result.push(cMonday.clone().format('YYYY-MM-DD'));   
+                            }
+                                 cMonday.add(7,'days');
+                            }
+                            break;
+                        case 'Tuesday':
+                            var cTuesday = start.clone();
+                            while(cTuesday.day(2).isSameOrBefore(end)){
+                                if(cTuesday.day(2).isBetween(start,end,null,'(]')){
+                                result.push(cTuesday.clone().format('YYYY-MM-DD'));
+                                }
+                                    cTuesday.add(7,'days');
+                            }
+                            break;
+                        case 'Wednesday':
+                            var cWednesday = start.clone();
+                            while(cWednesday.day(3).isSameOrBefore(end)){
+                                if(cWednesday.day(3).isBetween(start,end,null,'(]')){
+                                result.push(cWednesday.clone().format('YYYY-MM-DD'));
+                                }
+                                    cWednesday.add(7,'days');
+                            }
+                            break;
+                        case 'Thursday':
+                            var cThursday = start.clone();
+                            while(cThursday.day(4).isSameOrBefore(end)){
+                                if(cThursday.day(4).isBetween(start,end,null,'(]')){
+                                result.push(cThursday.clone().format('YYYY-MM-DD'));
+                                }
+                                    cThursday.add(7,'days');
+                            }
+                            break;
+                        case 'Friday':
+                            var cFriday = start.clone();
+                            while(cFriday.day(5).isSameOrBefore(end)){
+                                if(cFriday.day(5).isBetween(start,end,null,'(]')){
+                                result.push(cFriday.clone().format('YYYY-MM-DD'));
+                                }
+                                    cFriday.add(7,'days');
+                            }
+                            break;
+                        case 'Saturday':
+                            var cSaturday = start.clone();
+                            while(cSaturday.day(6).isSameOrBefore(end)){
+                                if(cSaturday.day(6).isBetween(start,end,null,'(]')){
+                                result.push(cSaturday.clone().format('YYYY-MM-DD'));
+                                }
+                                    cSaturday.add(7,'days');
+                            }
+                            break;
+                        case 'Sunday':
+                            var cSunday = start.clone();
+                            while(cSunday.day(0).isSameOrBefore(end)){
+                                if(cSunday.day(0).isBetween(start,end,null,'(]')){
+                                result.push(cSunday.clone().format('YYYY-MM-DD'));
+                                }
+                                    cSunday.add(7,'days');
+                            }
+                            break;
+                    }
+                }
+                console.log('RESULT: ', result);
+                return result;
+               
+            }
+            
 
             function addActivitiesToCalendar(activitiesArray){
                 var icon;
@@ -509,9 +704,11 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                 calendar.addEventsForSource(activityAddedd, "cal1");
                 calendar.refreshView();
                 }
-
+               
+                
                 getActivitiesFromLastAccess(fillActivityCard);
             }
+            
 
             function fillActivityCard(lastAccessActivities){
                 lastAccessActivitiesArray =  lastAccessActivities;
@@ -599,9 +796,10 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                     startDate = sStartDateTime;
                     endDate = sEndDateTime;
                     switch (activityEdit.tag) {
+                        //delete slider in case the activity is walk 
                         case 'Walk':
                             document.getElementById('aWalk').parentNode.MaterialRadio.check();
-                            var dStartDateTime = parseDateInFormat(allDay, $("#aStart").val());
+                            /*var dStartDateTime = parseDateInFormat(allDay, $("#aStart").val());
                             dEndDateTime = parseDateInFormat(allDay, $("#aEnd").val());
                             var dif = dEndDateTime.getTime() - dStartDateTime.getTime();
                             var result = Math.round(dif/60000);
@@ -609,6 +807,9 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                             document.getElementById('slide_as').MaterialSlider.change(Number(activityEdit.description));
                             document.getElementById('inp_text_as').value = activityEdit.description;
                             document.getElementById('inp_text_as').parentElement.classList.add('is-dirty');
+                            */
+                            
+                            
                             break;
                         case 'Exercise':
                             document.getElementById('aExercise').parentNode.MaterialRadio.check();
@@ -619,9 +820,11 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                                 case 'Moderate':
                                     document.getElementById('radioe2').parentNode.MaterialRadio.check();
                                     break;
-                                case 'Low':
-                                    document.getElementById('radioe3').parentNode.MaterialRadio.check();
-                                    break;
+                                    
+                                //delete 
+                                //case 'Low':
+                                    //document.getElementById('radioe3').parentNode.MaterialRadio.check();
+                                    //Sbreak;
                             }
                             break;
                         case 'Social':
@@ -683,7 +886,7 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                             activityIntensity = $("[name = exerciseintensity]").filter(':checked').val();
                             break;
                         case 'Walk':
-                            activityIntensity = $("#slide_as").val();
+                            activityIntensity = 0;
                             break;
                         case "Social":
                             activityIntensity = $("[name = socialIntensity]").filter(':checked').val();
@@ -808,17 +1011,21 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                     var activityType = activityTypeOptions.filter(':checked').val();
                     switch (activityType) {
                         case "Exercise":
+                            $('#step3').show();
                             $('#advancedsteps').hide();
                             $('#advancedexercise').show();
                             $('#advancedsocial').hide();
+                            
                             break;
                             
                             
                         case 'Walk':
-                            $('#advancedsteps').show();
+                            $('#step3').hide();
+                            $('#advancedsteps').hide();
                             $('#advancedexercise').hide();
                             $('#advancedsocial').hide();
-                        
+                            
+                            
                             var bIsAllDay = $("#ipAllDay").is(':checked'),
                                 dStartDateTime = parseDateInFormat(bIsAllDay, $("#aStart").val()),
                                 dEndDateTime = parseDateInFormat(bIsAllDay, $("#aEnd").val());
@@ -833,15 +1040,17 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                                 document.getElementById('slide_as').MaterialSlider.change(Number(activityEdit.description));
                             //$("#slide_as").max= 100* (difMins);
                             $('#advancedexercise').hide();
-                            $('#advancedsteps').show();
+                            $('#advancedsteps').hide();
                             $('#advancedsocial').hide();
                             break;
                             
                             
                         case "Social":
+                            $('#step3').show();
                             $('#advancedsteps').hide();
                             $('#advancedexercise').hide();
                             $('#advancedsocial').show();
+                            
                             break;
 
                     }
@@ -1511,7 +1720,7 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                                                     </span>
                                                 </label>
                                             </div>
-
+                                            <!-- delete intensity low
                                             <div class="radio">
                                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
                                                     <input id="radioe3" name="exerciseintensity" type="radio" class = "mdl-radio__button" value="Low">
@@ -1524,7 +1733,7 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                                                     </span>
                                                 </label>
                                             </div>
-
+                                            -->
 
                                         </div>
 
@@ -1684,6 +1893,10 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                 <button id="dialogEdit" type="button" class="mdl-button" style="color: white; background-color: green"><?php echo(ACTIVITY_EDIT);?></button>
                 <button id="dialogDelete" type="button" class="mdl-button" style="color: white; background-color: red"><?php echo(ACTIVITY_DELETE);?></button>
                 <button id="dialogCancel" type="button" class="mdl-button" style="color: white"><?php echo(CANCEL_BUTTON);?></button>
+                
+                <!--show in activity tracker events only -->
+                <button id="dialogLink" type="button" class="mdl-button" style="color: white; background-color: grey" onclick="location.href = 'https://activity-personaal.eu-gb.mybluemix.net'">ACTIVITY TRACKER</button>
+                
             </div>
 
         </dialog>
@@ -1729,6 +1942,31 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
             </div>
 
 
+
+        <!-- ALERT MODAL -->
+        <div id="alert-modal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+
+                    <div class="alert-modal-card mdl-card">
+                        <div class="mdl-card__supporting-text mdl-card--expand">
+                            <i class="material-icons">warning</i>
+                            <div id="modal-alert-text">
+                            </div>
+                        </div>
+                        <div class="mdl-card__actions mdl-card--border">
+                            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-dismiss="modal">
+                                <?php echo(CLOSE_BUTTON);?>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
 
 
 

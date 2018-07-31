@@ -90,7 +90,6 @@ define("HOMETEMPERATURE_CARD_TITLE", "Home Temperature");
 define("HOMEHUMIDITY_CARD_TITLE", "Home Humidity");
 define("MOTION_CARD_TITLE", "Motion");
 define("TEMPERATURE_CARD_TITLE", "Internal Temperature");
-define("POSITION_CARD_TITLE", "Position");
 define("WEATHER_CARD_TITLE", "Weather Forecast");
 define("MESSAGE_CARD_TITLE", "Messages");
 define("MEDICATION_CARD_TITLE", "Medication Diary");
@@ -240,6 +239,8 @@ define("CALENDAR_ADVANCED_SETTINGS_BUTTON", "ADVANCED SETTINGS");
 define("PLAN_ACTIVITY_STEP1", "Choose Start and End Time");
 define("PLAN_ACTIVITY_STEP2", "Choose Activity");
 define("PLAN_ACTIVITY_STEP3", "Advanced Settings");
+
+define("CLOSE_BUTTON", "Close");
 
 
 //PROFILE PAGE
