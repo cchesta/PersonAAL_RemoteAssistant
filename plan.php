@@ -314,6 +314,7 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                 $(".calendarContOuter").CalenStyle({
 
                     language: sLang,
+                    is24Hour: true,
 
                     inputTZOffset: '',
                     outputTZOffset: '',
@@ -1829,7 +1830,7 @@ TODO I VALORI DEGLI OBBIETTIVI DEVONO ESSERE AGGIORNATI SOLO QUANDO L'UTENTE LI 
                             </ul>
                         </div>
                         <div class="mdl-dialog__actions">
-                            <button type="button" class="mdl-button" id="dialogSubmit" disabled><?php echo(STEPPER_SUBMIT);?></button>
+                            <button type="button" class="mdl-button" id="dialogSubmit" disabled><?php echo(STEPPER_SAVE);?></button>
                             <button type="button" class="mdl-button close" id="dialogCancel"><?php echo(STEPPER_CANCEL);?></button>
                         </div>
                     </dialog>

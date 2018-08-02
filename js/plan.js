@@ -527,7 +527,8 @@ function getActivityFromActivityTracker(callbackUC){
                 actualWalk = (steps/6000)*60;
             }
             else {
-                steps += Number((response.historyFitbitSummary)[historyFitbitSummary.length-1].steps);
+                //steps += Number((response.historyFitbitSummary)[historyFitbitSummary.length-1].steps);
+                steps = getOneValADay(response.historyFitbitSummary);
                 actualWalk = (steps/6000)*60;
             }
             $("#actual_walk_text").html(getHour(Number(actualWalk)));
@@ -539,6 +540,31 @@ function getActivityFromActivityTracker(callbackUC){
         }
     });
     }
+
+function getOneValADay(historyFitbitSummary){
+    var total = 0;
+
+    total += Number(historyFitbitSummary[0].steps);
+
+    for(var i = 1; i<historyFitbitSummary.length; i++ ){
+        var activity = historyFitbitSummary[i-1];
+        var nextActivity = historyFitbitSummary[i];
+        
+        var actDay = moment(activity.date);
+        var nextDay = moment(nextActivity.date);
+        
+
+        if(!moment(nextDay).isSame(actDay, 'day')){
+            console.log("inside if");
+            total += Number(nextActivity.steps) ; 
+    
+        }
+        
+    }
+
+    return total;
+    
+}
 
 
 
