@@ -89,6 +89,7 @@ define("MEDICATION_CARD_TITLE", "Medikationstagebuch");
 define("MEDICATION_PLANNED", "Medikation"); 
 define("MEDICATION_PLANNED_DOSAGE", "Dosierung"); 
 define("MEDICATION_PLANNED_TIME", "Uhrzeit"); 
+define("STEPS_CARD_TITLE", "Wöchentliche Schritte");
 
 //HEALTH PAGE
 define("HEALTH_ECGPLOT_TITLE", "EKG");
@@ -178,6 +179,7 @@ define("STEPPER_STEP3_SOCIALTYPEOTHERNAME", "Geben Sie den Namen der Aktivität 
 define("STEPPER_CONTINUE", "FORTSETZEN");
 define("STEPPER_BACK", "ZURÜCK");
 define("STEPPER_SUBMIT", "Einreichen");
+define("STEPPER_SAVE", "Speichern");
 define("STEPPER_CANCEL", "Stornieren");
 
 define("COMPLETED_TITLE", "Hast du diese Aktivität abgeschlossen?");

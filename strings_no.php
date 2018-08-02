@@ -94,6 +94,7 @@ define("MEDICATION_CARD_TITLE", "Medisinoversikt");
 define("MEDICATION_PLANNED", "Medisinering"); 
 define("MEDICATION_PLANNED_DOSAGE", "Dosering"); 
 define("MEDICATION_PLANNED_TIME", "Tid"); 
+define("STEPS_CARD_TITLE", "Ukentlige trinn");
 
 //HEALTH PAGE
 define("HEALTH_WEIGHTPLOT_TITLE", "Vekt");
@@ -183,6 +184,7 @@ define("STEPPER_STEP3_SOCIALTYPEOTHERNAME", "Skriv inn aktivitetsnavnet");
 define("STEPPER_CONTINUE", "Fortsett");
 define("STEPPER_BACK", "TILBAKE");
 define("STEPPER_SUBMIT", "Send inn");
+define("STEPPER_SAVE", "Lagre");
 define("STEPPER_CANCEL", "Avbryt");
 
 define("COMPLETED_TITLE", "Har du fullført denne aktiviteten?");

@@ -96,6 +96,7 @@ define("MEDICATION_CARD_TITLE", "Medication Diary");
 define("MEDICATION_PLANNED", "Medication");
 define("MEDICATION_PLANNED_DOSAGE", "Dosage");
 define("MEDICATION_PLANNED_TIME", "Time");
+define("STEPS_CARD_TITLE", "Weekly Steps");
 
 
 //HEALTH PAGE
@@ -187,7 +188,9 @@ define("STEPPER_STEP3_SOCIALTYPEOTHERNAME", "Enter the activity name");
 define("STEPPER_CONTINUE", "CONTINUE");
 define("STEPPER_BACK", "BACK");
 define("STEPPER_SUBMIT", "Submit");
+define("STEPPER_SAVE", "Save");
 define("STEPPER_CANCEL", "Cancel");
+
 
 define("COMPLETED_TITLE", "Did you complete this activity?");
 define("COMPLETED_YES", "YES");
