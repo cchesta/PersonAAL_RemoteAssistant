@@ -163,6 +163,9 @@ $result = file_get_contents( $url, false, $context );
         <script src="./js/plugins/adaptation/jshue.js"></script>
         <script src="./js/plugins/adaptation/command.js"></script>
         
+        <!--Moment-->
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.js"></script>
+        
                <!--  AUTH0-->
         
         <script src="https://cdn.auth0.com/js/auth0/8.7/auth0.min.js"></script>
@@ -287,6 +290,7 @@ $result = file_get_contents( $url, false, $context );
             getHomeTemperature();
             getHomeHumidity();
             getMotion();
+            getWeeklySteps();    
 
             setInterval(getMedicationPlanned, 60000);
             setInterval(getHomeTemperature, 60000);
@@ -468,11 +472,20 @@ $result = file_get_contents( $url, false, $context );
                                    <span id="motionvalue"></span>
                                </div>
                            </div>
-
+                            
+                            <div  class="weeklySteps-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue" style="height:228px;">
+                               <div class="mdl-card__title">
+                                   <h2 class="mdl-card__title-text"><?php echo(STEPS_CARD_TITLE);?></h2>
+                               </div>
+                               <div class="mdl-card__actions mdl-card--border">
+                                   <span id="weeklySteps"></span>
+                               </div>
+                           </div>
+                           
                         </div>
                         
                         <div id="fitness" class="mdl-grid mdl-cell mdl-cell--4-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-cell--order-3-phone"> 
-                            <div  class="weight-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
+                            <div  class="weight-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue" style="height:fit-content;">
                                 <div class="mdl-card__title">
                                     <h2 class="mdl-card__title-text"><?php echo(WEIGHT_CARD_TITLE);?></h2>
                                 </div>
@@ -480,7 +493,7 @@ $result = file_get_contents( $url, false, $context );
                                     <?php echo($surveyinfo->getWeight()). ' kg ';?>
                                 </div>
                             </div>
-                            <div  class="bmi-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
+                            <div  class="bmi-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue" style="height:fit-content;">
                                 <div class="mdl-card__title">
                                     <h2 class="mdl-card__title-text"><?php echo(BMI_CARD_TITLE);?></h2>
                                 </div>
@@ -489,9 +502,12 @@ $result = file_get_contents( $url, false, $context );
                                 </div>
                             </div>
 
-                            <div   class="medication-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue">
+                            <div   class="medication-info-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col-desktop mdl-cell--2-col-phone mdl-cell--8-col-tablet b-blue" style="height:fit-content;">
                                 <div class="mdl-card__title">
                                     <h2 class="mdl-card__title-text"><?php echo(MEDICATION_CARD_TITLE);?></h2>
+                                </div>
+                                <div class="mdl-card__supporting-text hide-phone">
+                                    <?php echo(INDEX_MEDICATION_TEXT);?>
                                 </div>
                                 <table class="mdl-data-table mdl-js-data-table" width="100%">
                                     <thead>

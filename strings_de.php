@@ -89,6 +89,7 @@ define("MEDICATION_CARD_TITLE", "Medikationstagebuch");
 define("MEDICATION_PLANNED", "Medikation"); 
 define("MEDICATION_PLANNED_DOSAGE", "Dosierung"); 
 define("MEDICATION_PLANNED_TIME", "Uhrzeit"); 
+define("INDEX_MEDICATION_TEXT", "Unten finden Sie die letzte Benachrichtigung für Ihre Medikamente.");
 define("STEPS_CARD_TITLE", "Wöchentliche Schritte");
 
 //HEALTH PAGE

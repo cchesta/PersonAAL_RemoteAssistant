@@ -96,6 +96,7 @@ define("MEDICATION_CARD_TITLE", "Medication Diary");
 define("MEDICATION_PLANNED", "Medication");
 define("MEDICATION_PLANNED_DOSAGE", "Dosage");
 define("MEDICATION_PLANNED_TIME", "Time");
+define("INDEX_MEDICATION_TEXT", "Below is the last notification for your medication to take.");
 define("STEPS_CARD_TITLE", "Weekly Steps");
 
 

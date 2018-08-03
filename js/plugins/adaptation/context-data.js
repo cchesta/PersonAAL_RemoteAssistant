@@ -1,4 +1,4 @@
-﻿/* 
+/* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -37,13 +37,16 @@ window.onload = function() {
         break;
     }
 
+    
+
 //    setInterval(getDailySteps, 60000);
-//    setInterval(getMedicationPlanned, 60000);
+    setInterval(getMedicationPlanned, 60000);
 //   setInterval(getMedicationOccurred, 5000);
-//    setInterval(getTime, 60000);
-//    setInterval(getHomeTemperature, 60000);
-//    setInterval(getHomeHumidity, 60000);
-//    setInterval(getMotion, 60000);      
+    setInterval(getTime, 60000);
+    setInterval(getHomeTemperature, 60000);
+    setInterval(getHomeHumidity, 60000);
+    setInterval(getMotion, 60000);
+       
 };
 
 function getHomeTemperature()
@@ -54,7 +57,7 @@ function getHomeTemperature()
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: encodeURI ( contextUrl + "cm/rest/environment/"+ userId + "Env/temperature"),
+        url: encodeURI ( contextUrl + "cm/rest/environment/"+ userId + "Environment/temperature"),
         dataType: 'json',
 
         success: function (response) {
@@ -76,12 +79,12 @@ function getHomeHumidity()
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: encodeURI ( contextUrl + "cm/rest/environment/"+ userId + "Env/humidity"),
+        url: encodeURI ( contextUrl + "cm/rest/environment/"+ userId + "Environment/humidity"),
         dataType: 'json',
 
         success: function (response) {
             console.log("Home humidity: ", response);
-            $("#homehumidityvalue").html(humidityDetected(response.value));
+            $("#homehumidityvalue").html(response.value + '%');
         },
         error: function ()
         {
@@ -98,12 +101,12 @@ function getMotion()
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: encodeURI ( contextUrl + "cm/rest/environment/"+ userId + "Env/motion"),
+        url: encodeURI ( contextUrl + "cm/rest/environment/"+ userId + "Environment/motion"),
         dataType: 'json',
 
         success: function (response) {
             console.log("Motion: ", response);
-            $("#motionvalue").html(motionDetected(response.value));
+            $("#motionvalue").html(response.value);
         },
         error: function ()
         {
@@ -112,22 +115,7 @@ function getMotion()
     });
 }
 
-function motionDetected(val)
-{
-    if (val === 'true')
-        return ("Motion detected");
-    else
-        return ("No motion detected");
-}
-
-function humidityDetected(val)
-{
-    if (val === 'true')
-        return ("Humidity detected");
-    else
-        return ("No humidity detected");
-}
-
+/*
 function getDailySteps() {	
     $.ajax({
         type: "GET",
@@ -148,7 +136,7 @@ function getDailySteps() {
         }
     });
 }
-
+*/
 
 function sendMotivationDataToContext(val) {
     $.ajax({
@@ -226,6 +214,7 @@ function sendHeightToContext(val) {
     });
 }
 
+/*
 function sendStepGoalToContext(val) {
     $.ajax({
         type: "GET",
@@ -244,30 +233,9 @@ function sendStepGoalToContext(val) {
         }
     });
 }
+*/
 
-function getWeight() {
-
-    $.ajax({
-        type: "GET",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-      
-        url: encodeURI(contextUrl + "cm/rest/user/" + userId + "/weight/"),
-        dataType: 'json',
-
-        success: function (response) {
-            $("#weight").html(response.value);
-        },
-        error: function () {
-            console.log("Error while getting weight data");
-
-        }
-    });
-}
-
-
+/*
 //NEW
 function sendMeetGoalToContext(val){
     $.ajax({
@@ -286,7 +254,7 @@ function sendMeetGoalToContext(val){
         }
     });
 }
-
+*/
 
 
 function getTime() {
@@ -312,7 +280,7 @@ function sendTimeToContextManager(timeValue) {
              'Accept': 'application/json',
              'Content-Type': 'application/json'
          },
-         url: encodeURI ( contextUrl + "cm/rest/user/" + userId + "/time/" + timeValue),
+         url: encodeURI ( contextUrl + "cm/rest/user/" + token + "/time/" + timeValue),
          dataType: 'json',
          success: function (response) {
              console.log("Context response", response);
@@ -398,3 +366,124 @@ function getMedicationOccurred()
 //			}
 //	});
 //}
+
+
+function getToken() {
+	var body = {
+        "grant_type": "client_credentials",
+"client_id": "WRnJaN3lnvtLsOCFCUFXE9Xmq5Zg77Yj",
+"client_secret": "S4BKU_E39ZyQDoNm_2AJspYDjw6SpyQw6m3Mu0xL9AY4X_9oVsfd_sR6nH4uMAsi",
+"audience": "https://activity-backend-personaal.eu-de.mybluemix.net"
+	};
+	console.log("INSIDE FUNCTION GET TOKEN");
+	$.ajax({
+			type: "POST",
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+                //'Access-Control-Allow-Origin' : '*',
+                //'Access-Control-Allow-Headers' : 'Origin, X-Requested-With, Content-Type, Accept',
+                //'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
+			},
+			url: encodeURI ( "https://personaal.eu.auth0.com/oauth/token"),
+			dataType: 'json',
+			data: JSON.stringify(body),
+            beforeSend: function(xhr){
+                xhr.setRequestHeader( 'Authorization', 'BEARER ');
+
+            },
+			success: function (response) {     
+				console.log("Activity token: ", response);
+                console.log("TOKEN ", response.access_token);
+                return response.access_token;
+			},
+			error : function(err) {
+				$("#response").html(JSON.stringify(err));
+                return;
+			}
+        
+	});
+}
+
+
+function getMondayOfCurrentWeek(d)
+{
+    var day = d.getDay();
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate() + (day == 0?-6:1)-day );
+}
+
+function yymmdd(dataObj){
+    var month = (dataObj.getMonth()+1);
+    var monthStr = month<10? ('0' + month): month;
+    var dateStr = dataObj.getDate()< 10? ('0' + dataObj.getDate()): dataObj.getDate();
+    return dataObj.getFullYear() + "-" + monthStr + "-" + dateStr;
+}
+
+
+function getWeeklySteps(){
+    var d = new Date();
+        var monday = getMondayOfCurrentWeek(d);
+        var yyyymmdd = yymmdd(monday);
+       
+        
+        $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        url: encodeURI ( contextUrl + "cm/rest/user/"+ userId + "/activity/FitbitDailySummary/history/getValuesFromDateToNow/" + yyyymmdd),
+        dataType: 'json',
+
+        success: function (response) {            
+            console.log("Context response FitbitHistory", response);
+            
+            var steps = 0;
+            if(!response.historyFitbitSummary){
+                
+            }
+            else if(response.historyFitbitSummary.constructor!==Array){
+                steps = Number(response.historyFitbitSummary.steps);
+                
+            }
+            else {
+                steps = getOneValADay(response.historyFitbitSummary);
+                
+            }
+            $("#weeklySteps").html(Number(steps));
+            //callback();
+        },
+        error: function ()
+        {
+            console.log("Error while getting weekly steps");
+        }
+    });  
+    
+}
+
+function getOneValADay(historyFitbitSummary){
+    var total = 0;
+
+    total += Number(historyFitbitSummary[0].steps);
+
+    for(var i = 1; i<historyFitbitSummary.length; i++ ){
+        var activity = historyFitbitSummary[i-1];
+        var nextActivity = historyFitbitSummary[i];
+        
+        var actDay = moment(activity.date);
+        var nextDay = moment(nextActivity.date);
+        
+
+        if(!moment(nextDay).isSame(actDay, 'day')){
+            console.log("inside if");
+            total += Number(nextActivity.steps) ; 
+    
+        }
+        
+    }
+
+    return total;
+    
+}
+
+

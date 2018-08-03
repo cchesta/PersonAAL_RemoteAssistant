@@ -94,6 +94,7 @@ define("MEDICATION_CARD_TITLE", "Medisinoversikt");
 define("MEDICATION_PLANNED", "Medisinering"); 
 define("MEDICATION_PLANNED_DOSAGE", "Dosering"); 
 define("MEDICATION_PLANNED_TIME", "Tid"); 
+define("INDEX_MEDICATION_TEXT", "Nedenfor er siste melding om at medisinen skal ta.");
 define("STEPS_CARD_TITLE", "Ukentlige trinn");
 
 //HEALTH PAGE
